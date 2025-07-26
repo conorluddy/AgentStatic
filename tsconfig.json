@@ -1,0 +1,70 @@
+{
+  "compilerOptions": {
+    // Target Node.js 24.x with modern ES features
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ES2023"],
+    
+    // Strict TypeScript configuration (zero any types)
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    
+    // Module system configuration
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    
+    // Output configuration
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    
+    // Path mapping for AgentStatic architecture
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/core/*": ["./src/core/*"],
+      "@/partials/*": ["./src/partials/*"],
+      "@/helpers/*": ["./src/helpers/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/mcp/*": ["./src/mcp/*"],
+      "@/cli/*": ["./src/cli/*"],
+      "@/tests/*": ["./tests/*"]
+    },
+    
+    // Performance and quality
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+  },
+  
+  // Include all TypeScript source files
+  "include": [
+    "src/**/*",
+    "tests/**/*"
+  ],
+  
+  // Exclude build artifacts and dependencies  
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+  
+  // TypeScript path configuration for tests
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
+}
