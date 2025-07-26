@@ -1,535 +1,525 @@
-# AgentStatic - Modern Portfolio CMS with MCP Integration
+# AgentStatic - AI-Native Static Site Generator
 
-> A next-generation content management system combining Markdown-driven content with AI-powered MCP extensibility, specifically designed for creative professionals and developers.
+> A revolutionary content management system that combines TypeScript-first schema validation with AI-powered extensibility through the Model Context Protocol (MCP). Built for creative professionals who demand both technical excellence and visual showcase capabilities.
 
-## 🎯 Project Overview
+## 🚀 Revolutionary Templating System
 
-AgentStatic is a modern, extensible CMS that bridges the gap between traditional static site generators and AI-powered content management. Built for photographers, developers, and creative professionals who need both technical depth and visual showcase capabilities.
+AgentStatic introduces a **groundbreaking approach to templating** that eliminates traditional templating languages in favor of **TypeScript functions with Zod schema validation**. This enables LLMs to understand, compose, and generate templates intelligently while maintaining full type safety.
 
-### Key Features
+### Why We Replaced Traditional Templating
 
-- **🚀 Node 24 + TypeScript**: Modern runtime with full type safety
-- **📝 Markdown-Driven**: Content creation in familiar Markdown format
-- **🤖 MCP Integration**: AI-powered plugins and automation via Model Context Protocol
-- **📸 Portfolio-First**: Optimized for photography, video, and code showcases
-- **⚡ Static Generation**: Fast, secure sites deployed to S3/CDN
-- **🎨 Vanilla CSS/JS**: Zero framework dependencies for maximum performance
-- **🔌 Plugin Architecture**: Extensible via MCP servers
+**Traditional Problems:**
+```handlebars
+{{!-- Handlebars/Mustache Limitations --}}
+{{> hero title="Welcome" subtitle="Get started"}}
+{{!-- ❌ No type safety, runtime-only validation --}}
+{{!-- ❌ LLMs can't understand data requirements --}}
+{{!-- ❌ Limited composition and reusability --}}
+```
+
+**AgentStatic Solution:**
+```typescript
+// ✅ Full TypeScript integration with schema validation
+const heroProps = HeroSchema.parse({
+  title: "Welcome",
+  subtitle: "Get started", 
+  variant: "gradient-bg"
+}); // Compile-time + runtime validation!
+
+// ✅ LLM can read schema and understand requirements
+// ✅ Intelligent composition and error prevention
+```
+
+### Self-Contained Partial System
+
+Each "partial" in AgentStatic is a **complete, self-contained unit** that includes:
+
+```typescript
+interface AgentPartial<TProps> {
+  // 🧠 LLM-readable schema defining data contract
+  schema: ZodSchema<TProps>;
+  
+  // 🎨 TypeScript template function with full type safety
+  template: (props: TProps, helpers: TemplateHelpers) => string;
+  
+  // 💅 Scoped CSS automatically namespaced
+  styles: string;
+  
+  // ⚡ Optional client-side behavior
+  script?: string;
+  
+  // 🔗 Dependencies on other partials
+  dependencies?: string[];
+  
+  // 📱 Responsive configuration
+  responsive?: ResponsiveConfig;
+  
+  // 📋 Rich metadata for AI understanding
+  metadata: {
+    description: string;
+    category: 'layout' | 'content' | 'media' | 'navigation';
+    keywords: string[];
+    usageExamples: Array<{
+      description: string;
+      props: TProps;
+    }>;
+  };
+}
+```
+
+### Example: Hero Partial Implementation
+
+```typescript
+const HeroPartial: AgentPartial<HeroProps> = {
+  schema: z.object({
+    title: z.string().describe("Main headline text"),
+    subtitle: z.string().optional().describe("Supporting subtitle"), 
+    backgroundImage: z.string().url().optional(),
+    ctaButton: z.object({
+      text: z.string(),
+      url: z.string().url(),
+      variant: z.enum(['primary', 'secondary', 'outline'])
+    }).optional(),
+    alignment: z.enum(['left', 'center', 'right']).default('center')
+  }),
+  
+  template: (props, helpers) => `
+    <section class="hero ${props.alignment}">
+      <div class="hero__content">
+        <h1 class="hero__title">${props.title}</h1>
+        ${props.subtitle ? `<p class="hero__subtitle">${props.subtitle}</p>` : ''}
+        ${props.ctaButton ? `
+          <a href="${props.ctaButton.url}" class="hero__cta hero__cta--${props.ctaButton.variant}">
+            ${props.ctaButton.text}
+          </a>
+        ` : ''}
+      </div>
+    </section>
+  `,
+  
+  styles: `
+    .hero { /* Automatically scoped to hero-partial__hero */ }
+    .hero__title { font-size: clamp(2rem, 5vw, 4rem); }
+    .hero__cta--primary { background: #3b82f6; color: white; }
+  `,
+  
+  metadata: {
+    description: "Flexible hero section with background, alignment, and CTA options",
+    category: 'layout',
+    keywords: ['hero', 'banner', 'cta', 'background'],
+    usageExamples: [
+      {
+        description: "Simple centered hero",
+        props: { title: "Welcome", alignment: 'center' }
+      },
+      {
+        description: "Hero with CTA button",
+        props: {
+          title: "Get Started Today",
+          ctaButton: { text: "Start Free Trial", url: "/signup", variant: 'primary' }
+        }
+      }
+    ]
+  }
+};
+```
+
+### AI-Powered Composition
+
+The real magic happens when **LLMs can understand and compose** these partials:
+
+```bash
+# Natural language composition
+agentstatic compose "Create a landing page with hero, features section, and testimonials"
+
+# AI can:
+# 1. Read all available partial schemas
+# 2. Understand data requirements  
+# 3. Generate valid prop combinations
+# 4. Compose layouts with proper dependencies
+# 5. Validate the entire composition
+```
+
+**LLM Composition Flow:**
+```typescript
+// 1. LLM queries available partials
+const partials = registry.getPartialSchemas();
+
+// 2. LLM understands requirements from schemas
+partials.hero.schema // → knows it needs title, subtitle, etc.
+
+// 3. LLM generates valid composition
+const layout = await mcp.composeLayout({
+  type: 'landing',
+  sections: ['hero', 'features', 'testimonials'],
+  style: 'modern'
+});
+
+// 4. Validation ensures everything works
+layout.validate(); // ✅ Type-safe composition
+```
 
 ## 🏗️ Technical Architecture
 
 ### Core Technology Stack
 
 ```
-Runtime:           Node.js 24.x
-Language:          TypeScript 5.x
-Static Generator:  Custom (inspired by Eleventy)
-UI Framework:      Vanilla CSS + TypeScript
-Content Format:    Markdown with YAML frontmatter
-Plugin System:     Model Context Protocol (MCP)
-Deployment:        Static hosting (S3, Netlify, Vercel, GitHub Pages)
+Runtime:           Node.js 24.x (latest features)
+Language:          TypeScript 5.x (strict mode, zero `any` types)
+Validation:        Zod (runtime + compile-time type safety)
+Content:           Unified ecosystem (remark/rehype)
+Images:            Sharp (high-performance optimization)  
+Templates:         TypeScript functions (no traditional templating)
+Styles:            Scoped CSS modules (framework-free)
+AI Integration:    Model Context Protocol (MCP)
+Testing:           Vitest (TDD throughout)
+Build:             ESBuild (sub-100ms builds)
+Quality:           Husky pre-commit hooks
 ```
 
 ### Project Structure
 
 ```
-AgentStatic/
-├── 📁 src/                     # Core application source
-│   ├── 📁 core/               # Content engine & build system
-│   │   ├── builder.ts         # Static site generator
-│   │   ├── markdown.ts        # Markdown parser & processor
-│   │   ├── assets.ts          # Asset optimization pipeline
-│   │   └── config.ts          # Configuration management
-│   ├── 📁 plugins/            # MCP plugin architecture
-│   │   ├── registry.ts        # Plugin discovery & loading
-│   │   ├── image-processor/   # Image optimization MCP server
-│   │   ├── seo-optimizer/     # SEO enhancement MCP server
-│   │   └── analytics/         # Analytics integration MCP server
-│   ├── 📁 templates/          # HTML template engine
-│   │   ├── engine.ts          # Template processing
-│   │   ├── helpers.ts         # Template helper functions
-│   │   └── layouts/           # Base layout templates
-│   ├── 📁 media/              # Asset processing & optimization
-│   │   ├── images.ts          # Image handling (resize, compress, WebP)
-│   │   ├── videos.ts          # Video processing & thumbnails
-│   │   └── gallery.ts         # Gallery generation
-│   ├── 📁 admin/              # Content management interface
-│   │   ├── server.ts          # Admin panel server
-│   │   ├── editor.ts          # Markdown editor
-│   │   └── preview.ts         # Live preview system
-│   └── 📁 deploy/             # Deployment automation
-│       ├── s3.ts              # AWS S3 deployment
-│       ├── netlify.ts         # Netlify deployment
-│       └── github.ts          # GitHub Pages deployment
-├── 📁 content/                # Content files
-│   ├── 📁 posts/              # Blog posts
-│   ├── 📁 portfolio/          # Portfolio items
-│   │   ├── 📁 photography/    # Photo galleries
-│   │   ├── 📁 video/          # Video projects
-│   │   └── 📁 code/           # Code projects
-│   └── 📁 pages/              # Static pages
-├── 📁 assets/                 # Static assets
-│   ├── 📁 images/             # Source images
-│   ├── 📁 videos/             # Source videos
-│   └── 📁 media/              # Other media files
-├── 📁 themes/                 # Visual themes
-│   ├── 📁 default/            # Default theme
-│   │   ├── styles.css         # Theme styles
-│   │   ├── layout.html        # HTML layout
-│   │   └── config.json        # Theme configuration
-│   └── 📁 portfolio/          # Portfolio-focused theme
-├── 📁 plugins/                # Custom MCP servers
-│   ├── 📁 social-media/       # Social sharing automation
-│   ├── 📁 search/             # Content search & indexing
-│   └── 📁 backup/             # Content backup automation
-├── 📁 dist/                   # Generated static site
-└── 📁 .mcpcms/                # Internal configuration
-    ├── cache/                 # Build cache
-    ├── plugins.json           # Plugin registry
-    └── config.json            # Global configuration
+src/
+├── core/
+│   ├── partial-engine.ts      # Core partial rendering system
+│   ├── schema-registry.ts     # Zod schema management
+│   ├── content-processor.ts   # Unified markdown pipeline
+│   ├── build-system.ts        # Production optimization
+│   └── performance-monitor.ts # Core Web Vitals tracking
+├── partials/
+│   ├── layout/                # Hero, navigation, footer
+│   │   ├── hero.partial.ts
+│   │   └── navigation.partial.ts
+│   ├── content/               # Articles, galleries, embeds
+│   ├── interactive/           # Forms, search, modals
+│   └── media/                 # Images, videos, carousels
+├── helpers/
+│   ├── template-helpers.ts    # date-fns, lodash-es utilities
+│   ├── asset-helpers.ts       # Sharp image optimization
+│   └── seo-helpers.ts         # Meta tags, Schema.org
+├── cli/
+│   ├── commands/              # Interactive CLI commands
+│   └── generators/            # Code scaffolding
+├── mcp/
+│   ├── partial-server.ts      # MCP integration
+│   └── layout-composer.ts     # AI-powered composition
+└── types/
+    ├── partial.ts             # Core type definitions
+    └── content.ts             # Content schemas
 ```
 
-## 🔌 MCP Integration Architecture
+## 📝 Template Helper System
 
-### Plugin System Design
-
-AgentStatic leverages the [Model Context Protocol](https://modelcontextprotocol.io/) to create a powerful, AI-extensible plugin architecture:
+AgentStatic provides a comprehensive helper system using industry-standard libraries:
 
 ```typescript
-// Plugin Interface
-interface MCPPlugin {
-  name: string;
-  version: string;
-  description: string;
-  capabilities: ('resources' | 'tools' | 'prompts')[];
-  server: MCPServer;
-}
-
-// Core MCP Integration
-class MCPRegistry {
-  async loadPlugin(path: string): Promise<MCPPlugin>
-  async executePlugin(name: string, operation: string, params: any): Promise<any>
-  listPlugins(): MCPPlugin[]
+interface TemplateHelpers {
+  // 📅 Date utilities powered by date-fns
+  formatDate: (date: Date, format?: string) => string;
+  timeAgo: (date: Date) => string;
+  
+  // 📝 Content utilities  
+  truncate: (text: string, length: number) => string;
+  slugify: (text: string) => string;
+  markdown: (content: string) => string;
+  
+  // 🖼️ Asset utilities with Sharp integration
+  optimizeImage: (src: string, options?: ImageOptions) => string;
+  generateSrcSet: (src: string) => string;
+  
+  // 🔧 Lodash-es utilities (tree-shakable)
+  chunk: typeof chunk;
+  groupBy: typeof groupBy;
+  sortBy: typeof sortBy;
+  
+  // 🌐 URL and navigation
+  url: (path: string) => string;
+  isActive: (path: string) => boolean;
+  
+  // 🎯 Partial composition
+  renderPartial: <T>(name: string, props: T) => string;
+  conditionalClass: (condition: boolean, className: string) => string;
 }
 ```
 
-### Built-in MCP Plugins
+### Usage in Templates
 
-#### 🖼️ Image Processing Plugin
-- **Auto-resize** images for responsive design
-- **Format conversion** (JPEG → WebP, PNG → AVIF)
-- **Compression optimization** with quality control
-- **EXIF data extraction** for photography metadata
-- **Thumbnail generation** with custom sizes
-
-#### 🔍 SEO Optimization Plugin
-- **Meta tag generation** from content
-- **Sitemap creation** and maintenance
-- **Schema.org markup** for rich snippets
-- **Open Graph** and Twitter Card optimization
-- **Accessibility auditing** and improvements
-
-#### 📊 Analytics Integration Plugin
-- **Google Analytics 4** integration
-- **Privacy-focused alternatives** (Plausible, Fathom)
-- **Performance monitoring** (Core Web Vitals)
-- **Content engagement tracking**
-- **Conversion funnel analysis**
-
-#### 🌐 Social Media Plugin
-- **Auto-posting** to Twitter, LinkedIn, Instagram
-- **Content embedding** from social platforms
-- **Share button generation**
-- **Social proof display** (follower counts, shares)
-- **Cross-platform content syndication**
-
-#### 🔍 Search & Discovery Plugin
-- **Full-text search indexing**
-- **Elasticsearch integration**
-- **Algolia search** for instant results
-- **Content recommendations**
-- **Tag and category management**
-
-#### 🚀 Deployment Automation Plugin
-- **Multi-platform publishing** (S3, Netlify, Vercel)
-- **CDN cache invalidation**
-- **Build optimization** and minification
-- **Progressive deployment** with rollback
-- **Performance monitoring** post-deployment
-
-## 📸 Portfolio-Specific Features
-
-### Photography Portfolio
-
-#### Gallery System
 ```typescript
-interface PhotoGallery {
-  title: string;
-  description: string;
-  coverImage: string;
-  photos: Photo[];
-  metadata: {
-    camera?: string;
-    lens?: string;
-    location?: string;
-    date?: Date;
-  };
-}
-
-interface Photo {
-  src: string;
-  alt: string;
-  caption?: string;
-  exif?: ExifData;
-  tags: string[];
-  sizes: ImageSize[];
-}
+template: (props, helpers) => `
+  <article class="post">
+    <time>${helpers.formatDate(props.publishedAt, 'MMM dd, yyyy')}</time>
+    <h1>${props.title}</h1>
+    <p>${helpers.truncate(props.excerpt, 150)}</p>
+    
+    ${helpers.chunk(props.images, 3).map(imageRow => `
+      <div class="image-row">
+        ${imageRow.map(img => `
+          <img src="${helpers.optimizeImage(img.src, { width: 400 })}"
+               srcset="${helpers.generateSrcSet(img.src)}"
+               alt="${img.alt}" />
+        `).join('')}
+      </div>
+    `).join('')}
+    
+    ${helpers.renderPartial('social-share', { 
+      url: helpers.url(props.slug),
+      title: props.title 
+    })}
+  </article>
+`
 ```
 
-#### Features
-- **High-resolution galleries** with lazy loading
-- **Responsive image serving** (WebP, AVIF, multiple sizes)
-- **EXIF data display** for technical photography details
-- **Lightbox viewing** with keyboard navigation
-- **Category and tag organization** with filtering
-- **Infinite scroll** and pagination options
-- **Print optimization** for portfolio presentations
+## 🤖 AI-Native Features
 
-### Video Showcase
+### Model Context Protocol Integration
 
-#### Video Management
+AgentStatic is built **MCP-first** for deep AI integration:
+
 ```typescript
-interface VideoProject {
-  title: string;
-  description: string;
-  thumbnail: string;
-  videos: VideoSource[];
-  metadata: {
-    duration: number;
-    format: string;
-    resolution: string;
-    director?: string;
-    client?: string;
-  };
-}
-
-interface VideoSource {
-  platform: 'youtube' | 'vimeo' | 'self-hosted';
-  url: string;
-  quality: string;
-  subtitles?: SubtitleTrack[];
+interface MCPPartialServer {
+  // Export schemas for LLM consumption
+  exportSchemas(): Promise<PartialSchemaMap>;
+  
+  // Generate partials from natural language
+  generatePartial(description: string): Promise<AgentPartial<any>>;
+  
+  // Intelligent layout composition
+  composeLayout(requirements: LayoutRequirements): Promise<ComposedLayout>;
+  
+  // Content enhancement and optimization
+  optimizeContent(content: string): Promise<EnhancedContent>;
 }
 ```
 
-#### Features
-- **Multi-platform embedding** (YouTube, Vimeo, self-hosted)
-- **Responsive video players** with custom controls
-- **Automatic thumbnail generation**
-- **Video transcoding** for optimal delivery
-- **Subtitle support** with multiple languages
-- **Chapter markers** and interactive elements
-- **Analytics integration** for view tracking
+### Natural Language Commands
 
-### Code Portfolio
+```bash
+# Create new partials
+agentstatic create "testimonial carousel with star ratings and photos"
 
-#### Project Showcase
+# Compose layouts  
+agentstatic compose "photography portfolio homepage with hero and gallery grid"
+
+# Optimize content
+agentstatic enhance "improve SEO and accessibility for all pages"
+
+# Generate variations
+agentstatic variant hero --style="minimal" --alignment="left"
+```
+
+## 📸 Portfolio-First Design
+
+### Photography Showcase
+
 ```typescript
-interface CodeProject {
-  title: string;
-  description: string;
-  repository: string;
-  demo?: string;
-  technologies: string[];
-  codeExamples: CodeSnippet[];
-  documentation: string;
-}
-
-interface CodeSnippet {
-  language: string;
-  code: string;
-  filename?: string;
-  highlight?: number[];
-  runnable?: boolean;
-}
+const GalleryPartial: AgentPartial<GalleryProps> = {
+  schema: z.object({
+    title: z.string(),
+    photos: z.array(z.object({
+      src: z.string().url(),
+      alt: z.string(),
+      caption: z.string().optional(),
+      exif: z.object({
+        camera: z.string(),
+        lens: z.string(), 
+        settings: z.string()
+      }).optional()
+    })),
+    layout: z.enum(['masonry', 'grid', 'carousel']).default('masonry'),
+    lightbox: z.boolean().default(true)
+  }),
+  
+  template: (props, helpers) => `
+    <section class="gallery gallery--${props.layout}">
+      <h2>${props.title}</h2>
+      <div class="gallery__grid">
+        ${props.photos.map(photo => `
+          <figure class="gallery__item">
+            <img src="${helpers.optimizeImage(photo.src, { width: 800 })}"
+                 srcset="${helpers.generateSrcSet(photo.src)}"
+                 alt="${photo.alt}"
+                 ${props.lightbox ? 'data-lightbox="gallery"' : ''} />
+            ${photo.caption ? `<figcaption>${photo.caption}</figcaption>` : ''}
+            ${photo.exif ? `
+              <div class="gallery__exif">
+                ${photo.exif.camera} • ${photo.exif.lens} • ${photo.exif.settings}
+              </div>
+            ` : ''}
+          </figure>
+        `).join('')}
+      </div>
+    </section>
+  `
+};
 ```
 
-#### Features
-- **Syntax highlighting** for 20+ programming languages
-- **Live code demos** with interactive examples
-- **GitHub integration** for automatic project sync
-- **Technical documentation** generation from comments
-- **Code diff visualization** for before/after comparisons
-- **Interactive tutorials** with step-by-step guides
-- **Performance benchmarks** and metrics display
+### Advanced Media Features
 
-## 🚀 Development Roadmap
+- **Responsive Images**: Automatic WebP/AVIF generation with Sharp
+- **EXIF Data**: Preserve and display photography metadata  
+- **Lazy Loading**: Performance-optimized image loading
+- **Lightbox**: Keyboard navigation and touch gestures
+- **Print Optimization**: High-resolution output for portfolios
 
-### Phase 1: Foundation (Weeks 1-2)
-**Goal: Core infrastructure and basic functionality**
+## 🧪 Test-Driven Development
 
-#### Week 1: Project Setup
-- [ ] Node 24 + TypeScript project initialization
-- [ ] Directory structure creation
-- [ ] Core dependency installation
-- [ ] TypeScript configuration
-- [ ] ESLint and Prettier setup
-- [ ] Git workflow configuration
+AgentStatic is built using **comprehensive TDD** from day one:
 
-#### Week 2: Content Engine
-- [ ] Markdown parser implementation
-- [ ] Frontmatter processing
-- [ ] Content file discovery
-- [ ] Basic template system
-- [ ] File watching for development
+### Quality Gates (Husky Pre-commit Hooks)
 
-**Deliverable**: Basic markdown-to-HTML conversion with file watching
-
-### Phase 2: Static Generation (Weeks 3-4)
-**Goal: Complete build pipeline and asset management**
-
-#### Week 3: Build System
-- [ ] Static site generation pipeline
-- [ ] CSS processing and optimization
-- [ ] JavaScript bundling and minification
-- [ ] Asset fingerprinting for cache busting
-- [ ] Development server with hot reload
-
-#### Week 4: Asset Management
-- [ ] Image optimization pipeline
-- [ ] Responsive image generation
-- [ ] Video processing capabilities
-- [ ] Font subsetting and optimization
-- [ ] Asset copying and organization
-
-**Deliverable**: Full static site generation with optimized assets
-
-### Phase 3: MCP Integration (Weeks 5-6)
-**Goal: Plugin architecture and core MCP plugins**
-
-#### Week 5: MCP Foundation
-- [ ] MCP TypeScript SDK integration
-- [ ] Plugin discovery and loading system
-- [ ] Configuration management
-- [ ] Plugin communication interface
-- [ ] Error handling and logging
-
-#### Week 6: Core Plugins
-- [ ] Image processing MCP plugin
-- [ ] SEO optimization MCP plugin
-- [ ] Basic analytics integration
-- [ ] Plugin configuration UI
-- [ ] Plugin marketplace foundation
-
-**Deliverable**: Working MCP plugin system with core plugins
-
-### Phase 4: Portfolio Features (Weeks 7-8)
-**Goal: Photography, video, and code showcase capabilities**
-
-#### Week 7: Media Galleries
-- [ ] Photography gallery system
-- [ ] Lightbox implementation
-- [ ] EXIF data extraction and display
-- [ ] Video embedding and optimization
-- [ ] Media organization and tagging
-
-#### Week 8: Code Showcase
-- [ ] Syntax highlighting implementation
-- [ ] GitHub integration
-- [ ] Live code demos
-- [ ] Documentation generation
-- [ ] Interactive tutorials
-
-**Deliverable**: Complete portfolio showcase features
-
-### Phase 5: Polish & Deployment (Weeks 9-10)
-**Goal: Production-ready system with deployment options**
-
-#### Week 9: Performance & UX
-- [ ] Performance optimization
-- [ ] Accessibility improvements
-- [ ] Mobile responsiveness
-- [ ] SEO enhancements
-- [ ] Error page handling
-
-#### Week 10: Deployment & Documentation
-- [ ] S3 deployment automation
-- [ ] Multi-platform deployment options
-- [ ] Comprehensive documentation
-- [ ] Example portfolio site
-- [ ] Plugin development guide
-
-**Deliverable**: Production-ready AgentStatic with complete documentation
-
-## 📦 Deployment Architecture
-
-### Static Hosting Strategy
-
-AgentStatic generates fully static sites that can be deployed to any static hosting provider:
-
-#### AWS S3 + CloudFront
 ```bash
-# Automated S3 deployment
-agentstatic deploy --target s3 --bucket my-portfolio --region us-east-1
+# Every commit validates:
+✅ TypeScript type checking (zero `any` types)
+✅ ESLint with strict rules (zero warnings)  
+✅ Prettier formatting consistency
+✅ Unit test suite (>90% coverage)
+✅ Build validation (production-ready)
 ```
-- **Global CDN** distribution via CloudFront
-- **Custom domain** and SSL certificate automation
-- **Cache invalidation** on content updates
-- **Cost optimization** with intelligent tiering
 
-#### Netlify
+### TDD Workflow Example
+
+```typescript
+// 1. Write failing test first
+test('should render hero with CTA button', () => {
+  const engine = new PartialEngine();
+  engine.register('hero', HeroPartial);
+  
+  const result = engine.render('hero', {
+    title: 'Welcome',
+    ctaButton: { text: 'Get Started', url: '/signup', variant: 'primary' }
+  });
+  
+  expect(result).toContain('Welcome');
+  expect(result).toContain('Get Started');
+  expect(result).toContain('href="/signup"');
+});
+
+// 2. Implement minimal code to pass
+// 3. Refactor and enhance
+// 4. Repeat for all features
+```
+
+## ⚡ Performance & Build System
+
+### Lightning-Fast Development
+
+- **Sub-100ms builds** with ESBuild
+- **Hot reload <200ms** with file watching  
+- **Instant type checking** with TypeScript strict mode
+- **Live validation** with Zod schemas
+
+### Production Optimizations
+
+- **Image compression >60%** with Sharp (WebP, AVIF)
+- **CSS minification** with critical path extraction
+- **JavaScript tree-shaking** with dead code elimination
+- **Bundle analysis** with size recommendations
+- **Core Web Vitals >90** for all generated sites
+
+### Multi-Platform Deployment
+
 ```bash
-# Continuous deployment from Git
-agentstatic deploy --target netlify --site-id abc123
-```
-- **Git-based deployments** with branch previews
-- **Form handling** for contact pages
-- **Edge functions** for dynamic features
-- **Built-in analytics** and performance monitoring
-
-#### Vercel
-```bash
-# Optimized for performance
-agentstatic deploy --target vercel --project my-portfolio
-```
-- **Edge optimization** with global distribution
-- **Automatic performance insights**
-- **Serverless functions** for dynamic content
-- **GitHub integration** with preview deployments
-
-#### GitHub Pages
-```bash
-# Free hosting for open source
-agentstatic deploy --target github-pages --repo username/portfolio
-```
-- **Free hosting** for public repositories
-- **Custom domain** support
-- **GitHub Actions** integration for automated builds
-- **Version control** with full history
-
-### Build Pipeline
-
-```mermaid
-graph TD
-    A[Content Files] --> B[Markdown Parser]
-    B --> C[Template Engine]
-    C --> D[Asset Processor]
-    D --> E[MCP Plugin Chain]
-    E --> F[Static Site Generator]
-    F --> G[Performance Optimizer]
-    G --> H[Deployment Target]
+# Deploy anywhere in seconds
+agentstatic deploy s3 --bucket my-portfolio
+agentstatic deploy netlify --site-id abc123  
+agentstatic deploy vercel --project my-site
+agentstatic deploy github-pages --repo username/portfolio
 ```
 
-## 🎨 Unique Value Proposition
-
-### Why AgentStatic?
-
-1. **MCP-First Architecture**
-   - AI-extensible from day one
-   - Future-proof plugin system
-   - Intelligent content optimization
-
-2. **Portfolio-Optimized**
-   - Built specifically for creative professionals
-   - Advanced media handling capabilities
-   - Showcase-focused design patterns
-
-3. **Zero Framework Dependencies**
-   - Maximum performance with vanilla CSS/JS
-   - No framework lock-in or breaking changes
-   - Minimal learning curve for developers
-
-4. **Developer Experience**
-   - Full TypeScript support
-   - Modern tooling and workflows
-   - Comprehensive documentation and examples
-
-5. **Flexible Deployment**
-   - Works with any static hosting provider
-   - Automated deployment pipelines
-   - Multi-environment support
-
-## 🛠️ Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 24.x or higher
-- npm or yarn package manager
-- Git for version control
+- **Node.js 24.x** (latest features and performance)
+- **npm/yarn** package manager
+- **Git** for version control
 
 ### Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/conorluddy/AgentStatic.git
-cd AgentStatic
+# Initialize new project
+npx create-agentstatic my-portfolio --template photography
 
-# Install dependencies
-npm install
-
-# Start development server
+# Start development (with hot reload)
+cd my-portfolio
 npm run dev
 
-# Build for production
+# Create your first partial
+npm run create partial --name "testimonial" --category "content"
+
+# Build for production 
 npm run build
 
-# Deploy to S3
-npm run deploy:s3
+# Deploy to your platform
+npm run deploy s3
 ```
 
-### Configuration
+### Project Templates
 
-Create a `agentstatic.config.json` file in your project root:
+```bash
+# Photography portfolio
+npx create-agentstatic portfolio --template photography
 
-```json
-{
-  "site": {
-    "title": "My Portfolio",
-    "description": "A showcase of my creative work",
-    "url": "https://myportfolio.com",
-    "author": "Your Name"
-  },
-  "theme": "portfolio",
-  "plugins": [
-    "@agentstatic/image-processor",
-    "@agentstatic/seo-optimizer",
-    "@agentstatic/analytics"
-  ],
-  "build": {
-    "output": "./dist",
-    "optimization": "aggressive"
-  },
-  "deploy": {
-    "target": "s3",
-    "bucket": "my-portfolio-bucket"
-  }
-}
+# Developer blog  
+npx create-agentstatic blog --template developer
+
+# Agency showcase
+npx create-agentstatic agency --template business
+
+# Documentation site
+npx create-agentstatic docs --template documentation
 ```
 
-## 📚 Documentation
+## 📊 Why AgentStatic?
 
-- [Getting Started Guide](./docs/getting-started.md)
-- [Plugin Development](./docs/plugin-development.md)
-- [Theme Creation](./docs/theme-creation.md)
-- [Deployment Options](./docs/deployment.md)
-- [API Reference](./docs/api-reference.md)
-- [MCP Integration](./docs/mcp-integration.md)
+### Unique Advantages
 
-## 🤝 Contributing
+1. **🧠 AI-Native from Day One**
+   - LLMs understand partial schemas
+   - Natural language composition
+   - Intelligent content optimization
 
-We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
+2. **🎯 TypeScript-First Architecture**  
+   - Zero `any` types throughout
+   - Runtime + compile-time validation
+   - Intelligent IDE autocomplete
 
-## 📄 License
+3. **⚡ Unmatched Performance**
+   - Framework-free (vanilla CSS/JS)
+   - Sub-100ms development builds
+   - >90 Lighthouse scores
 
-MIT License - see [LICENSE](./LICENSE) for details.
+4. **🎨 Creative Professional Focus**
+   - Built for portfolios and showcases
+   - Advanced media handling
+   - Print-ready outputs
 
-## 🔗 Links
+5. **🔮 Future-Proof Design**
+   - MCP integration for AI extensibility
+   - No framework lock-in
+   - Continuous innovation ready
 
-- [Official Website](https://agentstatic.dev)
-- [Documentation](https://docs.agentstatic.dev)
-- [Plugin Marketplace](https://plugins.agentstatic.dev)
-- [Community Discord](https://discord.gg/agentstatic)
-- [GitHub Discussions](https://github.com/conorluddy/AgentStatic/discussions)
+## 📚 Documentation & Community
+
+- **[Getting Started Guide](./docs/getting-started.md)** - Your first AgentStatic site
+- **[Partial Development](./docs/partials.md)** - Creating custom components
+- **[AI Integration](./docs/ai-integration.md)** - MCP and LLM features  
+- **[Performance Guide](./docs/performance.md)** - Optimization strategies
+- **[API Reference](./docs/api.md)** - Complete technical reference
+
+### Community
+
+- **[GitHub Discussions](https://github.com/conorluddy/AgentStatic/discussions)** - Get help and share ideas
+- **[Discord Server](https://discord.gg/agentstatic)** - Real-time community chat
+- **[Examples Repository](https://github.com/agentstatic/examples)** - Sample sites and tutorials
 
 ---
 
-Built with ❤️ for the creative community
+## 🎖️ Built for Excellence
+
+AgentStatic represents the **next evolution** of static site generators, combining the best of modern TypeScript development with AI-native design patterns. Created for developers and creative professionals who refuse to compromise on quality, performance, or innovation.
+
+**Ready to build the future of web development?** 🚀
+
+MIT License - Built with ❤️ for the creative community
