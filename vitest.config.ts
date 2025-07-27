@@ -19,7 +19,7 @@ export default defineConfig({
     // Coverage configuration (>90% required)
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'html', 'json-summary'],
+      reporter: ['text', 'html', 'json-summary', 'lcov'],
       reportsDirectory: './coverage',
       
       // Strict coverage thresholds
@@ -60,8 +60,8 @@ export default defineConfig({
     testTimeout: 10000,
     hookTimeout: 10000,
     
-    // Watch mode settings
-    watch: true,
+    // Watch mode settings (disabled by default for CI)
+    watch: false,
     watchExclude: [
       'node_modules/**',
       'dist/**',
