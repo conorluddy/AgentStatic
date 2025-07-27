@@ -1,6 +1,6 @@
 /**
  * AgentStatic Partial System
- * 
+ *
  * Self-contained TypeScript components with Zod validation
  */
 
@@ -18,4 +18,4 @@
 // export * from './media/index.js';
 
 // Placeholder export to make this a module
-export const PARTIALS_VERSION = '1.0.0';
+export const PARTIALS_VERSION = "1.0.0";

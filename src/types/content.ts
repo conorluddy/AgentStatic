@@ -1,11 +1,11 @@
 /**
  * Content processing types for AgentStatic
- * 
+ *
  * Defines schemas and interfaces for Markdown content processing,
  * frontmatter validation, and content discovery.
  */
 
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Base frontmatter schema shared across all content types
@@ -32,12 +32,15 @@ export const SEOFrontmatterSchema = z.object({
   canonicalUrl: z.string().url().optional().describe("Canonical URL"),
   noindex: z.boolean().default(false).describe("Exclude from search engines"),
   nofollow: z.boolean().default(false).describe("No follow links"),
-  openGraph: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-    image: z.string().url().optional(),
-    type: z.enum(['website', 'article', 'profile']).default('article')
-  }).optional().describe("Open Graph metadata"),
+  openGraph: z
+    .object({
+      title: z.string().optional(),
+      description: z.string().optional(),
+      image: z.string().url().optional(),
+      type: z.enum(["website", "article", "profile"]).default("article"),
+    })
+    .optional()
+    .describe("Open Graph metadata"),
 });
 
 export type SEOFrontmatter = z.infer<typeof SEOFrontmatterSchema>;
@@ -45,7 +48,8 @@ export type SEOFrontmatter = z.infer<typeof SEOFrontmatterSchema>;
 /**
  * Complete frontmatter schema combining base and SEO
  */
-export const FrontmatterSchema = BaseFrontmatterSchema.merge(SEOFrontmatterSchema);
+export const FrontmatterSchema =
+  BaseFrontmatterSchema.merge(SEOFrontmatterSchema);
 export type Frontmatter = z.infer<typeof FrontmatterSchema>;
 
 /**
@@ -111,8 +115,8 @@ export interface ContentQuery {
   draft?: boolean;
   publishedAfter?: Date;
   publishedBefore?: Date;
-  sortBy?: 'publishedAt' | 'updatedAt' | 'title' | 'readingTime';
-  sortOrder?: 'asc' | 'desc';
+  sortBy?: "publishedAt" | "updatedAt" | "title" | "readingTime";
+  sortOrder?: "asc" | "desc";
   limit?: number;
   offset?: number;
 }
@@ -124,7 +128,7 @@ export interface ContentCollection {
   name: string;
   pattern: string;
   frontmatterSchema: z.ZodSchema<unknown>;
-  defaultSort: ContentQuery['sortBy'];
+  defaultSort: ContentQuery["sortBy"];
   generateIndex: boolean;
   generateTags: boolean;
   generatePagination: boolean;

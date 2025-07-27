@@ -1,6 +1,6 @@
 /**
  * Template helper utilities
- * 
+ *
  * Provides date-fns, lodash-es, and custom utilities for use
  * within AgentStatic partial templates.
  */
@@ -11,4 +11,4 @@
 // export * from './seo-helpers.js';         // Future SEO enhancement issue
 
 // Placeholder export to make this a module
-export const HELPERS_VERSION = '1.0.0';
+export const HELPERS_VERSION = "1.0.0";

@@ -1,13 +1,13 @@
 /**
  * Template engine types for AgentStatic
- * 
+ *
  * Defines interfaces for the template rendering system,
  * helper functions, and composition context.
  */
 
-import { z } from 'zod';
-import type { AgentPartial, CompositionContext } from './partial.js';
-import type { ProcessedContent } from './content.js';
+import { z } from "zod";
+import type { AgentPartial, CompositionContext } from "./partial.js";
+import type { ProcessedContent } from "./content.js";
 
 /**
  * Template rendering context with all available data
@@ -122,33 +122,36 @@ export interface TemplateHelpers {
   // Date utilities
   formatDate: (date: Date, format?: string) => string;
   timeAgo: (date: Date) => string;
-  
+
   // Content utilities
   truncate: (text: string, length: number) => string;
   slugify: (text: string) => string;
   markdown: (content: string) => string;
   stripHtml: (html: string) => string;
-  
+
   // Asset utilities
   optimizeImage: (src: string, options?: ImageOptimizeOptions) => string;
   generateSrcSet: (src: string) => string;
   assetUrl: (path: string) => string;
-  
+
   // Collection utilities
   chunk: <T>(array: T[], size: number) => T[][];
-  groupBy: <T>(array: T[], key: keyof T | ((item: T) => unknown)) => Record<string, T[]>;
+  groupBy: <T>(
+    array: T[],
+    key: keyof T | ((item: T) => unknown),
+  ) => Record<string, T[]>;
   sortBy: <T>(array: T[], key: keyof T | ((item: T) => unknown)) => T[];
   filter: <T>(array: T[], predicate: (item: T) => boolean) => T[];
-  
+
   // URL utilities
   url: (path: string) => string;
   isActive: (path: string) => boolean;
   external: (url: string) => boolean;
-  
+
   // Partial rendering
   renderPartial: <T>(name: string, props: T) => string;
   hasPartial: (name: string) => boolean;
-  
+
   // Utility functions
   conditionalClass: (condition: boolean, className: string) => string;
   jsonEncode: (data: unknown) => string;
@@ -162,8 +165,8 @@ export interface ImageOptimizeOptions {
   width?: number;
   height?: number;
   quality?: number;
-  format?: 'webp' | 'avif' | 'jpeg' | 'png';
-  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
+  format?: "webp" | "avif" | "jpeg" | "png";
+  fit?: "cover" | "contain" | "fill" | "inside" | "outside";
   progressive?: boolean;
   background?: string;
 }
@@ -190,7 +193,7 @@ export interface LayoutTemplate {
   requiredPartials: string[];
   metadata: {
     description: string;
-    category: 'page' | 'post' | 'archive' | 'special';
+    category: "page" | "post" | "archive" | "special";
     responsive: boolean;
   };
 }
