@@ -1,11 +1,11 @@
 /**
  * Core AgentPartial interface and types
- * 
+ *
  * Defines the revolutionary TypeScript-first templating system with
  * Zod schema validation for AI-readable, type-safe partials.
  */
 
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Template helper functions available within partial templates
@@ -14,25 +14,28 @@ export interface TemplateHelpers {
   // Date utilities (date-fns)
   formatDate: (date: Date, format?: string) => string;
   timeAgo: (date: Date) => string;
-  
+
   // Content utilities
   truncate: (text: string, length: number) => string;
   slugify: (text: string) => string;
   markdown: (content: string) => string;
-  
+
   // Asset utilities (Sharp integration)
   optimizeImage: (src: string, options?: ImageOptimizeOptions) => string;
   generateSrcSet: (src: string) => string;
-  
+
   // Lodash-es utilities (tree-shakable)
   chunk: <T>(array: T[], size: number) => T[][];
-  groupBy: <T>(array: T[], predicate: string | ((item: T) => unknown)) => Record<string, T[]>;
+  groupBy: <T>(
+    array: T[],
+    predicate: string | ((item: T) => unknown),
+  ) => Record<string, T[]>;
   sortBy: <T>(array: T[], predicate: string | ((item: T) => unknown)) => T[];
-  
+
   // URL and navigation
   url: (path: string) => string;
   isActive: (path: string) => boolean;
-  
+
   // Partial composition
   renderPartial: <T>(name: string, props: T) => string;
   conditionalClass: (condition: boolean, className: string) => string;
@@ -45,8 +48,8 @@ export interface ImageOptimizeOptions {
   width?: number;
   height?: number;
   quality?: number;
-  format?: 'webp' | 'avif' | 'jpeg' | 'png';
-  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
+  format?: "webp" | "avif" | "jpeg" | "png";
+  fit?: "cover" | "contain" | "fill" | "inside" | "outside";
 }
 
 /**
@@ -58,13 +61,19 @@ export interface ResponsiveConfig {
     tablet: number;
     desktop: number;
   };
-  behavior: 'hide' | 'stack' | 'resize' | 'scroll';
+  behavior: "hide" | "stack" | "resize" | "scroll";
 }
 
 /**
  * Partial category for organization and AI understanding
  */
-export type PartialCategory = 'layout' | 'content' | 'media' | 'navigation' | 'interactive' | 'utility';
+export type PartialCategory =
+  | "layout"
+  | "content"
+  | "media"
+  | "navigation"
+  | "interactive"
+  | "utility";
 
 /**
  * Usage example for AI and developer understanding
@@ -94,12 +103,12 @@ export interface PartialMetadata<TProps> {
 
 /**
  * Core AgentPartial interface
- * 
+ *
  * Every partial in AgentStatic implements this interface, providing
  * a complete, self-contained template component with:
  * - Zod schema for type safety and AI understanding
  * - TypeScript template function
- * - Scoped CSS styles  
+ * - Scoped CSS styles
  * - Optional client-side behavior
  * - Rich metadata for composition
  */
@@ -110,36 +119,36 @@ export interface AgentPartial<TProps> {
    * enabling AI agents to understand data requirements.
    */
   schema: z.ZodSchema<TProps>;
-  
+
   /**
    * TypeScript template function that renders the partial.
    * Receives validated props and template helpers.
    */
   template: (props: TProps, helpers: TemplateHelpers) => string;
-  
+
   /**
    * Scoped CSS styles automatically namespaced to prevent conflicts.
    * Uses CSS custom properties for theming support.
    */
   styles: string;
-  
+
   /**
    * Optional client-side JavaScript for progressive enhancement.
    * Should gracefully degrade when JavaScript is disabled.
    */
   script?: string;
-  
+
   /**
    * Dependencies on other partials that this partial requires.
    * Used for automatic dependency resolution during composition.
    */
   dependencies?: string[];
-  
+
   /**
    * Responsive behavior configuration for different screen sizes.
    */
   responsive?: ResponsiveConfig;
-  
+
   /**
    * Rich metadata enabling AI understanding and developer tooling.
    */
@@ -169,7 +178,7 @@ export interface CompositionContext {
 /**
  * Result of parsing and validating a partial's props
  */
-export type ParsedPartialProps<TProps> = 
+export type ParsedPartialProps<TProps> =
   | {
       success: true;
       data: TProps;
@@ -203,7 +212,7 @@ export type PartialProps<T> = T extends AgentPartial<infer P> ? P : never;
  * Type helper for creating partial schemas with common patterns
  */
 export const createPartialSchema = <T extends Record<string, unknown>>(
-  schema: z.ZodRawShape
+  schema: z.ZodRawShape,
 ): z.ZodObject<z.ZodRawShape> => {
   return z.object(schema);
 };
