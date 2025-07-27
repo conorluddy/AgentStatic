@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/conorluddy/AgentStatic/graph/badge.svg?token=Y1KI5CEQPR)](https://codecov.io/gh/conorluddy/AgentStatic)
+
 # AgentStatic - AI-Native Static Site Generator
 
 > A revolutionary content management system that combines TypeScript-first schema validation with AI-powered extensibility through the Model Context Protocol (MCP). Built for creative professionals who demand both technical excellence and visual showcase capabilities.
