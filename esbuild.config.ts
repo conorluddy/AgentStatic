@@ -9,18 +9,17 @@ import { build, BuildOptions, context } from 'esbuild';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-// Read TypeScript configuration for path mapping
-const tsconfig = JSON.parse(readFileSync('./tsconfig.json', 'utf8'));
-
-// Convert TypeScript paths to ESBuild alias format
-const alias: Record<string, string> = {};
-if (tsconfig.compilerOptions?.paths) {
-  for (const [key, paths] of Object.entries(tsconfig.compilerOptions.paths)) {
-    const aliasKey = key.replace('/*', '');
-    const aliasPath = (paths as string[])[0].replace('/*', '');
-    alias[aliasKey] = resolve(aliasPath);
-  }
-}
+// Path aliases for AgentStatic architecture
+const alias: Record<string, string> = {
+  '@': resolve('./src'),
+  '@/core': resolve('./src/core'),
+  '@/partials': resolve('./src/partials'),
+  '@/helpers': resolve('./src/helpers'),
+  '@/types': resolve('./src/types'),
+  '@/mcp': resolve('./src/mcp'),
+  '@/cli': resolve('./src/cli'),
+  '@/tests': resolve('./tests')
+};
 
 // Base ESBuild configuration
 const baseConfig: BuildOptions = {
@@ -28,8 +27,7 @@ const baseConfig: BuildOptions = {
   entryPoints: [
     'src/index.ts',
     'src/core/index.ts', 
-    'src/partials/index.ts',
-    'src/cli/index.ts'
+    'src/partials/index.ts'
   ],
   
   // Output configuration
