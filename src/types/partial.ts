@@ -211,7 +211,7 @@ export type PartialProps<T> = T extends AgentPartial<infer P> ? P : never;
 /**
  * Type helper for creating partial schemas with common patterns
  */
-export const createPartialSchema = <T extends Record<string, unknown>>(
+export const createPartialSchema = (
   schema: z.ZodRawShape,
 ): z.ZodObject<z.ZodRawShape> => {
   return z.object(schema);

@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+
+# Exit on any error
+set -e
+
+echo "🚀 AgentStatic Pre-push Validation Starting..."
+
+# Integration Tests (if they exist)
+if [ -d "tests/integration" ] && [ "$(ls -A tests/integration/*.test.ts 2>/dev/null)" ]; then
+  echo "⚡ Running integration tests..."
+  npm run test -- tests/integration
+  if [ $? -ne 0 ]; then
+    echo "❌ Integration tests failed! Cannot push to remote."
+    echo "💡 Hint: Fix integration test failures before pushing."
+    exit 1
+  fi
+  echo "✅ Integration tests passed!"
+else
+  echo "ℹ️  No integration tests found, skipping..."
+fi
+
+# Final build check
+echo "⚡ Running final build check..."
+npm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed! Cannot push to remote."
+  exit 1
+fi
+echo "✅ Build successful!"
+
+# Type safety double-check
+echo "⚡ Final TypeScript type check..."
+npm run type-check
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript errors detected! Cannot push to remote."
+  exit 1
+fi
+echo "✅ TypeScript check passed!"
+
+echo "🎉 All pre-push checks passed! Pushing to remote..."
+echo ""
+echo "⚠️  REMINDER: If you need to bypass these checks in an emergency:"
+echo "   Use: git push --no-verify"
+echo "   BUT you MUST fix any issues immediately!"
+echo ""
