@@ -1,0 +1,114 @@
+#!/usr/bin/env sh
+
+# Exit on any error
+set -e
+
+echo "🚀 AgentStatic Pre-commit Validation Starting..."
+
+# Type Check: Ensure TypeScript compilation passes with zero any types
+echo "⚡ Running TypeScript type checking..."
+npm run type-check
+if [ $? -ne 0 ]; then
+  echo "❌ Type checking failed! Please fix TypeScript errors before committing."
+  echo "💡 Hint: Run 'npm run type-check' to see detailed errors."
+  exit 1
+fi
+echo "✅ TypeScript type checking passed!"
+
+# Lint: ESLint must pass with zero warnings
+echo "⚡ Running ESLint..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint found errors or warnings! Code must pass with zero warnings."
+  echo "💡 Hint: Run 'npm run lint:fix' to auto-fix some issues."
+  exit 1
+fi
+echo "✅ ESLint passed with zero warnings!"
+
+# Format Check: Prettier must pass
+echo "⚡ Checking code formatting with Prettier..."
+npm run format:check
+if [ $? -ne 0 ]; then
+  echo "❌ Code formatting issues found!"
+  echo "💡 Hint: Run 'npm run format' to auto-format your code."
+  exit 1
+fi
+echo "✅ Code formatting is correct!"
+
+# Unit Tests: Must pass with <30s timeout
+echo "⚡ Running unit tests (30s timeout)..."
+
+# Cross-platform timeout implementation
+(npm run test) & TEST_PID=$!
+SECONDS=0
+while kill -0 $TEST_PID 2>/dev/null; do
+  if [ $SECONDS -ge 30 ]; then
+    echo "❌ Tests timed out! Tests must complete within 30 seconds."
+    echo "💡 Hint: Check for slow tests or infinite loops."
+    kill -9 $TEST_PID 2>/dev/null
+    exit 1
+  fi
+  sleep 1
+  SECONDS=$((SECONDS + 1))
+done
+wait $TEST_PID
+TEST_EXIT_CODE=$?
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+  echo "❌ Unit tests failed!"
+  echo "💡 Hint: Run 'npm run test' to see detailed test results."
+  exit 1
+fi
+echo "✅ All unit tests passed!"
+
+# Build Validation: Ensure the project builds successfully
+echo "⚡ Running build validation..."
+npm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed! The project must build successfully before committing."
+  echo "💡 Hint: Check for compilation errors or missing dependencies."
+  exit 1
+fi
+echo "✅ Build completed successfully!"
+
+# Coverage Check: Ensure >90% test coverage
+echo "⚡ Checking test coverage..."
+npm run test:coverage > /tmp/coverage-output.txt 2>&1
+COVERAGE_RESULT=$?
+if [ $COVERAGE_RESULT -ne 0 ]; then
+  echo "❌ Coverage check failed!"
+  cat /tmp/coverage-output.txt
+  exit 1
+fi
+
+# Extract coverage percentage (looking for lines like "All files | 95.65 |")
+COVERAGE=$(grep "All files" /tmp/coverage-output.txt | awk '{print $4}' | sed 's/%//')
+if [ -n "$COVERAGE" ]; then
+  COVERAGE_INT=$(echo "$COVERAGE" | cut -d. -f1)
+  if [ "$COVERAGE_INT" -lt 90 ]; then
+    echo "❌ Test coverage is below 90% (current: ${COVERAGE}%)"
+    echo "💡 Hint: Add more tests to increase coverage."
+    cat /tmp/coverage-output.txt
+    exit 1
+  fi
+  echo "✅ Test coverage is ${COVERAGE}% (>90% required)!"
+else
+  echo "⚠️  Could not determine test coverage percentage, continuing..."
+fi
+rm -f /tmp/coverage-output.txt
+
+# Lint-staged: Run on staged files only
+echo "⚡ Running lint-staged on changed files..."
+npx lint-staged
+if [ $? -ne 0 ]; then
+  echo "❌ Lint-staged checks failed on staged files!"
+  exit 1
+fi
+echo "✅ Lint-staged checks passed!"
+
+echo "🎉 All pre-commit checks passed! Proceeding with commit..."
+echo ""
+echo "⚠️  REMINDER: If you need to bypass these checks in an emergency:"
+echo "   Use: git commit --no-verify"
+echo "   BUT you MUST fix any issues in the next commit!"
+echo ""

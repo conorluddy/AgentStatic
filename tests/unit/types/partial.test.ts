@@ -258,4 +258,49 @@ describe("AgentPartial Interface", () => {
       });
     });
   });
+
+  describe("createPartialSchema Helper", () => {
+    it("should create a Zod object schema from shape", async () => {
+      // Import the helper function
+      const { createPartialSchema } = await import("@/types/partial.js");
+
+      const schema = createPartialSchema({
+        title: z.string(),
+        count: z.number(),
+        active: z.boolean(),
+      });
+
+      // Validate that it creates a proper Zod schema
+      const validData = { title: "Test", count: 42, active: true };
+      const result = schema.safeParse(validData);
+
+      expect(result.success).toBe(true);
+      if (result.success) {
+        expect(result.data).toEqual(validData);
+      }
+    });
+
+    it("should handle optional fields in schema", async () => {
+      const { createPartialSchema } = await import("@/types/partial.js");
+
+      const schema = createPartialSchema({
+        required: z.string(),
+        optional: z.string().optional(),
+      });
+
+      const result = schema.safeParse({ required: "test" });
+      expect(result.success).toBe(true);
+    });
+
+    it("should validate against invalid data", async () => {
+      const { createPartialSchema } = await import("@/types/partial.js");
+
+      const schema = createPartialSchema({
+        number: z.number(),
+      });
+
+      const result = schema.safeParse({ number: "not a number" });
+      expect(result.success).toBe(false);
+    });
+  });
 });
