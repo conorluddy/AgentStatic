@@ -103,7 +103,11 @@ export async function processMarkdown(
   const processor = createMarkdownProcessor(config);
 
   // Parse frontmatter and content
-  const { data: frontmatter, content: markdownContent, excerpt } = matter(content, {
+  const {
+    data: frontmatter,
+    content: markdownContent,
+    excerpt,
+  } = matter(content, {
     excerpt: true,
     excerpt_separator: "<!-- more -->",
   });
@@ -164,13 +168,13 @@ export function generateTableOfContents(
   headings: Array<{ level: number; text: string; id: string }>,
   maxLevel = 3,
 ): string {
-  const filteredHeadings = headings.filter(h => h.level <= maxLevel);
-  
+  const filteredHeadings = headings.filter((h) => h.level <= maxLevel);
+
   if (filteredHeadings.length === 0) {
     return "";
   }
 
-  const tocItems = filteredHeadings.map(heading => {
+  const tocItems = filteredHeadings.map((heading) => {
     const indent = "  ".repeat(heading.level - 1);
     return `${indent}- [${heading.text}](#${heading.id})`;
   });
@@ -182,7 +186,7 @@ export function generateTableOfContents(
  * Create markdown processor with custom plugins
  */
 export function createCustomMarkdownProcessor(
-  plugins: Array<[any, any?]> = [],
+  plugins: Array<[unknown, unknown?]> = [],
   config: Partial<MarkdownConfig> = {},
 ) {
   const processor = createMarkdownProcessor(config);
@@ -206,9 +210,9 @@ export function validateFrontmatter<T>(
     const data = validator(frontmatter);
     return { success: true, data };
   } catch (error) {
-    return { 
-      success: false, 
-      error: error instanceof Error ? error : new Error(String(error))
+    return {
+      success: false,
+      error: error instanceof Error ? error : new Error(String(error)),
     };
   }
 }

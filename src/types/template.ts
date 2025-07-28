@@ -5,8 +5,7 @@
  * helper functions, and composition context.
  */
 
-import { z } from "zod";
-import type { AgentPartial, CompositionContext } from "./partial.js";
+import type { CompositionContext } from "./partial.js";
 import type { ProcessedContent } from "./content.js";
 
 /**

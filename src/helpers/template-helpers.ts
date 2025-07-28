@@ -54,7 +54,7 @@ export function createTemplateHelpers(context: {
     },
 
     // Asset utilities (Sharp integration will be implemented in Issue #13)
-    optimizeImage: (src: string, options = {}) => {
+    optimizeImage: (src: string, _options = {}) => {
       // Placeholder implementation - full Sharp integration in Issue #13
       return src;
     },
@@ -80,7 +80,7 @@ export function createTemplateHelpers(context: {
     },
 
     // Partial composition (will be fully implemented in Issue #7)
-    renderPartial: <T>(name: string, props: T) => {
+    renderPartial: <T>(name: string, _props: T) => {
       // Placeholder implementation - full partial engine in Issue #7
       return `<!-- Partial: ${name} -->`;
     },

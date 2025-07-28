@@ -33,9 +33,9 @@ export const DEFAULT_SHARP_CONFIG = {
 
 /**
  * Create optimized image with Sharp
- * 
+ *
  * @param inputPath - Path to source image
- * @param outputPath - Path for optimized image  
+ * @param outputPath - Path for optimized image
  * @param options - Optimization options
  * @returns Promise resolving to optimization metadata
  */
@@ -119,11 +119,16 @@ export async function optimizeImage(
   }
 
   // Process the image
-  const { size: optimizedSize, width: finalWidth, height: finalHeight } =
-    await processor.toFile(outputPath);
+  const {
+    size: optimizedSize,
+    width: finalWidth,
+    height: finalHeight,
+  } = await processor.toFile(outputPath);
 
-  const compressionRatio = originalSize > 0 ? 
-    ((originalSize - optimizedSize) / originalSize) * 100 : 0;
+  const compressionRatio =
+    originalSize > 0
+      ? ((originalSize - optimizedSize) / originalSize) * 100
+      : 0;
 
   return {
     originalSize,
@@ -137,7 +142,7 @@ export async function optimizeImage(
 
 /**
  * Generate responsive image srcset with multiple sizes
- * 
+ *
  * @param inputPath - Path to source image
  * @param outputDir - Directory for optimized variants
  * @param baseName - Base name for output files
@@ -154,7 +159,7 @@ export async function generateResponsiveImages(
   files: Array<{ path: string; width: number; size: number }>;
 }> {
   const { format = "webp", quality = 85 } = options;
-  
+
   // Common responsive breakpoints
   const breakpoints = [320, 640, 768, 1024, 1280, 1920];
   const files: Array<{ path: string; width: number; size: number }> = [];
@@ -192,13 +197,13 @@ export async function generateResponsiveImages(
 
 /**
  * Get image metadata using Sharp
- * 
+ *
  * @param imagePath - Path to image file
  * @returns Promise resolving to image metadata
  */
 export async function getImageMetadata(imagePath: string) {
   const metadata = await sharp(imagePath).metadata();
-  
+
   return {
     format: metadata.format,
     width: metadata.width || 0,
@@ -215,7 +220,7 @@ export async function getImageMetadata(imagePath: string) {
 
 /**
  * Batch optimize multiple images with progress tracking
- * 
+ *
  * @param images - Array of input/output path pairs
  * @param options - Optimization options
  * @param onProgress - Progress callback
@@ -227,22 +232,22 @@ export async function batchOptimizeImages(
   onProgress?: (completed: number, total: number) => void,
 ) {
   const results = [];
-  
+
   for (let i = 0; i < images.length; i++) {
     const image = images[i];
     if (!image) continue;
-    
+
     const { input, output } = image;
-    
+
     try {
       const result = await optimizeImage(input, output, options);
       results.push({ success: true, input, output, ...result });
     } catch (error) {
       results.push({ success: false, input, output, error });
     }
-    
+
     onProgress?.(i + 1, images.length);
   }
-  
+
   return results;
 }
