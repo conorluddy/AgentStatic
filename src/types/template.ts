@@ -5,8 +5,8 @@
  * helper functions, and composition context.
  */
 
-import type { CompositionContext } from "./partial.js";
-import type { ProcessedContent } from "./content.js";
+import type { CompositionContext } from './partial.js';
+import type { ProcessedContent } from './content.js';
 
 /**
  * Template rendering context with all available data
@@ -137,7 +137,7 @@ export interface TemplateHelpers {
   chunk: <T>(array: T[], size: number) => T[][];
   groupBy: <T>(
     array: T[],
-    key: keyof T | ((item: T) => unknown),
+    key: keyof T | ((item: T) => unknown)
   ) => Record<string, T[]>;
   sortBy: <T>(array: T[], key: keyof T | ((item: T) => unknown)) => T[];
   filter: <T>(array: T[], predicate: (item: T) => boolean) => T[];
@@ -164,8 +164,8 @@ export interface ImageOptimizeOptions {
   width?: number;
   height?: number;
   quality?: number;
-  format?: "webp" | "avif" | "jpeg" | "png";
-  fit?: "cover" | "contain" | "fill" | "inside" | "outside";
+  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
   progressive?: boolean;
   background?: string;
 }
@@ -192,7 +192,7 @@ export interface LayoutTemplate {
   requiredPartials: string[];
   metadata: {
     description: string;
-    category: "page" | "post" | "archive" | "special";
+    category: 'page' | 'post' | 'archive' | 'special';
     responsive: boolean;
   };
 }

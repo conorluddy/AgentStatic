@@ -5,17 +5,17 @@
  * AgentStatic with TypeScript type safety and optimization presets.
  */
 
-import sharp from "sharp";
-import type { ImageOptimizeOptions } from "@/types/partial.js";
+import sharp from 'sharp';
+import type { ImageOptimizeOptions } from '@/types/partial.js';
 
 /**
  * Sharp configuration presets for common use cases
  */
 export const SHARP_PRESETS = {
-  thumbnail: { width: 300, height: 300, quality: 80, format: "webp" as const },
-  gallery: { width: 800, height: 600, quality: 85, format: "webp" as const },
-  hero: { width: 1920, height: 1080, quality: 90, format: "webp" as const },
-  avatar: { width: 150, height: 150, quality: 85, format: "webp" as const },
+  thumbnail: { width: 300, height: 300, quality: 80, format: 'webp' as const },
+  gallery: { width: 800, height: 600, quality: 85, format: 'webp' as const },
+  hero: { width: 1920, height: 1080, quality: 90, format: 'webp' as const },
+  avatar: { width: 150, height: 150, quality: 85, format: 'webp' as const },
 } as const;
 
 /**
@@ -23,8 +23,8 @@ export const SHARP_PRESETS = {
  */
 export const DEFAULT_SHARP_CONFIG = {
   quality: 85,
-  format: "webp" as const,
-  fit: "cover" as const,
+  format: 'webp' as const,
+  fit: 'cover' as const,
   withMetadata: false, // Remove EXIF data by default for smaller files
   progressive: true, // Progressive JPEG loading
   optimizeScans: true, // Optimize scan order
@@ -42,7 +42,7 @@ export const DEFAULT_SHARP_CONFIG = {
 export async function optimizeImage(
   inputPath: string,
   outputPath: string,
-  options: ImageOptimizeOptions = {},
+  options: ImageOptimizeOptions = {}
 ): Promise<{
   originalSize: number;
   optimizedSize: number;
@@ -80,20 +80,20 @@ export async function optimizeImage(
 
   // Apply format-specific optimizations
   switch (format) {
-    case "webp":
+    case 'webp':
       processor = processor.webp({
         quality,
         effort: 6, // Maximum compression effort
         nearLossless: quality > 90,
       });
       break;
-    case "avif":
+    case 'avif':
       processor = processor.avif({
         quality,
         effort: 9, // Maximum compression effort for AVIF
       });
       break;
-    case "jpeg":
+    case 'jpeg':
       processor = processor.jpeg({
         quality,
         progressive: DEFAULT_SHARP_CONFIG.progressive,
@@ -101,7 +101,7 @@ export async function optimizeImage(
         optimiseScans: DEFAULT_SHARP_CONFIG.optimizeScans,
       });
       break;
-    case "png":
+    case 'png':
       processor = processor.png({
         quality,
         compressionLevel: 9, // Maximum PNG compression
@@ -153,12 +153,12 @@ export async function generateResponsiveImages(
   inputPath: string,
   outputDir: string,
   baseName: string,
-  options: ImageOptimizeOptions = {},
+  options: ImageOptimizeOptions = {}
 ): Promise<{
   srcset: string;
   files: Array<{ path: string; width: number; size: number }>;
 }> {
-  const { format = "webp", quality = 85 } = options;
+  const { format = 'webp', quality = 85 } = options;
 
   // Common responsive breakpoints
   const breakpoints = [320, 640, 768, 1024, 1280, 1920];
@@ -190,7 +190,7 @@ export async function generateResponsiveImages(
   }
 
   return {
-    srcset: srcsetParts.join(", "),
+    srcset: srcsetParts.join(', '),
     files,
   };
 }
@@ -229,7 +229,7 @@ export async function getImageMetadata(imagePath: string) {
 export async function batchOptimizeImages(
   images: Array<{ input: string; output: string }>,
   options: ImageOptimizeOptions = {},
-  onProgress?: (completed: number, total: number) => void,
+  onProgress?: (completed: number, total: number) => void
 ) {
   const results = [];
 

@@ -58,13 +58,18 @@
     "prettier": "^3.0.0"
   },
   "lint-staged": {
-    "src/**/*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "tests/**/*.ts": [
+    "src/**/*.{ts,js}": [
       "prettier --write",
-      "vitest related --run"
+      "eslint --fix",
+      "git add"
+    ],
+    "tests/**/*.{ts,js}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "keywords": [

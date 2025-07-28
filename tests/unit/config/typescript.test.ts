@@ -5,21 +5,21 @@
  * are working correctly in the AgentStatic project.
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, it, expect } from 'vitest';
 
-describe("TypeScript Configuration", () => {
-  describe("Path Mapping", () => {
-    it("should resolve @/* paths correctly", async () => {
+describe('TypeScript Configuration', () => {
+  describe('Path Mapping', () => {
+    it('should resolve @/* paths correctly', async () => {
       // Test that TypeScript path mapping works
-      const partialModule = await import("@/types/partial.js");
+      const partialModule = await import('@/types/partial.js');
       expect(partialModule).toBeDefined();
-      expect(typeof partialModule.createPartialSchema).toBe("function");
+      expect(typeof partialModule.createPartialSchema).toBe('function');
     });
 
-    it("should resolve @/types/* paths correctly", async () => {
-      const partialTypes = await import("@/types/partial.js");
-      const contentTypes = await import("@/types/content.js");
-      const templateTypes = await import("@/types/template.js");
+    it('should resolve @/types/* paths correctly', async () => {
+      const partialTypes = await import('@/types/partial.js');
+      const contentTypes = await import('@/types/content.js');
+      const templateTypes = await import('@/types/template.js');
 
       expect(partialTypes).toBeDefined();
       expect(contentTypes).toBeDefined();
@@ -27,23 +27,23 @@ describe("TypeScript Configuration", () => {
     });
   });
 
-  describe("ES Modules", () => {
-    it("should support ES module imports", async () => {
+  describe('ES Modules', () => {
+    it('should support ES module imports', async () => {
       // Test that ES modules are working
-      const zod = await import("zod");
+      const zod = await import('zod');
       expect(zod.z).toBeDefined();
-      expect(typeof zod.z.object).toBe("function");
+      expect(typeof zod.z.object).toBe('function');
     });
 
-    it("should handle named imports correctly", async () => {
-      const { z } = await import("zod");
+    it('should handle named imports correctly', async () => {
+      const { z } = await import('zod');
       const schema = z.string();
-      expect(schema.parse("test")).toBe("test");
+      expect(schema.parse('test')).toBe('test');
     });
   });
 
-  describe("Strict Mode Compliance", () => {
-    it("should enforce strict null checks", () => {
+  describe('Strict Mode Compliance', () => {
+    it('should enforce strict null checks', () => {
       // This would fail compilation if strict mode wasn't enabled
       interface TestInterface {
         required: string;
@@ -51,7 +51,7 @@ describe("TypeScript Configuration", () => {
       }
 
       const testObj: TestInterface = {
-        required: "test",
+        required: 'test',
       };
 
       // TypeScript should know optional could be undefined
@@ -59,7 +59,7 @@ describe("TypeScript Configuration", () => {
       expect(result).toBeUndefined();
     });
 
-    it("should enforce exact optional property types", () => {
+    it('should enforce exact optional property types', () => {
       // exactOptionalPropertyTypes should be enabled
       interface ExactOptional {
         value?: string; // Cannot be undefined explicitly
@@ -72,9 +72,9 @@ describe("TypeScript Configuration", () => {
       expect(obj).toBeDefined();
     });
 
-    it("should enforce no unchecked indexed access", () => {
+    it('should enforce no unchecked indexed access', () => {
       // noUncheckedIndexedAccess should make array access potentially undefined
-      const arr = ["a", "b", "c"];
+      const arr = ['a', 'b', 'c'];
       const item = arr[10]; // Should be string | undefined
 
       // TypeScript should require null checking
@@ -83,17 +83,17 @@ describe("TypeScript Configuration", () => {
     });
   });
 
-  describe("Module System", () => {
-    it("should support Node.js 24 features", () => {
+  describe('Module System', () => {
+    it('should support Node.js 24 features', () => {
       // Test that we can use modern Node.js features
-      expect(typeof globalThis).toBe("object");
-      expect(process.version.startsWith("v")).toBe(true);
+      expect(typeof globalThis).toBe('object');
+      expect(process.version.startsWith('v')).toBe(true);
     });
 
-    it("should have correct import.meta support", () => {
+    it('should have correct import.meta support', () => {
       // ES modules should have import.meta
       expect(import.meta).toBeDefined();
-      expect(typeof import.meta.url).toBe("string");
+      expect(typeof import.meta.url).toBe('string');
     });
   });
 });

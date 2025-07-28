@@ -11,4 +11,4 @@
 // export * from './content-processor.js';   // Issue #11: Unified-Based Markdown Processing
 
 // Placeholder export to make this a module
-export const CORE_VERSION = "1.0.0";
+export const CORE_VERSION = '1.0.0';
