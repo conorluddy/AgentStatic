@@ -5,7 +5,10 @@
  * site settings, build options, and deployment targets.
  */
 
-import type { ContentDiscoveryConfig, ContentCollection } from '@/types/content';
+import type {
+  ContentDiscoveryConfig,
+  ContentCollection,
+} from '@/types/content';
 import type { CompositionContext } from '@/types/partial';
 import { z } from 'zod';
 

@@ -5,7 +5,11 @@
  * for testing content discovery, processing, and rendering workflows.
  */
 
-import type { ContentFile, ProcessedContent, Frontmatter } from '@/types/content';
+import type {
+  ContentFile,
+  ProcessedContent,
+  Frontmatter,
+} from '@/types/content';
 
 /**
  * Sample frontmatter configurations

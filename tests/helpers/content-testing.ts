@@ -588,7 +588,10 @@ export class ContentTestSuite {
     ContentDiscoveryTester.validateDiscoveryConfig(config);
 
     // Test reading time calculation
-    if (config.processingOptions?.calculateReadingTime && config.processingOptions?.wordsPerMinute) {
+    if (
+      config.processingOptions?.calculateReadingTime &&
+      config.processingOptions?.wordsPerMinute
+    ) {
       const readingTime = ContentDiscoveryTester.testReadingTimeCalculation(
         rawContent,
         config.processingOptions.wordsPerMinute
@@ -597,7 +600,10 @@ export class ContentTestSuite {
     }
 
     // Test excerpt generation
-    if (config.processingOptions?.generateExcerpt && config.processingOptions?.excerptLength) {
+    if (
+      config.processingOptions?.generateExcerpt &&
+      config.processingOptions?.excerptLength
+    ) {
       const excerpt = ContentDiscoveryTester.testExcerptGeneration(
         rawContent,
         config.processingOptions.excerptLength

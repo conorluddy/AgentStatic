@@ -194,7 +194,6 @@ export function createCustomMarkdownProcessor(
   // Add custom plugins
   for (const [plugin, options] of plugins) {
     if (options !== undefined) {
-       
       processor.use(plugin, options);
     } else {
       processor.use(plugin);
