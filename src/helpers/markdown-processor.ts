@@ -5,7 +5,7 @@
  * GitHub Flavored Markdown, and extensible plugin architecture.
  */
 
-import { unified } from "unified";
+import { unified, type Plugin } from "unified";
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
@@ -186,14 +186,19 @@ export function generateTableOfContents(
  * Create markdown processor with custom plugins
  */
 export function createCustomMarkdownProcessor(
-  plugins: Array<[unknown, unknown?]> = [],
+  plugins: Array<[Plugin<any[], any, any>, any?]> = [],
   config: Partial<MarkdownConfig> = {},
 ) {
   const processor = createMarkdownProcessor(config);
 
   // Add custom plugins
   for (const [plugin, options] of plugins) {
-    processor.use(plugin, options);
+    if (options !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      processor.use(plugin, options);
+    } else {
+      processor.use(plugin);
+    }
   }
 
   return processor;
