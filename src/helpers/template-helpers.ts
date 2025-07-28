@@ -5,9 +5,9 @@
  * within AgentStatic partial templates with proper TypeScript types.
  */
 
-import { format, formatDistanceToNow } from "date-fns";
-import { chunk, groupBy, sortBy } from "lodash-es";
-import type { TemplateHelpers } from "@/types/partial.js";
+import { format, formatDistanceToNow } from 'date-fns';
+import { chunk, groupBy, sortBy } from 'lodash-es';
+import type { TemplateHelpers } from '@/types/partial.js';
 
 /**
  * Create template helpers instance with context
@@ -18,7 +18,7 @@ export function createTemplateHelpers(context: {
 }): TemplateHelpers {
   return {
     // Date utilities powered by date-fns
-    formatDate: (date: Date, dateFormat = "PPP") => {
+    formatDate: (date: Date, dateFormat = 'PPP') => {
       return format(date, dateFormat);
     },
 
@@ -29,28 +29,28 @@ export function createTemplateHelpers(context: {
     // Content utilities
     truncate: (text: string, length: number) => {
       if (text.length <= length) return text;
-      return text.slice(0, length).trim() + "...";
+      return text.slice(0, length).trim() + '...';
     },
 
     slugify: (text: string) => {
       return text
         .toLowerCase()
         .trim()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/[\s_-]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
     },
 
     markdown: (content: string) => {
       // Basic markdown-to-HTML conversion
       // Full unified pipeline will be implemented in Issue #11
       return content
-        .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-        .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-        .replace(/^### (.*$)/gim, "<h3>$1</h3>")
-        .replace(/\*\*(.*)\*\*/gim, "<strong>$1</strong>")
-        .replace(/\*(.*)\*/gim, "<em>$1</em>")
-        .replace(/\n/gim, "<br>");
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*)\*/gim, '<em>$1</em>')
+        .replace(/\n/gim, '<br>');
     },
 
     // Asset utilities (Sharp integration will be implemented in Issue #13)
@@ -66,12 +66,12 @@ export function createTemplateHelpers(context: {
 
     // Lodash-es utilities (tree-shakable)
     chunk,
-    groupBy: groupBy as TemplateHelpers["groupBy"],
-    sortBy: sortBy as TemplateHelpers["sortBy"],
+    groupBy: groupBy as TemplateHelpers['groupBy'],
+    sortBy: sortBy as TemplateHelpers['sortBy'],
 
     // URL and navigation
     url: (path: string) => {
-      const cleanPath = path.startsWith("/") ? path : `/${path}`;
+      const cleanPath = path.startsWith('/') ? path : `/${path}`;
       return `${context.baseUrl}${cleanPath}`;
     },
 
@@ -86,7 +86,7 @@ export function createTemplateHelpers(context: {
     },
 
     conditionalClass: (condition: boolean, className: string) => {
-      return condition ? className : "";
+      return condition ? className : '';
     },
   };
 }
@@ -96,6 +96,6 @@ export function createTemplateHelpers(context: {
  * Uses sensible defaults for base URL and current path
  */
 export const defaultTemplateHelpers = createTemplateHelpers({
-  baseUrl: "",
-  currentPath: "/",
+  baseUrl: '',
+  currentPath: '/',
 });

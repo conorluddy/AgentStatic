@@ -5,13 +5,13 @@
  * GitHub Flavored Markdown, and extensible plugin architecture.
  */
 
-import { unified, type Plugin } from "unified";
-import remarkParse from "remark-parse";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import matter from "gray-matter";
+import { unified, type Plugin } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+import matter from 'gray-matter';
 
 /**
  * Markdown processing configuration
@@ -70,7 +70,7 @@ export function createMarkdownProcessor(config: Partial<MarkdownConfig> = {}) {
 
   // Add frontmatter support
   if (finalConfig.frontmatter) {
-    processor.use(remarkFrontmatter, ["yaml", "toml"]);
+    processor.use(remarkFrontmatter, ['yaml', 'toml']);
   }
 
   // Add GitHub Flavored Markdown
@@ -98,7 +98,7 @@ export const defaultMarkdownProcessor = createMarkdownProcessor();
  */
 export async function processMarkdown(
   content: string,
-  config: Partial<MarkdownConfig> = {},
+  config: Partial<MarkdownConfig> = {}
 ): Promise<ProcessedMarkdown> {
   const processor = createMarkdownProcessor(config);
 
@@ -109,7 +109,7 @@ export async function processMarkdown(
     excerpt,
   } = matter(content, {
     excerpt: true,
-    excerpt_separator: "<!-- more -->",
+    excerpt_separator: '<!-- more -->',
   });
 
   // Process markdown to HTML
@@ -126,7 +126,7 @@ export async function processMarkdown(
   return {
     html,
     frontmatter,
-    excerpt: excerpt || "",
+    excerpt: excerpt || '',
     readingTime,
     headings,
     wordCount: words,
@@ -151,8 +151,8 @@ function extractHeadings(content: string): Array<{
       const text = match[2].trim();
       const id = text
         .toLowerCase()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-");
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-');
 
       headings.push({ level, text, id });
     }
@@ -166,20 +166,20 @@ function extractHeadings(content: string): Array<{
  */
 export function generateTableOfContents(
   headings: Array<{ level: number; text: string; id: string }>,
-  maxLevel = 3,
+  maxLevel = 3
 ): string {
-  const filteredHeadings = headings.filter((h) => h.level <= maxLevel);
+  const filteredHeadings = headings.filter(h => h.level <= maxLevel);
 
   if (filteredHeadings.length === 0) {
-    return "";
+    return '';
   }
 
-  const tocItems = filteredHeadings.map((heading) => {
-    const indent = "  ".repeat(heading.level - 1);
+  const tocItems = filteredHeadings.map(heading => {
+    const indent = '  '.repeat(heading.level - 1);
     return `${indent}- [${heading.text}](#${heading.id})`;
   });
 
-  return tocItems.join("\n");
+  return tocItems.join('\n');
 }
 
 /**
@@ -187,14 +187,14 @@ export function generateTableOfContents(
  */
 export function createCustomMarkdownProcessor(
   plugins: Array<[Plugin<any[], any, any>, any?]> = [],
-  config: Partial<MarkdownConfig> = {},
+  config: Partial<MarkdownConfig> = {}
 ) {
   const processor = createMarkdownProcessor(config);
 
   // Add custom plugins
   for (const [plugin, options] of plugins) {
     if (options !== undefined) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+       
       processor.use(plugin, options);
     } else {
       processor.use(plugin);
@@ -209,7 +209,7 @@ export function createCustomMarkdownProcessor(
  */
 export function validateFrontmatter<T>(
   frontmatter: Record<string, unknown>,
-  validator: (data: unknown) => T,
+  validator: (data: unknown) => T
 ): { success: true; data: T } | { success: false; error: Error } {
   try {
     const data = validator(frontmatter);
