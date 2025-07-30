@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/conorluddy-agentstatic-badge.png)](https://mseep.ai/app/conorluddy-agentstatic)
+
 [![codecov](https://codecov.io/gh/conorluddy/AgentStatic/graph/badge.svg?token=Y1KI5CEQPR)](https://codecov.io/gh/conorluddy/AgentStatic)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/conorluddy/AgentStatic)
 
