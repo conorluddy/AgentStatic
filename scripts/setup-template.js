@@ -223,6 +223,9 @@ async function cleanupTemplateFiles() {
     'vitest.config.ts',
     'tsconfig.json', // Will create a template-specific one
     'eslint.config.js',
+    '.github/workflows/ci.yml', // Remove CI workflow from template repos
+    '.codecov.yml', // Remove Codecov config if present
+    'codecov.yml', // Alternative Codecov config location
     'tempPlanningDoc.md',
     'github-issues-breakdown.md',
     'navigation-architecture.md',

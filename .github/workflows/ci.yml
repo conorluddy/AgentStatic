@@ -8,6 +8,8 @@ on:
 
 jobs:
   test:
+    # Only run CI on the main AgentStatic repository, not on template-generated repos
+    if: github.repository == 'conorluddy/AgentStatic'
     runs-on: ubuntu-latest
     
     strategy:
@@ -52,6 +54,8 @@ jobs:
       run: npm run build
 
   build-types:
+    # Only run CI on the main AgentStatic repository, not on template-generated repos
+    if: github.repository == 'conorluddy/AgentStatic'
     runs-on: ubuntu-latest
     needs: test
     
