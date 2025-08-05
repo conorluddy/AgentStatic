@@ -4,86 +4,62 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Pages Ready](https://img.shields.io/badge/GitHub%20Pages-Ready-green)](https://pages.github.com/)
-[![codecov](https://codecov.io/gh/conorluddy/AgentStatic/graph/badge.svg?token=YOUR_TOKEN)](https://codecov.io/gh/conorluddy/AgentStatic)
+[![Template](https://img.shields.io/badge/GitHub-Template%20Repository-success)](https://github.com/conorluddy/AgentStatic/generate)
+[![Tests Passing](https://img.shields.io/badge/Tests-19%20passing-brightgreen)](https://github.com/conorluddy/AgentStatic/actions)
 
-> **AI-Native Static Site Generator with TypeScript-First Templating**  
-> Create beautiful static sites in < 2 minutes with automatic GitHub Pages deployment
+> **Production-Ready GitHub Template Repository**  
+> Create professional static sites in < 5 minutes with automatic GitHub Pages deployment
 
-## ✨ Quick Start - Use This Template
+## ✨ Use This Template Now
 
-**[📋 Use This Template](https://github.com/conorluddy/AgentStatic/generate)** ← Click here to create your site!
+**[📋 Use This Template](https://github.com/conorluddy/AgentStatic/generate)** ← Click to create your site instantly!
 
-1. **Click "Use this template"** → GitHub creates your repository
-2. **Wait ~2 minutes** → Automatic setup runs and configures everything
-3. **Your site is live!** → Available at `https://yourusername.github.io/yoursite`
-4. **Clone and customize** → Start editing content in `content/` directory
+### What Happens When You Click "Use This Template"
 
-## 🎯 What You Get Instantly
+1. **GitHub creates your new repository** from this working template
+2. **Automatic setup workflow runs** (< 2 minutes) that:
+   - Configures your site with your repository details
+   - Sets up sample content structure
+   - Creates a welcome issue with next steps
+   - Prepares GitHub Pages deployment
+3. **Manual step: Enable GitHub Pages** (one-time, 30 seconds):
+   - Go to Settings → Pages
+   - Under "Source", select "GitHub Actions"
+   - Click Save
+4. **Push to main branch** → Your site deploys automatically!
+5. **Your site is live** at `https://yourusername.github.io/yourrepo`
 
-- ✅ **Professional static site** deployed to GitHub Pages automatically
-- ✅ **Sample content structure** (homepage, about, blog posts) ready to customize
-- ✅ **Responsive design** with modern CSS and mobile optimization
-- ✅ **SEO optimized** with meta tags, Open Graph, and automatic sitemaps
-- ✅ **TypeScript-first development** with zero-configuration setup
-- ✅ **Hot reload development** server for rapid iteration
-- ✅ **Quality gates** with pre-commit hooks and automated testing
+Total time: **< 5 minutes** including the manual Pages setup
 
-## 🏗️ Architecture Overview
+## 🎯 What's Working Today
 
-AgentStatic is designed as a **GitHub Template Repository** that combines modern static site generation with AI-native capabilities (coming soon). Perfect for:
+### ✅ Fully Functional Features
 
-- 📸 **Photography Portfolios** - Advanced media handling and galleries
-- 💻 **Developer Blogs** - Code showcases with syntax highlighting  
-- 🏢 **Agency Websites** - Professional sites with custom branding
-- 📚 **Documentation Sites** - Technical content with navigation
-- 🎨 **Creative Showcases** - Art, design, and multimedia portfolios
+- **GitHub Template Repository** - One-click setup with automatic configuration
+- **Automatic Setup Workflow** - Configures your repository on creation
+- **GitHub Pages Deployment** - Push to main = instant deployment
+- **TypeScript-First Development** - Write custom partials with full type safety
+- **Sample Content Structure** - Homepage, about page, and blog post ready to edit
+- **Clean Development Environment** - ESLint + Prettier configured
+- **Professional Demo Site** - See it live at [conorluddy.github.io/AgentStatic](https://conorluddy.github.io/AgentStatic)
 
-## 🚀 Working Features ✅
+### 🚧 In Active Development
 
-### Core Static Site Generation
-- **Markdown-based content** with YAML frontmatter
-- **Template system** with TypeScript partial components  
-- **Asset optimization** with Sharp image processing
-- **GitHub Pages deployment** with automated workflows
-- **SEO optimization** with structured meta tags and sitemaps
+- **Core Static Site Engine** - Markdown processing pipeline (Issues #7-#15)
+- **Partial System** - Component-based templating
+- **Asset Optimization** - Image processing with Sharp
+- **Development Server** - Hot reload for rapid development
 
-### Development Experience  
-- **TypeScript-first** with strict typing and zero `any` policy
-- **Zod schema validation** for runtime and compile-time safety
-- **ESBuild** for lightning-fast builds (< 100ms)
-- **Vitest** testing framework with 90%+ coverage requirements
-- **ESLint + Prettier** with automated formatting
+### 📋 Planned Features
 
-### Template Repository Features
-- **Automatic setup** workflow that customizes new repositories
-- **Sample content** with professional homepage, about, and blog post
-- **Configuration templates** with variable replacement
-- **Welcome documentation** created automatically for new users
-- **GitHub Actions** pre-configured for continuous deployment
+- **MCP Integration** - AI-powered content generation via Model Context Protocol
+- **Advanced Media Handling** - Galleries, lazy loading, responsive images
+- **Multi-theme Support** - Swappable visual themes
+- **Plugin Marketplace** - Extend with community plugins
 
-## 🚧 Planned Features (Roadmap)
+## 🏗️ Project Structure
 
-### Phase 2: Core CMS Engine (In Progress)
-- [ ] Partial registry and discovery system
-- [ ] Dynamic content processing pipeline  
-- [ ] Template composition engine
-- [ ] File watching and hot reload
-
-### Phase 3: AI Integration (Planned)
-- [ ] **Model Context Protocol (MCP)** plugin architecture
-- [ ] AI-powered content generation and optimization
-- [ ] Natural language templating
-- [ ] Intelligent image processing and SEO
-
-### Phase 4: Advanced Features (Planned)
-- [ ] Multi-theme support
-- [ ] Advanced gallery systems
-- [ ] E-commerce integrations
-- [ ] Multi-language support
-
-## 📁 Project Structure
-
-When you use this template, your repository will contain:
+When you use this template, your repository will have:
 
 ```
 your-site/
@@ -91,205 +67,294 @@ your-site/
 │   ├── pages/           # Static pages (index.md, about.md)
 │   └── posts/           # Blog posts
 ├── assets/              # Images, videos, media files
-├── site.config.json     # Site configuration
+├── src/                 # TypeScript development
+│   └── partials/        # Custom components (TypeScript-first)
 ├── scripts/             # Build and deployment scripts
-└── .github/workflows/   # GitHub Actions for deployment
+├── site.config.json     # Site configuration
+└── package.json         # Dependencies and scripts
 ```
 
-## ⚙️ Configuration
+## 🚀 Quick Start Guide
 
-Edit `site.config.json` to customize your site:
+### Step 1: Create Your Repository
 
-```json
-{
-  "site": {
-    "title": "My AgentStatic Site",
-    "description": "A beautiful static site powered by AgentStatic",
-    "url": "https://yourusername.github.io/yoursite",
-    "author": {
-      "name": "Your Name",
-      "email": "you@example.com"
-    }
-  },
-  "build": {
-    "outputDir": "dist",
-    "optimizeImages": true,
-    "generateSitemap": true
-  }
-}
+1. Click **[Use This Template](https://github.com/conorluddy/AgentStatic/generate)**
+2. Name your repository (e.g., "my-portfolio" or "company-blog")
+3. Make it public (required for free GitHub Pages hosting)
+4. Click "Create repository from template"
+
+### Step 2: Wait for Automatic Setup
+
+Watch the Actions tab - a workflow will:
+- Configure your site with your repository details
+- Set up the content structure
+- Create a welcome issue with instructions
+- Prepare for GitHub Pages deployment
+
+This takes about 2 minutes.
+
+### Step 3: Enable GitHub Pages (One-Time Setup)
+
+**Important**: This manual step is required once per repository:
+
+1. Go to your repository's **Settings** tab
+2. Scroll down to **Pages** section (left sidebar)
+3. Under **Source**, select **"GitHub Actions"**
+4. Click **Save**
+
+That's it! This tells GitHub to use our deployment workflow.
+
+### Step 4: Clone and Customize
+
+```bash
+# Clone your new repository
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+
+# Install dependencies
+npm install
+
+# Start development (coming soon - for now, edit directly)
+# npm run dev
+
+# Make changes to content/ and push
+git add .
+git commit -m "Update content"
+git push origin main
 ```
 
-## 🎨 Content Management
+### Step 5: Your Site is Live!
+
+After pushing to main, check the Actions tab. Once the deployment workflow completes:
+- Visit `https://YOUR_USERNAME.github.io/YOUR_REPO`
+- Your professional static site is live!
+
+## 📝 Content Management
+
+Edit Markdown files in the `content/` directory:
 
 ### Pages
-Edit files in `content/pages/` to update static pages:
-- `index.md` - Homepage content
-- `about.md` - About page
+- `content/pages/index.md` - Your homepage
+- `content/pages/about.md` - About page
 - Add more `.md` files for additional pages
 
 ### Blog Posts
-Add new blog posts in `content/posts/`:
+Create posts in `content/posts/`:
 ```markdown
 ---
-title: "My New Post"
+title: "My First Post"
 date: 2024-01-15
 tags: ["web", "development"]
+description: "Welcome to my new blog"
 ---
 
 Your blog post content here...
 ```
 
-### Assets
-Place images and media in `assets/` directory. They'll be automatically optimized during build.
+### Site Configuration
+Edit `site.config.json`:
+```json
+{
+  "site": {
+    "title": "My AgentStatic Site",
+    "description": "A beautiful static site",
+    "author": {
+      "name": "Your Name",
+      "email": "you@example.com"
+    }
+  }
+}
+```
 
-## 🚀 Development
+## 🛠️ Development
 
-### Local Development
+### TypeScript-First Approach
+
+This template includes a TypeScript development environment:
+
+```typescript
+// src/partials/custom-hero.ts
+export const customHero = {
+  name: 'custom-hero',
+  category: 'layout',
+  description: 'My custom hero section',
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional()
+  }),
+  template: (props, helpers) => {
+    return `<div class="hero">
+      <h1>${props.title}</h1>
+      ${props.subtitle ? `<p>${props.subtitle}</p>` : ''}
+    </div>`;
+  }
+};
+```
+
+### Available Scripts
+
+- `npm run type-check` - Check TypeScript types
+- `npm run lint` - Run ESLint
+- `npm run format` - Format with Prettier
+- `npm run build:pages` - Build demo site (development only)
+
+## 🆚 Why Choose AgentStatic?
+
+| Feature | AgentStatic | Jekyll | Hugo | Gatsby |
+|---------|-------------|--------|------|--------|
+| **Setup Time** | < 5 minutes | ~20 minutes | ~15 minutes | ~30 minutes |
+| **GitHub Template** | ✅ One-click | ❌ Manual | ❌ Manual | ❌ Manual |
+| **TypeScript-First** | ✅ Native | ❌ No | ❌ No | 🔧 Config needed |
+| **Automatic Deploy** | ✅ Built-in | 🔧 Config | 🔧 Config | 🔧 Complex |
+| **AI-Ready (MCP)** | 🚧 Coming | ❌ No | ❌ No | ❌ No |
+| **Zero Config** | ✅ Yes | ❌ No | ❌ No | ❌ No |
+
+## 🎯 Perfect For
+
+- **Developers** - TypeScript-first with professional tooling
+- **Photographers** - Portfolio-ready with image optimization (coming soon)
+- **Bloggers** - Clean, fast, SEO-optimized blogs
+- **Agencies** - Quick client sites with custom branding
+- **Documentation** - Technical docs with great navigation (coming soon)
+
+## ❓ Troubleshooting
+
+### GitHub Pages Not Working?
+
+1. **Did you enable GitHub Pages?**
+   - Settings → Pages → Source: "GitHub Actions" → Save
+   - This is a one-time manual step
+
+2. **Check Actions tab**
+   - Look for the "Deploy to GitHub Pages" workflow
+   - It should run after each push to main
+   - Check for any error messages
+
+3. **Repository must be public**
+   - Free GitHub Pages requires public repositories
+   - Or have GitHub Pro for private repos
+
+### Template Setup Issues?
+
+1. **Check the Actions tab**
+   - "Template Repository Setup" workflow should run automatically
+   - Look for any errors in the logs
+
+2. **Welcome issue not created?**
+   - The setup workflow creates this automatically
+   - If missing, the setup may have failed - check Actions logs
+
+3. **Can I run setup manually?**
+   ```bash
+   npm install
+   node scripts/setup-template.js
+   ```
+
+## 🤝 Contributing
+
+We welcome contributions! AgentStatic is in active development:
+
+### Current Focus Areas
+
+1. **Core Engine** (Issues #7-#15) - Help build the static site generator
+2. **Documentation** - Improve guides and examples
+3. **Templates** - Create beautiful themes
+4. **Testing** - Increase test coverage
+
+### Development Setup
+
 ```bash
-# Clone your template repository
-git clone https://github.com/yourusername/your-site.git
-cd your-site
+# Clone the main repository (not a template)
+git clone https://github.com/conorluddy/AgentStatic.git
+cd AgentStatic
 
 # Install dependencies
 npm install
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
-### Available Scripts
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build static site for production
-- `npm run build:pages` - Build and deploy to GitHub Pages
-- `npm run test` - Run test suite
-- `npm run lint` - Check code quality
-
-## 🆚 Why AgentStatic?
-
-| Feature | AgentStatic | Gatsby | Next.js | Hugo |
-|---------|-------------|--------|---------|------|
-| **Setup Time** | < 2 minutes | ~30 minutes | ~15 minutes | ~10 minutes |
-| **TypeScript-First** | ✅ Built-in | 🔧 Setup required | ✅ Built-in | ❌ Not supported |
-| **AI-Native** | 🚧 Coming Soon | ❌ Plugin only | ❌ Custom only | ❌ Not supported |
-| **Zero Config Deployment** | ✅ GitHub Actions | 🔧 Setup required | 🔧 Setup required | 🔧 Setup required |
-| **Template Repository** | ✅ One-click | ❌ Manual setup | ❌ Manual setup | ❌ Manual setup |
-| **Creative Professional Focus** | ✅ Built for portfolios | 🔧 Requires plugins | 🔧 Custom development | 🔧 Limited themes |
-
-## 🎯 Use Cases
-
-### For Photographers
-- **High-resolution galleries** with lazy loading and lightbox
-- **EXIF data preservation** and display
-- **Multiple format support** (WebP, AVIF auto-generation)
-- **Mobile-responsive** image serving
-
-### For Developers  
-- **Code syntax highlighting** for 20+ languages
-- **GitHub integration** for project showcases
-- **Technical documentation** with auto-generated navigation
-- **Performance optimized** with sub-100ms builds
-
-### For Agencies
-- **Custom branding** with flexible theming
-- **Client portfolio** management
-- **SEO optimization** built-in
-- **Professional deployment** pipeline
-
-## 🛠️ Development Roadmap
-
-### ✅ Phase 1: Template Foundation (Complete)
-- GitHub Template Repository setup
-- Basic static site generation
-- GitHub Pages deployment automation
-- TypeScript-first development environment
-- Quality gates and testing infrastructure
-
-### 🚧 Phase 2: Core Engine (In Progress - Issues #7-#15)
-- Partial registry and discovery system
-- Content processing pipeline  
-- Template composition engine
-- Development server with hot reload
-
-### 📋 Phase 3: MCP Integration (Planned - Issues #16-#25)
-- Model Context Protocol server implementation
-- AI-powered partial composition
-- Natural language templating
-- Intelligent content optimization
-
-### 🔮 Phase 4: Advanced Features (Future)
-- Multi-site management
-- E-commerce integration
-- Advanced analytics
-- Plugin marketplace
-
-## 🤝 Contributing
-
-We welcome contributions! This project follows a structured development approach:
-
-### For Template Users
-- **Report issues** with template setup or deployment
-- **Request features** for better static site generation
-- **Share examples** of sites built with AgentStatic
-
-### For Developers  
-- **Check open issues** for areas needing help
-- **Follow TypeScript strict mode** (zero `any` types)
-- **Add tests** for new functionality (90%+ coverage)
-- **Use conventional commits** for PR organization
-
-### Development Setup
-```bash
-git clone https://github.com/conorluddy/AgentStatic.git
-cd AgentStatic
-npm install
-npm run dev
+# Run tests
 npm test
+
+# Type checking
+npm run type-check
 ```
+
+### Contribution Guidelines
+
+- Follow TypeScript strict mode (no `any` types)
+- Add tests for new features (90%+ coverage target)
+- Use conventional commits
+- Update documentation
 
 ## 📊 Project Status
 
-- **Template Repository**: ✅ Production Ready
-- **Static Site Generation**: ✅ Working  
-- **GitHub Pages Deployment**: ✅ Automated
-- **TypeScript Foundation**: ✅ Complete
-- **Testing Infrastructure**: ✅ 19 tests passing
-- **Core CMS Engine**: 🚧 In Development (Issues #7-#15)
-- **MCP Integration**: 📋 Planned (Issues #16-#25)
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Template Repository | ✅ **Production Ready** | Fully functional, well-tested |
+| GitHub Actions | ✅ **Working** | Automatic setup and deployment |
+| TypeScript Setup | ✅ **Complete** | Strict mode, zero `any` policy |
+| Sample Content | ✅ **Included** | Ready to customize |
+| Core Engine | 🚧 **In Development** | Markdown processing pipeline |
+| MCP Integration | 📋 **Planned** | AI-powered features coming |
+
+## 🌟 Examples & Showcase
+
+Built something with AgentStatic? We'd love to see it!
+
+- Submit a PR adding your site to this list
+- Use the `#agentstatic` tag on social media
+- Share in our [GitHub Discussions](https://github.com/conorluddy/AgentStatic/discussions)
 
 ## 📚 Documentation
 
-- **[Getting Started](./docs/getting-started.md)** - Complete setup guide
-- **[Template Development](./docs/templates.md)** - Creating custom templates  
-- **[Content Management](./docs/content.md)** - Working with Markdown and assets
-- **[Deployment Guide](./docs/deployment.md)** - GitHub Pages and other platforms
+- **[Getting Started](./docs/getting-started.md)** - Detailed setup guide
+- **[Template Development](./docs/templates.md)** - Create custom templates
+- **[Deployment Guide](./docs/deployment.md)** - Platform-specific deployment
 - **[Contributing](./CONTRIBUTING.md)** - Development guidelines
-- **[Roadmap](./docs/roadmap.md)** - Future feature plans
+- **[Architecture](./TEMPLATE_ARCHITECTURE.md)** - Technical deep dive
 
-## 🌟 Community
+## 🚀 Roadmap
 
-- **[GitHub Discussions](https://github.com/conorluddy/AgentStatic/discussions)** - Community support
-- **[Issues](https://github.com/conorluddy/AgentStatic/issues)** - Bug reports and feature requests
-- **[Examples](https://github.com/topics/agentstatic)** - Sites built with AgentStatic
+### Q1 2024 (Current)
+- ✅ GitHub Template Repository
+- ✅ Automatic setup workflow
+- 🚧 Core static site engine
+- 🚧 Markdown processing
+
+### Q2 2024
+- 📋 MCP plugin architecture
+- 📋 AI content generation
+- 📋 Advanced media handling
+- 📋 Theme marketplace
+
+### Q3 2024
+- 📋 Multi-language support
+- 📋 E-commerce features
+- 📋 Advanced analytics
+- 📋 CDN integration
 
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🎉 Acknowledgments
+## 🙏 Acknowledgments
 
 Built with modern web technologies:
 - **[TypeScript](https://www.typescriptlang.org/)** - Type-safe development
-- **[Zod](https://zod.dev/)** - Schema validation
-- **[Sharp](https://sharp.pixelplumbing.com/)** - Image optimization  
+- **[Zod](https://zod.dev/)** - Runtime validation
+- **[Sharp](https://sharp.pixelplumbing.com/)** - Image processing
 - **[Unified](https://unifiedjs.com/)** - Markdown processing
 - **[Vitest](https://vitest.dev/)** - Testing framework
-- **[ESBuild](https://esbuild.github.io/)** - Fast bundling
+
+Special thanks to the open source community and early adopters testing AgentStatic!
 
 ---
 
-**Ready to build your site?** **[📋 Use This Template](https://github.com/conorluddy/AgentStatic/generate)**
+<div align="center">
 
-*AgentStatic - Where AI meets static site generation* ✨
+**Ready to build your site?** 
+
+**[📋 Use This Template](https://github.com/conorluddy/AgentStatic/generate)**
+
+*AgentStatic - Where static sites meet AI innovation* ✨
+
+</div>
