@@ -164,30 +164,22 @@ jobs:
       with:
         script: |
           try {
-            // Create Pages site with Actions deployment
+            // Create Pages site with Actions deployment (no source needed for workflow type)
             await github.rest.repos.createPagesSite({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              build_type: 'workflow',
-              source: {
-                branch: 'main',
-                path: '/'
-              }
+              build_type: 'workflow'
             });
             console.log('✅ GitHub Pages enabled with Actions deployment');
           } catch (error) {
             if (error.status === 409) {
               console.log('ℹ️ GitHub Pages already exists, updating to use Actions deployment');
               try {
-                // Update existing Pages to use Actions deployment
+                // Update existing Pages to use Actions deployment (no source for workflow type) 
                 await github.rest.repos.updateInformationAboutPagesSite({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  build_type: 'workflow',
-                  source: {
-                    branch: 'main',
-                    path: '/'
-                  }
+                  build_type: 'workflow'
                 });
                 console.log('✅ Updated Pages to use Actions deployment');
               } catch (updateError) {

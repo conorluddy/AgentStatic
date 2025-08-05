@@ -290,6 +290,40 @@ export const siteName = '${repositoryName}';
   await writeFile(join(rootDir, 'src/index.ts'), placeholderContent);
   console.log('✅ Created src/ directory with TypeScript placeholder');
   
+  // Create ESLint config for template sites
+  const eslintConfig = `import eslint from '@eslint/js';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
+
+export default [
+  eslint.configs.recommended,
+  {
+    files: ['**/*.ts', '**/*.js'],
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 2023,
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'no-console': 'off', // Allow console for build scripts
+    },
+  },
+  {
+    ignores: ['node_modules/**', 'dist/**', 'build/**', 'pages-dist/**', 'content/**'],
+  },
+];
+`;
+  
+  await writeFile(join(rootDir, 'eslint.config.js'), eslintConfig);
+  console.log('✅ Created eslint.config.js');
+  
   // Create a simple build script for the site
   const buildScript = `#!/usr/bin/env node
 
