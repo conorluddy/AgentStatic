@@ -213,13 +213,13 @@ async function cleanupTemplateFiles() {
   
   const filesToRemove = [
     'template',
-    'src', // Remove the library source since this is now a site
+    'src', // Remove library source (will create new template-specific src/)
     'tests',
     'coverage',
     'dist',
     'esbuild.config.ts',
     'vitest.config.ts',
-    'tsconfig.json', // Will create a simpler one for the site
+    'tsconfig.json', // Will create a template-specific one
     'eslint.config.js',
     'tempPlanningDoc.md',
     'github-issues-breakdown.md',
@@ -240,7 +240,7 @@ async function cleanupTemplateFiles() {
 async function createWelcomeFiles() {
   console.log('📝 Creating welcome files...');
   
-  // Create a simple tsconfig for the site
+  // Create TypeScript config for template sites (TypeScript-first but with flexible includes)
   const tsConfig = {
     compilerOptions: {
       target: 'ES2023',
@@ -251,14 +251,44 @@ async function createWelcomeFiles() {
       esModuleInterop: true,
       allowSyntheticDefaultImports: true,
       skipLibCheck: true,
-      forceConsistentCasingInFileNames: true
+      forceConsistentCasingInFileNames: true,
+      allowJs: true,
+      noEmit: true
     },
-    include: ['src/**/*'],
-    exclude: ['node_modules', 'dist', 'build']
+    include: [
+      'scripts/**/*',
+      'src/**/*',  // For future custom partials/components
+      '*.js', 
+      '*.ts'
+    ],
+    exclude: ['node_modules', 'dist', 'build', 'pages-dist', 'content/**/*']
   };
   
   await writeFile(join(rootDir, 'tsconfig.json'), JSON.stringify(tsConfig, null, 2));
   console.log('✅ Created tsconfig.json');
+  
+  // Create basic src directory structure for TypeScript-first development
+  await mkdir(join(rootDir, 'src'), { recursive: true });
+  await mkdir(join(rootDir, 'src/partials'), { recursive: true });
+  
+  // Create placeholder TypeScript file so type-check doesn't fail
+  const placeholderContent = `/**
+ * Custom partials and components for your AgentStatic site
+ * 
+ * This directory is for TypeScript-first development of custom partials,
+ * components, and site-specific functionality.
+ */
+
+// Example custom partial (you can delete this)
+export const siteName = '${repositoryName}';
+
+// TODO: Add your custom partials and components here
+// Example:
+// export const customHero: AgentPartial<{title: string}> = { ... }
+`;
+  
+  await writeFile(join(rootDir, 'src/index.ts'), placeholderContent);
+  console.log('✅ Created src/ directory with TypeScript placeholder');
   
   // Create a simple build script for the site
   const buildScript = `#!/usr/bin/env node
