@@ -15,6 +15,7 @@
     "dev": "tsx watch src/dev/server.ts",
     "build": "tsx esbuild.config.ts prod",
     "build:types": "tsc --emitDeclarationOnly",
+    "build:pages": "node scripts/build-pages.js",
     "test": "vitest --run",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --run --coverage",
@@ -24,7 +25,9 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write src tests",
     "format:check": "prettier --check src tests",
-    "clean": "rm -rf dist coverage",
+    "clean": "rm -rf dist coverage pages-dist",
+    "template:setup": "node scripts/setup-template.js",
+    "pages:preview": "cd pages-dist && python -m http.server 8080",
     "prepare": "husky"
   },
   "dependencies": {

@@ -1,0 +1,99 @@
+# GitHub Template Repository Configuration
+# This file configures the template repository behavior for AgentStatic
+
+# Template metadata
+name: "AgentStatic"
+description: "AI-Native Static Site Generator with TypeScript-first templating and MCP integration"
+homepage: "https://conorluddy.github.io/AgentStatic"
+topics:
+  - static-site-generator
+  - typescript
+  - ai-native
+  - mcp
+  - portfolio
+  - cms
+  - partials
+  - zod
+
+# Template configuration
+template:
+  # Files to exclude when creating from template
+  exclude:
+    - ".github/workflows/ci.yml"
+    - "coverage/**"
+    - "dist/**" 
+    - "node_modules/**"
+    - "*.log"
+    - ".agentstatic-initialized"
+    - "tempPlanningDoc.md"
+    - "github-issues-breakdown.md"
+    - "navigation-architecture.md"
+    - "quality-gates.md"
+    - "AGENTS.md"
+  
+  # Files to include (overrides exclude for specific files)
+  include:
+    - ".github/workflows/pages-deploy.yml"
+    - ".github/workflows/template-setup.yml"
+    - "template/**"
+    - "scripts/**"
+    - "README.md"
+    - "LICENSE"
+    - "package.json"
+
+# Auto-setup configuration
+setup:
+  # Run template setup on repository creation
+  auto_setup: true
+  
+  # GitHub Apps permissions needed for setup
+  permissions:
+    contents: write
+    actions: write
+    pages: write
+    issues: write
+
+# Template categories and use cases
+categories:
+  primary: "Static Site Generator"
+  secondary:
+    - "Portfolio"
+    - "Blog"
+    - "Documentation"
+    - "Photography"
+    - "Agency"
+
+# Default repository settings for new template instances
+repository_settings:
+  # Enable GitHub Pages by default
+  pages:
+    enabled: true
+    source: "actions"
+    
+  # Enable issues and wiki
+  has_issues: true
+  has_wiki: true
+  has_projects: false
+  
+  # Default branch protection (will be applied by setup workflow)
+  branch_protection:
+    main:
+      enforce_admins: false
+      required_status_checks:
+        strict: true
+        contexts: ["build"]
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+      restrictions: null
+
+# Success metrics and tracking
+analytics:
+  # Track template usage (anonymized)
+  track_usage: true
+  
+  # Success indicators
+  success_indicators:
+    - "First successful build"
+    - "First GitHub Pages deployment"
+    - "Content customization"
+    - "Template configuration changes"
