@@ -219,6 +219,7 @@ async function cleanupTemplateFiles() {
     'tests',
     'coverage',
     'dist',
+    '.husky', // Remove git hooks - template sites don't need pre-commit validation
     'esbuild.config.ts',
     'vitest.config.ts',
     'tsconfig.json', // Will create a template-specific one
