@@ -80,10 +80,6 @@ jobs:
             await github.rest.repos.createPagesSite({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              source: {
-                branch: 'main',
-                path: '/'
-              },
               build_type: 'workflow'
             });
             console.log('✅ GitHub Pages site created with Actions deployment');
@@ -95,11 +91,7 @@ jobs:
                 await github.rest.repos.updateInformationAboutPagesSite({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  build_type: 'workflow',
-                  source: {
-                    branch: 'main',
-                    path: '/'
-                  }
+                  build_type: 'workflow'
                 });
                 console.log('✅ Updated Pages to use GitHub Actions deployment');
               } catch (updateError) {
