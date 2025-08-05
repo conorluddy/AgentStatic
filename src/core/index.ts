@@ -5,8 +5,10 @@
  * templating system with TypeScript and Zod integration.
  */
 
+// Issue #7: Partial Registry & Discovery System (IMPLEMENTED)
+export { PartialRegistrySystem } from './partial-registry.js';
+
 // Will be implemented in subsequent issues
-// export * from './partial-engine.js';      // Issue #7: Partial Registry & Discovery System
 // export * from './schema-registry.js';     // Issue #11: Unified-Based Markdown Processing
 // export * from './content-processor.js';   // Issue #11: Unified-Based Markdown Processing
 
