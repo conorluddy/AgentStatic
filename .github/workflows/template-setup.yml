@@ -158,25 +158,44 @@ jobs:
           *This issue was automatically created by the AgentStatic template setup. You can safely close it once you've reviewed the setup.*`
           })
 
-    - name: Enable GitHub Pages
+    - name: Enable GitHub Pages with Actions deployment
       if: steps.check-setup.outputs.setup_needed == 'true'
       uses: actions/github-script@v7
       with:
         script: |
           try {
+            // Create Pages site with Actions deployment
             await github.rest.repos.createPagesSite({
               owner: context.repo.owner,
               repo: context.repo.repo,
+              build_type: 'workflow',
               source: {
                 branch: 'main',
                 path: '/'
               }
             });
-            console.log('GitHub Pages enabled successfully');
+            console.log('✅ GitHub Pages enabled with Actions deployment');
           } catch (error) {
             if (error.status === 409) {
-              console.log('GitHub Pages already enabled');
+              console.log('ℹ️ GitHub Pages already exists, updating to use Actions deployment');
+              try {
+                // Update existing Pages to use Actions deployment
+                await github.rest.repos.updateInformationAboutPagesSite({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  build_type: 'workflow',
+                  source: {
+                    branch: 'main',
+                    path: '/'
+                  }
+                });
+                console.log('✅ Updated Pages to use Actions deployment');
+              } catch (updateError) {
+                console.log('⚠️ Could not update Pages config:', updateError.message);
+                console.log('Manual setup required: Go to Settings > Pages and select "GitHub Actions" as source');
+              }
             } else {
-              console.log('Error enabling GitHub Pages:', error.message);
+              console.log('❌ Error enabling GitHub Pages:', error.message);
+              console.log('Manual setup required: Enable Pages in repository settings');
             }
           }
