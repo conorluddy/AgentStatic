@@ -186,7 +186,7 @@ export function generateTableOfContents(
  * Create markdown processor with custom plugins
  */
 export function createCustomMarkdownProcessor(
-  plugins: Array<[Plugin<any[], any, any>, any?]> = [],
+  plugins: Array<[Plugin<unknown[], unknown, unknown>, unknown]> = [],
   config: Partial<MarkdownConfig> = {}
 ) {
   const processor = createMarkdownProcessor(config);
