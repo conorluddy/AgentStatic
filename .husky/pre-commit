@@ -25,15 +25,32 @@ if [ $? -ne 0 ]; then
 fi
 echo "✅ ESLint passed with zero warnings!"
 
-# Format Check: Prettier must pass
-echo "⚡ Checking code formatting with Prettier..."
-npm run format:check
+# Lint-staged: Format and lint staged files first
+echo "⚡ Running lint-staged on changed files (format + lint)..."
+npx lint-staged
 if [ $? -ne 0 ]; then
-  echo "❌ Code formatting issues found!"
-  echo "💡 Hint: Run 'npm run format' to auto-format your code."
+  echo "❌ Lint-staged checks failed on staged files!"
+  echo "💡 Hint: This usually means formatting or linting failed. Check the output above."
   exit 1
 fi
-echo "✅ Code formatting is correct!"
+echo "✅ Lint-staged checks passed!"
+
+# Format Check: Verify all staged files are properly formatted
+echo "⚡ Verifying code formatting on staged files..."
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|js|json|md)$' || true)
+if [ -n "$STAGED_FILES" ]; then
+  echo "Verifying formatting for staged files: $STAGED_FILES"
+  npx prettier --check $STAGED_FILES
+  if [ $? -ne 0 ]; then
+    echo "❌ Code formatting verification failed!"
+    echo "💡 This should not happen after lint-staged. There may be a configuration issue."
+    echo "💡 Try running: npm run format && git add ."
+    exit 1
+  fi
+  echo "✅ Code formatting verification passed!"
+else
+  echo "✅ No relevant staged files to verify formatting for."
+fi
 
 # Unit Tests: Must pass with <30s timeout
 echo "⚡ Running unit tests (30s timeout)..."
@@ -97,14 +114,7 @@ else
 fi
 rm -f /tmp/coverage-output.txt
 
-# Lint-staged: Run on staged files only
-echo "⚡ Running lint-staged on changed files..."
-npx lint-staged
-if [ $? -ne 0 ]; then
-  echo "❌ Lint-staged checks failed on staged files!"
-  exit 1
-fi
-echo "✅ Lint-staged checks passed!"
+# Note: lint-staged already ran earlier in the process
 
 echo "🎉 All pre-commit checks passed! Proceeding with commit..."
 echo ""

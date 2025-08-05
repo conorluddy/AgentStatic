@@ -5,7 +5,7 @@
  * Zod schema validation for AI-readable, type-safe partials.
  */
 
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * Template helper functions available within partial templates
@@ -28,7 +28,7 @@ export interface TemplateHelpers {
   chunk: <T>(array: T[], size: number) => T[][];
   groupBy: <T>(
     array: T[],
-    predicate: string | ((item: T) => unknown),
+    predicate: string | ((item: T) => unknown)
   ) => Record<string, T[]>;
   sortBy: <T>(array: T[], predicate: string | ((item: T) => unknown)) => T[];
 
@@ -48,8 +48,8 @@ export interface ImageOptimizeOptions {
   width?: number;
   height?: number;
   quality?: number;
-  format?: "webp" | "avif" | "jpeg" | "png";
-  fit?: "cover" | "contain" | "fill" | "inside" | "outside";
+  format?: 'webp' | 'avif' | 'jpeg' | 'png';
+  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
 }
 
 /**
@@ -61,19 +61,19 @@ export interface ResponsiveConfig {
     tablet: number;
     desktop: number;
   };
-  behavior: "hide" | "stack" | "resize" | "scroll";
+  behavior: 'hide' | 'stack' | 'resize' | 'scroll';
 }
 
 /**
  * Partial category for organization and AI understanding
  */
 export type PartialCategory =
-  | "layout"
-  | "content"
-  | "media"
-  | "navigation"
-  | "interactive"
-  | "utility";
+  | 'layout'
+  | 'content'
+  | 'media'
+  | 'navigation'
+  | 'interactive'
+  | 'utility';
 
 /**
  * Usage example for AI and developer understanding
@@ -212,7 +212,7 @@ export type PartialProps<T> = T extends AgentPartial<infer P> ? P : never;
  * Type helper for creating partial schemas with common patterns
  */
 export const createPartialSchema = (
-  schema: z.ZodRawShape,
+  schema: z.ZodRawShape
 ): z.ZodObject<z.ZodRawShape> => {
   return z.object(schema);
 };
