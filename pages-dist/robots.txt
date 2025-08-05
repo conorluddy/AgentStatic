@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://conorluddy.github.io/AgentStatic/sitemap.xml

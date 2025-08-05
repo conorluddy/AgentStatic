@@ -1,0 +1,96 @@
+{
+  "site": {
+    "title": "My AgentStatic Site",
+    "description": "A beautiful static site powered by AgentStatic - AI-native content management with TypeScript partials",
+    "url": "https://{{GITHUB_USERNAME}}.github.io/{{REPOSITORY_NAME}}",
+    "author": {
+      "name": "{{GITHUB_USERNAME}}",
+      "email": "{{GITHUB_USERNAME}}@users.noreply.github.com",
+      "url": "https://github.com/{{GITHUB_USERNAME}}"
+    },
+    "lang": "en",
+    "timezone": "UTC",
+    "favicon": "/assets/favicon.ico"
+  },
+  "build": {
+    "outputDir": "pages-dist",
+    "publicPath": "/{{REPOSITORY_NAME}}/",
+    "optimizeImages": true,
+    "generateSitemap": true,
+    "generateRobotsTxt": true,
+    "minifyHTML": true,
+    "minifyCSS": true,
+    "minifyJS": true
+  },
+  "development": {
+    "port": 3000,
+    "host": "localhost",
+    "watch": ["content/**/*", "src/**/*", "assets/**/*"],
+    "hotReload": true
+  },
+  "content": {
+    "contentDir": "content",
+    "assetsDir": "assets", 
+    "defaultLayout": "main",
+    "dateFormat": "YYYY-MM-DD",
+    "excerpt": {
+      "length": 160,
+      "suffix": "..."
+    }
+  },
+  "seo": {
+    "generateMetaTags": true,
+    "generateOpenGraph": true,
+    "generateTwitterCards": true,
+    "generateJsonLd": true,
+    "sitemap": {
+      "include": ["pages", "posts"],
+      "exclude": ["drafts"]
+    }
+  },
+  "plugins": {
+    "mcp": {
+      "enabled": true,
+      "servers": []
+    },
+    "imageOptimization": {
+      "enabled": true,
+      "formats": ["webp", "avif"],
+      "responsive": true,
+      "quality": 85
+    },
+    "syntaxHighlighting": {
+      "enabled": true,
+      "theme": "github-dark",
+      "languages": ["typescript", "javascript", "json", "markdown", "css", "html"]
+    }
+  },
+  "deployment": {
+    "target": "github-pages",
+    "branch": "gh-pages",
+    "cname": null,
+    "baseUrl": "/{{REPOSITORY_NAME}}/"
+  },
+  "templates": {
+    "partials": {
+      "hero": {
+        "enabled": true,
+        "defaultVariant": "gradient"
+      },
+      "navigation": {
+        "enabled": true,
+        "style": "horizontal"
+      },
+      "footer": {
+        "enabled": true,
+        "showSocial": true,
+        "showCopyright": true
+      },
+      "gallery": {
+        "enabled": true,
+        "defaultLayout": "masonry",
+        "lightbox": true
+      }
+    }
+  }
+}

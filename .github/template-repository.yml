@@ -1,0 +1,85 @@
+# Template Repository Configuration for AgentStatic
+# This file enables GitHub's template repository features
+
+name: "AgentStatic - AI-Native Static Site Generator"
+description: "Create beautiful static sites with TypeScript-first templating and AI-powered features"
+
+# Enable template repository features
+template: true
+
+# Repository settings for template instances
+default_repository_settings:
+  visibility: public
+  has_issues: true
+  has_projects: false
+  has_wiki: true
+  has_downloads: true
+  
+  # Enable GitHub Pages by default
+  pages:
+    build_type: "workflow"
+    source:
+      branch: "main"
+      path: "/"
+
+# Categories for GitHub template discovery
+categories:
+  - "Static Site Generator"
+  - "TypeScript"
+  - "AI/ML"
+  - "Portfolio"
+  - "Blog"
+
+# Template metadata for GitHub marketplace
+template_metadata:
+  name: "AgentStatic"
+  tagline: "AI-Native Static Site Generator"
+  
+  # Features highlighted in template creation flow
+  features:
+    - "🧠 AI-Native Design with MCP Integration"
+    - "⚡ TypeScript-First Templates with Zod Validation"
+    - "🎨 Perfect for Creative Professionals"
+    - "🚀 Lightning-Fast Builds & GitHub Pages Ready"
+    - "📱 Responsive & Mobile-Optimized Output"
+    - "🔧 Zero Configuration Required"
+  
+  # Use cases for template discovery
+  use_cases:
+    - "Photography Portfolio"
+    - "Developer Blog"
+    - "Agency Website"
+    - "Documentation Site"
+    - "Personal Portfolio"
+    - "Creative Showcase"
+  
+  # Technology stack
+  tech_stack:
+    - "TypeScript 5.x"
+    - "Node.js 24.x"
+    - "Zod Validation"
+    - "Model Context Protocol (MCP)"
+    - "Sharp Image Processing"
+    - "Unified Markdown Processing"
+    - "ESBuild"
+    - "Vitest"
+
+# Success criteria for template validation
+validation:
+  required_files:
+    - "package.json"
+    - "site.config.json"
+    - "content/pages/index.md"
+    - ".github/workflows/pages-deploy.yml"
+    - "scripts/setup-template.js"
+    - "scripts/build-pages.js"
+  
+  required_workflows:
+    - "pages-deploy"
+    - "template-setup"
+  
+  success_indicators:
+    - "Successful GitHub Pages deployment"
+    - "Template setup completion"
+    - "Content customization"
+    - "Build process execution"
