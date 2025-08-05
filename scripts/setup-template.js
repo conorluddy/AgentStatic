@@ -197,6 +197,8 @@ async function createSitePackageJson() {
       '@types/node': '^24.0.0',
       'typescript': '^5.7.0',
       'eslint': '^9.0.0',
+      '@typescript-eslint/eslint-plugin': '^8.0.0',
+      '@typescript-eslint/parser': '^8.0.0',
       'prettier': '^3.0.0'
     },
     engines: {

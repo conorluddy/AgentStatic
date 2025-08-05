@@ -20,7 +20,12 @@ template:
   # Files to exclude when creating from template
   exclude:
     - ".github/workflows/ci.yml"
+    - ".husky/**"  # Exclude git hooks - template sites don't need strict validation
     - "coverage/**"
+    - "codecov.yml"  # Exclude Codecov configuration
+    - ".codecov.yml"  # Alternative Codecov config location
+    - "tests/**"  # Exclude test files - template sites don't need library tests
+    - "vitest.config.ts"  # Exclude test configuration
     - "dist/**" 
     - "node_modules/**"
     - "*.log"
