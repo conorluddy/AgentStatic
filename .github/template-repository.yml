@@ -15,12 +15,10 @@ default_repository_settings:
   has_wiki: true
   has_downloads: true
   
-  # Enable GitHub Pages by default
+  # Enable GitHub Pages by default with Actions deployment
   pages:
+    enabled: true
     build_type: "workflow"
-    source:
-      branch: "main"
-      path: "/"
 
 # Categories for GitHub template discovery
 categories:
