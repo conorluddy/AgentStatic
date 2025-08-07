@@ -7,7 +7,7 @@
  * It uses the new path resolution system to find content and configuration properly.
  */
 
-import { BuildSystem } from '../dist/index.js';
+import { BuildSystem } from '../dist/build/index.js';
 
 const mode = process.env.NODE_ENV || 'production';
 const outputDir = process.env.OUTPUT_DIR;
