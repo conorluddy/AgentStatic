@@ -17,5 +17,8 @@ export * from './partials/index.js';
 // Helper utilities
 export * from './helpers/index.js';
 
+// Core utilities
+export * from './utils/index.js';
+
 // MCP integration (optional - only available when MCP is configured)
 export * from './mcp/index.js';
