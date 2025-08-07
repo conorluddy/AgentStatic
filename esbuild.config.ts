@@ -24,7 +24,12 @@ const alias: Record<string, string> = {
 // Base ESBuild configuration
 const baseConfig: BuildOptions = {
   // Entry points
-  entryPoints: ['src/index.ts', 'src/core/index.ts', 'src/partials/index.ts'],
+  entryPoints: [
+    'src/index.ts',
+    'src/core/index.ts',
+    'src/partials/index.ts',
+    'src/build/index.ts',
+  ],
 
   // Output configuration
   outdir: 'dist',
