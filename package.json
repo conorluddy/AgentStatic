@@ -2,24 +2,24 @@
   "name": "agentstatic",
   "version": "0.1.0",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./src/index.ts",
   "bin": {
-    "agentstatic": "./dist/cli/index.js"
+    "agentstatic": "./bin/agentstatic.js"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./core": "./dist/core/index.js",
-    "./partials": "./dist/partials/index.js",
-    "./build": "./dist/build/index.js",
-    "./build/multi-page-builder.js": "./dist/build/multi-page-builder.js"
+    ".": "./src/index.ts",
+    "./core": "./src/core/index.ts",
+    "./partials": "./src/partials/index.ts",
+    "./build": "./src/build/index.ts",
+    "./build/multi-page-builder": "./src/build/multi-page-builder.ts"
   },
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "tsx watch src/dev/server.ts",
-    "build": "tsx esbuild.config.ts prod",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build": "echo 'No build step needed with tsx - TypeScript files run directly'",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "build:pages": "node scripts/build-pages.js",
     "test": "vitest --run",
     "test:watch": "vitest --watch",
@@ -30,7 +30,7 @@
     "lint:fix": "eslint src --fix",
     "format": "prettier --write src tests",
     "format:check": "prettier --check src tests",
-    "clean": "rm -rf dist coverage pages-dist",
+    "clean": "rm -rf coverage pages-dist",
     "template:setup": "node scripts/setup-template.js",
     "pages:preview": "cd pages-dist && python -m http.server 8080",
     "prepare": "husky"
@@ -55,7 +55,6 @@
     "@types/node": "^24.0.0",
     "@types/lodash-es": "^4.17.12",
     "typescript": "^5.7.0",
-    "esbuild": "^0.24.0",
     "tsx": "^4.19.0",
     "vitest": "^2.1.0",
     "@vitest/coverage-v8": "^2.1.0",
