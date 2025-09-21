@@ -12,9 +12,9 @@ import { createServer, type IncomingMessage, type ServerResponse } from 'http';
 import { readFile, stat } from 'fs/promises';
 import { extname, join } from 'path';
 import { watch } from 'chokidar';
-import { MultiPageBuilder } from '@/build/multi-page-builder';
-import { resolveProjectRoot } from '@/utils/paths';
-import type { DevServerOptions } from '@/types/config';
+import { MultiPageBuilder } from '../build/multi-page-builder';
+import { resolveProjectRoot } from '../utils/paths';
+import type { DevServerOptions } from '../types/config';
 
 export class DevServer {
   private port: number;
