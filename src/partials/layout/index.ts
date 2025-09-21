@@ -3,6 +3,6 @@
  */
 
 // Will be implemented in Issue #10: Hero Partial Implementation
-// export * from './hero.partial.js';
-// export * from './navigation.partial.js';
-// export * from './footer.partial.js';
+// export * from './hero.partial';
+// export * from './navigation.partial';
+// export * from './footer.partial';

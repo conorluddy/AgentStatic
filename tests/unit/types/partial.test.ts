@@ -12,7 +12,7 @@ import type {
   TemplateHelpers,
   PartialMetadata,
   ParsedPartialProps,
-} from '@/types/partial.js';
+} from '@/types/partial';
 
 describe('AgentPartial Interface', () => {
   describe('Type Safety', () => {

@@ -1,0 +1,42 @@
+{
+  "name": "agentstatic-components-showcase-example",
+  "version": "1.0.0",
+  "description": "Advanced components showcase demonstrating AgentStatic's TypeScript partial capabilities",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "cd ../.. && node dist/cli/index.js dev --verbose --port 3001",
+    "build": "cd ../.. && node dist/cli/index.js build --verbose",
+    "preview": "cd dist && python -m http.server 8081",
+    "type-check": "cd ../.. && npm run type-check",
+    "lint": "cd ../.. && npm run lint",
+    "test": "cd ../.. && npm test",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "agentstatic": "file:../.."
+  },
+  "devDependencies": {},
+  "keywords": [
+    "agentstatic",
+    "example",
+    "components",
+    "typescript",
+    "static-site-generator",
+    "partials",
+    "showcase",
+    "advanced"
+  ],
+  "author": "AgentStatic Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conorluddy/AgentStatic.git",
+    "directory": "examples/components-showcase"
+  },
+  "homepage": "https://github.com/conorluddy/AgentStatic/tree/main/examples/components-showcase",
+  "bugs": {
+    "url": "https://github.com/conorluddy/AgentStatic/issues"
+  }
+}

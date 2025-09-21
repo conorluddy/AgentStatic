@@ -6,8 +6,8 @@
  */
 
 // Will be implemented in subsequent issues
-// export * from './partial-server.js';      // Issue #20: MCP Server Foundation
-// export * from './layout-composer.js';     // Issue #21: AI Layout Composition Engine
+// export * from './partial-server';      // Issue #20: MCP Server Foundation
+// export * from './layout-composer';     // Issue #21: AI Layout Composition Engine
 
 // Placeholder export to make this a module
 export const MCP_VERSION = '1.0.0';

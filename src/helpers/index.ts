@@ -6,13 +6,13 @@
  */
 
 // Core template helpers with date-fns and lodash-es
-export * from './template-helpers.js';
+export * from './template-helpers';
 
 // Image optimization with Sharp
-export * from './asset-helpers.js';
+export * from './asset-helpers';
 
 // Markdown processing with Unified
-export * from './markdown-processor.js';
+export * from './markdown-processor';
 
 // Version tracking
 export const HELPERS_VERSION = '1.0.0';

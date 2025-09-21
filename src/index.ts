@@ -6,16 +6,16 @@
  */
 
 // Core functionality exports
-export * from './core/index.js';
+export * from './core/index';
 
 // Type definitions
-export * from './types/index.js';
+export * from './types/index';
 
 // Partial system exports
-export * from './partials/index.js';
+export * from './partials/index';
 
 // Helper utilities
-export * from './helpers/index.js';
+export * from './helpers/index';
 
 // MCP integration (optional - only available when MCP is configured)
-export * from './mcp/index.js';
+export * from './mcp/index';

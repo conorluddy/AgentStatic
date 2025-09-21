@@ -13,7 +13,7 @@ import type {
   AgentPartial,
   PartialRegistry,
   PartialCategory,
-} from '../types/partial.js';
+} from '../types/partial';
 
 /**
  * File system dependencies - imported dynamically for better testing

@@ -5,8 +5,8 @@
  * helper functions, and composition context.
  */
 
-import type { CompositionContext } from './partial.js';
-import type { ProcessedContent } from './content.js';
+import type { CompositionContext } from './partial';
+import type { ProcessedContent } from './content';
 
 /**
  * Template rendering context with all available data

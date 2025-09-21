@@ -7,7 +7,7 @@
 
 import { format, formatDistanceToNow } from 'date-fns';
 import { chunk, groupBy, sortBy } from 'lodash-es';
-import type { TemplateHelpers } from '@/types/partial.js';
+import type { TemplateHelpers } from '@/types/partial';
 
 /**
  * Create template helpers instance with context
