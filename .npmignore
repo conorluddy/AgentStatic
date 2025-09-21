@@ -32,8 +32,10 @@ esbuild.config.ts
 # Build artifacts
 .tsbuildinfo
 *.map
+**/*.map
 pages-dist/
 template/
+dist/.tsbuildinfo
 
 # Temp files
 temp*

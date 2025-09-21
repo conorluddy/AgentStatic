@@ -1,0 +1,19 @@
+{
+  "title": "AgentStatic Components Showcase",
+  "description": "Advanced component demonstrations for AgentStatic TypeScript partials",
+  "url": "https://example.com",
+  "lang": "en",
+  "author": {
+    "name": "AgentStatic Team",
+    "email": "hello@agentstatic.dev",
+    "url": "https://agentstatic.dev"
+  },
+  "navigation": {
+    "maxItems": 10,
+    "showHome": false
+  },
+  "build": {
+    "outputDir": "dist",
+    "cleanUrls": true
+  }
+}

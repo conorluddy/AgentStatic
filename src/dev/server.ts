@@ -70,9 +70,21 @@ export class DevServer {
     // Handle graceful shutdown
     process.on('SIGINT', () => {
       console.log('\n🛑 Shutting down development server...');
+
+      // Set a timeout to force exit if server doesn't close gracefully
+      const timeout = setTimeout(() => {
+        console.log('⚠️ Forcing server shutdown...');
+        process.exit(1);
+      }, 5000);
+
       server.close(() => {
+        clearTimeout(timeout);
+        console.log('✅ Server shutdown complete');
         process.exit(0);
       });
+
+      // Close any open connections
+      server.closeAllConnections?.();
     });
   }
 

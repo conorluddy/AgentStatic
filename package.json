@@ -1,6 +1,6 @@
 {
   "name": "agentstatic",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
@@ -14,7 +14,7 @@
     "./build/multi-page-builder.js": "./dist/build/multi-page-builder.js"
   },
   "engines": {
-    "node": ">=24.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "tsx watch src/dev/server.ts",
@@ -104,7 +104,11 @@
     "url": "https://github.com/conorluddy/AgentStatic/issues"
   },
   "files": [
-    "dist/**/*",
+    "dist/**/*.js",
+    "dist/**/*.css",
+    "dist/**/*.html",
+    "dist/**/*.txt",
+    "dist/**/*.xml",
     "README.md",
     "LICENSE"
   ]
