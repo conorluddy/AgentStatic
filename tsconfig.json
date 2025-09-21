@@ -3,7 +3,7 @@
     // Target Node.js 24.x with modern ES features
     "target": "ES2023",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "lib": ["ES2023"],
 
     // Strict TypeScript configuration (zero any types)
