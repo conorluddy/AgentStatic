@@ -6,7 +6,7 @@
  */
 
 import sharp from 'sharp';
-import type { ImageOptimizeOptions } from '@/types/partial.js';
+import type { ImageOptimizeOptions } from '@/types/partial';
 
 /**
  * Sharp configuration presets for common use cases

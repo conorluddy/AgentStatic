@@ -2,9 +2,9 @@
  * Core type definitions for AgentStatic
  */
 
-export * from './partial.js';
-export * from './content.js';
+export * from './partial';
+export * from './content';
 export type {
   TemplateContext,
   TemplateHelpers as TemplateUtilHelpers,
-} from './template.js';
+} from './template';

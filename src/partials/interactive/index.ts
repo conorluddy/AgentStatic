@@ -3,6 +3,6 @@
  */
 
 // Will be implemented in subsequent issues
-// export * from './contact-form.partial.js';
-// export * from './search.partial.js';
-// export * from './modal.partial.js';
+// export * from './contact-form.partial';
+// export * from './search.partial';
+// export * from './modal.partial';

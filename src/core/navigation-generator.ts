@@ -6,7 +6,7 @@
  */
 
 import { z } from 'zod';
-import { type PageFile } from './page-discovery.js';
+import { type PageFile } from './page-discovery';
 
 /**
  * Navigation item schema with validation

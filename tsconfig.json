@@ -5,7 +5,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "lib": ["ES2023"],
-    
+
     // Strict TypeScript configuration (zero any types)
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -13,20 +13,19 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    
+
     // Module system configuration
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    
+
     // Output configuration
     "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    
+
     // Path mapping for AgentStatic architecture
     "baseUrl": ".",
     "paths": {
@@ -39,29 +38,20 @@
       "@/cli/*": ["./src/cli/*"],
       "@/tests/*": ["./tests/*"]
     },
-    
+
     // Performance and quality
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "tsBuildInfoFile": "./dist/.tsbuildinfo"
   },
-  
+
   // Include all TypeScript source files
-  "include": [
-    "src/**/*",
-    "tests/**/*"
-  ],
-  
-  // Exclude build artifacts and dependencies  
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ],
-  
+  "include": ["src/**/*", "tests/**/*"],
+
+  // Exclude build artifacts and dependencies
+  "exclude": ["node_modules", "dist", "coverage", "**/*.spec.ts", "**/*.test.ts"],
+
   // TypeScript path configuration for tests
   "ts-node": {
     "esm": true,

@@ -6,7 +6,7 @@
  */
 
 import { z } from 'zod';
-import type { AgentPartial } from '../../../../src/types/partial.js';
+import type { AgentPartial } from '../../../../src/types/partial';
 
 /**
  * Gallery image schema

@@ -8,8 +8,8 @@
 import { join } from 'path';
 import { readFile, readdir, stat } from 'fs/promises';
 import { existsSync } from 'fs';
-import { resolveContentPaths, type ResolvedPaths } from './paths.js';
-import type { AgentStaticConfig } from '../types/config.js';
+import { resolveContentPaths, type ResolvedPaths } from './paths';
+import type { AgentStaticConfig } from '../types/config';
 
 /**
  * Content resolver configuration

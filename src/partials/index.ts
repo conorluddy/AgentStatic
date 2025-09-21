@@ -6,16 +6,16 @@
 
 // Will be implemented in subsequent issues
 // Layout partials - Issue #10: Hero Partial Implementation
-// export * from './layout/index.js';
+// export * from './layout/index';
 
 // Content partials - Future content partial issues
-// export * from './content/index.js';
+// export * from './content/index';
 
 // Interactive partials - Future interactive partial issues
-// export * from './interactive/index.js';
+// export * from './interactive/index';
 
 // Media partials - Future media partial issues
-// export * from './media/index.js';
+// export * from './media/index';
 
 // Placeholder export to make this a module
 export const PARTIALS_VERSION = '1.0.0';

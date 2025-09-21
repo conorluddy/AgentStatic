@@ -6,8 +6,8 @@
  * Command line interface for AgentStatic operations
  */
 
-import { startDevServer } from '../dev/server.js';
-import { MultiPageBuilder } from '../build/multi-page-builder.js';
+import { startDevServer } from '../dev/server';
+import { MultiPageBuilder } from '../build/multi-page-builder';
 
 const command = process.argv[2];
 const args = process.argv.slice(3);

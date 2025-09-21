@@ -10,10 +10,10 @@ import { z } from 'zod';
 import {
   processMarkdown,
   type ProcessedMarkdown,
-} from '../helpers/markdown-processor.js';
-import { ContentResolver } from '../utils/content-resolver.js';
-import { getUrlPath } from '../utils/paths.js';
-import { FrontmatterSchema } from '../types/content.js';
+} from '../helpers/markdown-processor';
+import { ContentResolver } from '../utils/content-resolver';
+import { getUrlPath } from '../utils/paths';
+import { FrontmatterSchema } from '../types/content';
 
 /**
  * Page-specific frontmatter schema extending base content schema

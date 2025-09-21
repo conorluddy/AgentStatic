@@ -3,6 +3,6 @@
  */
 
 // Will be implemented in subsequent issues
-// export * from './article.partial.js';
-// export * from './card.partial.js';
-// export * from './testimonial.partial.js';
+// export * from './article.partial';
+// export * from './card.partial';
+// export * from './testimonial.partial';
