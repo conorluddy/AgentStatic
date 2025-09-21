@@ -1,0 +1,39 @@
+{
+  "name": "agentstatic-simple-portfolio-example",
+  "version": "1.0.0",
+  "description": "Simple portfolio example showcasing AgentStatic's TypeScript partial system",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "cd ../.. && npm run dev -- --rootDir examples/simple-portfolio",
+    "build": "cd ../.. && npm run build -- --rootDir examples/simple-portfolio --outputDir examples/simple-portfolio/dist",
+    "preview": "cd dist && python -m http.server 8080",
+    "type-check": "cd ../.. && npm run type-check",
+    "lint": "cd ../.. && npm run lint",
+    "test": "cd ../.. && npm test",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "agentstatic": "file:../.."
+  },
+  "devDependencies": {},
+  "keywords": [
+    "agentstatic",
+    "example",
+    "portfolio",
+    "typescript",
+    "static-site-generator",
+    "partials"
+  ],
+  "author": "AgentStatic Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conorluddy/AgentStatic.git",
+    "directory": "examples/simple-portfolio"
+  },
+  "homepage": "https://github.com/conorluddy/AgentStatic/tree/main/examples/simple-portfolio",
+  "bugs": {
+    "url": "https://github.com/conorluddy/AgentStatic/issues"
+  }
+}

@@ -1,0 +1,41 @@
+# Development files
+.github/
+.vscode/
+.husky/
+.claude/
+coverage/
+tests/
+scripts/
+examples/
+docs/
+
+# Source files (only ship dist)
+src/
+*.ts
+!*.d.ts
+
+# Config files
+.gitignore
+eslint.config.js
+prettier.config.js
+vitest.config.ts
+tsconfig.json
+esbuild.config.ts
+*.test.*
+*.spec.*
+
+# Documentation
+*.md
+!README.md
+!LICENSE
+
+# Build artifacts
+.tsbuildinfo
+*.map
+pages-dist/
+template/
+
+# Temp files
+temp*
+*.log
+.DS_Store

@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",
+  "bin": {
+    "agentstatic": "./dist/cli/index.js"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./core": "./dist/core/index.js",
-    "./partials": "./dist/partials/index.js"
+    "./partials": "./dist/partials/index.js",
+    "./build": "./dist/build/index.js",
+    "./build/multi-page-builder.js": "./dist/build/multi-page-builder.js"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -87,7 +92,20 @@
     "partials",
     "zod"
   ],
-  "author": "AgentStatic Team",
+  "author": "Conor Luddy",
   "license": "MIT",
-  "description": "AI-Native Static Site Generator with TypeScript-first templating and MCP integration"
+  "description": "AI-Native Static Site Generator with TypeScript-first templating and MCP integration",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conorluddy/AgentStatic.git"
+  },
+  "homepage": "https://github.com/conorluddy/AgentStatic#readme",
+  "bugs": {
+    "url": "https://github.com/conorluddy/AgentStatic/issues"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ]
 }

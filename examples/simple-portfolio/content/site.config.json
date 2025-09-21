@@ -1,0 +1,76 @@
+{
+  "site": {
+    "title": "Jane Doe - Full-Stack Developer",
+    "description": "Full-stack developer specializing in React, TypeScript, and modern web technologies. Building beautiful, performant applications that solve real-world problems.",
+    "url": "https://janedoe.dev",
+    "lang": "en",
+    "author": "Jane Doe"
+  },
+  "build": {
+    "minifyHTML": true,
+    "minifyCSS": true,
+    "minifyJS": true,
+    "optimizeImages": true,
+    "generateRobotsTxt": true,
+    "generateSitemap": true
+  },
+  "social": {
+    "github": "https://github.com/janedoe",
+    "linkedin": "https://linkedin.com/in/janedoe",
+    "twitter": "https://twitter.com/janedoe",
+    "email": "hello@janedoe.dev"
+  },
+  "navigation": {
+    "main": [
+      {
+        "title": "Home",
+        "href": "/",
+        "active": false
+      },
+      {
+        "title": "Projects",
+        "href": "/projects",
+        "active": false
+      },
+      {
+        "title": "About",
+        "href": "#about",
+        "active": false
+      },
+      {
+        "title": "Contact",
+        "href": "#contact",
+        "active": false
+      }
+    ]
+  },
+  "theme": {
+    "primaryColor": "#3b82f6",
+    "primaryColorDark": "#2563eb",
+    "textColor": "#1f2937",
+    "textColorLight": "#6b7280",
+    "backgroundColor": "#ffffff",
+    "surfaceColor": "#f9fafb",
+    "borderColor": "#e5e7eb"
+  },
+  "features": {
+    "analytics": false,
+    "darkMode": false,
+    "search": false,
+    "comments": false
+  },
+  "meta": {
+    "keywords": [
+      "full-stack developer",
+      "react developer",
+      "typescript",
+      "web development",
+      "javascript",
+      "frontend",
+      "backend",
+      "portfolio"
+    ],
+    "ogImage": "/assets/images/og-image.jpg",
+    "twitterCard": "summary_large_image"
+  }
+}
