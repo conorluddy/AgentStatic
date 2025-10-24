@@ -2,6 +2,9 @@
 .DS_Store
 Thumbs.db
 
+# Archive (historical docs)
+.archive/
+
 # Dependencies
 node_modules/
 .pnp
