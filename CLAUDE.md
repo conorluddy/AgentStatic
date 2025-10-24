@@ -25,25 +25,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Planning Documentation Structure
 
-**PRIMARY**: All active planning lives in `/FINALPLAN/` - this is the consolidated, unified plan.
+**PRIMARY**: All specifications live in `/SPEC/` - this is the definitive specification document.
 
-### FINALPLAN Structure (Active - Use This!)
-- **`FINALPLAN/README.md`** - Main navigation hub and project overview
-- **`FINALPLAN/ROADMAP.md`** - 12-week timeline with parallel tracks
-- **`FINALPLAN/DECISIONS.md`** - The 17 architectural decisions
+### SPEC Structure (Active - Use This!)
+- **`SPEC/README.md`** - Main navigation hub and project overview
+- **`SPEC/ROADMAP.md`** - 12-week timeline with parallel tracks
+- **`SPEC/DECISIONS.md`** - The 17 architectural decisions
 
 ### The 4 Pillars
-- **`FINALPLAN/PILLAR-1-COMPONENTS/`** - Visual component system (HTML/CSS)
-- **`FINALPLAN/PILLAR-2-REGISTRY/`** - Machine-readable schemas and validation
-- **`FINALPLAN/PILLAR-3-BUILD/`** - Static site generation engine
-- **`FINALPLAN/PILLAR-4-AI/`** - Claude MCP tools and integration
+- **`SPEC/PILLAR-1-COMPONENTS/`** - Visual component system (HTML/CSS)
+- **`SPEC/PILLAR-2-REGISTRY/`** - Machine-readable schemas and validation
+- **`SPEC/PILLAR-3-BUILD/`** - Static site generation engine
+- **`SPEC/PILLAR-4-AI/`** - Claude MCP tools and integration
 
 ### Reference Documentation
-- **`FINALPLAN/REFERENCE/`** - Technology stack, success metrics, etc.
+- **`SPEC/REFERENCE/`** - Technology stack, success metrics, etc.
 
 ### Legacy Documentation (Historical Reference)
-- **`/PLANNING/`** - Original comprehensive phase-based planning (superseded by FINALPLAN)
-- **`/architecture/`** - Technical specifications (merged into FINALPLAN pillars)
+- **`.archive/PLANNING/`** - Original comprehensive phase-based planning (superseded by SPEC)
+- **`.archive/architecture/`** - Technical specifications (merged into SPEC pillars)
 
 ---
 
@@ -122,7 +122,7 @@ See `PLANNING/README.md` for detailed explanations.
 - Pillar 4, All Phases: AI Integration & MCP Tools
 - Documentation & Launch Preparation
 
-**Read**: `FINALPLAN/ROADMAP.md` for detailed timeline and `FINALPLAN/PILLAR-*/README.md` for specific tracks
+**Read**: `SPEC/ROADMAP.md` for detailed timeline and `SPEC/PILLAR-*/README.md` for specific tracks
 
 
 ---
@@ -428,40 +428,40 @@ Before proceeding to next phase, ensure:
 ## Resources
 
 ### Primary Planning (Active)
-- **Navigation**: `FINALPLAN/README.md`
-- **Timeline**: `FINALPLAN/ROADMAP.md`
-- **Decisions**: `FINALPLAN/DECISIONS.md`
-- **Pillars**: `FINALPLAN/PILLAR-*/README.md`
+- **Navigation**: `SPEC/README.md`
+- **Timeline**: `SPEC/ROADMAP.md`
+- **Decisions**: `SPEC/DECISIONS.md`
+- **Pillars**: `SPEC/PILLAR-*/README.md`
 
 ### Code Standards
 - **Style Guide**: `CODESTYLE.md` (comprehensive)
-- **Technology**: `FINALPLAN/REFERENCE/TECHNOLOGY-STACK.md`
-- **Metrics**: `FINALPLAN/REFERENCE/SUCCESS-METRICS.md`
+- **Technology**: `SPEC/REFERENCE/TECHNOLOGY-STACK.md`
+- **Metrics**: `SPEC/REFERENCE/SUCCESS-METRICS.md`
 
 ### Implementation Starting Points
-- **Frontend Dev**: Start with `FINALPLAN/PILLAR-1-COMPONENTS/`
-- **Backend Dev**: Start with `FINALPLAN/PILLAR-3-BUILD/`
-- **AI/ML Dev**: Start with `FINALPLAN/PILLAR-4-AI/`
-- **Full Stack**: Follow `FINALPLAN/ROADMAP.md`
+- **Frontend Dev**: Start with `SPEC/PILLAR-1-COMPONENTS/`
+- **Backend Dev**: Start with `SPEC/PILLAR-3-BUILD/`
+- **AI/ML Dev**: Start with `SPEC/PILLAR-4-AI/`
+- **Full Stack**: Follow `SPEC/ROADMAP.md`
 
 ---
 
 ## Questions or Clarifications
 
 When unclear about implementation:
-1. Check the relevant pillar in `FINALPLAN/PILLAR-*/`
-2. Review the 17 decisions in `FINALPLAN/DECISIONS.md`
-3. Consult `FINALPLAN/ROADMAP.md` for timeline and dependencies
+1. Check the relevant pillar in `SPEC/PILLAR-*/`
+2. Review the 17 decisions in `SPEC/DECISIONS.md`
+3. Consult `SPEC/ROADMAP.md` for timeline and dependencies
 4. Check `CODESTYLE.md` for code patterns
-5. Review `FINALPLAN/REFERENCE/` for technology and metrics
+5. Review `SPEC/REFERENCE/` for technology and metrics
 
-All architectural decisions are documented. If something seems ambiguous, it's likely addressed in the FINALPLAN docs.
+All architectural decisions are documented. If something seems ambiguous, it's likely addressed in the SPEC docs.
 
 ---
 
 **Current State**: Planning complete, ready for implementation.
 
 **Next Step**: Choose your development track:
-- **Frontend**: Start with `FINALPLAN/PILLAR-1-COMPONENTS/README.md`
-- **Backend**: Start with `FINALPLAN/PILLAR-3-BUILD/README.md`
-- **Full Stack**: Follow `FINALPLAN/ROADMAP.md` for parallel tracks
+- **Frontend**: Start with `SPEC/PILLAR-1-COMPONENTS/README.md`
+- **Backend**: Start with `SPEC/PILLAR-3-BUILD/README.md`
+- **Full Stack**: Follow `SPEC/ROADMAP.md` for parallel tracks

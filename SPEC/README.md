@@ -1,4 +1,4 @@
-# AgentStatic FINAL PLAN
+# AgentStatic SPECIFICATION
 
 **The Unified Implementation Plan for AgentStatic**
 
@@ -155,7 +155,7 @@ Follow the **[ROADMAP.md](./ROADMAP.md)** for the complete implementation path.
 ## 📂 Directory Structure
 
 ```
-FINALPLAN/
+SPEC/
 ├── README.md                          # This file
 ├── ROADMAP.md                         # Timeline & dependencies
 ├── DECISIONS.md                       # 17 architectural decisions
@@ -203,12 +203,12 @@ FINALPLAN/
 
 ## 🔄 Relationship to Previous Documentation
 
-This FINALPLAN consolidates and supersedes:
-- `/PLANNING/` - Original comprehensive phase-based planning (kept for historical reference)
-- `/architecture/` - Technical specifications (merged into pillar documents)
+This SPEC consolidates and supersedes:
+- `.archive/PLANNING/` - Original comprehensive phase-based planning (kept for historical reference)
+- `.archive/architecture/` - Technical specifications (merged into pillar documents)
 - `/CODESTYLE.md` - Remains as the active code style guide
 
-For implementation, **always refer to FINALPLAN** as the source of truth.
+For implementation, **always refer to SPEC** as the source of truth.
 
 ---
 

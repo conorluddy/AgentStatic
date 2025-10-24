@@ -19,19 +19,19 @@ All architectural planning and documentation is complete. The project is ready f
 ### For Developers & Contributors
 
 1. **Start Here**: [`CLAUDE.md`](./CLAUDE.md) - Essential guide for AI agents and developers
-2. **Planning**: [`FINALPLAN/`](./FINALPLAN/) - Complete implementation plan with 4 pillars
+2. **Specification**: [`SPEC/`](./SPEC/) - Complete implementation specification with 4 pillars
 3. **Code Style**: [`CODESTYLE.md`](./CODESTYLE.md) - Comprehensive coding standards
 
-### Planning Structure
+### Specification Structure
 
 The project is organized into **4 independent pillars** that can be developed in parallel:
 
-1. **[Component Library](./FINALPLAN/PILLAR-1-COMPONENTS/)** - 20-30 HTML/CSS components
-2. **[Registry & Validation](./FINALPLAN/PILLAR-2-REGISTRY/)** - Machine-readable schemas
-3. **[Build Engine](./FINALPLAN/PILLAR-3-BUILD/)** - Static site generation
-4. **[AI Integration](./FINALPLAN/PILLAR-4-AI/)** - Claude MCP tools
+1. **[Component Library](./SPEC/PILLAR-1-COMPONENTS/)** - 20-30 HTML/CSS components
+2. **[Registry & Validation](./SPEC/PILLAR-2-REGISTRY/)** - Machine-readable schemas
+3. **[Build Engine](./SPEC/PILLAR-3-BUILD/)** - Static site generation
+4. **[AI Integration](./SPEC/PILLAR-4-AI/)** - Claude MCP tools
 
-See [`FINALPLAN/README.md`](./FINALPLAN/README.md) for complete navigation.
+See [`SPEC/README.md`](./SPEC/README.md) for complete navigation.
 
 ---
 
@@ -63,7 +63,7 @@ A three-tier platform that combines:
 - **Documentation**: Storybook 8
 - **AI**: MCP (Model Context Protocol)
 
-See [`FINALPLAN/REFERENCE/TECHNOLOGY-STACK.md`](./FINALPLAN/REFERENCE/TECHNOLOGY-STACK.md) for details.
+See [`SPEC/REFERENCE/TECHNOLOGY-STACK.md`](./SPEC/REFERENCE/TECHNOLOGY-STACK.md) for details.
 
 ---
 
@@ -76,7 +76,7 @@ See [`FINALPLAN/REFERENCE/TECHNOLOGY-STACK.md`](./FINALPLAN/REFERENCE/TECHNOLOGY
 - **Week 11**: AI tools implementation
 - **Week 12**: Documentation and launch
 
-See [`FINALPLAN/ROADMAP.md`](./FINALPLAN/ROADMAP.md) for detailed timeline.
+See [`SPEC/ROADMAP.md`](./SPEC/ROADMAP.md) for detailed timeline.
 
 ---
 
@@ -84,14 +84,14 @@ See [`FINALPLAN/ROADMAP.md`](./FINALPLAN/ROADMAP.md) for detailed timeline.
 
 ```
 AgentStatic/
-├── FINALPLAN/              # ✅ ACTIVE - Use this!
-│   ├── README.md          # Planning navigation
+├── SPEC/                   # ✅ SPECIFICATION - Use this!
+│   ├── README.md          # Specification navigation
 │   ├── ROADMAP.md         # Implementation timeline
 │   ├── DECISIONS.md       # 17 architectural decisions
-│   ├── PILLAR-1-*/        # Component library plans
-│   ├── PILLAR-2-*/        # Registry & validation plans
-│   ├── PILLAR-3-*/        # Build engine plans
-│   ├── PILLAR-4-*/        # AI integration plans
+│   ├── PILLAR-1-*/        # Component library specification
+│   ├── PILLAR-2-*/        # Registry & validation specification
+│   ├── PILLAR-3-*/        # Build engine specification
+│   ├── PILLAR-4-*/        # AI integration specification
 │   └── REFERENCE/         # Supporting documentation
 │
 ├── CLAUDE.md              # AI agent guide
@@ -108,11 +108,11 @@ AgentStatic/
 
 ## 📦 About the Archive
 
-The `.archive/` directory contains historical planning documents that have been consolidated into FINALPLAN:
+The `.archive/` directory contains historical planning documents that have been consolidated into SPEC:
 - **PLANNING/** - Original 7-phase comprehensive planning
 - **architecture/** - Original technical specifications
 
-These are kept for historical reference but **should not be used for active development**. Always refer to `/FINALPLAN/` instead.
+These are kept for historical reference but **should not be used for active development**. Always refer to `/SPEC/` instead.
 
 See [`.archive/README.md`](./.archive/README.md) for details.
 
@@ -121,25 +121,25 @@ See [`.archive/README.md`](./.archive/README.md) for details.
 ## 🚦 Getting Started
 
 ### For Frontend Developers
-Start with [PILLAR 1: Components](./FINALPLAN/PILLAR-1-COMPONENTS/)
+Start with [PILLAR 1: Components](./SPEC/PILLAR-1-COMPONENTS/)
 - Design system and tokens
 - HTML/CSS components
 - Storybook setup
 
 ### For Backend Developers
-Start with [PILLAR 3: Build Engine](./FINALPLAN/PILLAR-3-BUILD/)
+Start with [PILLAR 3: Build Engine](./SPEC/PILLAR-3-BUILD/)
 - Bun + Vite setup
 - Template rendering
 - Static generation
 
 ### For AI/ML Engineers
-Start with [PILLAR 4: AI Integration](./FINALPLAN/PILLAR-4-AI/)
+Start with [PILLAR 4: AI Integration](./SPEC/PILLAR-4-AI/)
 - MCP tools
 - Claude integration
 - Composition engine
 
 ### For Full-Stack Developers
-Follow the [complete roadmap](./FINALPLAN/ROADMAP.md) for parallel development tracks.
+Follow the [complete roadmap](./SPEC/ROADMAP.md) for parallel development tracks.
 
 ---
 
@@ -152,7 +152,7 @@ Follow the [complete roadmap](./FINALPLAN/ROADMAP.md) for parallel development t
 - **AI Speed**: <100ms discovery
 - **Build Time**: <10s for 100 pages
 
-See [`FINALPLAN/REFERENCE/SUCCESS-METRICS.md`](./FINALPLAN/REFERENCE/SUCCESS-METRICS.md) for all metrics.
+See [`SPEC/REFERENCE/SUCCESS-METRICS.md`](./SPEC/REFERENCE/SUCCESS-METRICS.md) for all metrics.
 
 ---
 
@@ -166,7 +166,7 @@ Core principles that guide every implementation choice:
 4. **Claude-Optimized** - MCP tools designed for Claude specifically
 5. **Template Distribution** - Clone and modify, not npm
 
-...and 12 more. See [`FINALPLAN/DECISIONS.md`](./FINALPLAN/DECISIONS.md) for complete list.
+...and 12 more. See [`SPEC/DECISIONS.md`](./SPEC/DECISIONS.md) for complete list.
 
 ---
 
