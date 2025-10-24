@@ -84,7 +84,7 @@ See [`FINALPLAN/ROADMAP.md`](./FINALPLAN/ROADMAP.md) for detailed timeline.
 
 ```
 AgentStatic/
-├── FINALPLAN/              # Active planning documentation
+├── FINALPLAN/              # ✅ ACTIVE - Use this!
 │   ├── README.md          # Planning navigation
 │   ├── ROADMAP.md         # Implementation timeline
 │   ├── DECISIONS.md       # 17 architectural decisions
@@ -94,13 +94,27 @@ AgentStatic/
 │   ├── PILLAR-4-*/        # AI integration plans
 │   └── REFERENCE/         # Supporting documentation
 │
-├── CLAUDE.md              # AI agent guide (start here!)
+├── CLAUDE.md              # AI agent guide
 ├── CODESTYLE.md           # Code style guide
+├── README.md              # This file
 ├── package.json           # Project configuration
 │
-├── PLANNING/              # Legacy planning (historical)
-└── architecture/          # Legacy specs (historical)
+└── .archive/              # Historical docs (reference only)
+    ├── PLANNING/          # Original comprehensive planning
+    └── architecture/      # Original technical specs
 ```
+
+---
+
+## 📦 About the Archive
+
+The `.archive/` directory contains historical planning documents that have been consolidated into FINALPLAN:
+- **PLANNING/** - Original 7-phase comprehensive planning
+- **architecture/** - Original technical specifications
+
+These are kept for historical reference but **should not be used for active development**. Always refer to `/FINALPLAN/` instead.
+
+See [`.archive/README.md`](./.archive/README.md) for details.
 
 ---
 
