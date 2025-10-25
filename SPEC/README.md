@@ -20,33 +20,37 @@ This directory contains the consolidated, final planning documentation for Agent
 
 AgentStatic is built on four independent but interconnected pillars:
 
-### [PILLAR 1: COMPONENT LIBRARY](./PILLAR-1-COMPONENTS/)
+### PILLAR 1: COMPONENT LIBRARY
 The visual component system - HTML/CSS components with zero runtime JavaScript.
-- **Phase 1**: Design System Foundation (tokens, CSS architecture, dark mode)
-- **Phase 2**: Basic Components (12-15 atoms & molecules)
-- **Phase 3**: Complex Sections (8-10 organisms)
-- **Phase 4**: Polish & Enhancement (animations, a11y, container queries)
+- **Phase 1**: Design System Foundation → [P1-PHASE-1-DESIGN-SYSTEM.md](./P1-PHASE-1-DESIGN-SYSTEM.md)
+- **Phase 2**: Basic Components → [P1-PHASE-2-BASIC-COMPONENTS.md](./P1-PHASE-2-BASIC-COMPONENTS.md)
+- **Phase 3**: Complex Sections → [P1-PHASE-3-COMPLEX-SECTIONS.md](./P1-PHASE-3-COMPLEX-SECTIONS.md)
+- **Phase 4**: Polish & Enhancement → [P1-PHASE-4-POLISH.md](./P1-PHASE-4-POLISH.md)
+- **Specs**: [P1-COMPONENT-SPECS.md](./P1-COMPONENT-SPECS.md)
 
-### [PILLAR 2: REGISTRY & VALIDATION](./PILLAR-2-REGISTRY/)
+### PILLAR 2: REGISTRY & VALIDATION
 Making components machine-readable and validated for AI consumption.
-- **Phase 1**: Component Schema Definition (JSON schemas)
-- **Phase 2**: Registry Generation (automated from components)
-- **Phase 3**: Validation System (structural, semantic, accessibility)
-- **Phase 4**: Discovery API (search, filter, suggest)
+- **Phase 1**: Component Schema Definition → [P2-PHASE-1-SCHEMAS.md](./P2-PHASE-1-SCHEMAS.md)
+- **Phase 2**: Registry Generation → [P2-PHASE-2-GENERATION.md](./P2-PHASE-2-GENERATION.md)
+- **Phase 3**: Validation System → [P2-PHASE-3-VALIDATION.md](./P2-PHASE-3-VALIDATION.md)
+- **Phase 4**: Discovery API → [P2-PHASE-4-DISCOVERY.md](./P2-PHASE-4-DISCOVERY.md)
+- **Specs**: [P2-AST-SCHEMA.md](./P2-AST-SCHEMA.md)
 
-### [PILLAR 3: BUILD ENGINE](./PILLAR-3-BUILD/)
+### PILLAR 3: BUILD ENGINE
 Transforming component compositions into optimized static sites.
-- **Phase 1**: Core Pipeline (Bun + Vite setup)
-- **Phase 2**: AST Processing (parse, validate, transform)
-- **Phase 3**: Render System (templates to HTML)
-- **Phase 4**: Output Optimization (performance, bundling)
+- **Phase 1**: Core Pipeline → [P3-PHASE-1-PIPELINE.md](./P3-PHASE-1-PIPELINE.md)
+- **Phase 2**: AST Processing → [P3-PHASE-2-AST-PROCESSING.md](./P3-PHASE-2-AST-PROCESSING.md)
+- **Phase 3**: Render System → [P3-PHASE-3-RENDER.md](./P3-PHASE-3-RENDER.md)
+- **Phase 4**: Output Optimization → [P3-PHASE-4-OPTIMIZATION.md](./P3-PHASE-4-OPTIMIZATION.md)
+- **Specs**: [P3-ARCHITECTURE.md](./P3-ARCHITECTURE.md), [P3-CSS-OPTIMIZATION.md](./P3-CSS-OPTIMIZATION.md), [P3-CLI-INTERFACE.md](./P3-CLI-INTERFACE.md)
 
-### [PILLAR 4: AI INTEGRATION](./PILLAR-4-AI/)
+### PILLAR 4: AI INTEGRATION
 Enabling Claude to autonomously build complete sites.
-- **Phase 1**: MCP Tool Implementation (5 core tools)
-- **Phase 2**: Composition Engine (natural language to pages)
-- **Phase 3**: Validation & Feedback (errors, suggestions)
-- **Phase 4**: Documentation & Examples (workflows, patterns)
+- **Phase 1**: MCP Tool Implementation → [P4-PHASE-1-MCP-TOOLS.md](./P4-PHASE-1-MCP-TOOLS.md)
+- **Phase 2**: Composition Engine → [P4-PHASE-2-COMPOSITION.md](./P4-PHASE-2-COMPOSITION.md)
+- **Phase 3**: Validation & Feedback → [P4-PHASE-3-VALIDATION.md](./P4-PHASE-3-VALIDATION.md)
+- **Phase 4**: Documentation & Examples → [P4-PHASE-4-DOCUMENTATION.md](./P4-PHASE-4-DOCUMENTATION.md)
+- **Specs**: [P4-ALGORITHMS.md](./P4-ALGORITHMS.md)
 
 ---
 
@@ -92,10 +96,10 @@ gantt
 - **[DECISIONS.md](./DECISIONS.md)** - The 17 architectural decisions that guide the project
 
 ### Reference Documentation
-- **[REFERENCE/TECHNOLOGY-STACK.md](./REFERENCE/TECHNOLOGY-STACK.md)** - Technology choices and rationale
-- **[REFERENCE/SUCCESS-METRICS.md](./REFERENCE/SUCCESS-METRICS.md)** - KPIs and targets
-- **[REFERENCE/STORYBOOK.md](./REFERENCE/STORYBOOK.md)** - Documentation system plan
-- **[REFERENCE/GLOSSARY.md](./REFERENCE/GLOSSARY.md)** - Terms and definitions
+- **[TECHNOLOGY-STACK.md](./TECHNOLOGY-STACK.md)** - Technology choices and rationale
+- **[SUCCESS-METRICS.md](./SUCCESS-METRICS.md)** - KPIs and targets
+- **[ERROR-HANDLING.md](./ERROR-HANDLING.md)** - Error handling patterns and codes
+- **[PROJECT-STRUCTURE.md](./PROJECT-STRUCTURE.md)** - File and directory organization
 
 ---
 
@@ -130,29 +134,31 @@ gantt
 ## 🚀 Quick Start Paths
 
 ### For Frontend Developers
-Start with **[PILLAR 1: COMPONENT LIBRARY](./PILLAR-1-COMPONENTS/)**
-1. Read Phase 1: Design System Foundation
+Start with **PILLAR 1: COMPONENT LIBRARY**
+1. Read [P1-PHASE-1-DESIGN-SYSTEM.md](./P1-PHASE-1-DESIGN-SYSTEM.md)
 2. Set up design tokens and CSS architecture
 3. Build components progressively through phases 2-4
 
 ### For Backend Developers
-Start with **[PILLAR 3: BUILD ENGINE](./PILLAR-3-BUILD/)**
-1. Read Phase 1: Core Pipeline
+Start with **PILLAR 3: BUILD ENGINE**
+1. Read [P3-PHASE-1-PIPELINE.md](./P3-PHASE-1-PIPELINE.md)
 2. Set up Bun + Vite environment
 3. Implement AST processing and rendering
 
 ### For AI/ML Engineers
-Start with **[PILLAR 4: AI INTEGRATION](./PILLAR-4-AI/)**
-1. Review MCP tool specifications
-2. Understand component registry structure
-3. Implement tools and validation
+Start with **PILLAR 4: AI INTEGRATION**
+1. Review [P4-ALGORITHMS.md](./P4-ALGORITHMS.md)
+2. Understand [P2-AST-SCHEMA.md](./P2-AST-SCHEMA.md)
+3. Implement MCP tools (docs coming soon)
 
 ### For Full-Stack Developers
 Follow the **[ROADMAP.md](./ROADMAP.md)** for the complete implementation path.
 
 ---
 
-## 📂 Directory Structure
+## 📂 File Organization
+
+All specification documents are in a **flat structure** for easy navigation:
 
 ```
 SPEC/
@@ -160,44 +166,43 @@ SPEC/
 ├── ROADMAP.md                         # Timeline & dependencies
 ├── DECISIONS.md                       # 17 architectural decisions
 │
-├── PILLAR-1-COMPONENTS/              # Visual component system
-│   ├── README.md
-│   ├── PHASE-1-DESIGN-SYSTEM.md
-│   ├── PHASE-2-BASIC-COMPONENTS.md
-│   ├── PHASE-3-COMPLEX-SECTIONS.md
-│   ├── PHASE-4-POLISH.md
-│   └── COMPONENT-SPECS.md
+├── P1-COMPONENT-SPECS.md              # Component specifications
+├── P1-PHASE-1-DESIGN-SYSTEM.md        # Pillar 1, Phase 1
+├── P1-PHASE-2-BASIC-COMPONENTS.md     # Pillar 1, Phase 2
+├── P1-PHASE-3-COMPLEX-SECTIONS.md     # Pillar 1, Phase 3
+├── P1-PHASE-4-POLISH.md               # Pillar 1, Phase 4
 │
-├── PILLAR-2-REGISTRY/                # Machine-readable layer
-│   ├── README.md
-│   ├── PHASE-1-SCHEMAS.md
-│   ├── PHASE-2-GENERATION.md
-│   ├── PHASE-3-VALIDATION.md
-│   ├── PHASE-4-DISCOVERY.md
-│   └── AST-SCHEMA.md
+├── P2-AST-SCHEMA.md                   # AST schema specification
+├── P2-PHASE-1-SCHEMAS.md              # Pillar 2, Phase 1
+├── P2-PHASE-2-GENERATION.md           # Pillar 2, Phase 2
+├── P2-PHASE-3-VALIDATION.md           # Pillar 2, Phase 3
+├── P2-PHASE-4-DISCOVERY.md            # Pillar 2, Phase 4
 │
-├── PILLAR-3-BUILD/                   # Static site generation
-│   ├── README.md
-│   ├── PHASE-1-PIPELINE.md
-│   ├── PHASE-2-AST-PROCESSING.md
-│   ├── PHASE-3-RENDER.md
-│   ├── PHASE-4-OPTIMIZATION.md
-│   └── CLI-INTERFACE.md
+├── P3-ARCHITECTURE.md                 # Build architecture
+├── P3-CSS-OPTIMIZATION.md             # CSS optimization strategy
+├── P3-PHASE-1-PIPELINE.md             # Pillar 3, Phase 1
+├── P3-PHASE-2-AST-PROCESSING.md       # Pillar 3, Phase 2
+├── P3-PHASE-3-RENDER.md               # Pillar 3, Phase 3
+├── P3-PHASE-4-OPTIMIZATION.md         # Pillar 3, Phase 4
 │
-├── PILLAR-4-AI/                      # Claude integration
-│   ├── README.md
-│   ├── PHASE-1-MCP-TOOLS.md
-│   ├── PHASE-2-COMPOSITION.md
-│   ├── PHASE-3-VALIDATION.md
-│   ├── PHASE-4-DOCUMENTATION.md
-│   └── MCP-TOOL-SPECS.md
+├── P4-ALGORITHMS.md                   # AI algorithms
+├── P4-PHASE-1-MCP-TOOLS.md            # Pillar 4, Phase 1
+├── P4-PHASE-2-COMPOSITION.md          # Pillar 4, Phase 2
+├── P4-PHASE-3-VALIDATION.md           # Pillar 4, Phase 3
+├── P4-PHASE-4-DOCUMENTATION.md        # Pillar 4, Phase 4
 │
-└── REFERENCE/                        # Supporting documentation
-    ├── STORYBOOK.md
-    ├── TECHNOLOGY-STACK.md
-    ├── SUCCESS-METRICS.md
-    └── GLOSSARY.md
+├── ERROR-HANDLING.md                  # Error handling patterns
+├── IMPLEMENTATION-STATUS.md           # Current implementation status
+├── PROJECT-STRUCTURE.md               # File organization
+├── SUCCESS-METRICS.md                 # KPIs and targets
+└── TECHNOLOGY-STACK.md                # Tech choices
 ```
+
+**Naming Convention:**
+- `P{N}-` prefix indicates pillar number (P1, P2, P3, P4)
+- `PHASE-{N}-` indicates implementation phase
+- Spec files use descriptive names (COMPONENT-SPECS, AST-SCHEMA, etc.)
+- Reference docs have no prefix
 
 ---
 
@@ -226,10 +231,10 @@ For implementation, **always refer to SPEC** as the source of truth.
 ## ❓ Where to Start?
 
 1. **Understand the vision**: Read [DECISIONS.md](./DECISIONS.md) for the 17 guiding principles
-2. **Choose your track**: Pick a pillar based on your expertise
-3. **Read the pillar README**: Each pillar has its own guide
+2. **Choose your track**: Pick a pillar based on your expertise (see Quick Start Paths above)
+3. **Read the phase docs**: Start with Phase 1 of your chosen pillar
 4. **Follow the phases**: Work through phases sequentially
-5. **Track progress**: Use phase acceptance criteria
+5. **Track progress**: Use phase acceptance criteria in each document
 
 ---
 
@@ -244,5 +249,5 @@ By the end of this plan's implementation, AgentStatic will be:
 
 ---
 
-*Last Updated: October 24, 2025*
-*Status: Planning Complete, Ready for Implementation*
+*Last Updated: October 25, 2025*
+*Status: Specification Complete (30 docs), Ready for Implementation*
