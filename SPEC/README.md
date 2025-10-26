@@ -18,39 +18,31 @@ This directory contains the consolidated, final planning documentation for Agent
 
 ## 🏛️ The Four Pillars
 
-AgentStatic is built on four independent but interconnected pillars:
+AgentStatic is built on four independent but interconnected pillars. **Phase-specific implementation details are now tracked in GitHub Issues** (see section below).
 
 ### PILLAR 1: COMPONENT LIBRARY
 The visual component system - HTML/CSS components with zero runtime JavaScript.
-- **Phase 1**: Design System Foundation → [P1-PHASE-1-DESIGN-SYSTEM.md](./P1-PHASE-1-DESIGN-SYSTEM.md)
-- **Phase 2**: Basic Components → [P1-PHASE-2-BASIC-COMPONENTS.md](./P1-PHASE-2-BASIC-COMPONENTS.md)
-- **Phase 3**: Complex Sections → [P1-PHASE-3-COMPLEX-SECTIONS.md](./P1-PHASE-3-COMPLEX-SECTIONS.md)
-- **Phase 4**: Polish & Enhancement → [P1-PHASE-4-POLISH.md](./P1-PHASE-4-POLISH.md)
-- **Specs**: [P1-COMPONENT-SPECS.md](./P1-COMPONENT-SPECS.md)
+- **GitHub Epic**: #53 - Component Library
+- **GitHub Issues**: #54-#84 (40+ component and design system issues)
+- **Reference**: [P1-COMPONENT-SPECS.md](./P1-COMPONENT-SPECS.md)
 
 ### PILLAR 2: REGISTRY & VALIDATION
 Making components machine-readable and validated for AI consumption.
-- **Phase 1**: Component Schema Definition → [P2-PHASE-1-SCHEMAS.md](./P2-PHASE-1-SCHEMAS.md)
-- **Phase 2**: Registry Generation → [P2-PHASE-2-GENERATION.md](./P2-PHASE-2-GENERATION.md)
-- **Phase 3**: Validation System → [P2-PHASE-3-VALIDATION.md](./P2-PHASE-3-VALIDATION.md)
-- **Phase 4**: Discovery API → [P2-PHASE-4-DISCOVERY.md](./P2-PHASE-4-DISCOVERY.md)
-- **Specs**: [P2-AST-SCHEMA.md](./P2-AST-SCHEMA.md)
+- **GitHub Epic**: #85 - Registry & Validation System
+- **GitHub Issues**: #86-#92 (7 schema and registry issues)
+- **Reference**: [P2-AST-SCHEMA.md](./P2-AST-SCHEMA.md)
 
 ### PILLAR 3: BUILD ENGINE
 Transforming component compositions into optimized static sites.
-- **Phase 1**: Core Pipeline → [P3-PHASE-1-PIPELINE.md](./P3-PHASE-1-PIPELINE.md)
-- **Phase 2**: AST Processing → [P3-PHASE-2-AST-PROCESSING.md](./P3-PHASE-2-AST-PROCESSING.md)
-- **Phase 3**: Render System → [P3-PHASE-3-RENDER.md](./P3-PHASE-3-RENDER.md)
-- **Phase 4**: Output Optimization → [P3-PHASE-4-OPTIMIZATION.md](./P3-PHASE-4-OPTIMIZATION.md)
-- **Specs**: [P3-ARCHITECTURE.md](./P3-ARCHITECTURE.md), [P3-CSS-OPTIMIZATION.md](./P3-CSS-OPTIMIZATION.md), [P3-CLI-INTERFACE.md](./P3-CLI-INTERFACE.md)
+- **GitHub Epic**: #93 - Build System & Static Site Generation
+- **GitHub Issues**: #94-#98 (5 phase issues from foundation to CLI)
+- **Reference**: [P3-ARCHITECTURE.md](./P3-ARCHITECTURE.md), [P3-CSS-OPTIMIZATION.md](./P3-CSS-OPTIMIZATION.md), [P3-CLI-INTERFACE.md](./P3-CLI-INTERFACE.md)
 
 ### PILLAR 4: AI INTEGRATION
 Enabling Claude to autonomously build complete sites.
-- **Phase 1**: MCP Tool Implementation → [P4-PHASE-1-MCP-TOOLS.md](./P4-PHASE-1-MCP-TOOLS.md)
-- **Phase 2**: Composition Engine → [P4-PHASE-2-COMPOSITION.md](./P4-PHASE-2-COMPOSITION.md)
-- **Phase 3**: Validation & Feedback → [P4-PHASE-3-VALIDATION.md](./P4-PHASE-3-VALIDATION.md)
-- **Phase 4**: Documentation & Examples → [P4-PHASE-4-DOCUMENTATION.md](./P4-PHASE-4-DOCUMENTATION.md)
-- **Specs**: [P4-ALGORITHMS.md](./P4-ALGORITHMS.md)
+- **GitHub Epic**: #99 - AI Tools & MCP Integration
+- **GitHub Issues**: #100-#104 (6 MCP tool and integration issues)
+- **Reference**: [P4-ALGORITHMS.md](./P4-ALGORITHMS.md)
 
 ---
 
@@ -135,30 +127,30 @@ gantt
 
 ### For Frontend Developers
 Start with **PILLAR 1: COMPONENT LIBRARY**
-1. Read [P1-PHASE-1-DESIGN-SYSTEM.md](./P1-PHASE-1-DESIGN-SYSTEM.md)
-2. Set up design tokens and CSS architecture
-3. Build components progressively through phases 2-4
+1. Check Epic #53 and Issues #54-#84 in GitHub
+2. Read [P1-COMPONENT-SPECS.md](./P1-COMPONENT-SPECS.md) for reference
+3. Build components progressively through phases (tracked in issues)
 
 ### For Backend Developers
 Start with **PILLAR 3: BUILD ENGINE**
-1. Read [P3-PHASE-1-PIPELINE.md](./P3-PHASE-1-PIPELINE.md)
-2. Set up Bun + Vite environment
-3. Implement AST processing and rendering
+1. Check Epic #93 and Issues #94-#98 in GitHub
+2. Read [P3-ARCHITECTURE.md](./P3-ARCHITECTURE.md) for reference
+3. Start with Issue #94 (Build Foundation & Project Setup)
 
 ### For AI/ML Engineers
 Start with **PILLAR 4: AI INTEGRATION**
-1. Review [P4-ALGORITHMS.md](./P4-ALGORITHMS.md)
-2. Understand [P2-AST-SCHEMA.md](./P2-AST-SCHEMA.md)
-3. Implement MCP tools (docs coming soon)
+1. Check Epic #99 and Issues #100-#104 in GitHub
+2. Review [P4-ALGORITHMS.md](./P4-ALGORITHMS.md) for implementation details
+3. Understand [P2-AST-SCHEMA.md](./P2-AST-SCHEMA.md) for component structures
 
 ### For Full-Stack Developers
-Follow the **[ROADMAP.md](./ROADMAP.md)** for the complete implementation path.
+Follow the **[ROADMAP.md](./ROADMAP.md)** for the complete implementation path, using **GitHub Issues for task assignment and progress tracking**.
 
 ---
 
 ## 📂 File Organization
 
-All specification documents are in a **flat structure** for easy navigation:
+SPEC now contains **reference and architecture documents only**. Phase-specific implementation details are tracked in GitHub Issues.
 
 ```
 SPEC/
@@ -166,43 +158,28 @@ SPEC/
 ├── ROADMAP.md                         # Timeline & dependencies
 ├── DECISIONS.md                       # 17 architectural decisions
 │
-├── P1-COMPONENT-SPECS.md              # Component specifications
-├── P1-PHASE-1-DESIGN-SYSTEM.md        # Pillar 1, Phase 1
-├── P1-PHASE-2-BASIC-COMPONENTS.md     # Pillar 1, Phase 2
-├── P1-PHASE-3-COMPLEX-SECTIONS.md     # Pillar 1, Phase 3
-├── P1-PHASE-4-POLISH.md               # Pillar 1, Phase 4
-│
+├── REFERENCE DOCUMENTS (for implementation)
+├── P1-COMPONENT-SPECS.md              # Component anatomy reference
 ├── P2-AST-SCHEMA.md                   # AST schema specification
-├── P2-PHASE-1-SCHEMAS.md              # Pillar 2, Phase 1
-├── P2-PHASE-2-GENERATION.md           # Pillar 2, Phase 2
-├── P2-PHASE-3-VALIDATION.md           # Pillar 2, Phase 3
-├── P2-PHASE-4-DISCOVERY.md            # Pillar 2, Phase 4
-│
-├── P3-ARCHITECTURE.md                 # Build architecture
+├── P3-ARCHITECTURE.md                 # Build architecture reference
 ├── P3-CSS-OPTIMIZATION.md             # CSS optimization strategy
-├── P3-PHASE-1-PIPELINE.md             # Pillar 3, Phase 1
-├── P3-PHASE-2-AST-PROCESSING.md       # Pillar 3, Phase 2
-├── P3-PHASE-3-RENDER.md               # Pillar 3, Phase 3
-├── P3-PHASE-4-OPTIMIZATION.md         # Pillar 3, Phase 4
-│
-├── P4-ALGORITHMS.md                   # AI algorithms
-├── P4-PHASE-1-MCP-TOOLS.md            # Pillar 4, Phase 1
-├── P4-PHASE-2-COMPOSITION.md          # Pillar 4, Phase 2
-├── P4-PHASE-3-VALIDATION.md           # Pillar 4, Phase 3
-├── P4-PHASE-4-DOCUMENTATION.md        # Pillar 4, Phase 4
+├── P3-CLI-INTERFACE.md                # CLI design reference
+├── P4-ALGORITHMS.md                   # AI algorithms reference
 │
 ├── ERROR-HANDLING.md                  # Error handling patterns
-├── IMPLEMENTATION-STATUS.md           # Current implementation status
 ├── PROJECT-STRUCTURE.md               # File organization
 ├── SUCCESS-METRICS.md                 # KPIs and targets
 └── TECHNOLOGY-STACK.md                # Tech choices
 ```
 
-**Naming Convention:**
-- `P{N}-` prefix indicates pillar number (P1, P2, P3, P4)
-- `PHASE-{N}-` indicates implementation phase
-- Spec files use descriptive names (COMPONENT-SPECS, AST-SCHEMA, etc.)
-- Reference docs have no prefix
+**Phase-specific details are now in GitHub Issues:**
+- Pillar 1: Epic #53, Issues #54-#84
+- Pillar 2: Epic #85, Issues #86-#92
+- Pillar 3: Epic #93, Issues #94-#98
+- Pillar 4: Epic #99, Issues #100-#104
+
+**Archived documents** (for historical reference):
+- See `.archive/SPEC/` for all phase-specific planning documents
 
 ---
 
@@ -249,5 +226,6 @@ By the end of this plan's implementation, AgentStatic will be:
 
 ---
 
-*Last Updated: October 25, 2025*
-*Status: Specification Complete (30 docs), Ready for Implementation*
+*Last Updated: October 26, 2025*
+*Status: Specification Complete (11 reference docs + 104 GitHub Issues), Ready for Implementation*
+*Implementation tracked in: GitHub Issues (#53-#104)*
