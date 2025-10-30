@@ -1,0 +1,408 @@
+/**
+ * Testimonial Carousel Organism
+ *
+ * Social proof at scale - showcase multiple customer testimonials in a rotating carousel.
+ * Critical for building trust and driving conversions on landing pages and product pages.
+ *
+ * Marketing Psychology:
+ * - Social proof at scale: Show 10+ testimonials in compact space
+ * - Video testimonials convert 53% better than text alone (Wyzowl)
+ * - Variety signals credibility (mix of industries/use cases)
+ * - Auto-play creates curiosity (users watch 2-3 more testimonials)
+ * - Strategic placement: After features, before pricing, before final CTA
+ *
+ * Features:
+ * - Multiple layout variants (single, grid, scroll, featured)
+ * - Auto-play with pause on hover
+ * - Navigation controls (arrows, dots)
+ * - Keyboard navigation (arrow keys)
+ * - Touch/swipe support
+ * - Accessibility (ARIA live regions, announcements)
+ * - Smooth transitions
+ * - Dark mode support
+ * - Respects prefers-reduced-motion
+ *
+ * Implementation:
+ * - CSS scroll-snap for baseline carousel (no JS required)
+ * - Progressive enhancement with JavaScript for auto-play and arrow controls
+ * - Semantic HTML with ARIA for screen reader support
+ *
+ * Usage:
+ *   <section class="testimonial-carousel">...</section>
+ *   <section class="testimonial-carousel testimonial-carousel-grid">...</section>
+ *   <section class="testimonial-carousel testimonial-carousel-featured">...</section>
+ */
+
+@layer components {
+  /* ========================================================================
+     BASE CAROUSEL STYLES
+     ======================================================================== */
+
+  .testimonial-carousel {
+    --carousel-gap: var(--spacing-xl);
+    --carousel-padding: var(--spacing-4xl) 0;
+    --carousel-nav-size: 3rem;
+    --carousel-dot-size: 0.5rem;
+
+    position: relative;
+    padding: var(--carousel-padding);
+    overflow: hidden;
+  }
+
+  /* Container for centering content */
+  .testimonial-carousel-container {
+    max-width: var(--container-5xl);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+
+  /* Wrapper for carousel track and controls */
+  .testimonial-carousel-wrapper {
+    position: relative;
+  }
+
+  /* ========================================================================
+     CAROUSEL TRACK & SLIDES
+     ======================================================================== */
+
+  /* Track that contains all slides */
+  .testimonial-carousel-track {
+    display: flex;
+    gap: var(--carousel-gap);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  }
+
+  /* Hide scrollbar (Webkit) */
+  .testimonial-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Individual slide */
+  .testimonial-carousel-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* ========================================================================
+     NAVIGATION ARROWS
+     ======================================================================== */
+
+  .testimonial-carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--carousel-nav-size);
+    height: var(--carousel-nav-size);
+    padding: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: var(--transition-colors), transform var(--transition-fast);
+    z-index: var(--z-10);
+  }
+
+  .testimonial-carousel-nav:hover:not(:disabled) {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-200);
+    color: var(--color-primary-600);
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .testimonial-carousel-nav:active:not(:disabled) {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .testimonial-carousel-nav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .testimonial-carousel-nav:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  /* Previous button */
+  .testimonial-carousel-nav-prev {
+    left: var(--spacing-lg);
+  }
+
+  /* Next button */
+  .testimonial-carousel-nav-next {
+    right: var(--spacing-lg);
+  }
+
+  /* Arrow icons */
+  .testimonial-carousel-nav svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  /* Hide navigation on mobile */
+  @media (max-width: 767px) {
+    .testimonial-carousel-nav {
+      display: none;
+    }
+  }
+
+  /* ========================================================================
+     DOT INDICATORS
+     ======================================================================== */
+
+  .testimonial-carousel-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+  }
+
+  .testimonial-carousel-dot {
+    width: var(--carousel-dot-size);
+    height: var(--carousel-dot-size);
+    padding: 0;
+    background: var(--color-gray-300);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-all);
+  }
+
+  .testimonial-carousel-dot:hover {
+    background: var(--color-gray-400);
+    transform: scale(1.2);
+  }
+
+  .testimonial-carousel-dot:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  /* Active dot */
+  .testimonial-carousel-dot[aria-current="true"] {
+    width: 1.5rem;
+    background: var(--color-primary-500);
+    border-radius: var(--border-radius-full);
+  }
+
+  /* ========================================================================
+     LAYOUT VARIANT: GRID (2-3 visible at once)
+     ======================================================================== */
+
+  .testimonial-carousel-grid .testimonial-carousel-slide {
+    flex: 0 0 calc(100% - 2 * var(--spacing-lg));
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-carousel-grid .testimonial-carousel-slide {
+      flex: 0 0 calc(50% - var(--carousel-gap) / 2);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonial-carousel-grid .testimonial-carousel-slide {
+      flex: 0 0 calc(33.333% - var(--carousel-gap) * 2 / 3);
+    }
+  }
+
+  /* Card styling for grid layout */
+  .testimonial-carousel-grid .testimonial-carousel-slide .testimonial {
+    height: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    transition: var(--transition-all);
+  }
+
+  .testimonial-carousel-grid .testimonial-carousel-slide .testimonial:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  /* ========================================================================
+     LAYOUT VARIANT: SCROLL (horizontal scroll, no snap)
+     ======================================================================== */
+
+  .testimonial-carousel-scroll .testimonial-carousel-track {
+    scroll-snap-type: none;
+    gap: var(--spacing-md);
+  }
+
+  .testimonial-carousel-scroll .testimonial-carousel-slide {
+    flex: 0 0 auto;
+    width: min(85vw, 28rem);
+  }
+
+  .testimonial-carousel-scroll .testimonial-carousel-slide .testimonial {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+  }
+
+  /* ========================================================================
+     LAYOUT VARIANT: FEATURED (center testimonial larger)
+     ======================================================================== */
+
+  .testimonial-carousel-featured .testimonial-carousel-track {
+    align-items: center;
+    padding: var(--spacing-xl) 0;
+  }
+
+  .testimonial-carousel-featured .testimonial-carousel-slide {
+    flex: 0 0 80%;
+    opacity: 0.5;
+    transform: scale(0.9);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-carousel-featured .testimonial-carousel-slide {
+      flex: 0 0 60%;
+    }
+  }
+
+  /* Active slide in featured layout */
+  .testimonial-carousel-featured .testimonial-carousel-slide[data-active="true"] {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 1;
+  }
+
+  .testimonial-carousel-featured .testimonial-carousel-slide .testimonial {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-2xl);
+    text-align: center;
+  }
+
+  /* ========================================================================
+     LAYOUT VARIANT: MINIMAL (simple, no decorations)
+     ======================================================================== */
+
+  .testimonial-carousel-minimal {
+    --carousel-padding: var(--spacing-2xl) 0;
+  }
+
+  .testimonial-carousel-minimal .testimonial-carousel-slide .testimonial {
+    text-align: center;
+  }
+
+  /* Minimal variant doesn't show navigation arrows */
+  .testimonial-carousel-minimal .testimonial-carousel-nav {
+    display: none;
+  }
+
+  /* ========================================================================
+     AUTO-PLAY STATE
+     ======================================================================== */
+
+  /* Pause indicator (optional visual feedback) */
+  .testimonial-carousel[data-autoplay="paused"] .testimonial-carousel-track {
+    scroll-behavior: auto;
+  }
+
+  /* ========================================================================
+     ACCESSIBILITY: SCREEN READER ANNOUNCEMENTS
+     ======================================================================== */
+
+  /* Visually hidden but available to screen readers */
+  .testimonial-carousel-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ========================================================================
+     REDUCED MOTION
+     ======================================================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-carousel-track {
+      scroll-behavior: auto;
+    }
+
+    .testimonial-carousel-slide {
+      transition: none;
+    }
+
+    .testimonial-carousel-nav {
+      transition: none;
+    }
+
+    .testimonial-carousel-dot {
+      transition: none;
+    }
+
+    /* Disable auto-play */
+    .testimonial-carousel[data-autoplay="true"] .testimonial-carousel-track {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* ========================================================================
+     DARK MODE
+     ======================================================================== */
+
+  @media (prefers-color-scheme: dark) {
+    .testimonial-carousel-nav {
+      background: var(--color-gray-800);
+      border-color: var(--color-gray-700);
+    }
+
+    .testimonial-carousel-nav:hover:not(:disabled) {
+      background: var(--color-primary-900);
+      border-color: var(--color-primary-700);
+      color: var(--color-primary-300);
+    }
+
+    .testimonial-carousel-grid .testimonial-carousel-slide .testimonial,
+    .testimonial-carousel-scroll .testimonial-carousel-slide .testimonial,
+    .testimonial-carousel-featured .testimonial-carousel-slide .testimonial {
+      background: var(--color-gray-800);
+      border-color: var(--color-gray-700);
+    }
+  }
+
+  /* Manual dark mode override */
+  [data-theme="dark"] .testimonial-carousel-nav {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+
+  [data-theme="dark"] .testimonial-carousel-nav:hover:not(:disabled) {
+    background: var(--color-primary-900);
+    border-color: var(--color-primary-700);
+    color: var(--color-primary-300);
+  }
+
+  [data-theme="dark"] .testimonial-carousel-grid .testimonial-carousel-slide .testimonial,
+  [data-theme="dark"] .testimonial-carousel-scroll .testimonial-carousel-slide .testimonial,
+  [data-theme="dark"] .testimonial-carousel-featured .testimonial-carousel-slide .testimonial {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+}

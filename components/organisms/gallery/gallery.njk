@@ -1,0 +1,344 @@
+{# components/organisms/gallery/gallery.njk #}
+
+{#
+  Gallery Organism
+
+  Description: Versatile grid-based gallery for images, portfolios, case studies, and blog posts.
+  Supports multiple layout variants, lazy loading, hover effects, and Card molecule integration.
+
+  Marketing Context:
+  - Visual storytelling: Show products in action, real-world use cases
+  - Portfolio credibility: High-quality images signal professionalism (74% trust factor)
+  - Case studies: Show results with metrics and outcomes
+  - Social proof: Customer logos, team photos build connection
+
+  Props:
+    - title (string): Optional section title
+    - description (string): Optional section description
+    - items (array): **REQUIRED** - Array of gallery items (see Item Props below)
+    - columns (number): Number of columns - 2, 3, or 4 (default: 3)
+    - layout (string): 'grid' or 'masonry' (default: 'grid')
+    - variant (string): 'default', 'overlay', 'minimal', 'cards' (default: 'default')
+    - aspectRatio (string): 'square', 'landscape', 'portrait', 'wide', 'auto' (default: 'landscape')
+    - lazyLoad (boolean): Enable lazy loading for images (default: true)
+    - lightbox (boolean): Enable lightbox/modal on click (default: false)
+    - filters (array): Optional category filters
+    - pagination (object): Optional pagination config
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+
+  Item Props:
+    - image (object): Image configuration
+      - src (string): Image URL
+      - alt (string): Image alt text
+      - srcset (string): Responsive image sources
+    - title (string): Item title
+    - description (string): Item description
+    - link (string): Link destination
+    - category (string): Category/tag label
+    - useCard (boolean): Render as Card molecule instead of simple image
+    - cardProps (object): Props to pass to Card molecule
+
+  Usage:
+    {% from "organisms/gallery/gallery.njk" import gallery %}
+
+    {# Portfolio grid #}
+    {{ gallery({
+      title: 'Our Work',
+      description: 'Recent projects we\'re proud of',
+      columns: 3,
+      variant: 'overlay',
+      items: [
+        {
+          image: { src: '/portfolio-1.jpg', alt: 'E-commerce redesign' },
+          title: 'E-commerce Redesign',
+          description: '45% increase in conversions',
+          link: '/case-studies/ecommerce',
+          category: 'Design'
+        }
+      ]
+    }) }}
+
+    {# Masonry gallery #}
+    {{ gallery({
+      layout: 'masonry',
+      variant: 'minimal',
+      items: [
+        { image: { src: '/photo-1.jpg', alt: 'Photo 1' } },
+        { image: { src: '/photo-2.jpg', alt: 'Photo 2' } }
+      ]
+    }) }}
+
+    {# Card-based blog grid #}
+    {{ gallery({
+      title: 'Latest Posts',
+      variant: 'cards',
+      columns: 3,
+      items: [
+        {
+          useCard: true,
+          cardProps: {
+            image: { src: '/blog-1.jpg', alt: 'Blog post' },
+            title: 'How to Build Better Websites',
+            description: 'Learn modern web development best practices.',
+            metadata: { author: 'Jane Doe', date: 'Jan 15, 2024' },
+            actions: { primary: { text: 'Read More', href: '/blog/1' } }
+          }
+        }
+      ]
+    }) }}
+#}
+
+{% macro gallery(props = {}) %}
+  {# Import Card molecule for 'cards' variant #}
+  {% from "../molecules/card/card.njk" import card %}
+
+  {% set defaults = {
+    title: '',
+    description: '',
+    items: [],
+    columns: 3,
+    layout: 'grid',
+    variant: 'default',
+    aspectRatio: 'landscape',
+    lazyLoad: true,
+    lightbox: false,
+    filters: [],
+    pagination: {},
+    id: '',
+    className: '',
+    attributes: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Validate required items #}
+  {% if config.items.length === 0 %}
+    <!-- Gallery requires items array -->
+    <div class="gallery-error">
+      <p>Gallery component requires at least one item in the items array.</p>
+    </div>
+  {% else %}
+
+  {# Build class list #}
+  {% set classList = ['gallery'] %}
+
+  {# Add columns class #}
+  {% set classList = (classList.push('gallery-columns-' + config.columns), classList) %}
+
+  {# Add layout class #}
+  {% if config.layout == 'masonry' %}
+    {% set classList = (classList.push('gallery-masonry'), classList) %}
+  {% endif %}
+
+  {# Add variant class #}
+  {% if config.variant == 'overlay' %}
+    {% set classList = (classList.push('gallery-overlay-variant'), classList) %}
+  {% elif config.variant == 'minimal' %}
+    {% set classList = (classList.push('gallery-minimal'), classList) %}
+  {% elif config.variant == 'cards' %}
+    {% set classList = (classList.push('gallery-cards'), classList) %}
+  {% else %}
+    {% set classList = (classList.push('gallery-default'), classList) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Determine aspect ratio class #}
+  {% set aspectClass = 'gallery-media-' + config.aspectRatio %}
+
+  {# Main gallery container #}
+  <section
+    class="{{ classString }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    aria-label="{{ config.title or 'Image gallery' }}"
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Header (title + description) #}
+    {% if config.title or config.description %}
+      <header class="gallery-header">
+        {% if config.title %}
+          <h2 class="gallery-title">{{ config.title }}</h2>
+        {% endif %}
+        {% if config.description %}
+          <p class="gallery-description">{{ config.description }}</p>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    {# Filters (optional category filtering) #}
+    {% if config.filters and config.filters.length > 0 %}
+      <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
+        <button
+          type="button"
+          class="gallery-filter gallery-filter-active"
+          data-filter="all"
+        >
+          All
+        </button>
+        {% for filter in config.filters %}
+          <button
+            type="button"
+            class="gallery-filter"
+            data-filter="{{ filter.value or filter }}"
+          >
+            {{ filter.label or filter }}
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {# Gallery grid/masonry #}
+    <div class="gallery-grid">
+      {% for item in config.items %}
+        {% set itemId = 'gallery-item-' + loop.index %}
+
+        {# Card variant - use Card molecule #}
+        {% if config.variant == 'cards' and item.useCard %}
+          <div class="gallery-item" data-category="{{ item.category or '' }}">
+            {{ card(item.cardProps or {
+              image: item.image,
+              title: item.title,
+              description: item.description,
+              clickable: item.link ? true : false,
+              href: item.link or ''
+            }) }}
+          </div>
+
+        {# Standard image-based gallery items #}
+        {% else %}
+          <div
+            class="gallery-item"
+            data-category="{{ item.category or '' }}"
+            {% if item.id %}id="{{ item.id }}"{% endif %}
+          >
+            {% if item.link %}
+              <a
+                href="{{ item.link }}"
+                class="gallery-item-link"
+                {% if item.title %}aria-label="{{ item.title }}"{% endif %}
+              >
+            {% endif %}
+
+            {# Image container #}
+            <div class="gallery-media {{ aspectClass }}">
+              {# Category badge #}
+              {% if item.category and config.variant !== 'overlay' %}
+                <span class="gallery-item-category">{{ item.category }}</span>
+              {% endif %}
+
+              {# Image #}
+              {% if item.image and item.image.src %}
+                <img
+                  src="{{ item.image.src }}"
+                  alt="{{ item.image.alt or item.title or '' }}"
+                  {% if item.image.srcset %}srcset="{{ item.image.srcset }}"{% endif %}
+                  {% if config.lazyLoad %}loading="lazy"{% endif %}
+                  class="gallery-image"
+                  {% if config.lightbox %}
+                    data-lightbox="true"
+                    data-lightbox-src="{{ item.image.src }}"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Open {{ item.title or 'image' }} in lightbox"
+                  {% endif %}
+                />
+              {% endif %}
+            </div>
+
+            {# Content (title + description) #}
+            {% if item.title or item.description %}
+              <div class="gallery-content">
+                {% if item.category and config.variant == 'overlay' %}
+                  <span class="gallery-item-category">{{ item.category }}</span>
+                {% endif %}
+                {% if item.title %}
+                  <h3 class="gallery-item-title">{{ item.title }}</h3>
+                {% endif %}
+                {% if item.description %}
+                  <p class="gallery-item-description">{{ item.description }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if item.link %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {# Pagination (optional) #}
+    {% if config.pagination and config.pagination.total > 1 %}
+      <nav
+        class="gallery-pagination"
+        role="navigation"
+        aria-label="Gallery pagination"
+      >
+        <button
+          type="button"
+          class="gallery-pagination-button"
+          aria-label="Previous page"
+          {% if config.pagination.current == 1 %}disabled{% endif %}
+        >
+          &laquo; Prev
+        </button>
+
+        {% for page in range(1, config.pagination.total + 1) %}
+          <button
+            type="button"
+            class="gallery-pagination-button {% if page == config.pagination.current %}gallery-pagination-active{% endif %}"
+            aria-label="Page {{ page }}"
+            {% if page == config.pagination.current %}aria-current="page"{% endif %}
+          >
+            {{ page }}
+          </button>
+        {% endfor %}
+
+        <button
+          type="button"
+          class="gallery-pagination-button"
+          aria-label="Next page"
+          {% if config.pagination.current == config.pagination.total %}disabled{% endif %}
+        >
+          Next &raquo;
+        </button>
+      </nav>
+    {% endif %}
+
+    {# Lightbox/Modal (optional - requires JavaScript) #}
+    {% if config.lightbox %}
+      <div
+        class="gallery-lightbox"
+        id="{{ config.id or 'gallery' }}-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image lightbox"
+      >
+        <button
+          type="button"
+          class="gallery-lightbox-close"
+          aria-label="Close lightbox"
+        >
+          &times;
+        </button>
+        <img
+          src=""
+          alt=""
+          class="gallery-lightbox-image"
+        />
+      </div>
+    {% endif %}
+  </section>
+
+  {% endif %}
+{% endmacro %}

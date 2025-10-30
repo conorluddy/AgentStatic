@@ -1,0 +1,380 @@
+{# components/organisms/hero/hero.njk #}
+
+{#
+  Hero Organism Component
+
+  THE MOST IMPORTANT COMPONENT FOR CONVERSION - First impression critical.
+
+  Description: Full-width hero section for landing pages with multiple layout variants,
+  background options, email capture forms, social proof signals, and trust indicators.
+
+  Marketing Psychology:
+  - 5-second rule: Users decide to stay or leave within 5 seconds
+  - Email capture = #1 conversion goal (owned audience beats social)
+  - Social proof above fold = 42% trust increase (Nielsen Norman)
+  - Benefit-focused copy converts 90% better than feature-focused
+  - Visual hierarchy: Eyebrow → Headline → Subheading → CTA → Social proof
+
+  Props:
+    - layout (string): Layout style - 'centered', 'split', 'split-reverse', 'full-width' (default: 'centered')
+    - height (string): Height variant - 'full', 'tall', 'medium', 'compact', 'minimal' (default: 'tall')
+    - background (object): Background configuration
+        - type (string): 'default', 'image', 'video', 'gradient', 'gradient-subtle'
+        - image (string): Background image URL (for type='image')
+        - video (string): Background video URL (for type='video')
+        - overlay (string): Overlay style - 'none', 'light', 'dark' (default: 'dark')
+        - alt (string): Alt text for background image
+    - eyebrow (string): Small label text above heading (e.g., "New Feature", "Limited Offer")
+    - headline (string): Main heading text (REQUIRED) - benefit-focused, not feature-focused
+    - headingLevel (number): Semantic heading level 1-6 (default: 1)
+    - subheading (string): Supporting text below headline
+    - description (string): Body text explaining the value proposition
+    - cta (object): Call-to-action buttons
+        - primary (object): Primary button { text, href, variant, size, target, rel }
+        - secondary (object): Secondary button (optional) { text, href, variant, size, target, rel }
+    - emailCapture (object): Email capture form configuration
+        - enabled (boolean): Show email capture form (default: false)
+        - placeholder (string): Input placeholder (default: "Enter your email")
+        - buttonText (string): Submit button text (default: "Get Started")
+        - privacyText (string): Privacy notice below form (default: "No spam. Unsubscribe anytime.")
+    - socialProof (object): Logo Grid configuration for social proof
+        - enabled (boolean): Show social proof logos (default: false)
+        - title (string): Section title (e.g., "Trusted by industry leaders")
+        - logos (array): Array of logo objects { src, alt, href, width, height }
+    - trustSignals (array): Trust signal elements
+        - Each signal: { icon, text, value } (e.g., { icon: 'users', text: 'Happy customers', value: '10,000+' })
+    - media (object): Hero media (image/video for split layouts)
+        - type (string): 'image', 'video' (default: 'image')
+        - src (string): Media source URL
+        - alt (string): Alt text for images
+        - poster (string): Video poster image URL
+        - autoplay (boolean): Autoplay video (default: false)
+        - loop (boolean): Loop video (default: false)
+        - muted (boolean): Mute video (default: true for autoplay)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+        - ariaLabel (string): Accessible label
+        - landmarkLabel (string): Landmark label for section
+
+  Usage:
+
+    {% from "organisms/hero/hero.njk" import hero %}
+
+    {# Basic centered hero #}
+    {{ hero({
+      headline: 'Build Better Websites Faster',
+      subheading: 'The AI-first static site generator for modern teams',
+      cta: {
+        primary: { text: 'Get Started Free', href: '/signup' }
+      }
+    }) }}
+
+    {# Hero with email capture #}
+    {{ hero({
+      eyebrow: 'Join the Beta',
+      headline: 'Ship Landing Pages in Minutes, Not Days',
+      subheading: 'AI-powered components built for conversion',
+      emailCapture: {
+        enabled: true,
+        placeholder: 'your@email.com',
+        buttonText: 'Start Free Trial',
+        privacyText: 'No credit card required. Cancel anytime.'
+      },
+      socialProof: {
+        enabled: true,
+        title: 'Trusted by over 10,000 developers',
+        logos: [
+          { src: '/logos/company-1.svg', alt: 'Company 1' },
+          { src: '/logos/company-2.svg', alt: 'Company 2' }
+        ]
+      }
+    }) }}
+
+    {# Split layout with image #}
+    {{ hero({
+      layout: 'split',
+      headline: 'Transform Your Workflow',
+      subheading: 'See how our platform saves you 10 hours every week',
+      cta: {
+        primary: { text: 'Watch Demo', href: '/demo' },
+        secondary: { text: 'Learn More', href: '/features', variant: 'ghost' }
+      },
+      media: {
+        type: 'image',
+        src: '/images/product-screenshot.png',
+        alt: 'Product dashboard showing analytics'
+      }
+    }) }}
+
+    {# Hero with background image #}
+    {{ hero({
+      background: {
+        type: 'image',
+        image: '/images/hero-bg.jpg',
+        overlay: 'dark',
+        alt: 'Team collaborating in modern office'
+      },
+      headline: 'Build the Future of Your Business',
+      subheading: 'Join 10,000+ companies transforming their digital presence',
+      cta: {
+        primary: { text: 'Start Free Trial', href: '/signup' }
+      },
+      trustSignals: [
+        { icon: 'users', text: 'Happy customers', value: '10,000+' },
+        { icon: 'star', text: 'Average rating', value: '4.9/5' },
+        { icon: 'award', text: 'Industry awards', value: '15+' }
+      ]
+    }) }}
+#}
+
+{% macro hero(props = {}) %}
+  {# Import dependencies #}
+  {% from "atoms/button/button.njk" import button %}
+  {% from "atoms/heading/heading.njk" import heading %}
+  {% from "atoms/input/input.njk" import input %}
+  {% from "molecules/cta-block/cta-block.njk" import ctaBlock %}
+  {% from "molecules/logo-grid/logo-grid.njk" import logoGrid %}
+
+  {% set defaults = {
+    layout: 'centered',
+    height: 'tall',
+    background: { type: 'default', overlay: 'dark' },
+    headingLevel: 1,
+    emailCapture: { enabled: false, placeholder: 'Enter your email', buttonText: 'Get Started', privacyText: 'No spam. Unsubscribe anytime.' },
+    socialProof: { enabled: false },
+    trustSignals: [],
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Merge nested objects properly #}
+  {% set config = config | merge({
+    background: defaults.background | merge(props.background or {}),
+    emailCapture: defaults.emailCapture | merge(props.emailCapture or {}),
+    socialProof: defaults.socialProof | merge(props.socialProof or {})
+  }) %}
+
+  {# Build class list #}
+  {% set classList = ['hero'] %}
+
+  {# Layout variant #}
+  {% if config.layout %}
+    {% set classList = (classList.push('hero-' + config.layout), classList) %}
+  {% endif %}
+
+  {# Height variant #}
+  {% if config.height %}
+    {% set classList = (classList.push('hero-' + config.height), classList) %}
+  {% endif %}
+
+  {# Background type #}
+  {% if config.background.type == 'gradient' %}
+    {% set classList = (classList.push('hero-gradient'), classList) %}
+  {% elif config.background.type == 'gradient-subtle' %}
+    {% set classList = (classList.push('hero-gradient-subtle'), classList) %}
+  {% elif config.background.type == 'image' or config.background.type == 'video' %}
+    {% set classList = (classList.push('hero-with-background-' + config.background.type), classList) %}
+  {% endif %}
+
+  {# Custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Main hero section #}
+  <section
+    class="{{ classString }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.landmarkLabel %}aria-labelledby="{{ config.a11y.landmarkLabel }}"{% endif %}
+    role="region"
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Background layer (image or video) #}
+    {% if config.background.type == 'image' and config.background.image %}
+      <div class="hero-background" aria-hidden="true">
+        <img
+          src="{{ config.background.image }}"
+          alt="{{ config.background.alt or '' }}"
+          class="hero-background-image"
+          loading="eager"
+        >
+      </div>
+      {% if config.background.overlay != 'none' %}
+        <div class="hero-overlay hero-overlay-{{ config.background.overlay }}" aria-hidden="true"></div>
+      {% endif %}
+    {% endif %}
+
+    {% if config.background.type == 'video' and config.background.video %}
+      <div class="hero-background" aria-hidden="true">
+        <video
+          class="hero-background-video"
+          {% if config.media.poster %}poster="{{ config.media.poster }}"{% endif %}
+          {% if config.media.autoplay %}autoplay{% endif %}
+          {% if config.media.loop %}loop{% endif %}
+          {% if config.media.muted %}muted{% endif %}
+          playsinline
+        >
+          <source src="{{ config.background.video }}" type="video/mp4">
+        </video>
+      </div>
+      {% if config.background.overlay != 'none' %}
+        <div class="hero-overlay hero-overlay-{{ config.background.overlay }}" aria-hidden="true"></div>
+      {% endif %}
+    {% endif %}
+
+    {# Content container #}
+    <div class="hero-container">
+      {# Content area #}
+      <div class="hero-content">
+        {# Eyebrow text (optional) #}
+        {% if config.eyebrow %}
+          <span class="hero-eyebrow">{{ config.eyebrow }}</span>
+        {% endif %}
+
+        {# Main heading (required) #}
+        {% if config.headline %}
+          <h{{ config.headingLevel }} class="hero-content-heading">
+            {{ config.headline }}
+          </h{{ config.headingLevel }}>
+        {% endif %}
+
+        {# Subheading (optional) #}
+        {% if config.subheading %}
+          <p class="hero-content-subheading">{{ config.subheading }}</p>
+        {% endif %}
+
+        {# Description (optional) #}
+        {% if config.description %}
+          <p class="hero-content-description">{{ config.description }}</p>
+        {% endif %}
+
+        {# Email capture form #}
+        {% if config.emailCapture.enabled %}
+          <form class="hero-email-capture" action="/subscribe" method="POST">
+            {{ input({
+              type: 'email',
+              name: 'email',
+              placeholder: config.emailCapture.placeholder,
+              required: true,
+              ariaLabel: 'Email address',
+              size: 'lg',
+              fullWidth: true
+            }) }}
+            {{ button({
+              text: config.emailCapture.buttonText,
+              type: 'submit',
+              variant: 'primary',
+              size: 'lg'
+            }) }}
+            {% if config.emailCapture.privacyText %}
+              <p class="hero-email-privacy">{{ config.emailCapture.privacyText }}</p>
+            {% endif %}
+          </form>
+        {% endif %}
+
+        {# CTA buttons (if no email capture) #}
+        {% if config.cta and not config.emailCapture.enabled %}
+          <div class="hero-actions">
+            {# Primary CTA #}
+            {% if config.cta.primary %}
+              {{ button({
+                text: config.cta.primary.text,
+                href: config.cta.primary.href,
+                variant: config.cta.primary.variant or 'primary',
+                size: config.cta.primary.size or 'lg',
+                target: config.cta.primary.target,
+                rel: config.cta.primary.rel
+              }) }}
+            {% endif %}
+
+            {# Secondary CTA #}
+            {% if config.cta.secondary %}
+              {{ button({
+                text: config.cta.secondary.text,
+                href: config.cta.secondary.href,
+                variant: config.cta.secondary.variant or 'ghost',
+                size: config.cta.secondary.size or 'lg',
+                target: config.cta.secondary.target,
+                rel: config.cta.secondary.rel
+              }) }}
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Trust signals #}
+        {% if config.trustSignals and config.trustSignals | length > 0 %}
+          <div class="hero-trust-signals">
+            {% for signal in config.trustSignals %}
+              <div class="hero-trust-stat">
+                {% if signal.icon %}
+                  <span class="hero-trust-stat-icon" aria-hidden="true">
+                    {# Icon placeholder - would be replaced with actual SVG #}
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                      <circle cx="10" cy="10" r="8" />
+                    </svg>
+                  </span>
+                {% endif %}
+                <span class="hero-trust-stat-value">{{ signal.value }}</span>
+                <span>{{ signal.text }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {# Social proof (Logo Grid) #}
+        {% if config.socialProof.enabled and config.socialProof.logos %}
+          <div class="hero-social-proof">
+            {{ logoGrid({
+              title: config.socialProof.title,
+              logos: config.socialProof.logos,
+              variant: 'grid',
+              colorScheme: 'grayscale-hover',
+              gap: 'md',
+              align: config.layout == 'centered' ? 'center' : 'left'
+            }) }}
+          </div>
+        {% endif %}
+      </div>
+
+      {# Media area (for split layouts) #}
+      {% if config.media and (config.layout == 'split' or config.layout == 'split-reverse') %}
+        <div class="hero-media">
+          {% if config.media.type == 'image' %}
+            <img
+              src="{{ config.media.src }}"
+              alt="{{ config.media.alt or '' }}"
+              loading="eager"
+            >
+          {% elif config.media.type == 'video' %}
+            <div class="hero-media-container">
+              <video
+                {% if config.media.poster %}poster="{{ config.media.poster }}"{% endif %}
+                {% if config.media.autoplay %}autoplay{% endif %}
+                {% if config.media.loop %}loop{% endif %}
+                {% if config.media.muted %}muted{% endif %}
+                playsinline
+                controls
+              >
+                <source src="{{ config.media.src }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          {% else %}
+            {# Custom markup #}
+            {{ config.media | safe }}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endmacro %}

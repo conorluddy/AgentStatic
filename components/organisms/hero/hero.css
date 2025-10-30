@@ -1,0 +1,624 @@
+/**
+ * Hero Organism Component
+ *
+ * THE MOST IMPORTANT COMPONENT - First impression determines 70% of conversion.
+ *
+ * Description: Full-width hero section for landing pages with multiple layout
+ * variants, background options, email capture, social proof, and trust signals.
+ *
+ * Marketing Context:
+ * - 5-second rule: Users decide in 5 seconds if they'll stay or leave
+ * - Email capture is #1 conversion goal for SaaS/marketing sites
+ * - Social proof above fold increases trust by 42% (Nielsen Norman)
+ * - Benefit-focused headlines convert 90% better than feature-focused
+ *
+ * Variants:
+ * - Layout: centered, split, split-reverse, full-width
+ * - Background: default, image, gradient, video
+ * - Features: email-capture, social-proof, trust-signals, minimal
+ *
+ * Dependencies: Button, Heading, Input, CTA Block, Logo Grid
+ */
+
+@layer components {
+  /* ========================================================================
+     BASE HERO STYLES
+     ======================================================================== */
+
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 60vh;
+    padding-block: var(--spacing-5xl);
+    padding-inline: var(--spacing-lg);
+    overflow: hidden;
+  }
+
+  /* Ensure content is above background */
+  .hero > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========================================================================
+     HEIGHT VARIANTS
+     ======================================================================== */
+
+  .hero-full {
+    min-height: 100vh;
+  }
+
+  .hero-tall {
+    min-height: 80vh;
+  }
+
+  .hero-medium {
+    min-height: 50vh;
+  }
+
+  .hero-compact {
+    min-height: auto;
+    padding-block: var(--spacing-4xl);
+  }
+
+  /* ========================================================================
+     BACKGROUND LAYERS
+     ======================================================================== */
+
+  .hero-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  /* Background image */
+  .hero-background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Background video */
+  .hero-background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Overlay for readability on images/video */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+  }
+
+  .hero-overlay-light {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.5) 100%
+    );
+  }
+
+  .hero-overlay-dark {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+
+  /* ========================================================================
+     GRADIENT BACKGROUNDS
+     ======================================================================== */
+
+  .hero-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-600) 0%,
+      var(--color-primary-400) 100%
+    );
+    color: var(--color-text-inverse);
+  }
+
+  .hero-gradient .hero-content-heading,
+  .hero-gradient .hero-content-subheading,
+  .hero-gradient .hero-content-description {
+    color: var(--color-text-inverse);
+  }
+
+  /* Subtle gradient variant */
+  .hero-gradient-subtle {
+    background: linear-gradient(
+      180deg,
+      var(--color-primary-50) 0%,
+      var(--color-surface) 100%
+    );
+  }
+
+  /* Dark mode gradients */
+  @media (prefers-color-scheme: dark) {
+    .hero-gradient-subtle {
+      background: linear-gradient(
+        180deg,
+        var(--color-primary-900) 0%,
+        var(--color-surface) 100%
+      );
+    }
+  }
+
+  /* ========================================================================
+     CONTAINER & LAYOUT
+     ======================================================================== */
+
+  .hero-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: var(--container-5xl);
+    margin-inline: auto;
+    display: grid;
+    gap: var(--spacing-2xl);
+    align-items: center;
+  }
+
+  /* ========================================================================
+     LAYOUT VARIANTS
+     ======================================================================== */
+
+  /* Centered layout (default) */
+  .hero-centered .hero-container {
+    text-align: center;
+    justify-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-centered .hero-content {
+    max-width: var(--container-3xl);
+  }
+
+  /* Split layout (text left, image right) */
+  .hero-split .hero-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3xl);
+  }
+
+  @media (min-width: 768px) {
+    .hero-split .hero-container {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  /* Split reverse layout (image left, text right) */
+  .hero-split-reverse .hero-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3xl);
+  }
+
+  @media (min-width: 768px) {
+    .hero-split-reverse .hero-container {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+
+    .hero-split-reverse .hero-content {
+      order: 2;
+    }
+
+    .hero-split-reverse .hero-media {
+      order: 1;
+    }
+  }
+
+  /* Full-width layout */
+  .hero-full-width .hero-container {
+    max-width: 100%;
+  }
+
+  /* ========================================================================
+     CONTENT AREA
+     ======================================================================== */
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  /* Eyebrow text (small label above heading) */
+  .hero-eyebrow {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary-600);
+    background-color: var(--color-primary-50);
+    border-radius: var(--border-radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-centered .hero-eyebrow {
+    align-self: center;
+  }
+
+  /* Dark mode eyebrow */
+  @media (prefers-color-scheme: dark) {
+    .hero-eyebrow {
+      color: var(--color-primary-400);
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+  }
+
+  /* Gradient/image background eyebrow */
+  .hero-gradient .hero-eyebrow,
+  .hero-with-background-image .hero-eyebrow {
+    color: var(--color-text-inverse);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Main heading */
+  .hero-content-heading {
+    margin: 0;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+  }
+
+  /* Gradient text on white background */
+  .hero-centered .hero-content-heading {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-600) 0%,
+      var(--color-primary-400) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Override gradient text on actual gradient backgrounds */
+  .hero-gradient .hero-content-heading,
+  .hero-with-background-image .hero-content-heading {
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+    color: var(--color-text-inverse);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Subheading */
+  .hero-content-subheading {
+    margin: 0;
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+  }
+
+  /* Image/gradient background subheading */
+  .hero-gradient .hero-content-subheading,
+  .hero-with-background-image .hero-content-subheading {
+    color: var(--color-text-inverse);
+    opacity: 0.9;
+  }
+
+  /* Description */
+  .hero-content-description {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+  }
+
+  /* Image/gradient background description */
+  .hero-gradient .hero-content-description,
+  .hero-with-background-image .hero-content-description {
+    color: var(--color-text-inverse);
+    opacity: 0.85;
+  }
+
+  /* ========================================================================
+     CTA ACTIONS
+     ======================================================================== */
+
+  .hero-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hero-centered .hero-actions {
+    justify-content: center;
+  }
+
+  /* ========================================================================
+     EMAIL CAPTURE FORM
+     ======================================================================== */
+
+  .hero-email-capture {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-direction: column;
+    max-width: 30rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-email-capture {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .hero-centered .hero-email-capture {
+    margin-inline: auto;
+  }
+
+  .hero-email-capture .input-wrapper,
+  .hero-email-capture .input {
+    flex: 1;
+  }
+
+  .hero-email-capture .button {
+    white-space: nowrap;
+  }
+
+  /* Privacy text below form */
+  .hero-email-privacy {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .hero-gradient .hero-email-privacy,
+  .hero-with-background-image .hero-email-privacy {
+    color: var(--color-text-inverse);
+    opacity: 0.8;
+  }
+
+  /* ========================================================================
+     TRUST SIGNALS
+     ======================================================================== */
+
+  .hero-trust-signals {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+  }
+
+  .hero-centered .hero-trust-signals {
+    align-items: center;
+  }
+
+  /* Customer count / stats */
+  .hero-trust-stat {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .hero-gradient .hero-trust-stat,
+  .hero-with-background-image .hero-trust-stat {
+    color: var(--color-text-inverse);
+  }
+
+  .hero-trust-stat-icon {
+    display: inline-flex;
+    color: var(--color-primary-600);
+  }
+
+  .hero-gradient .hero-trust-stat-icon,
+  .hero-with-background-image .hero-trust-stat-icon {
+    color: var(--color-text-inverse);
+  }
+
+  .hero-trust-stat-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+  }
+
+  .hero-gradient .hero-trust-stat-value,
+  .hero-with-background-image .hero-trust-stat-value {
+    color: var(--color-text-inverse);
+  }
+
+  /* ========================================================================
+     SOCIAL PROOF (Logo Grid Integration)
+     ======================================================================== */
+
+  .hero-social-proof {
+    margin-top: var(--spacing-2xl);
+  }
+
+  /* Override logo grid styles in hero context */
+  .hero .logo-grid {
+    padding: 0;
+  }
+
+  .hero .logo-grid-title {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .hero-gradient .logo-grid-title,
+  .hero-with-background-image .logo-grid-title {
+    color: var(--color-text-inverse);
+    opacity: 0.8;
+  }
+
+  /* ========================================================================
+     MEDIA AREA (Images, Video, Illustrations)
+     ======================================================================== */
+
+  .hero-media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-media img,
+  .hero-media video {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-2xl);
+  }
+
+  /* Aspect ratio container for consistent sizing */
+  .hero-media-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-2xl);
+  }
+
+  .hero-media-container img,
+  .hero-media-container video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* ========================================================================
+     MINIMAL VARIANT
+     ======================================================================== */
+
+  .hero-minimal {
+    min-height: auto;
+    padding-block: var(--spacing-4xl);
+  }
+
+  .hero-minimal .hero-content-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .hero-minimal .hero-content-subheading {
+    font-size: var(--font-size-lg);
+  }
+
+  /* ========================================================================
+     RESPONSIVE BEHAVIOR
+     ======================================================================== */
+
+  /* Mobile stacking */
+  @media (max-width: 767px) {
+    .hero {
+      padding-block: var(--spacing-4xl);
+      padding-inline: var(--spacing-md);
+    }
+
+    .hero-content-heading {
+      font-size: clamp(1.75rem, 10vw, 2.5rem);
+    }
+
+    .hero-content-subheading {
+      font-size: clamp(1rem, 4vw, 1.25rem);
+    }
+
+    .hero-media {
+      order: -1; /* Show image above text on mobile */
+    }
+  }
+
+  /* Tablet adjustments */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero {
+      padding-block: var(--spacing-5xl);
+    }
+
+    .hero-content-heading {
+      font-size: clamp(2.5rem, 5vw, 3rem);
+    }
+  }
+
+  /* Desktop optimizations */
+  @media (min-width: 1024px) {
+    .hero-split .hero-content,
+    .hero-split-reverse .hero-content {
+      padding-inline: var(--spacing-xl);
+    }
+  }
+
+  /* ========================================================================
+     ACCESSIBILITY ENHANCEMENTS
+     ======================================================================== */
+
+  /* Focus visible states */
+  .hero a:focus-visible,
+  .hero button:focus-visible,
+  .hero input:focus-visible {
+    outline: 3px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero,
+    .hero * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .hero-content-heading {
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: unset;
+      background-clip: unset;
+      color: var(--color-text);
+    }
+
+    .hero-overlay {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  /* ========================================================================
+     PRINT STYLES
+     ======================================================================== */
+
+  @media print {
+    .hero {
+      min-height: auto;
+      padding: var(--spacing-lg);
+      page-break-inside: avoid;
+    }
+
+    .hero-background,
+    .hero-overlay,
+    .hero-background-image,
+    .hero-background-video {
+      display: none;
+    }
+
+    .hero-gradient {
+      background: none;
+      color: var(--color-text);
+    }
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentstatic.dev/schemas/organisms/comparison-table.schema.json",
+  "title": "Comparison Table",
+  "type": "object",
+  "category": "organism",
+  "description": "Marketing-optimized table for comparing plans, products, or features with pricing psychology principles",
+  "metadata": {
+    "displayName": "Comparison Table",
+    "description": "Table component for comparing features, plans, or products side-by-side. Implements pricing psychology principles (anchoring, highlighting, visual hierarchy). Perfect for pricing pages, product comparisons, and feature matrices. Responsive with horizontal scroll on mobile and full table layout on desktop.",
+    "category": "organism",
+    "tags": [
+      "comparison",
+      "table",
+      "pricing",
+      "plans",
+      "features",
+      "saas",
+      "marketing",
+      "conversion",
+      "brochureware",
+      "competitor",
+      "product-comparison",
+      "feature-matrix",
+      "decision-support",
+      "responsive",
+      "sticky-header",
+      "highlighted-column"
+    ],
+    "composedOf": [
+      "atoms/button",
+      "atoms/badge"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "ariaRole": "region",
+      "focusManagement": "Entire table container is focusable for keyboard scrolling. Plan CTAs are keyboard accessible. Header rows use scope='col', feature rows use scope='row' for proper table semantics.",
+      "keyboardShortcuts": [
+        {
+          "key": "Tab",
+          "action": "Navigate between CTA buttons in plan columns"
+        },
+        {
+          "key": "Arrow keys",
+          "action": "Scroll table horizontally when focused"
+        }
+      ]
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fully-responsive",
+      "mobileStackable": true,
+      "containerQueries": false
+    },
+    "darkMode": true,
+    "layoutPatterns": [
+      "pricing-table",
+      "plan-comparison",
+      "feature-matrix",
+      "competitor-comparison",
+      "product-comparison"
+    ],
+    "usageExamples": [
+      {
+        "title": "SaaS Pricing Table (3 Plans)",
+        "description": "Classic Goldilocks pricing with highlighted middle option. Drives 60%+ to recommended plan.",
+        "code": "{{ comparisonTable({\n  columns: [\n    {\n      title: 'Basic',\n      priceAmount: '$9',\n      pricePeriod: '/mo',\n      description: 'For individuals',\n      cta: { text: 'Start Free', href: '/signup' }\n    },\n    {\n      title: 'Pro',\n      priceAmount: '$29',\n      pricePeriod: '/mo',\n      description: 'For small teams',\n      highlighted: true,\n      badge: 'Most Popular',\n      cta: { text: 'Start Trial', href: '/signup?plan=pro', variant: 'primary' }\n    },\n    {\n      title: 'Enterprise',\n      price: 'Custom',\n      description: 'For large organizations',\n      cta: { text: 'Contact Sales', href: '/contact' }\n    }\n  ],\n  rows: [\n    { category: 'Core Features' },\n    { feature: 'Users', values: ['1', '5', 'Unlimited'] },\n    { feature: 'Storage', values: ['10 GB', '100 GB', 'Unlimited'] },\n    { feature: 'Projects', values: ['3', '20', 'Unlimited'] },\n    { category: 'Advanced Features' },\n    { feature: 'API Access', values: [false, true, true] },\n    { feature: 'Custom Domain', values: [false, true, true] },\n    { feature: 'Priority Support', values: [false, true, true] },\n    { feature: 'Advanced Analytics', values: [false, false, true] }\n  ],\n  variant: 'bordered'\n}) }}"
+      },
+      {
+        "title": "Product Comparison (2 Columns)",
+        "description": "Side-by-side comparison of two products or competitors. Highlights key differentiators.",
+        "code": "{{ comparisonTable({\n  columns: [\n    {\n      title: 'Our Product',\n      subtitle: 'The modern solution',\n      highlighted: true,\n      badge: 'Recommended',\n      cta: { text: 'Try Free', href: '/signup' }\n    },\n    {\n      title: 'Competitor X',\n      subtitle: 'Legacy system',\n      cta: { text: 'Compare', href: '/comparison' }\n    }\n  ],\n  rows: [\n    { feature: 'Setup Time', values: ['5 minutes', '2-3 days'] },\n    { feature: 'User Interface', values: ['Modern & intuitive', 'Dated design'] },\n    { feature: 'API Integration', values: [true, false] },\n    { feature: 'Mobile App', values: [true, false] },\n    { feature: 'Support Response', values: ['< 1 hour', '24-48 hours'] },\n    { feature: 'Annual Cost', values: ['$1,200', '$3,600'] }\n  ],\n  variant: 'striped'\n}) }}"
+      },
+      {
+        "title": "Feature Matrix (4+ Columns)",
+        "description": "Comprehensive feature comparison across multiple plans. Good for detailed decision support.",
+        "code": "{{ comparisonTable({\n  columns: [\n    { title: 'Free', price: '$0', cta: { text: 'Sign Up', href: '/signup' } },\n    { title: 'Starter', priceAmount: '$19', pricePeriod: '/mo', cta: { text: 'Start Trial', href: '/trial' } },\n    { title: 'Business', priceAmount: '$49', pricePeriod: '/mo', highlighted: true, badge: 'Best Value', cta: { text: 'Get Started', href: '/signup?plan=business' } },\n    { title: 'Enterprise', price: 'Custom', cta: { text: 'Contact Us', href: '/contact' } }\n  ],\n  rows: [\n    { feature: 'Team Members', values: ['1', '5', '25', 'Unlimited'] },\n    { feature: 'Storage', values: ['1 GB', '10 GB', '100 GB', 'Unlimited'] },\n    { feature: 'File Upload Size', values: ['10 MB', '100 MB', '1 GB', 'Unlimited'] },\n    { category: 'Features' },\n    { feature: 'Basic Features', values: [true, true, true, true] },\n    { feature: 'Advanced Features', values: [false, true, true, true] },\n    { feature: 'Custom Integrations', values: [false, false, true, true] },\n    { feature: 'White Label', values: [false, false, false, true] }\n  ]\n}) }}"
+      },
+      {
+        "title": "Anchored Pricing (Highest First)",
+        "description": "Shows most expensive plan first to anchor perception. Makes mid-tier seem reasonable.",
+        "code": "{{ comparisonTable({\n  columns: [\n    { title: 'Enterprise', priceAmount: '$299', pricePeriod: '/mo', description: 'Complete control', cta: { text: 'Contact Sales', href: '/contact' } },\n    { title: 'Professional', priceAmount: '$99', pricePeriod: '/mo', description: 'For growing teams', highlighted: true, badge: 'Best Value', cta: { text: 'Start Trial', href: '/trial' } },\n    { title: 'Starter', priceAmount: '$29', pricePeriod: '/mo', description: 'Get started', cta: { text: 'Sign Up', href: '/signup' } }\n  ],\n  rows: [\n    { feature: 'Everything in lower tiers', values: [true, true, true] },\n    { feature: 'Advanced analytics', values: [true, true, false] },\n    { feature: 'Dedicated support', values: [true, false, false] }\n  ]\n}) }}"
+      },
+      {
+        "title": "Competitor Comparison Matrix",
+        "description": "Compare your product against 2-3 competitors. Highlights your advantages.",
+        "code": "{{ comparisonTable({\n  columns: [\n    { title: 'Us', highlighted: true, badge: 'Best Choice', cta: { text: 'Get Started', href: '/signup' } },\n    { title: 'Competitor A', cta: { text: 'Compare', href: '#' } },\n    { title: 'Competitor B', cta: { text: 'Compare', href: '#' } }\n  ],\n  rows: [\n    { category: 'Pricing' },\n    { feature: 'Starting Price', values: ['$19/mo', '$29/mo', '$49/mo'] },\n    { feature: 'Free Trial', values: ['14 days', '7 days', 'None'] },\n    { category: 'Features' },\n    { feature: 'Core Features', values: [true, true, true] },\n    { feature: 'Advanced Features', values: [true, true, false] },\n    { feature: 'API Access', values: [true, false, true] },\n    { feature: 'Mobile App', values: [true, false, false] },\n    { category: 'Support' },\n    { feature: 'Email Support', values: [true, true, true] },\n    { feature: 'Live Chat', values: [true, false, false] },\n    { feature: 'Phone Support', values: [true, false, true] }\n  ],\n  variant: 'striped',\n  a11y: { caption: 'Product comparison: Our product vs competitors' }\n}) }}"
+      },
+      {
+        "title": "Mobile Cards Layout",
+        "description": "Responsive variant that stacks columns as cards on mobile devices.",
+        "code": "{{ comparisonTable({\n  columns: [\n    { title: 'Basic', price: 'Free', cta: { text: 'Start Free', href: '/signup' } },\n    { title: 'Pro', priceAmount: '$29', pricePeriod: '/mo', highlighted: true, badge: 'Popular', cta: { text: 'Try Now', href: '/trial' } },\n    { title: 'Business', priceAmount: '$99', pricePeriod: '/mo', cta: { text: 'Contact Us', href: '/contact' } }\n  ],\n  rows: [\n    { feature: 'Users', values: ['1', '5', 'Unlimited'] },\n    { feature: 'Storage', values: ['10 GB', '100 GB', 'Unlimited'] },\n    { feature: 'Support', values: ['Email', 'Priority', '24/7 Phone'] }\n  ],\n  responsive: 'cards'\n}) }}"
+      },
+      {
+        "title": "Minimal Variant",
+        "description": "Clean, borderless design for modern aesthetic.",
+        "code": "{{ comparisonTable({\n  columns: [\n    { title: 'Free', price: '$0', cta: { text: 'Get Started', href: '/signup' } },\n    { title: 'Pro', priceAmount: '$19', pricePeriod: '/mo', highlighted: true, cta: { text: 'Start Trial', href: '/trial' } },\n    { title: 'Team', priceAmount: '$49', pricePeriod: '/mo', cta: { text: 'Contact Us', href: '/contact' } }\n  ],\n  rows: [\n    { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },\n    { feature: 'Team Members', values: ['1', '5', 'Unlimited'] },\n    { feature: 'Support', values: ['Community', 'Email', 'Priority'] }\n  ],\n  variant: 'minimal'\n}) }}"
+      }
+    ],
+    "version": "1.0.0",
+    "deprecated": false
+  },
+  "properties": {
+    "columns": {
+      "type": "array",
+      "description": "Array of column objects representing plans, products, or comparison subjects",
+      "minItems": 2,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column title (e.g., 'Basic', 'Pro', 'Enterprise', 'Product A')"
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "Optional subtitle below title (e.g., 'For individuals', 'For teams')"
+          },
+          "price": {
+            "type": "string",
+            "description": "Simple price display (e.g., 'Free', 'Custom', '$19/mo')"
+          },
+          "priceAmount": {
+            "type": "string",
+            "description": "Price number for complex display (e.g., '$29')"
+          },
+          "pricePeriod": {
+            "type": "string",
+            "description": "Period text for complex display (e.g., '/mo', '/year')"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description below price"
+          },
+          "highlighted": {
+            "type": "boolean",
+            "description": "Whether this column is highlighted as recommended/popular",
+            "default": false
+          },
+          "badge": {
+            "type": "string",
+            "description": "Badge text for highlighted columns (e.g., 'Most Popular', 'Best Value')"
+          },
+          "cta": {
+            "type": "object",
+            "description": "Call-to-action button configuration",
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Button text"
+              },
+              "href": {
+                "type": "string",
+                "description": "Button URL"
+              },
+              "variant": {
+                "type": "string",
+                "enum": ["primary", "secondary", "ghost", "danger"],
+                "description": "Button variant (defaults to 'primary' for highlighted columns)"
+              },
+              "size": {
+                "type": "string",
+                "enum": ["sm", "md", "lg"],
+                "default": "md"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "description": "Array of feature row objects or category headers",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "oneOf": [
+          {
+            "description": "Category header row",
+            "required": ["category"],
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category name (creates header row spanning all columns)"
+              }
+            }
+          },
+          {
+            "description": "Feature comparison row",
+            "required": ["feature", "values"],
+            "properties": {
+              "feature": {
+                "type": "string",
+                "description": "Feature name or description"
+              },
+              "values": {
+                "type": "array",
+                "description": "Array of values for each column (must match number of columns)",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "boolean",
+                      "description": "true = checkmark, false = X icon"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Text value"
+                    },
+                    {
+                      "type": "number",
+                      "description": "Numeric value"
+                    }
+                  ]
+                }
+              },
+              "tooltip": {
+                "type": "string",
+                "description": "Optional tooltip text explaining the feature"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "bordered", "striped", "minimal"],
+      "default": "default",
+      "description": "Visual style variant"
+    },
+    "responsive": {
+      "type": "string",
+      "enum": ["scroll", "cards"],
+      "default": "scroll",
+      "description": "Mobile behavior: 'scroll' for horizontal scrolling, 'cards' for stacked cards"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component instance"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for screen readers"
+        },
+        "caption": {
+          "type": "string",
+          "description": "Table caption providing context (e.g., 'Pricing plan comparison')"
+        }
+      }
+    }
+  },
+  "required": ["columns", "rows"],
+  "additionalProperties": false
+}
