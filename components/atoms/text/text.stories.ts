@@ -1,9 +1,6 @@
 // components/atoms/text/text.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Text Component Stories
@@ -11,17 +8,6 @@ import nunjucks from 'nunjucks';
  * Flexible text component for paragraphs, spans, and inline elements.
  * Supports multiple sizes, weights, colors, alignments, and special formatting.
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'text.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
 
 // Component metadata
 const meta: Meta = {
@@ -108,14 +94,50 @@ export default meta;
 type Story = StoryObj;
 
 // Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "atoms/text/text.njk" import text %}
-    {{ text(props) }}
-  `,
-    { props: args }
-  );
+const renderComponent = (props: any) => {
+  const {
+    content = '',
+    element = 'p',
+    size = 'base',
+    weight = 'normal',
+    color = 'default',
+    align = 'left',
+    lineHeight = 'normal',
+    lead = false,
+    readable = false,
+    truncate = false,
+    id = '',
+    className = '',
+    attributes = {},
+    a11y = {},
+  } = props;
+
+  // Build class list
+  const classList = ['text'];
+  if (size !== 'base') classList.push(`text-${size}`);
+  if (weight !== 'normal') classList.push(`text-${weight}`);
+  if (color !== 'default') classList.push(`text-${color}`);
+  if (align !== 'left') classList.push(`text-${align}`);
+  if (lineHeight !== 'normal') classList.push(`text-${lineHeight}`);
+  if (lead) classList.push('text-lead');
+  if (readable) classList.push('text-readable');
+  if (truncate) classList.push('text-truncate');
+  if (className) classList.push(className);
+
+  const classStr = classList.join(' ');
+
+  // Build attributes
+  let attrs = `class="${classStr}"`;
+  if (id) attrs += ` id="${id}"`;
+  if (a11y.role) attrs += ` role="${a11y.role}"`;
+  if (a11y.ariaLabel) attrs += ` aria-label="${a11y.ariaLabel}"`;
+  if (a11y.ariaDescribedBy) attrs += ` aria-describedby="${a11y.ariaDescribedBy}"`;
+
+  for (const [key, value] of Object.entries(attributes)) {
+    attrs += ` ${key}="${value}"`;
+  }
+
+  return `<${element} ${attrs}>${content}</${element}>`;
 };
 
 /**

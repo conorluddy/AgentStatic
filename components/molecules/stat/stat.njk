@@ -1,0 +1,202 @@
+{# components/molecules/stat/stat.njk #}
+
+{#
+  Stat Molecule Component
+
+  Description: Displays statistical data with large numbers, labels, icons, and trend indicators.
+  Commonly used in hero sections and feature areas to showcase metrics, KPIs, and social proof.
+
+  Dependencies:
+    - Icon Atom (components/atoms/icon/)
+
+  Props:
+    - value (string, required): The statistic value (e.g., "10,000+", "99.9%", "$2.4M")
+    - label (string, required): Label describing the stat (e.g., "Happy Customers")
+    - prefix (string): Prefix symbol (e.g., "$", "+")
+    - suffix (string): Suffix text (e.g., "%", "/mo", "+")
+    - icon (string): Icon name for visual interest
+    - trend (object): Trend indicator
+      - direction (string): "up", "down", or "neutral"
+      - value (string): Trend percentage (e.g., "15%")
+      - label (string): Context text (e.g., "vs last year")
+    - comparison (string): Comparison text (e.g., "2x faster than competitors")
+    - variant (string): Style variant - "default", "inline", "card", "featured"
+    - size (string): Size variant - "sm", "md" (default), "lg", "xl"
+    - color (string): Number color - "default", "primary", "secondary", "success", "gradient"
+    - countUp (boolean): Enable count-up animation (adds data-count-to attribute)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+
+  Usage:
+    {% from "molecules/stat/stat.njk" import stat %}
+
+    {# Basic stat #}
+    {{ stat({
+      value: "10,000+",
+      label: "Happy Customers"
+    }) }}
+
+    {# Stat with icon and trend #}
+    {{ stat({
+      value: "99.9",
+      suffix: "%",
+      label: "Uptime",
+      icon: "shield",
+      trend: { direction: "up", value: "0.2%", label: "vs last month" }
+    }) }}
+
+    {# Featured card stat #}
+    {{ stat({
+      value: "2.4M",
+      prefix: "$",
+      label: "Annual Revenue",
+      variant: "card featured",
+      size: "lg",
+      comparison: "2x growth year over year"
+    }) }}
+
+    {# Stat group (horizontal) #}
+    <div class="stat-group stat-group-3">
+      {{ stat({ value: "10K+", label: "Users" }) }}
+      {{ stat({ value: "99.9%", label: "Uptime" }) }}
+      {{ stat({ value: "24/7", label: "Support" }) }}
+    </div>
+#}
+
+{% macro stat(props = {}) %}
+  {# Import dependencies #}
+  {% from "atoms/icon/icon.njk" import icon %}
+
+  {# Set defaults #}
+  {% set defaults = {
+    variant: "default",
+    size: "md",
+    color: "default",
+    countUp: false,
+    className: "",
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = ["stat"] %}
+
+  {# Add variant classes (can be multiple) #}
+  {% if config.variant %}
+    {% set variants = config.variant.split(' ') %}
+    {% for v in variants %}
+      {% set classList = (classList.push('stat-' + v), classList) %}
+    {% endfor %}
+  {% endif %}
+
+  {# Add size class #}
+  {% if config.size and config.size != 'md' %}
+    {% set classList = (classList.push('stat-' + config.size), classList) %}
+  {% endif %}
+
+  {# Add color class #}
+  {% if config.color and config.color != 'default' %}
+    {% set classList = (classList.push('stat-' + config.color), classList) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {# Join classes #}
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Main container #}
+  <div
+    class="{{ classString }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.role %}role="{{ config.a11y.role }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Icon (optional) #}
+    {% if config.icon %}
+      <div class="stat-icon">
+        {{ icon({
+          name: config.icon,
+          size: config.size if config.size == 'xl' or config.size == 'lg' else 'lg',
+          decorative: true
+        }) }}
+      </div>
+    {% endif %}
+
+    {# Value (number) with optional prefix/suffix #}
+    <div class="stat-value-wrapper">
+      {% if config.prefix %}
+        <span class="stat-prefix">{{ config.prefix }}</span>
+      {% endif %}
+
+      <span
+        class="stat-value"
+        {% if config.countUp %}data-count-to="{{ config.value }}"{% endif %}
+      >
+        {{ config.value }}
+      </span>
+
+      {% if config.suffix %}
+        <span class="stat-suffix">{{ config.suffix }}</span>
+      {% endif %}
+    </div>
+
+    {# Label (description) #}
+    {% if config.label %}
+      <div class="stat-label">{{ config.label }}</div>
+    {% endif %}
+
+    {# Trend indicator (optional) #}
+    {% if config.trend %}
+      {% set trendDirection = config.trend.direction | lower %}
+      {% set trendClass = 'stat-trend stat-trend-' + trendDirection %}
+
+      {# Determine arrow icon #}
+      {% if trendDirection == 'up' %}
+        {% set trendIcon = 'arrow-up' %}
+      {% elif trendDirection == 'down' %}
+        {% set trendIcon = 'arrow-down' %}
+      {% else %}
+        {% set trendIcon = 'minus' %}
+      {% endif %}
+
+      <div class="{{ trendClass }}">
+        <span class="stat-trend-icon">
+          {{ icon({
+            name: trendIcon,
+            size: 'sm',
+            decorative: true
+          }) }}
+        </span>
+
+        {% if config.trend.value %}
+          <span class="stat-trend-value">{{ config.trend.value }}</span>
+        {% endif %}
+
+        {% if config.trend.label %}
+          <span class="stat-trend-label">{{ config.trend.label }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# Comparison text (optional) #}
+    {% if config.comparison %}
+      <div class="stat-comparison">{{ config.comparison }}</div>
+    {% endif %}
+
+    {# Allow caller content for advanced customization #}
+    {% if caller %}
+      {{ caller() }}
+    {% endif %}
+  </div>
+{% endmacro %}

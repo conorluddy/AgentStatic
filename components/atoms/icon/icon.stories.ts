@@ -1,9 +1,6 @@
 // components/atoms/icon/icon.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Icon Component Stories
@@ -24,16 +21,17 @@ import nunjucks from 'nunjucks';
  * - ~300B gzipped per icon (inline SVG)
  */
 
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'icon.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
+// Icon path map (subset for demos - full set in icon.njk)
+const iconPaths: Record<string, string> = {
+  'check': 'M20 6L9 17l-5-5',
+  'x': 'M18 6L6 18M6 6l12 12',
+  'chevron-right': 'M9 18l6-6-6-6',
+  'star': 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+  'heart': 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
+  'shield': 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  'twitter': 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
+  'github': 'M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22',
+};
 
 // Component metadata
 const meta: Meta = {
@@ -115,14 +113,51 @@ export default meta;
 type Story = StoryObj;
 
 // Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "atoms/icon/icon.njk" import icon %}
-    {{ icon(props) }}
-  `,
-    { props: args }
-  );
+const renderComponent = (props: any) => {
+  const {
+    name = 'check',
+    size = 'md',
+    color = '',
+    circle = false,
+    circleColor = '',
+    decorative = false,
+    ariaLabel = '',
+    className = '',
+    attributes = {},
+  } = props;
+
+  // Build class list
+  const classList = ['icon'];
+  if (size) classList.push(`icon-${size}`);
+  if (color) classList.push(`icon-${color}`);
+  if (circle) {
+    classList.push('icon-circle');
+    if (circleColor) classList.push(`icon-circle-${circleColor}`);
+  }
+  if (className) classList.push(className);
+
+  const classStr = classList.join(' ');
+
+  // Get icon path (fallback to check if not found)
+  const path = iconPaths[name] || iconPaths['check'];
+
+  // Determine stroke width
+  const strokeWidth = (name === 'star' || name === 'heart') ? 1.5 : 2;
+
+  // Build attributes
+  let attrs = `class="${classStr}"`;
+  if (decorative) attrs += ` aria-hidden="true"`;
+  if (ariaLabel && !decorative) attrs += ` aria-label="${ariaLabel}" role="img"`;
+
+  for (const [key, value] of Object.entries(attributes)) {
+    attrs += ` ${key}="${value}"`;
+  }
+
+  return `<span ${attrs}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round">
+      <path d="${path}" />
+    </svg>
+  </span>`;
 };
 
 /**

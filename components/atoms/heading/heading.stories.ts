@@ -1,9 +1,6 @@
 // components/atoms/heading/heading.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Heading Component Stories
@@ -12,17 +9,6 @@ import nunjucks from 'nunjucks';
  * Supports all 6 heading levels, responsive sizing, alignment, color variants,
  * font weights, and marketing enhancements (gradient text, eyebrow labels, highlights).
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'heading.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
 
 // Component metadata
 const meta: Meta = {
@@ -97,14 +83,57 @@ export default meta;
 type Story = StoryObj;
 
 // Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "components/atoms/heading/heading.njk" import heading %}
-    {{ heading(props) }}
-  `,
-    { props: args }
-  );
+const renderComponent = (props: any) => {
+  const {
+    text = '',
+    level = 2,
+    size = '',
+    align = 'left',
+    weight = 'bold',
+    color = 'default',
+    gradient = false,
+    eyebrow = '',
+    id = '',
+    className = '',
+    attributes = {},
+    a11y = {},
+  } = props;
+
+  // Build class list
+  const classList = ['heading', `heading-h${level}`];
+  if (size) classList.push(`heading-size-${size}`);
+  if (align !== 'left') classList.push(`heading-${align}`);
+  if (weight !== 'bold') classList.push(`heading-weight-${weight}`);
+  if (color !== 'default') classList.push(`heading-${color}`);
+  if (gradient) classList.push('heading-gradient');
+  if (className) classList.push(className);
+
+  const classStr = classList.join(' ');
+  const tag = `h${level}`;
+
+  // Build attributes
+  let attrs = `class="${classStr}"`;
+  if (id) attrs += ` id="${id}"`;
+  if (a11y.role) attrs += ` role="${a11y.role}"`;
+  if (a11y.ariaLabel) attrs += ` aria-label="${a11y.ariaLabel}"`;
+  if (a11y.ariaDescribedBy) attrs += ` aria-describedby="${a11y.ariaDescribedBy}"`;
+
+  for (const [key, value] of Object.entries(attributes)) {
+    attrs += ` ${key}="${value}"`;
+  }
+
+  // Build content
+  let content = `<${tag} ${attrs}>${text}</${tag}>`;
+
+  // Wrap with eyebrow if needed
+  if (eyebrow) {
+    content = `<div class="heading-container">
+      <span class="heading-eyebrow">${eyebrow}</span>
+      ${content}
+    </div>`;
+  }
+
+  return content;
 };
 
 /**

@@ -1,9 +1,6 @@
 // components/atoms/input/input.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Input Component Stories
@@ -17,17 +14,6 @@ import nunjucks from 'nunjucks';
  *
  * Critical for email capture, contact forms, and lead generation.
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load component styles
-const stylesPath = path.join(__dirname, 'input.css');
-const styles = fs.readFileSync(stylesPath, 'utf-8');
 
 // Simple icon SVGs for demos
 const emailIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>`;
@@ -114,18 +100,112 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-// Render function
-const renderComponent = (args: any) => {
-  return `
-    <style>${styles}</style>
-    ${env.renderString(
-      `
-      {% from "components/atoms/input/input.njk" import input %}
-      {{ input(props) }}
-    `,
-      { props: args }
-    )}
-  `;
+// Render function - complex component with multiple input types
+const renderComponent = (props: any) => {
+  const {
+    type = 'text',
+    size = 'md',
+    name = '',
+    id = `input-${Math.random().toString(36).substr(2, 9)}`,
+    value = '',
+    placeholder = '',
+    disabled = false,
+    readonly = false,
+    required = false,
+    state = 'default',
+    iconStart = '',
+    iconEnd = '',
+    fullWidth = false,
+    rows = 4,
+    options = [],
+    checked = false,
+    label = '',
+    ariaLabel = '',
+    ariaDescribedBy = '',
+    className = '',
+    attributes = {},
+  } = props;
+
+  // Build class list for standard inputs
+  const inputClasses = ['input', `input-${size}`];
+  if (state !== 'default') inputClasses.push(`input-${state}`);
+  if (iconStart) inputClasses.push('input-with-icon-start');
+  if (iconEnd) inputClasses.push('input-with-icon-end');
+  if (fullWidth) inputClasses.push('input-full-width');
+  if (className) inputClasses.push(className);
+
+  const inputClassStr = inputClasses.join(' ');
+
+  // Build base attributes
+  const buildAttrs = (extraClass = '') => {
+    let attrs = extraClass ? `class="${extraClass}"` : `class="${inputClassStr}"`;
+    if (name) attrs += ` name="${name}"`;
+    if (id) attrs += ` id="${id}"`;
+    if (disabled) attrs += ` disabled`;
+    if (readonly) attrs += ` readonly`;
+    if (required) attrs += ` required`;
+    if (ariaLabel) attrs += ` aria-label="${ariaLabel}"`;
+    if (ariaDescribedBy) attrs += ` aria-describedby="${ariaDescribedBy}"`;
+    if (state === 'error') attrs += ` aria-invalid="true"`;
+    for (const [key, val] of Object.entries(attributes)) {
+      attrs += ` ${key}="${val}"`;
+    }
+    return attrs;
+  };
+
+  // CHECKBOX
+  if (type === 'checkbox') {
+    return `<label class="input-checkbox input-checkbox-${size} ${className}">
+      <input type="checkbox" class="input-checkbox-input" ${name ? `name="${name}"` : ''} ${id ? `id="${id}"` : ''} ${value ? `value="${value}"` : ''} ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''} ${required ? 'required' : ''} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''} ${ariaDescribedBy ? `aria-describedby="${ariaDescribedBy}"` : ''}>
+      <span class="input-checkbox-label">${label}</span>
+      <span class="input-checkbox-box"></span>
+    </label>`;
+  }
+
+  // RADIO
+  if (type === 'radio') {
+    return `<label class="input-radio input-radio-${size} ${className}">
+      <input type="radio" class="input-radio-input" ${name ? `name="${name}"` : ''} ${id ? `id="${id}"` : ''} ${value ? `value="${value}"` : ''} ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''} ${required ? 'required' : ''} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''} ${ariaDescribedBy ? `aria-describedby="${ariaDescribedBy}"` : ''}>
+      <span class="input-radio-label">${label}</span>
+      <span class="input-radio-circle"></span>
+    </label>`;
+  }
+
+  // TEXTAREA
+  if (type === 'textarea') {
+    const textareaClasses = [...inputClasses, 'input-textarea'];
+    return `<textarea ${buildAttrs(textareaClasses.join(' '))} ${placeholder ? `placeholder="${placeholder}"` : ''} ${rows ? `rows="${rows}"` : ''}>${value}</textarea>`;
+  }
+
+  // SELECT
+  if (type === 'select') {
+    const selectClasses = [...inputClasses, 'input-select'];
+    const selectHtml = `<select ${buildAttrs(selectClasses.join(' '))}>
+      ${options.map((opt: any) => `<option value="${opt.value}" ${opt.disabled ? 'disabled' : ''} ${opt.selected ? 'selected' : ''}>${opt.label}</option>`).join('')}
+    </select>`;
+
+    if (iconStart || iconEnd) {
+      return `<div class="input-wrapper ${fullWidth ? 'input-full-width' : ''}">
+        ${iconStart ? `<span class="input-icon input-icon-start" aria-hidden="true">${iconStart}</span>` : ''}
+        ${selectHtml}
+        ${iconEnd ? `<span class="input-icon input-icon-end" aria-hidden="true">${iconEnd}</span>` : ''}
+      </div>`;
+    }
+    return selectHtml;
+  }
+
+  // TEXT INPUTS (text, email, password, etc.)
+  const inputHtml = `<input type="${type}" ${buildAttrs()} ${value ? `value="${value}"` : ''} ${placeholder ? `placeholder="${placeholder}"` : ''}>`;
+
+  if (iconStart || iconEnd) {
+    return `<div class="input-wrapper ${fullWidth ? 'input-full-width' : ''}">
+      ${iconStart ? `<span class="input-icon input-icon-start" aria-hidden="true">${iconStart}</span>` : ''}
+      ${inputHtml}
+      ${iconEnd ? `<span class="input-icon input-icon-end" aria-hidden="true">${iconEnd}</span>` : ''}
+    </div>`;
+  }
+
+  return inputHtml;
 };
 
 /**

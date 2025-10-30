@@ -1,9 +1,6 @@
 // components/atoms/badge/badge.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Badge Component Stories
@@ -23,17 +20,6 @@ import nunjucks from 'nunjucks';
  * - Full dark mode support
  * - WCAG AA accessible
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'badge.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
 
 // Component metadata
 const meta: Meta = {
@@ -110,15 +96,88 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-// Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "atoms/badge/badge.njk" import badge %}
-    {{ badge(props) }}
-  `,
-    { props: args }
-  );
+/**
+ * Render a badge component from props
+ * Builds the HTML directly without Nunjucks (for browser compatibility)
+ */
+const renderComponent = (props: any) => {
+  const {
+    text = '',
+    variant = 'default',
+    size = 'md',
+    style = 'filled',
+    shape = '',
+    icon = '',
+    dismissible = false,
+    notification = false,
+    dot = false,
+    className = '',
+    a11y = {},
+  } = props;
+
+  // Build class list
+  const classList = ['badge'];
+
+  if (variant !== 'default') {
+    classList.push(`badge-${variant}`);
+  }
+
+  if (size) {
+    classList.push(`badge-${size}`);
+  }
+
+  if (style === 'outline') {
+    classList.push('badge-outline');
+  } else if (style === 'subtle') {
+    classList.push('badge-subtle');
+  }
+
+  if (shape === 'rounded') {
+    classList.push('badge-rounded');
+  } else if (shape === 'pill') {
+    classList.push('badge-pill');
+  }
+
+  if (notification) {
+    classList.push('badge-notification');
+  } else if (dot) {
+    classList.push('badge-dot');
+  }
+
+  if (className) {
+    classList.push(className);
+  }
+
+  const tagName = dismissible && !dot && !notification ? 'button' : 'span';
+  const classStr = classList.join(' ');
+
+  // Build attributes
+  let attrs = `class="${classStr}"`;
+  if (a11y.role) attrs += ` role="${a11y.role}"`;
+  if (a11y.ariaLabel) attrs += ` aria-label="${a11y.ariaLabel}"`;
+  if (a11y.ariaDescribedBy) attrs += ` aria-describedby="${a11y.ariaDescribedBy}"`;
+  if (a11y.ariaLive) attrs += ` aria-live="${a11y.ariaLive}"`;
+  if (dismissible && tagName === 'button') attrs += ` type="button"`;
+
+  // Build content
+  let content = '';
+  if (!dot) {
+    if (icon) {
+      content += `<span class="badge-icon" aria-hidden="true">${icon}</span>`;
+    }
+    if (text) {
+      content += `<span class="badge-text">${text}</span>`;
+    }
+    if (dismissible) {
+      content += `<button class="badge-close" type="button" aria-label="Remove badge">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>`;
+    }
+  }
+
+  return `<${tagName} ${attrs}>${content}</${tagName}>`;
 };
 
 /**

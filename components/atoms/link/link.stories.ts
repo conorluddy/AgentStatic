@@ -1,9 +1,6 @@
 // components/atoms/link/link.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Link Component Stories
@@ -21,17 +18,6 @@ import nunjucks from 'nunjucks';
  * - Dark mode support
  * - Keyboard navigation
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'link.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
 
 // Component metadata
 const meta: Meta = {
@@ -118,15 +104,81 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+// Icon SVGs
+const externalIcon = `<svg class="link-icon link-icon-external" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+  <path d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72z"/>
+  <path d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5z"/>
+</svg>`;
+
+const downloadIcon = `<svg class="link-icon link-icon-download" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+  <path d="M8.75 2.75a.75.75 0 0 0-1.5 0v5.69L5.03 6.22a.75.75 0 0 0-1.06 1.06l3.5 3.5a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0-1.06-1.06L8.75 8.44V2.75z"/>
+  <path d="M3.5 9.75a.75.75 0 0 0-1.5 0v1.5A2.75 2.75 0 0 0 4.75 14h6.5A2.75 2.75 0 0 0 14 11.25v-1.5a.75.75 0 0 0-1.5 0v1.5c0 .69-.56 1.25-1.25 1.25h-6.5c-.69 0-1.25-.56-1.25-1.25v-1.5z"/>
+</svg>`;
+
 // Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "atoms/link/link.njk" import link %}
-    {{ link(props) }}
-  `,
-    { props: args }
-  );
+const renderComponent = (props: any) => {
+  const {
+    text = '',
+    href = '#',
+    variant = 'default',
+    external = false,
+    download = false,
+    downloadFilename = '',
+    iconStart = '',
+    iconEnd = '',
+    disabled = false,
+    id = '',
+    className = '',
+    attributes = {},
+    a11y = {},
+  } = props;
+
+  // Build class list
+  const classList = ['link', `link-${variant}`];
+  if (external) classList.push('link-external');
+  if (className) classList.push(className);
+
+  const classStr = classList.join(' ');
+
+  // Determine target and rel
+  const target = external ? '_blank' : '';
+  const rel = external ? 'noopener noreferrer' : '';
+
+  // Build attributes
+  let attrs = `class="${classStr}" href="${href}"`;
+  if (id) attrs += ` id="${id}"`;
+  if (target) attrs += ` target="${target}"`;
+  if (rel) attrs += ` rel="${rel}"`;
+  if (download) {
+    attrs += downloadFilename ? ` download="${downloadFilename}"` : ` download`;
+  }
+  if (disabled) attrs += ` aria-disabled="true" tabindex="-1"`;
+  if (a11y.role) attrs += ` role="${a11y.role}"`;
+  if (a11y.ariaLabel) attrs += ` aria-label="${a11y.ariaLabel}"`;
+  if (a11y.ariaDescribedBy) attrs += ` aria-describedby="${a11y.ariaDescribedBy}"`;
+  if (a11y.ariaLabelledBy) attrs += ` aria-labelledby="${a11y.ariaLabelledBy}"`;
+
+  for (const [key, value] of Object.entries(attributes)) {
+    attrs += ` ${key}="${value}"`;
+  }
+
+  // Build content
+  let content = '';
+  if (iconStart) {
+    content += `<span class="link-icon">${iconStart}</span>`;
+  }
+  if (text) {
+    content += `<span class="link-text">${text}</span>`;
+  }
+  if (iconEnd) {
+    content += `<span class="link-icon">${iconEnd}</span>`;
+  } else if (external) {
+    content += externalIcon;
+  } else if (download) {
+    content += downloadIcon;
+  }
+
+  return `<a ${attrs}>${content}</a>`;
 };
 
 /**

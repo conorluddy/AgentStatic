@@ -1,9 +1,6 @@
 // components/atoms/button/button.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Button Component Stories
@@ -11,17 +8,6 @@ import nunjucks from 'nunjucks';
  * Interactive button atom for actions and navigation with multiple variants,
  * sizes, states, and icon support. Supports both button and link rendering.
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: false, // Allow HTML in iconStart/iconEnd
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'button.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
 
 // Simple arrow icons for demos
 const arrowRight = '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0L6.59 1.41L12.17 7H0v2h12.17l-5.58 5.59L8 16l8-8z"/></svg>';
@@ -109,14 +95,90 @@ export default meta;
 type Story = StoryObj;
 
 // Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "atoms/button/button.njk" import button %}
-    {{ button(props) }}
-  `,
-    { props: args }
-  );
+const renderComponent = (props: any) => {
+  const {
+    text = '',
+    variant = 'primary',
+    size = 'md',
+    href = '',
+    target = '',
+    rel = '',
+    type = 'button',
+    disabled = false,
+    loading = false,
+    iconStart = '',
+    iconEnd = '',
+    iconOnly = false,
+    fullWidth = false,
+    id = '',
+    className = '',
+    attributes = {},
+    a11y = {},
+  } = props;
+
+  // Build class list
+  const classList = [
+    'button',
+    `button-${variant}`,
+    `button-${size}`,
+  ];
+
+  if (loading) classList.push('button-loading');
+  if (iconOnly) classList.push('button-icon-only');
+  if (fullWidth) classList.push('button-full');
+  if (className) classList.push(className);
+
+  const classStr = classList.join(' ');
+
+  // ARIA attributes
+  const ariaLabel = a11y.ariaLabel || (iconOnly ? text : '');
+  const ariaBusy = loading;
+
+  // Determine if link or button
+  const isLink = !!href;
+  const elementType = isLink ? 'a' : 'button';
+
+  // Build attributes string
+  let attrs = `class="${classStr}"`;
+  if (id) attrs += ` id="${id}"`;
+
+  if (isLink) {
+    attrs += ` href="${href}"`;
+    if (target) attrs += ` target="${target}"`;
+    if (rel) attrs += ` rel="${rel}"`;
+    if (target === '_blank' && !rel) attrs += ` rel="noopener noreferrer"`;
+    if (ariaLabel) attrs += ` aria-label="${ariaLabel}"`;
+    if (a11y.ariaDescribedBy) attrs += ` aria-describedby="${a11y.ariaDescribedBy}"`;
+    if (disabled) attrs += ` aria-disabled="true" tabindex="-1"`;
+  } else {
+    attrs += ` type="${type}"`;
+    if (disabled || loading) attrs += ` disabled`;
+    if (ariaLabel) attrs += ` aria-label="${ariaLabel}"`;
+    if (a11y.ariaDescribedBy) attrs += ` aria-describedby="${a11y.ariaDescribedBy}"`;
+    if (ariaBusy) attrs += ` aria-busy="true"`;
+  }
+
+  // Add custom attributes
+  for (const [key, value] of Object.entries(attributes)) {
+    attrs += ` ${key}="${value}"`;
+  }
+
+  // Build content
+  let content = '';
+  if (iconStart) {
+    content += `<span class="button-icon button-icon-start" aria-hidden="true">${iconStart}</span>`;
+  }
+  if (text) {
+    content += `<span class="button-text">${text}</span>`;
+  }
+  if (iconEnd) {
+    content += `<span class="button-icon button-icon-end" aria-hidden="true">${iconEnd}</span>`;
+  }
+  if (loading) {
+    content += `<span class="button-spinner" aria-hidden="true"></span>`;
+  }
+
+  return `<${elementType} ${attrs}>${content}</${elementType}>`;
 };
 
 /**

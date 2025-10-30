@@ -1,9 +1,6 @@
 // components/atoms/divider/divider.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Divider Component Stories
@@ -11,17 +8,6 @@ import nunjucks from 'nunjucks';
  * A flexible visual separator for content sections. Supports horizontal/vertical
  * orientations, multiple line styles, text/icon decorations, and gradient effects.
  */
-
-// Configure Nunjucks
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
-// Load the component template
-const templatePath = path.join(__dirname, 'divider.njk');
-const template = fs.readFileSync(templatePath, 'utf-8');
 
 // Component metadata
 const meta: Meta = {
@@ -93,14 +79,66 @@ export default meta;
 type Story = StoryObj;
 
 // Render function
-const renderComponent = (args: any) => {
-  return env.renderString(
-    `
-    {% from "atoms/divider/divider.njk" import divider %}
-    {{ divider(props) }}
-  `,
-    { props: args }
-  );
+const renderComponent = (props: any) => {
+  const {
+    orientation = 'horizontal',
+    variant = 'solid',
+    thickness = 'thin',
+    color = 'default',
+    spacing = 'md',
+    withText = '',
+    withIcon = '',
+    textAlign = 'center',
+    id = '',
+    className = '',
+    attributes = {},
+    a11y = {},
+  } = props;
+
+  const hasContent = withText || withIcon;
+
+  // Build class list
+  const classList = [
+    'divider',
+    `divider-${orientation}`,
+    !hasContent ? `divider-${variant}` : '',
+    `divider-${thickness}`,
+    `divider-${color}`,
+    `divider-spacing-${spacing}`,
+    hasContent ? 'divider-with-content' : '',
+    hasContent ? `divider-align-${textAlign}` : '',
+    className
+  ].filter(Boolean);
+
+  const classStr = classList.join(' ');
+
+  // Build attributes
+  let attrs = `class="${classStr}"`;
+  if (id) attrs += ` id="${id}"`;
+  if (a11y.role) attrs += ` role="${a11y.role}"`;
+  else attrs += ` role="separator"`;
+  if (a11y.ariaLabel) attrs += ` aria-label="${a11y.ariaLabel}"`;
+  attrs += ` aria-orientation="${orientation}"`;
+
+  for (const [key, value] of Object.entries(attributes)) {
+    attrs += ` ${key}="${value}"`;
+  }
+
+  // Simple divider (hr or div)
+  if (orientation === 'horizontal' && !hasContent) {
+    return `<hr ${attrs}>`;
+  }
+
+  // Divider with content
+  let content = '';
+  if (withText) {
+    content = `<span class="divider-text">${withText}</span>`;
+  }
+  if (withIcon) {
+    content = `<span class="divider-icon">${withIcon}</span>`;
+  }
+
+  return `<div ${attrs}>${content}</div>`;
 };
 
 /**

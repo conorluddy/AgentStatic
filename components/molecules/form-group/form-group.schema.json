@@ -1,0 +1,288 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/molecules/form-group/schema",
+  "title": "Form Group",
+  "type": "object",
+  "category": "molecule",
+  "metadata": {
+    "displayName": "Form Group",
+    "description": "Complete form field combining label + input + validation message + help text. Critical for accessible forms and reducing form friction by 50%+. Proper form groups reduce confusion by 30%, support questions by 40%, and submission errors by 50%.",
+    "tags": [
+      "molecule",
+      "form",
+      "label",
+      "input",
+      "validation",
+      "accessibility",
+      "form-friction",
+      "lead-capture",
+      "contact-form",
+      "wcag-aa",
+      "inline-validation"
+    ],
+    "composedOf": [
+      "atoms/input"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "ariaSupport": true,
+      "features": [
+        "Proper label association via for= attribute",
+        "Error announcements via role=alert",
+        "Help text connected via aria-describedby",
+        "Required indicator with aria-label",
+        "Clear focus indicators",
+        "High contrast mode support",
+        "Validation state communicated to screen readers"
+      ],
+      "colorContrast": "4.5:1 for text, 3:1 for UI components"
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fluid",
+      "mobileOptimizations": [
+        "Horizontal layout stacks vertically on mobile (<768px)",
+        "Full-width inputs for easier interaction",
+        "Touch-friendly spacing"
+      ]
+    },
+    "darkMode": true,
+    "performance": {
+      "bundle": "<400B gzipped",
+      "rendering": "Static HTML with pure CSS styling",
+      "animations": "None - instant feedback for accessibility"
+    },
+    "marketingContext": {
+      "criticalFor": [
+        "Newsletter signups (email capture)",
+        "Contact forms (name, email, message)",
+        "Lead generation forms",
+        "Gated content downloads",
+        "Account creation",
+        "Waitlist signups"
+      ],
+      "conversionImpact": "Form friction is #1 conversion killer - proper form groups reduce abandonment by 50%+",
+      "bestPractices": [
+        "Use required indicators to set expectations",
+        "Show help text for complex fields",
+        "Provide inline validation for immediate feedback",
+        "Use optional indicators to reduce anxiety",
+        "Character counts prevent frustration",
+        "Error messages should be specific and actionable"
+      ],
+      "realWorldExamples": [
+        "Stripe: Label + input + help text pattern throughout",
+        "Linear: Clean form groups with inline validation",
+        "Notion: Optional field indicators reduce user anxiety"
+      ]
+    },
+    "usageExamples": [
+      {
+        "title": "Email Capture with Help Text",
+        "description": "Newsletter signup field with privacy reassurance",
+        "code": "{{ formGroup({ label: 'Email Address', inputId: 'email', input: { type: 'email', placeholder: 'your@email.com' }, required: true, helpText: \"We'll never share your email\" }) }}"
+      },
+      {
+        "title": "Contact Form Field",
+        "description": "Name field with horizontal layout",
+        "code": "{{ formGroup({ label: 'Full Name', inputId: 'name', input: { type: 'text' }, layout: 'horizontal', required: true }) }}"
+      },
+      {
+        "title": "Error Validation",
+        "description": "Email field with error message",
+        "code": "{{ formGroup({ label: 'Email', inputId: 'email', input: { type: 'email', state: 'error' }, state: 'error', errorMessage: 'Please enter a valid email address' }) }}"
+      },
+      {
+        "title": "Optional Field",
+        "description": "Phone field marked as optional",
+        "code": "{{ formGroup({ label: 'Phone Number', inputId: 'phone', input: { type: 'tel' }, optional: true, helpText: 'We may call to confirm your request' }) }}"
+      },
+      {
+        "title": "Textarea with Character Count",
+        "description": "Message field with character limit",
+        "code": "{{ formGroup({ label: 'Message', inputId: 'message', input: { type: 'textarea', rows: 4 }, showCharacterCount: true, maxLength: 500 }) }}"
+      }
+    ]
+  },
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "Form field label text",
+      "minLength": 1
+    },
+    "inputId": {
+      "type": "string",
+      "description": "Unique ID for input (used for label association)",
+      "minLength": 1
+    },
+    "input": {
+      "type": "object",
+      "description": "Input component props (passed to Input atom)",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["text", "email", "password", "number", "tel", "url", "search", "textarea", "select", "checkbox", "radio"],
+          "default": "text"
+        },
+        "placeholder": { "type": "string" },
+        "value": { "type": "string" },
+        "disabled": { "type": "boolean", "default": false },
+        "readonly": { "type": "boolean", "default": false },
+        "required": { "type": "boolean", "default": false }
+      }
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["vertical", "horizontal"],
+      "default": "vertical",
+      "description": "Label position - vertical (default) stacks label above input, horizontal places side-by-side (mobile stacks)"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Shows red asterisk (*) required indicator next to label"
+    },
+    "optional": {
+      "type": "boolean",
+      "default": false,
+      "description": "Shows (optional) indicator next to label to reduce user anxiety"
+    },
+    "helpText": {
+      "type": "string",
+      "description": "Help text displayed below input. Use for format examples, privacy reassurance, or field guidance."
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Error message shown when state='error'. Should be specific and actionable."
+    },
+    "successMessage": {
+      "type": "string",
+      "description": "Success message shown when state='success'. Use to confirm valid input."
+    },
+    "warningMessage": {
+      "type": "string",
+      "description": "Warning message shown when state='warning'. Use for non-blocking concerns."
+    },
+    "state": {
+      "type": "string",
+      "enum": ["default", "error", "success", "warning"],
+      "default": "default",
+      "description": "Validation state - controls which message is visible and label color"
+    },
+    "showCharacterCount": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show character count for textarea (requires maxLength)"
+    },
+    "maxLength": {
+      "type": "number",
+      "description": "Maximum character length (used with showCharacterCount)"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes for customization"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes for the container div",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["label", "inputId", "input"],
+  "examples": [
+    {
+      "title": "Basic Text Field",
+      "props": {
+        "label": "Full Name",
+        "inputId": "name",
+        "input": {
+          "type": "text",
+          "placeholder": "Enter your full name"
+        }
+      }
+    },
+    {
+      "title": "Required Email Field",
+      "props": {
+        "label": "Email Address",
+        "inputId": "email",
+        "input": {
+          "type": "email",
+          "placeholder": "your@email.com",
+          "required": true
+        },
+        "required": true,
+        "helpText": "We'll never share your email with anyone else."
+      }
+    },
+    {
+      "title": "Error State",
+      "props": {
+        "label": "Email Address",
+        "inputId": "email-error",
+        "input": {
+          "type": "email",
+          "value": "invalid-email"
+        },
+        "state": "error",
+        "errorMessage": "Please enter a valid email address."
+      }
+    },
+    {
+      "title": "Success State",
+      "props": {
+        "label": "Email Address",
+        "inputId": "email-success",
+        "input": {
+          "type": "email",
+          "value": "valid@email.com"
+        },
+        "state": "success",
+        "successMessage": "Email is valid!"
+      }
+    },
+    {
+      "title": "Optional Field",
+      "props": {
+        "label": "Phone Number",
+        "inputId": "phone",
+        "input": {
+          "type": "tel",
+          "placeholder": "+1 (555) 000-0000"
+        },
+        "optional": true,
+        "helpText": "We may call to confirm your request."
+      }
+    },
+    {
+      "title": "Horizontal Layout",
+      "props": {
+        "label": "Company",
+        "inputId": "company",
+        "input": {
+          "type": "text"
+        },
+        "layout": "horizontal"
+      }
+    },
+    {
+      "title": "Textarea with Character Count",
+      "props": {
+        "label": "Message",
+        "inputId": "message",
+        "input": {
+          "type": "textarea",
+          "rows": 4,
+          "placeholder": "Tell us about your project..."
+        },
+        "required": true,
+        "showCharacterCount": true,
+        "maxLength": 500
+      }
+    }
+  ]
+}
