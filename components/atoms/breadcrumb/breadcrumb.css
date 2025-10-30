@@ -1,0 +1,207 @@
+/**
+ * Breadcrumb Component Styles
+ *
+ * Navigation trail showing current location in site hierarchy with proper ARIA markup.
+ * Supports multiple separator styles, responsive mobile collapse, and Schema.org structured data.
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .breadcrumb
+ * - Children: .breadcrumb-list, .breadcrumb-item, .breadcrumb-link, .breadcrumb-separator, .breadcrumb-current
+ * - Variants: .breadcrumb-sm, .breadcrumb-lg, .breadcrumb-truncate
+ * - Separators: .breadcrumb-separator-slash, .breadcrumb-separator-chevron, .breadcrumb-separator-arrow, .breadcrumb-separator-dot
+ *
+ * Pure CSS only - no preprocessors.
+ * Uses design tokens from components/_system/tokens.css
+ *
+ * Performance: Target <300B gzipped
+ */
+
+@layer components {
+  /* ============================================
+     Base Component Styles
+     ============================================ */
+  .breadcrumb {
+    /* Typography */
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+
+    /* Component-specific custom properties */
+    --breadcrumb-font-size: var(--font-size-sm);
+    --breadcrumb-gap: var(--spacing-xs);
+    --breadcrumb-color: var(--color-text-muted);
+    --breadcrumb-hover-color: var(--color-primary-600);
+    --breadcrumb-current-color: var(--color-text);
+    --breadcrumb-separator-color: var(--color-gray-400);
+  }
+
+  /* ============================================
+     List Container
+     ============================================ */
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--breadcrumb-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ============================================
+     List Items
+     ============================================ */
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: var(--breadcrumb-gap);
+  }
+
+  /* ============================================
+     Links
+     ============================================ */
+  .breadcrumb-link {
+    color: var(--breadcrumb-color);
+    text-decoration: none;
+    transition: var(--transition-colors);
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--breadcrumb-hover-color);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-link:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+  }
+
+  /* ============================================
+     Current Page (not a link)
+     ============================================ */
+  .breadcrumb-current {
+    color: var(--breadcrumb-current-color);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* ============================================
+     Separators
+     ============================================ */
+  .breadcrumb-separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--breadcrumb-separator-color);
+    user-select: none;
+  }
+
+  /* SVG Separator Icons */
+  .breadcrumb-separator svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+
+  /* Text Separators */
+  .breadcrumb-separator-slash::before {
+    content: '/';
+  }
+
+  .breadcrumb-separator-arrow::before {
+    content: '→';
+  }
+
+  .breadcrumb-separator-dot::before {
+    content: '•';
+  }
+
+  /* Chevron uses inline SVG - no ::before needed */
+
+  /* ============================================
+     Size Variants
+     ============================================ */
+  .breadcrumb-sm {
+    --breadcrumb-font-size: var(--font-size-xs);
+    font-size: var(--breadcrumb-font-size);
+  }
+
+  .breadcrumb-lg {
+    --breadcrumb-font-size: var(--font-size-base);
+    font-size: var(--breadcrumb-font-size);
+  }
+
+  /* ============================================
+     Truncation Option
+     ============================================ */
+  .breadcrumb-truncate .breadcrumb-item:not(:first-child):not(:last-child) {
+    max-width: 10ch;
+  }
+
+  .breadcrumb-truncate .breadcrumb-link,
+  .breadcrumb-truncate .breadcrumb-current {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     Mobile Responsive (collapse middle items)
+     ============================================ */
+  @media (max-width: 48em) {
+    /* Hide all items except first and last two */
+    .breadcrumb-item:not(:first-child):not(:nth-last-child(-n+2)) {
+      display: none;
+    }
+
+    /* Add ellipsis before second-to-last item */
+    .breadcrumb-item:nth-last-child(2)::before {
+      content: '...';
+      padding-inline-end: var(--breadcrumb-gap);
+      color: var(--breadcrumb-separator-color);
+    }
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .breadcrumb {
+      --breadcrumb-color: var(--color-gray-400);
+      --breadcrumb-hover-color: var(--color-primary-400);
+      --breadcrumb-current-color: var(--color-gray-100);
+      --breadcrumb-separator-color: var(--color-gray-600);
+    }
+  }
+
+  /* Manual dark mode override */
+  [data-theme="dark"] .breadcrumb {
+    --breadcrumb-color: var(--color-gray-400);
+    --breadcrumb-hover-color: var(--color-primary-400);
+    --breadcrumb-current-color: var(--color-gray-100);
+    --breadcrumb-separator-color: var(--color-gray-600);
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .breadcrumb-link {
+      transition: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .breadcrumb-link {
+      text-decoration: underline;
+    }
+
+    .breadcrumb-link:focus-visible {
+      outline-width: 3px;
+    }
+  }
+}

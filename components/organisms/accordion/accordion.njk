@@ -1,0 +1,227 @@
+{# components/organisms/accordion/accordion.njk #}
+
+{#
+  Accordion/FAQ Organism Component
+
+  Description: Collapsible Q&A component for FAQs, feature details, and content organization.
+  Supports single-open (accordion), multi-open (toggle), and static (all-open) behavior modes.
+
+  Marketing Context:
+  - 70% of B2B buyers check FAQ before contacting sales
+  - 20% increase in conversion when FAQ placed before final CTA
+  - Critical for objection handling and reducing checkout abandonment
+
+  Props:
+    - title (string): Section title (optional)
+    - subtitle (string): Section subtitle (optional)
+    - items (array, REQUIRED): Array of accordion items
+      - id (string, REQUIRED): Unique identifier for item
+      - question (string, REQUIRED): Question text
+      - answer (string, REQUIRED): Answer text (supports HTML)
+      - defaultOpen (boolean): Whether item starts open (default: false)
+    - behavior (string): 'single' (only one open), 'multi' (many open), 'static' (all open) (default: 'single')
+    - variant (string): 'default', 'bordered', 'card', 'minimal' (default: 'default')
+    - iconPosition (string): 'left' or 'right' (default: 'right')
+    - grouped (boolean): Whether items are grouped by category (default: false)
+    - categories (array): Category groups when grouped=true
+      - title (string): Category title
+      - items (array): Array of items in this category
+    - id (string): Unique identifier for the component
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+
+  Usage:
+    {% from "organisms/accordion/accordion.njk" import accordion %}
+
+    {# Basic FAQ #}
+    {{ accordion({
+      title: 'Frequently Asked Questions',
+      subtitle: 'Everything you need to know',
+      items: [
+        {
+          id: 'refund',
+          question: 'What is your refund policy?',
+          answer: 'We offer a 30-day money-back guarantee. Contact us within 30 days for a full refund.',
+          defaultOpen: true
+        },
+        {
+          id: 'cancel',
+          question: 'How do I cancel my subscription?',
+          answer: 'You can cancel anytime from your account settings. No questions asked.'
+        }
+      ]
+    }) }}
+
+    {# Multi-open behavior #}
+    {{ accordion({
+      title: 'Product Features',
+      behavior: 'multi',
+      variant: 'bordered',
+      items: [...]
+    }) }}
+
+    {# Grouped by category #}
+    {{ accordion({
+      grouped: true,
+      categories: [
+        {
+          title: 'Billing Questions',
+          items: [...]
+        },
+        {
+          title: 'Technical Questions',
+          items: [...]
+        }
+      ]
+    }) }}
+
+    {# Icon on left side #}
+    {{ accordion({
+      iconPosition: 'left',
+      items: [...]
+    }) }}
+#}
+
+{% from "../atoms/heading/heading.njk" import heading %}
+{% from "../atoms/icon/icon.njk" import icon %}
+
+{% macro accordion(props = {}) %}
+  {% set defaults = {
+    title: '',
+    subtitle: '',
+    items: [],
+    behavior: 'single',
+    variant: 'default',
+    iconPosition: 'right',
+    grouped: false,
+    categories: [],
+    id: '',
+    className: '',
+    attributes: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = ['accordion'] %}
+
+  {# Add variant class #}
+  {% if config.variant != 'default' %}
+    {% set classList = (classList.push('accordion-' + config.variant), classList) %}
+  {% endif %}
+
+  {# Add icon position class #}
+  {% if config.iconPosition == 'left' %}
+    {% set classList = (classList.push('accordion-icon-left'), classList) %}
+  {% endif %}
+
+  {# Add grouped class #}
+  {% if config.grouped %}
+    {% set classList = (classList.push('accordion-grouped'), classList) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {# Join classes #}
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Render accordion #}
+  <section
+    class="{{ classString }}"
+    data-component="accordion"
+    data-behavior="{{ config.behavior }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Optional header #}
+    {% if config.title %}
+    <div class="accordion-header">
+      <h2 class="accordion-title">{{ config.title }}</h2>
+      {% if config.subtitle %}
+      <p class="accordion-subtitle">{{ config.subtitle }}</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {# Grouped accordion (categories) #}
+    {% if config.grouped and config.categories.length > 0 %}
+      {% for category in config.categories %}
+      <div class="accordion-category">
+        <h3 class="accordion-category-title">{{ category.title }}</h3>
+        <div class="accordion-list">
+          {% for item in category.items %}
+            {{ accordionItem(item, config.behavior, loop.index0) }}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+
+    {# Standard accordion (flat list) #}
+    {% else %}
+      <div class="accordion-list">
+        {% for item in config.items %}
+          {{ accordionItem(item, config.behavior, loop.index0) }}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </section>
+{% endmacro %}
+
+{# Internal macro for rendering individual accordion items #}
+{% macro accordionItem(item, behavior, index) %}
+  {# Generate unique IDs for ARIA relationships #}
+  {% set buttonId = 'accordion-button-' + item.id %}
+  {% set panelId = 'accordion-panel-' + item.id %}
+
+  {# Determine initial state #}
+  {% set isOpen = item.defaultOpen or false %}
+
+  {# Render item #}
+  <div
+    class="accordion-item{% if isOpen %} accordion-item-open{% endif %}"
+    data-accordion-item
+  >
+    {# Trigger button #}
+    <button
+      class="accordion-trigger"
+      type="button"
+      aria-expanded="{{ 'true' if isOpen else 'false' }}"
+      aria-controls="{{ panelId }}"
+      id="{{ buttonId }}"
+      data-accordion-trigger
+    >
+      <span class="accordion-question">{{ item.question }}</span>
+      <span class="accordion-icon" aria-hidden="true">
+        {{ icon({
+          name: 'chevron-down',
+          size: 'md',
+          decorative: true
+        }) }}
+      </span>
+    </button>
+
+    {# Content panel #}
+    <div
+      class="accordion-panel"
+      id="{{ panelId }}"
+      role="region"
+      aria-labelledby="{{ buttonId }}"
+      data-accordion-panel
+      {% if not isOpen %}hidden{% endif %}
+    >
+      <div class="accordion-content">
+        {# Render answer as HTML if it contains tags, otherwise as plain text #}
+        {% if item.answer | safe %}
+          {{ item.answer | safe }}
+        {% else %}
+          <p>{{ item.answer }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endmacro %}

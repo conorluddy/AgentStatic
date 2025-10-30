@@ -1,0 +1,315 @@
+{# components/organisms/comparison-table/comparison-table.njk #}
+
+{#
+  Comparison Table Organism
+
+  Description: Marketing-optimized table for comparing plans, products, or features.
+  Perfect for pricing pages, product comparisons, and feature matrices. Implements
+  pricing psychology principles (anchoring, highlighting, visual hierarchy).
+
+  Props:
+    - columns (array, required): Array of column objects representing plans/products
+      Each column has:
+        - title (string): Column title (e.g., "Basic", "Pro", "Enterprise")
+        - subtitle (string): Optional subtitle below title
+        - price (string): Price display (e.g., "$29", "Custom", "Free")
+        - priceAmount (string): Large price number (e.g., "$29")
+        - pricePeriod (string): Period text (e.g., "/mo", "/year")
+        - description (string): Short description below price
+        - highlighted (boolean): Whether this column is highlighted/recommended (default: false)
+        - badge (string): Badge text (e.g., "Most Popular", "Best Value")
+        - cta (object): Call-to-action button
+          - text (string): Button text
+          - href (string): Button URL
+          - variant (string): Button variant (default: 'primary' for highlighted, 'secondary' otherwise)
+    - rows (array, required): Array of feature row objects
+      Each row has:
+        - feature (string): Feature name/description
+        - category (string): Optional category name (creates category header row)
+        - values (array): Array of values for each column (boolean, string, or number)
+          - true: Renders as checkmark icon
+          - false: Renders as X icon
+          - string/number: Renders as text
+        - tooltip (string): Optional tooltip text for feature explanation
+    - variant (string): Visual style - 'default', 'bordered', 'striped', 'minimal' (default: 'default')
+    - responsive (string): Mobile behavior - 'scroll', 'cards' (default: 'scroll')
+    - className (string): Additional CSS classes
+    - id (string): Unique identifier
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+      - ariaLabel (string): Accessible label for the table
+      - caption (string): Table caption for context
+
+  Usage:
+    {% from "organisms/comparison-table/comparison-table.njk" import comparisonTable %}
+
+    {# Basic pricing table #}
+    {{ comparisonTable({
+      columns: [
+        {
+          title: 'Basic',
+          price: 'Free',
+          cta: { text: 'Start Free', href: '/signup' }
+        },
+        {
+          title: 'Pro',
+          priceAmount: '$29',
+          pricePeriod: '/mo',
+          highlighted: true,
+          badge: 'Most Popular',
+          cta: { text: 'Start Trial', href: '/signup?plan=pro' }
+        },
+        {
+          title: 'Enterprise',
+          price: 'Custom',
+          cta: { text: 'Contact Us', href: '/contact' }
+        }
+      ],
+      rows: [
+        {
+          feature: 'Users',
+          values: ['1', '5', 'Unlimited']
+        },
+        {
+          feature: 'Storage',
+          values: ['10 GB', '100 GB', 'Unlimited']
+        },
+        {
+          feature: 'API Access',
+          values: [false, true, true]
+        }
+      ]
+    }) }}
+
+    {# With categories #}
+    {{ comparisonTable({
+      columns: [...],
+      rows: [
+        { category: 'Core Features' },
+        { feature: 'Feature 1', values: [...] },
+        { feature: 'Feature 2', values: [...] },
+        { category: 'Advanced Features' },
+        { feature: 'Feature 3', values: [...] }
+      ],
+      variant: 'striped'
+    }) }}
+#}
+
+{% from "../atoms/button/button.njk" import button %}
+{% from "../atoms/badge/badge.njk" import badge %}
+
+{% macro comparisonTable(props = {}) %}
+  {% set defaults = {
+    columns: [],
+    rows: [],
+    variant: 'default',
+    responsive: 'scroll',
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = ['comparison-table'] %}
+
+  {# Add variant class #}
+  {% if config.variant != 'default' %}
+    {% set classList = (classList.push('comparison-table-' + config.variant), classList) %}
+  {% endif %}
+
+  {# Add responsive class #}
+  {% if config.responsive == 'cards' %}
+    {% set classList = (classList.push('comparison-table-cards'), classList) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {# Main container with horizontal scroll #}
+  <div
+    class="{{ classList | join(' ') }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    role="region"
+    aria-describedby="table-caption-{{ config.id or 'default' }}"
+    tabindex="0"
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table-table" role="table">
+        {# Table caption for accessibility #}
+        {% if config.a11y.caption %}
+        <caption id="table-caption-{{ config.id or 'default' }}" class="comparison-table-sr-only">
+          {{ config.a11y.caption }}
+        </caption>
+        {% endif %}
+
+        {# Table Header: Plan columns #}
+        <thead class="comparison-table-header">
+          <tr>
+            {# First column: "Features" header #}
+            <th scope="col" class="comparison-table-feature-header">
+              Features
+            </th>
+
+            {# Plan columns #}
+            {% for column in config.columns %}
+              {% set columnDefaults = {
+                title: '',
+                subtitle: '',
+                price: '',
+                priceAmount: '',
+                pricePeriod: '',
+                description: '',
+                highlighted: false,
+                badge: '',
+                cta: {}
+              } %}
+              {% set col = columnDefaults | merge(column) %}
+
+              {% set columnClass = 'comparison-table-plan' %}
+              {% if col.highlighted %}
+                {% set columnClass = columnClass + ' comparison-table-plan-highlighted' %}
+              {% endif %}
+
+              <th scope="col" class="{{ columnClass }}">
+                {# Badge for highlighted plans #}
+                {% if col.badge %}
+                <div class="comparison-table-badge">
+                  {{ col.badge }}
+                </div>
+                {% endif %}
+
+                <div class="comparison-table-plan-content">
+                  {# Plan title #}
+                  {% if col.title %}
+                  <h3 class="comparison-table-plan-title">
+                    {{ col.title }}
+                  </h3>
+                  {% endif %}
+
+                  {# Plan subtitle #}
+                  {% if col.subtitle %}
+                  <p class="comparison-table-plan-subtitle">
+                    {{ col.subtitle }}
+                  </p>
+                  {% endif %}
+
+                  {# Price display (simple or complex) #}
+                  {% if col.priceAmount or col.pricePeriod %}
+                  <div class="comparison-table-plan-price">
+                    {% if col.priceAmount %}
+                    <span class="comparison-table-plan-price-amount">{{ col.priceAmount }}</span>
+                    {% endif %}
+                    {% if col.pricePeriod %}
+                    <span class="comparison-table-plan-price-period">{{ col.pricePeriod }}</span>
+                    {% endif %}
+                  </div>
+                  {% elif col.price %}
+                  <div class="comparison-table-plan-price">
+                    {{ col.price }}
+                  </div>
+                  {% endif %}
+
+                  {# Description #}
+                  {% if col.description %}
+                  <p class="comparison-table-plan-description">
+                    {{ col.description }}
+                  </p>
+                  {% endif %}
+
+                  {# CTA button #}
+                  {% if col.cta.text %}
+                    {% set ctaDefaults = {
+                      variant: col.highlighted ? 'primary' : 'secondary',
+                      size: 'md'
+                    } %}
+                    {% set ctaConfig = ctaDefaults | merge(col.cta) %}
+                    {{ button(ctaConfig) }}
+                  {% endif %}
+                </div>
+              </th>
+            {% endfor %}
+          </tr>
+        </thead>
+
+        {# Table Body: Feature rows #}
+        <tbody>
+          {% for row in config.rows %}
+            {% set rowDefaults = {
+              feature: '',
+              category: '',
+              values: [],
+              tooltip: ''
+            } %}
+            {% set rowConfig = rowDefaults | merge(row) %}
+
+            {# Category row (spans all columns) #}
+            {% if rowConfig.category %}
+            <tr class="comparison-table-category-row">
+              <td colspan="{{ config.columns.length + 1 }}" class="comparison-table-category">
+                {{ rowConfig.category }}
+              </td>
+            </tr>
+
+            {# Feature row #}
+            {% elif rowConfig.feature %}
+            <tr>
+              {# Feature name (first column) #}
+              <th scope="row" class="comparison-table-feature">
+                {{ rowConfig.feature }}
+                {% if rowConfig.tooltip %}
+                <span class="comparison-table-feature-tooltip" title="{{ rowConfig.tooltip }}">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M8 7V11M8 5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                {% endif %}
+              </th>
+
+              {# Feature values for each column #}
+              {% for value in rowConfig.values %}
+                {% set valueIndex = loop.index - 1 %}
+                {% set isHighlighted = config.columns[valueIndex].highlighted %}
+                {% set valueClass = 'comparison-table-value' %}
+                {% if isHighlighted %}
+                  {% set valueClass = valueClass + ' comparison-table-value-highlighted' %}
+                {% endif %}
+
+                <td class="{{ valueClass }}">
+                  {# Boolean value: render as check/cross icon #}
+                  {% if value === true %}
+                    <span class="comparison-table-icon comparison-table-icon-yes" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="comparison-table-sr-only">Included</span>
+                  {% elif value === false %}
+                    <span class="comparison-table-icon comparison-table-icon-no" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="comparison-table-sr-only">Not included</span>
+                  {% else %}
+                    {# String or number value #}
+                    {{ value }}
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endmacro %}

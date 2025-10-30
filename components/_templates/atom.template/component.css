@@ -1,0 +1,168 @@
+/* components/atoms/COMPONENT_NAME_KEBAB/COMPONENT_NAME_KEBAB.css */
+
+/**
+ * COMPONENT_NAME_PASCAL Component Styles
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .COMPONENT_NAME_KEBAB
+ * - Children: .COMPONENT_NAME_KEBAB-child (e.g., .button-text, .button-icon)
+ * - Variants: .COMPONENT_NAME_KEBAB-variant (e.g., .button-primary, .button-sm)
+ *
+ * Pure CSS only - no preprocessors.
+ * Uses design tokens from components/_system/tokens.css
+ */
+
+@layer components {
+  /* ============================================
+     Base Component Styles
+     ============================================ */
+  .COMPONENT_NAME_KEBAB {
+    /* Reset any browser defaults if needed */
+
+    /* Layout */
+    display: inline-block;
+
+    /* Spacing - use design tokens */
+    padding: var(--spacing-md);
+
+    /* Typography - use design tokens */
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-normal);
+
+    /* Colors - use design tokens */
+    color: var(--color-text);
+    background-color: var(--color-background);
+
+    /* Borders - use design tokens */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    /* Interaction */
+    cursor: pointer;
+    transition: all var(--transition-base);
+
+    /* Component-specific custom properties */
+    --component-padding: var(--spacing-md);
+    --component-bg: var(--color-background);
+  }
+
+  /* ============================================
+     Child Elements (simple scoped naming)
+     ============================================ */
+  .COMPONENT_NAME_KEBAB-text {
+    display: block;
+  }
+
+  .COMPONENT_NAME_KEBAB-icon {
+    width: 1em;
+    height: 1em;
+  }
+
+  /* ============================================
+     Variants (modifier classes)
+     ============================================ */
+
+  /* Size variants using custom properties */
+  .COMPONENT_NAME_KEBAB-sm {
+    --component-padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .COMPONENT_NAME_KEBAB-md {
+    --component-padding: var(--spacing-md);
+    font-size: var(--font-size-base);
+  }
+
+  .COMPONENT_NAME_KEBAB-lg {
+    --component-padding: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+  }
+
+  /* Style variants */
+  .COMPONENT_NAME_KEBAB-primary {
+    --component-bg: var(--color-primary);
+    color: white;
+  }
+
+  .COMPONENT_NAME_KEBAB-secondary {
+    --component-bg: var(--color-secondary);
+    color: white;
+  }
+
+  /* ============================================
+     States
+     ============================================ */
+  .COMPONENT_NAME_KEBAB:hover {
+    opacity: 0.9;
+  }
+
+  .COMPONENT_NAME_KEBAB:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .COMPONENT_NAME_KEBAB:active {
+    transform: scale(0.98);
+  }
+
+  .COMPONENT_NAME_KEBAB:disabled,
+  .COMPONENT_NAME_KEBAB[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .COMPONENT_NAME_KEBAB {
+      /* Dark mode overrides using semantic tokens */
+      color: var(--color-text);
+      background-color: var(--color-background);
+      border-color: var(--color-border);
+    }
+  }
+
+  /* ============================================
+     Responsive Design (mobile-first)
+     ============================================ */
+
+  /* Tablet (768px+) */
+  @media (min-width: 48em) {
+    .COMPONENT_NAME_KEBAB {
+      /* Tablet-specific styles */
+    }
+  }
+
+  /* Desktop (1440px+) */
+  @media (min-width: 90em) {
+    .COMPONENT_NAME_KEBAB {
+      /* Desktop-specific styles */
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .COMPONENT_NAME_KEBAB {
+      transition: none;
+    }
+
+    .COMPONENT_NAME_KEBAB:active {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .COMPONENT_NAME_KEBAB {
+      border-width: 2px;
+    }
+  }
+}

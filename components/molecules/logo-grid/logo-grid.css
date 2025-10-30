@@ -1,0 +1,348 @@
+/* components/molecules/logo-grid/logo-grid.css */
+
+/**
+ * Logo Grid Component Styles (Molecule)
+ *
+ * Trust signal component for showcasing customer/partner logos.
+ * The "Trusted by..." section - found on 80%+ of SaaS homepages.
+ *
+ * Marketing Impact:
+ * - Logo walls increase trust by 42% for unknown brands
+ * - 23% increase in "Sign Up" clicks when logos present
+ * - Instant credibility with recognizable brand names
+ *
+ * Variants:
+ * - Grid: Responsive grid layout (default)
+ * - Scroll: Horizontal scrolling (mobile-friendly)
+ * - Marquee: Infinite scrolling animation
+ *
+ * Color Schemes:
+ * - Grayscale hover: Grayscale → color on hover (industry standard)
+ * - Grayscale: Always grayscale
+ * - Color: Full color always
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .logo-grid
+ * - Children: .logo-grid-child
+ * - Variants: .logo-grid-variant
+ *
+ * Pure CSS only - no preprocessors.
+ */
+
+@layer components {
+  /* ============================================
+     Base Component Styles
+     ============================================ */
+  .logo-grid {
+    /* Component-specific custom properties */
+    --logo-grid-gap: var(--spacing-lg);
+    --logo-grid-columns: 6;
+    --logo-grid-logo-height: 3rem;
+    --logo-grid-logo-opacity: 0.6;
+    --logo-grid-logo-opacity-hover: 1;
+
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+
+    /* Spacing */
+    padding: var(--spacing-3xl) var(--spacing-md);
+
+    /* Typography */
+    font-family: var(--font-sans);
+  }
+
+  /* ============================================
+     Header Section (Title + Subtitle)
+     ============================================ */
+  .logo-grid-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .logo-grid-title {
+    margin: 0 0 var(--spacing-sm) 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    line-height: var(--line-height-snug);
+  }
+
+  .logo-grid-subtitle {
+    margin: 0;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-normal);
+  }
+
+  /* ============================================
+     Grid Container (Default Variant)
+     ============================================ */
+  .logo-grid-container {
+    display: grid;
+    grid-template-columns: repeat(var(--logo-grid-columns), 1fr);
+    gap: var(--logo-grid-gap);
+    align-items: center;
+    justify-items: center;
+  }
+
+  /* ============================================
+     Grid Item
+     ============================================ */
+  .logo-grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: var(--spacing-md);
+    transition: all var(--transition-base);
+  }
+
+  /* ============================================
+     Logo Image
+     ============================================ */
+  .logo-grid-logo {
+    max-width: 100%;
+    height: auto;
+    max-height: var(--logo-grid-logo-height);
+    object-fit: contain;
+    transition: all var(--transition-base);
+  }
+
+  /* ============================================
+     Color Schemes
+     ============================================ */
+
+  /* Grayscale Hover (default - industry standard) */
+  .logo-grid-grayscale-hover .logo-grid-logo {
+    filter: grayscale(100%);
+    opacity: var(--logo-grid-logo-opacity);
+  }
+
+  .logo-grid-grayscale-hover .logo-grid-item:hover .logo-grid-logo,
+  .logo-grid-grayscale-hover .logo-grid-link:hover .logo-grid-logo {
+    filter: grayscale(0%);
+    opacity: var(--logo-grid-logo-opacity-hover);
+  }
+
+  /* Always Grayscale */
+  .logo-grid-grayscale .logo-grid-logo {
+    filter: grayscale(100%);
+    opacity: var(--logo-grid-logo-opacity);
+  }
+
+  /* Full Color */
+  .logo-grid-color .logo-grid-logo {
+    opacity: var(--logo-grid-logo-opacity-hover);
+  }
+
+  /* ============================================
+     Clickable Logos (with links)
+     ============================================ */
+  .logo-grid-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: var(--spacing-md);
+    cursor: pointer;
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-base);
+    text-decoration: none;
+  }
+
+  .logo-grid-link:hover {
+    background-color: var(--color-gray-50);
+    transform: translateY(-2px);
+  }
+
+  .logo-grid-link:focus-visible {
+    outline: 3px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  /* ============================================
+     Gap Variants
+     ============================================ */
+  .logo-grid-gap-sm {
+    --logo-grid-gap: var(--spacing-md);
+  }
+
+  .logo-grid-gap-md {
+    --logo-grid-gap: var(--spacing-lg);
+  }
+
+  .logo-grid-gap-lg {
+    --logo-grid-gap: var(--spacing-2xl);
+  }
+
+  /* ============================================
+     Alignment Variants
+     ============================================ */
+  .logo-grid-left .logo-grid-header {
+    text-align: left;
+  }
+
+  .logo-grid-right .logo-grid-header {
+    text-align: right;
+  }
+
+  /* Center is default */
+  .logo-grid-center .logo-grid-header {
+    text-align: center;
+  }
+
+  /* ============================================
+     Horizontal Scroll Variant
+     ============================================ */
+  .logo-grid-scroll .logo-grid-scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin: 0 calc(var(--spacing-md) * -1);
+    padding: 0 var(--spacing-md);
+  }
+
+  .logo-grid-scroll .logo-grid-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .logo-grid-scroll .logo-grid-scroll-track {
+    display: flex;
+    gap: var(--logo-grid-gap);
+    padding: var(--spacing-md) 0;
+  }
+
+  .logo-grid-scroll .logo-grid-item {
+    flex: 0 0 auto;
+    width: 10rem;
+  }
+
+  /* ============================================
+     Marquee Animation Variant
+     ============================================ */
+  .logo-grid-marquee .logo-grid-marquee-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .logo-grid-marquee .logo-grid-marquee-track {
+    display: flex;
+    gap: var(--logo-grid-gap);
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+    width: max-content;
+  }
+
+  .logo-grid-marquee:hover .logo-grid-marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Marquee animation keyframes */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .logo-grid-marquee .logo-grid-item {
+    flex: 0 0 auto;
+    width: 12rem;
+  }
+
+  /* ============================================
+     Animation Speed Variants
+     ============================================ */
+  .logo-grid-animation-slow .logo-grid-marquee-track {
+    animation-duration: 45s;
+  }
+
+  .logo-grid-animation-normal .logo-grid-marquee-track {
+    animation-duration: 30s;
+  }
+
+  .logo-grid-animation-fast .logo-grid-marquee-track {
+    animation-duration: 20s;
+  }
+
+  /* ============================================
+     Responsive Design
+     ============================================ */
+
+  /* Mobile (default - 2 columns) */
+  @media (max-width: 47.99em) {
+    .logo-grid {
+      --logo-grid-columns: 2;
+      --logo-grid-logo-height: 2.5rem;
+      padding: var(--spacing-2xl) var(--spacing-md);
+    }
+
+    .logo-grid-header {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .logo-grid-gap-lg {
+      --logo-grid-gap: var(--spacing-lg);
+    }
+  }
+
+  /* Tablet (768px-1439px - 4 columns) */
+  @media (min-width: 48em) and (max-width: 89.99em) {
+    .logo-grid {
+      --logo-grid-columns: 4;
+    }
+  }
+
+  /* Desktop (1440px+ - 6 columns) */
+  @media (min-width: 90em) {
+    .logo-grid {
+      --logo-grid-columns: 6;
+    }
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  [data-theme="dark"] .logo-grid-link:hover {
+    background-color: var(--color-gray-800);
+  }
+
+  [data-theme="dark"] .logo-grid-grayscale-hover .logo-grid-logo,
+  [data-theme="dark"] .logo-grid-grayscale .logo-grid-logo {
+    filter: grayscale(100%) brightness(1.2);
+  }
+
+  [data-theme="dark"] .logo-grid-grayscale-hover .logo-grid-item:hover .logo-grid-logo,
+  [data-theme="dark"] .logo-grid-grayscale-hover .logo-grid-link:hover .logo-grid-logo {
+    filter: grayscale(0%) brightness(1);
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+
+  /* Respect reduced motion preference - disable marquee */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-grid-marquee-track {
+      animation: none !important;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .logo-grid-logo {
+      filter: none !important;
+      opacity: 1 !important;
+    }
+  }
+}

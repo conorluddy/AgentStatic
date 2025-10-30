@@ -1,0 +1,431 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CTA Block",
+  "description": "PRIMARY CONVERSION ELEMENT - Call-to-action block combining heading, description, and buttons with marketing enhancements like trust signals, urgency elements, and background variants. Critical for driving user actions and conversions.",
+  "type": "object",
+  "category": "molecule",
+  "status": "stable",
+  "version": "1.0.0",
+  "marketingContext": {
+    "purpose": "Final conversion push before footer on marketing pages",
+    "conversionImpact": "Critical - where 15-25% of conversions happen with trust signals",
+    "bestPractices": [
+      "Place before footer on every major page",
+      "Use trust signals (customer count, ratings) to increase conversions by 15-25%",
+      "Add urgency elements (countdown, scarcity) to create FOMO",
+      "Test headline, CTA copy, and background variants extensively",
+      "Ensure mobile buttons are full-width with 44px minimum height"
+    ],
+    "abTestRecommendations": [
+      "Urgency: With countdown timer vs. Without",
+      "Social proof: With customer count vs. Without",
+      "Layout: Centered vs. Horizontal split with image",
+      "Background: Gradient vs. Solid vs. Image"
+    ]
+  },
+  "required": ["headline", "description", "cta"],
+  "properties": {
+    "layout": {
+      "type": "string",
+      "description": "Layout style for the CTA block",
+      "enum": ["centered", "split", "inline"],
+      "default": "centered",
+      "examples": [
+        {
+          "value": "centered",
+          "description": "Default centered layout - headline and CTA centered with generous padding",
+          "useCase": "Primary conversion blocks, hero CTAs, most prominent placement"
+        },
+        {
+          "value": "split",
+          "description": "Horizontal split layout - image/illustration on one side, content on other",
+          "useCase": "Mid-page CTAs with product screenshots, demo videos, or illustrations"
+        },
+        {
+          "value": "inline",
+          "description": "Inline horizontal layout - less prominent, compact spacing",
+          "useCase": "Secondary CTAs, less critical conversion points, newsletter signups"
+        }
+      ]
+    },
+    "background": {
+      "type": "object",
+      "description": "Background styling configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["default", "primary", "gradient", "gradient-subtle", "image"],
+          "default": "default",
+          "description": "Background type: default (light gray), primary (brand color), gradient (bold), gradient-subtle (soft), image (with overlay)"
+        },
+        "image": {
+          "type": "string",
+          "description": "Background image URL (required when type='image')",
+          "format": "uri"
+        },
+        "overlay": {
+          "type": "string",
+          "enum": ["dark", "light"],
+          "default": "dark",
+          "description": "Overlay type for image backgrounds to ensure text readability"
+        }
+      }
+    },
+    "eyebrow": {
+      "type": "string",
+      "description": "Small label text above heading (optional) - e.g., 'Limited Time Offer', 'New Feature'",
+      "maxLength": 50
+    },
+    "headline": {
+      "type": "string",
+      "description": "Main heading text (REQUIRED) - the primary conversion message",
+      "minLength": 1,
+      "maxLength": 100,
+      "examples": [
+        "Ready to get started?",
+        "Join thousands of happy customers",
+        "Limited time offer - 50% off",
+        "Transform your workflow today"
+      ]
+    },
+    "headingLevel": {
+      "type": "number",
+      "description": "Semantic heading level (h1-h6)",
+      "enum": [1, 2, 3, 4, 5, 6],
+      "default": 2
+    },
+    "subheadline": {
+      "type": "string",
+      "description": "Supporting text below headline (optional) - reinforces value proposition",
+      "maxLength": 150
+    },
+    "description": {
+      "type": "string",
+      "description": "Body text explaining the CTA (REQUIRED) - details the benefit or action",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "cta": {
+      "type": "object",
+      "description": "Call-to-action buttons configuration (REQUIRED)",
+      "required": ["primary"],
+      "properties": {
+        "primary": {
+          "type": "object",
+          "description": "Primary CTA button (REQUIRED) - main conversion action",
+          "required": ["text", "href"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Button text - use first-person, action verbs (Start, Get, Claim, Join)",
+              "minLength": 1,
+              "maxLength": 30,
+              "examples": [
+                "Start Free Trial",
+                "Get Started Free",
+                "Claim Your Discount",
+                "Join 10,000+ Users"
+              ]
+            },
+            "href": {
+              "type": "string",
+              "description": "Button destination URL",
+              "format": "uri"
+            },
+            "variant": {
+              "type": "string",
+              "enum": ["primary", "secondary", "ghost", "danger"],
+              "default": "primary"
+            },
+            "size": {
+              "type": "string",
+              "enum": ["sm", "md", "lg"],
+              "default": "lg"
+            },
+            "target": {
+              "type": "string",
+              "description": "Link target attribute"
+            },
+            "rel": {
+              "type": "string",
+              "description": "Link rel attribute"
+            }
+          }
+        },
+        "secondary": {
+          "type": "object",
+          "description": "Secondary CTA button (optional) - alternative action",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "href": {
+              "type": "string",
+              "format": "uri"
+            },
+            "variant": {
+              "type": "string",
+              "enum": ["primary", "secondary", "ghost", "danger"],
+              "default": "ghost"
+            },
+            "size": {
+              "type": "string",
+              "enum": ["sm", "md", "lg"],
+              "default": "lg"
+            },
+            "target": {
+              "type": "string"
+            },
+            "rel": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "trustSignal": {
+      "type": ["string", "object"],
+      "description": "Trust signal text or HTML markup below CTAs (optional) - increases conversions by 15-25%",
+      "examples": [
+        "Join 10,000+ happy customers",
+        "★★★★★ 4.9/5 from 2,000+ reviews",
+        "Trusted by companies like Microsoft, Google, and Amazon",
+        "No credit card required • Cancel anytime"
+      ]
+    },
+    "urgency": {
+      "type": ["string", "object"],
+      "description": "Urgency element text or HTML markup (optional) - creates FOMO (fear of missing out)",
+      "examples": [
+        "Offer ends in 24 hours",
+        "Only 3 spots left",
+        "Limited time: 50% off",
+        "Join before midnight to save 20%"
+      ]
+    },
+    "visual": {
+      "type": ["string", "object"],
+      "description": "Image URL or HTML markup for split layout visual side",
+      "examples": [
+        "/images/product-screenshot.png",
+        "/images/demo-video-thumbnail.jpg"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "ARIA role override"
+        },
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for the section"
+        },
+        "ariaDescribedBy": {
+          "type": "string",
+          "description": "ID of describing element"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "name": "Basic Centered CTA",
+      "description": "Simple centered CTA block with headline, description, and single button",
+      "props": {
+        "headline": "Ready to get started?",
+        "description": "Join thousands of happy customers using our platform to grow their business.",
+        "cta": {
+          "primary": {
+            "text": "Start Free Trial",
+            "href": "/signup"
+          }
+        }
+      }
+    },
+    {
+      "name": "CTA with Trust Signal",
+      "description": "CTA block with social proof below the button",
+      "props": {
+        "headline": "Transform your workflow",
+        "description": "Streamline your team's productivity with our all-in-one platform.",
+        "cta": {
+          "primary": {
+            "text": "Get Started Free",
+            "href": "/signup"
+          },
+          "secondary": {
+            "text": "View Demo",
+            "href": "/demo"
+          }
+        },
+        "trustSignal": "Join 10,000+ happy customers"
+      }
+    },
+    {
+      "name": "Urgency CTA with Gradient",
+      "description": "Limited-time offer with urgency element and gradient background",
+      "props": {
+        "headline": "Limited Time Offer",
+        "description": "Get 50% off our Pro plan for the next 24 hours only. Don't miss out!",
+        "urgency": "Offer ends in 24 hours",
+        "cta": {
+          "primary": {
+            "text": "Claim Discount",
+            "href": "/pricing"
+          }
+        },
+        "background": {
+          "type": "gradient"
+        }
+      }
+    },
+    {
+      "name": "Horizontal Split with Image",
+      "description": "Split layout with product screenshot and CTA",
+      "props": {
+        "layout": "split",
+        "headline": "See it in action",
+        "description": "Watch how our platform transforms your workflow in just minutes.",
+        "cta": {
+          "primary": {
+            "text": "Watch Demo",
+            "href": "/demo"
+          }
+        },
+        "visual": "/images/demo-screenshot.png"
+      }
+    },
+    {
+      "name": "Inline CTA",
+      "description": "Compact inline CTA for newsletter signup",
+      "props": {
+        "layout": "inline",
+        "headline": "Stay updated",
+        "description": "Get our weekly newsletter with tips, insights, and updates.",
+        "cta": {
+          "primary": {
+            "text": "Subscribe",
+            "href": "/newsletter"
+          }
+        }
+      }
+    },
+    {
+      "name": "Maximum Impact CTA",
+      "description": "All features: eyebrow, urgency, trust signal, secondary CTA, gradient background",
+      "props": {
+        "eyebrow": "Limited Offer",
+        "headline": "Join the revolution",
+        "subheadline": "Transform how you work",
+        "description": "Be part of the fastest-growing platform for modern teams. Get started today.",
+        "urgency": "50% off ends tonight at midnight",
+        "cta": {
+          "primary": {
+            "text": "Start Free Trial",
+            "href": "/signup"
+          },
+          "secondary": {
+            "text": "Learn More",
+            "href": "/about"
+          }
+        },
+        "trustSignal": "★★★★★ 4.9/5 from 10,000+ reviews",
+        "background": {
+          "type": "gradient"
+        }
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "requirements": [
+      "Section uses semantic <section> element",
+      "Heading level is configurable (h1-h6) for proper document outline",
+      "CTA buttons meet 44x44px touch target minimum (WCAG 2.1 Level AAA)",
+      "Color contrast meets 4.5:1 for text, 3:1 for UI elements",
+      "Background overlays ensure text readability on images",
+      "Focus states clearly visible with 3px outline, 2px offset",
+      "Urgency icon is aria-hidden (decorative)",
+      "Trust signals use proper semantic markup"
+    ],
+    "keyboardNavigation": "All CTA buttons are keyboard accessible with visible focus states"
+  },
+  "performance": {
+    "bundleSize": "1.4KB gzipped (CSS + HTML)",
+    "target": "<1.5KB",
+    "optimizations": [
+      "Pure CSS - no JavaScript required",
+      "Lazy loading on split layout images",
+      "Efficient CSS with cascade layers",
+      "Minimal DOM nesting for fast rendering"
+    ]
+  },
+  "responsive": {
+    "breakpoints": {
+      "mobile": "Full-width buttons, stacked layout, visual-first order",
+      "tablet": "Increased padding, larger text",
+      "desktop": "Split layout side-by-side, inline layout horizontal"
+    },
+    "behavior": [
+      "Split layout stacks vertically on mobile (<768px)",
+      "Inline layout stacks vertically on mobile",
+      "Buttons become full-width on mobile",
+      "Visual appears first on mobile for immediate impact"
+    ]
+  },
+  "darkMode": {
+    "support": "Full dark mode support with semantic color tokens",
+    "features": [
+      "Automatic color switching via CSS custom properties",
+      "Urgency element background adjusted for dark mode",
+      "Gradient backgrounds adapted for dark mode",
+      "All text colors maintain WCAG AA contrast in dark mode"
+    ]
+  },
+  "dependencies": {
+    "atoms": [
+      {
+        "component": "button",
+        "required": true,
+        "purpose": "Primary and secondary CTA buttons"
+      },
+      {
+        "component": "heading",
+        "required": true,
+        "purpose": "Main headline with configurable level and size"
+      }
+    ],
+    "designTokens": [
+      "spacing-*",
+      "color-*",
+      "font-size-*",
+      "border-radius-*"
+    ]
+  },
+  "relatedComponents": [
+    "atoms/button",
+    "atoms/heading",
+    "organisms/hero-section",
+    "molecules/card"
+  ]
+}

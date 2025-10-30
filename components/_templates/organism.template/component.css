@@ -1,0 +1,257 @@
+/* components/organisms/COMPONENT_NAME_KEBAB/COMPONENT_NAME_KEBAB.css */
+
+/**
+ * COMPONENT_NAME_PASCAL Component Styles (Organism)
+ *
+ * Organisms are complex UI sections combining multiple molecules and atoms.
+ * They represent distinct sections of a page (hero, header, footer, etc.).
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .COMPONENT_NAME_KEBAB
+ * - Sections: .COMPONENT_NAME_KEBAB-section
+ * - Children: .COMPONENT_NAME_KEBAB-child
+ * - Variants: .COMPONENT_NAME_KEBAB-variant
+ *
+ * Pure CSS only - no preprocessors.
+ */
+
+@layer components {
+  /* ============================================
+     Base Organism Styles
+     ============================================ */
+  .COMPONENT_NAME_KEBAB {
+    /* Reset */
+
+    /* Layout - organisms often use grid for complex layouts */
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-lg);
+
+    /* Container */
+    width: 100%;
+    max-width: var(--container-max-width, 1440px);
+    margin-inline: auto;
+
+    /* Spacing - organisms typically have larger spacing */
+    padding: var(--spacing-2xl) var(--spacing-lg);
+
+    /* Typography */
+    font-family: var(--font-family-base);
+
+    /* Colors */
+    color: var(--color-text);
+    background-color: var(--color-background);
+
+    /* Component-specific custom properties */
+    --organism-gap: var(--spacing-lg);
+    --organism-padding-block: var(--spacing-2xl);
+    --organism-padding-inline: var(--spacing-lg);
+  }
+
+  /* ============================================
+     Layout Sections
+     ============================================ */
+
+  /* Main content area */
+  .COMPONENT_NAME_KEBAB-content {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  /* Side areas for split layouts */
+  .COMPONENT_NAME_KEBAB-primary {
+    grid-column: 1 / 8;
+  }
+
+  .COMPONENT_NAME_KEBAB-secondary {
+    grid-column: 8 / -1;
+  }
+
+  /* Header section */
+  .COMPONENT_NAME_KEBAB-header {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+
+  /* Body section */
+  .COMPONENT_NAME_KEBAB-body {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  /* Footer/actions section */
+  .COMPONENT_NAME_KEBAB-footer {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+  }
+
+  /* ============================================
+     Nested Component Overrides
+     ============================================ */
+
+  /* Override molecules and atoms within this organism */
+  .COMPONENT_NAME_KEBAB .card {
+    /* Customize cards within this organism */
+  }
+
+  .COMPONENT_NAME_KEBAB .button {
+    /* Customize buttons within this organism */
+  }
+
+  /* ============================================
+     Variants
+     ============================================ */
+
+  /* Layout variants */
+  .COMPONENT_NAME_KEBAB-centered {
+    text-align: center;
+  }
+
+  .COMPONENT_NAME_KEBAB-split {
+    /* Split layout with primary/secondary sections */
+  }
+
+  .COMPONENT_NAME_KEBAB-full-width {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Color scheme variants */
+  .COMPONENT_NAME_KEBAB-inverted {
+    color: var(--color-background);
+    background-color: var(--color-text);
+  }
+
+  .COMPONENT_NAME_KEBAB-primary {
+    color: white;
+    background-color: var(--color-primary);
+  }
+
+  /* Size variants */
+  .COMPONENT_NAME_KEBAB-compact {
+    --organism-padding-block: var(--spacing-xl);
+    --organism-gap: var(--spacing-md);
+  }
+
+  .COMPONENT_NAME_KEBAB-spacious {
+    --organism-padding-block: var(--spacing-3xl);
+    --organism-gap: var(--spacing-2xl);
+  }
+
+  /* ============================================
+     States
+     ============================================ */
+
+  /* Organisms may have loading states */
+  .COMPONENT_NAME_KEBAB[data-loading="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .COMPONENT_NAME_KEBAB {
+      color: var(--color-text);
+      background-color: var(--color-background);
+    }
+
+    .COMPONENT_NAME_KEBAB-inverted {
+      color: var(--color-background);
+      background-color: var(--color-text);
+    }
+  }
+
+  /* ============================================
+     Responsive Design
+     ============================================ */
+
+  /* Mobile (default) - simplified layout */
+  @media (max-width: 47.99em) {
+    .COMPONENT_NAME_KEBAB {
+      padding: var(--spacing-xl) var(--spacing-md);
+      gap: var(--spacing-md);
+    }
+
+    /* Stack split layouts on mobile */
+    .COMPONENT_NAME_KEBAB-primary,
+    .COMPONENT_NAME_KEBAB-secondary {
+      grid-column: 1 / -1;
+    }
+
+    /* Simplify grid for mobile */
+    .COMPONENT_NAME_KEBAB-body {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Tablet (768px+) */
+  @media (min-width: 48em) {
+    .COMPONENT_NAME_KEBAB {
+      padding: var(--spacing-2xl) var(--spacing-xl);
+    }
+  }
+
+  /* Desktop (1440px+) */
+  @media (min-width: 90em) {
+    .COMPONENT_NAME_KEBAB {
+      padding: var(--spacing-3xl) var(--spacing-2xl);
+    }
+  }
+
+  /* ============================================
+     Container Queries (if supported)
+     ============================================ */
+  @container (min-width: 800px) {
+    .COMPONENT_NAME_KEBAB-body {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+
+  /* Focus management for complex organisms */
+  .COMPONENT_NAME_KEBAB:focus-within {
+    /* Optional: highlight organism when child has focus */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .COMPONENT_NAME_KEBAB {
+      transition: none;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    .COMPONENT_NAME_KEBAB {
+      border: 2px solid currentColor;
+    }
+  }
+
+  /* ============================================
+     Print Styles
+     ============================================ */
+  @media print {
+    .COMPONENT_NAME_KEBAB {
+      padding: var(--spacing-md);
+      background: white;
+      color: black;
+    }
+
+    .COMPONENT_NAME_KEBAB-footer {
+      display: none; /* Hide action buttons in print */
+    }
+  }
+}

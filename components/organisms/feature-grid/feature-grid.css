@@ -1,0 +1,390 @@
+/**
+ * Feature Grid Organism
+ *
+ * Versatile marketing component for showcasing product features and benefits.
+ * Supports grid and alternating layouts, multiple column configurations,
+ * icon-based features, image-based features, and card variants.
+ *
+ * Marketing Use Cases:
+ * - SaaS feature grids (3-column icon-based)
+ * - Product feature showcases (alternating image/text)
+ * - Service offerings (2-column cards)
+ * - Benefits showcase (4-column grid)
+ *
+ * Variants:
+ * - Layout: grid (default), alternating (image left/right pattern)
+ * - Columns: 2, 3 (default), 4
+ * - Style: default, bordered, cards, minimal
+ * - Content: icon-based, image-based, detailed (with feature lists)
+ *
+ * Dependencies:
+ * - molecules/image-text (for image-based features)
+ * - molecules/feature-list (for detailed features)
+ * - atoms/icon, atoms/heading, atoms/text
+ */
+
+@layer components {
+  /* ========================================
+     Container & Base Structure
+     ======================================== */
+
+  .feature-grid {
+    /* Spacing */
+    padding-block: var(--spacing-4xl);
+    padding-inline: var(--spacing-lg);
+
+    /* Layout */
+    container-type: inline-size;
+    container-name: feature-grid;
+  }
+
+  /* Inner container for content width control */
+  .feature-grid-container {
+    max-width: var(--container-5xl);
+    margin-inline: auto;
+  }
+
+  /* ========================================
+     Section Header (Heading + Description)
+     ======================================== */
+
+  .feature-grid-header {
+    text-align: center;
+    margin-block-end: var(--spacing-3xl);
+  }
+
+  .feature-grid-header.feature-grid-header-left {
+    text-align: start;
+  }
+
+  .feature-grid-heading {
+    margin-block-end: var(--spacing-lg);
+  }
+
+  .feature-grid-description {
+    max-width: var(--container-2xl);
+    margin-inline: auto;
+  }
+
+  .feature-grid-header-left .feature-grid-description {
+    margin-inline: 0;
+  }
+
+  /* ========================================
+     Grid Layout (Default)
+     ======================================== */
+
+  .feature-grid-items {
+    /* Grid layout */
+    display: grid;
+    gap: var(--spacing-2xl);
+
+    /* Default: 3 columns */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+
+  /* Column variants */
+  .feature-grid-items.feature-grid-items-2col {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  }
+
+  .feature-grid-items.feature-grid-items-3col {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  }
+
+  .feature-grid-items.feature-grid-items-4col {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  }
+
+  /* Responsive breakpoints for explicit columns */
+  @media (min-width: 640px) {
+    .feature-grid-items.feature-grid-items-2col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .feature-grid-items.feature-grid-items-3col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .feature-grid-items.feature-grid-items-4col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ========================================
+     Alternating Layout
+     ======================================== */
+
+  .feature-grid-items.feature-grid-items-alternating {
+    /* Stack layout for alternating pattern */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4xl);
+  }
+
+  .feature-grid-items.feature-grid-items-alternating .feature-grid-item {
+    /* Full width for alternating items */
+    width: 100%;
+  }
+
+  /* ========================================
+     Feature Item (Grid Layout)
+     ======================================== */
+
+  .feature-grid-item {
+    /* Flexbox for vertical stacking */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+
+    /* Smooth transitions */
+    transition: var(--transition-colors);
+  }
+
+  /* Center-aligned items (default) */
+  .feature-grid-items:not(.feature-grid-items-alternating) .feature-grid-item {
+    text-align: center;
+    align-items: center;
+  }
+
+  /* Left-aligned variant */
+  .feature-grid-items.feature-grid-items-left .feature-grid-item {
+    text-align: start;
+    align-items: start;
+  }
+
+  /* ========================================
+     Icon-Based Features
+     ======================================== */
+
+  .feature-grid-icon-wrapper {
+    /* Icon container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Circle background for icons */
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: var(--border-radius-full);
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-600);
+
+    /* Smooth transitions */
+    transition: var(--transition-colors);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .feature-grid-icon-wrapper {
+      background-color: var(--color-primary-900);
+      color: var(--color-primary-300);
+    }
+  }
+
+  /* Icon size */
+  .feature-grid-icon-wrapper svg,
+  .feature-grid-icon-wrapper img {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  /* ========================================
+     Feature Content
+     ======================================== */
+
+  .feature-grid-content {
+    /* Flex container for text stacking */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    flex: 1;
+  }
+
+  .feature-grid-title {
+    /* Typography */
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+
+    /* Spacing */
+    margin: 0;
+  }
+
+  .feature-grid-description {
+    /* Typography */
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+
+    /* Spacing */
+    margin: 0;
+  }
+
+  /* ========================================
+     Visual Style Variants
+     ======================================== */
+
+  /* Bordered variant */
+  .feature-grid-items.feature-grid-items-bordered .feature-grid-item {
+    padding: var(--spacing-xl);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+  }
+
+  /* Card variant */
+  .feature-grid-items.feature-grid-items-cards .feature-grid-item {
+    padding: var(--spacing-xl);
+    background-color: var(--color-surface);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-all);
+  }
+
+  .feature-grid-items.feature-grid-items-cards .feature-grid-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .feature-grid-items.feature-grid-items-cards .feature-grid-item {
+      background-color: var(--color-gray-800);
+      border-color: var(--color-gray-700);
+    }
+  }
+
+  /* Minimal variant */
+  .feature-grid-items.feature-grid-items-minimal .feature-grid-item {
+    gap: var(--spacing-sm);
+  }
+
+  .feature-grid-items.feature-grid-items-minimal .feature-grid-icon-wrapper {
+    background-color: transparent;
+  }
+
+  .feature-grid-items.feature-grid-items-minimal .feature-grid-title {
+    font-size: var(--font-size-base);
+  }
+
+  /* ========================================
+     Image-Based Features
+     ======================================== */
+
+  .feature-grid-item-with-image {
+    /* Uses image-text molecule internally */
+    /* Inherits all image-text styles */
+  }
+
+  /* Alternating pattern uses image-text molecule directly */
+  .feature-grid-items-alternating .feature-grid-item-with-image {
+    /* Image-text handles alternating internally */
+  }
+
+  /* ========================================
+     Detailed Features with Feature Lists
+     ======================================== */
+
+  .feature-grid-item-detailed {
+    /* Additional spacing for feature lists */
+    gap: var(--spacing-lg);
+  }
+
+  .feature-grid-item-detailed .feature-grid-content {
+    gap: var(--spacing-md);
+  }
+
+  /* Feature list integration */
+  .feature-grid-item-detailed .feature-list {
+    margin-block-start: var(--spacing-sm);
+  }
+
+  /* ========================================
+     Background Color Variants
+     ======================================== */
+
+  .feature-grid-bg-primary {
+    background-color: var(--color-primary-50);
+  }
+
+  .feature-grid-bg-secondary {
+    background-color: var(--color-secondary-50);
+  }
+
+  .feature-grid-bg-accent {
+    background-color: var(--color-gray-50);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .feature-grid-bg-primary {
+      background-color: var(--color-primary-900);
+    }
+
+    .feature-grid-bg-secondary {
+      background-color: var(--color-secondary-900);
+    }
+
+    .feature-grid-bg-accent {
+      background-color: var(--color-gray-800);
+    }
+  }
+
+  /* ========================================
+     Accessibility
+     ======================================== */
+
+  /* Focus visible for interactive features */
+  .feature-grid-item:focus-visible {
+    outline: var(--border-width-thick) solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-md);
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .feature-grid-item,
+    .feature-grid-icon-wrapper {
+      transition: none;
+    }
+
+    .feature-grid-items.feature-grid-items-cards .feature-grid-item:hover {
+      transform: none;
+    }
+  }
+
+  /* ========================================
+     Responsive Refinements
+     ======================================== */
+
+  /* Mobile optimizations */
+  @media (max-width: 639px) {
+    .feature-grid {
+      padding-block: var(--spacing-3xl);
+      padding-inline: var(--spacing-md);
+    }
+
+    .feature-grid-header {
+      margin-block-end: var(--spacing-2xl);
+    }
+
+    .feature-grid-items {
+      gap: var(--spacing-xl);
+    }
+
+    .feature-grid-items.feature-grid-items-alternating {
+      gap: var(--spacing-3xl);
+    }
+  }
+
+  /* Tablet optimizations */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .feature-grid-items.feature-grid-items-4col {
+      /* Force 2 columns on tablet for 4-column grids */
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

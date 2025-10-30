@@ -1,0 +1,186 @@
+{# components/atoms/button/button.njk #}
+
+{#
+  Button Component
+
+  Description: Interactive button atom with multiple variants, sizes, and states.
+  Renders as <button> by default, or <a> if href is provided.
+
+  Props:
+    - text (string): Button label text (required)
+    - variant (string): Visual style - 'primary', 'secondary', 'ghost', 'danger' (default: 'primary')
+    - size (string): Size variant - 'sm', 'md', 'lg' (default: 'md')
+    - href (string): If provided, renders as anchor styled as button
+    - target (string): Link target attribute (e.g., '_blank' for external links)
+    - rel (string): Link rel attribute (e.g., 'noopener noreferrer' for external links)
+    - type (string): Button type - 'button', 'submit', 'reset' (default: 'button')
+    - disabled (boolean): Disabled state (default: false)
+    - loading (boolean): Loading state with spinner (default: false)
+    - iconStart (string): SVG icon markup to display before text
+    - iconEnd (string): SVG icon markup to display after text
+    - iconOnly (boolean): Icon-only variant (hides text visually but keeps for a11y) (default: false)
+    - fullWidth (boolean): Full width button (default: false)
+    - id (string): Unique identifier for the component
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+      - ariaLabel (string): Accessible label (required for icon-only)
+      - ariaDescribedBy (string): ID of describing element
+      - ariaBusy (boolean): Busy state (auto-set when loading=true)
+
+  Usage:
+    {% from "atoms/button/button.njk" import button %}
+
+    {# Primary CTA #}
+    {{ button({
+      text: 'Get Started',
+      variant: 'primary',
+      size: 'lg'
+    }) }}
+
+    {# Button with icon #}
+    {{ button({
+      text: 'Download',
+      variant: 'secondary',
+      iconStart: '<svg>...</svg>'
+    }) }}
+
+    {# Icon-only button #}
+    {{ button({
+      text: 'Close',
+      iconOnly: true,
+      iconStart: '<svg>...</svg>',
+      a11y: { ariaLabel: 'Close dialog' }
+    }) }}
+
+    {# Link styled as button #}
+    {{ button({
+      text: 'Learn More',
+      href: '/about',
+      variant: 'ghost'
+    }) }}
+
+    {# Loading state #}
+    {{ button({
+      text: 'Submitting...',
+      loading: true,
+      disabled: true
+    }) }}
+#}
+
+{% macro button(props = {}) %}
+  {% set defaults = {
+    text: '',
+    variant: 'primary',
+    size: 'md',
+    type: 'button',
+    disabled: false,
+    loading: false,
+    iconOnly: false,
+    fullWidth: false,
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = [
+    'button',
+    'button-' + config.variant,
+    'button-' + config.size,
+    'button-loading' if config.loading else '',
+    'button-icon-only' if config.iconOnly else '',
+    'button-full' if config.fullWidth else '',
+    config.className
+  ] | join(' ') | trim %}
+
+  {# Determine if rendering as link or button #}
+  {% set isLink = config.href %}
+  {% set elementType = 'a' if isLink else 'button' %}
+
+  {# Build ARIA attributes #}
+  {% set ariaLabel = config.a11y.ariaLabel or (config.text if config.iconOnly else '') %}
+  {% set ariaBusy = config.loading %}
+
+  {# Render as link #}
+  {% if isLink %}
+  <a
+    class="{{ classList }}"
+    href="{{ config.href }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.target %}target="{{ config.target }}"{% endif %}
+    {% if config.rel %}rel="{{ config.rel }}"{% endif %}
+    {% if config.target == '_blank' and not config.rel %}rel="noopener noreferrer"{% endif %}
+    {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% if config.disabled %}aria-disabled="true" tabindex="-1"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Icon start #}
+    {% if config.iconStart %}
+    <span class="button-icon button-icon-start" aria-hidden="true">
+      {{ config.iconStart | safe }}
+    </span>
+    {% endif %}
+
+    {# Button text #}
+    {% if config.text %}
+    <span class="button-text">{{ config.text }}</span>
+    {% endif %}
+
+    {# Icon end #}
+    {% if config.iconEnd %}
+    <span class="button-icon button-icon-end" aria-hidden="true">
+      {{ config.iconEnd | safe }}
+    </span>
+    {% endif %}
+
+    {# Loading spinner #}
+    {% if config.loading %}
+    <span class="button-spinner" aria-hidden="true"></span>
+    {% endif %}
+  </a>
+  {% else %}
+  {# Render as button #}
+  <button
+    class="{{ classList }}"
+    type="{{ config.type }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.disabled or config.loading %}disabled{% endif %}
+    {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% if ariaBusy %}aria-busy="true"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Icon start #}
+    {% if config.iconStart %}
+    <span class="button-icon button-icon-start" aria-hidden="true">
+      {{ config.iconStart | safe }}
+    </span>
+    {% endif %}
+
+    {# Button text #}
+    {% if config.text %}
+    <span class="button-text">{{ config.text }}</span>
+    {% endif %}
+
+    {# Icon end #}
+    {% if config.iconEnd %}
+    <span class="button-icon button-icon-end" aria-hidden="true">
+      {{ config.iconEnd | safe }}
+    </span>
+    {% endif %}
+
+    {# Loading spinner #}
+    {% if config.loading %}
+    <span class="button-spinner" aria-hidden="true"></span>
+    {% endif %}
+  </button>
+  {% endif %}
+{% endmacro %}

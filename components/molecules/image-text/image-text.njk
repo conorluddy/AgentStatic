@@ -1,0 +1,186 @@
+{# components/molecules/image-text/image-text.njk #}
+
+{#
+  Image+Text Component (Molecule)
+
+  Description: WORKHORSE molecule for feature showcases and product pages.
+  Combines image with text content in flexible, responsive layouts.
+
+  Marketing Use Cases:
+  - Feature showcases (alternating image/text)
+  - "How it works" sections with step-by-step visuals
+  - Product pages (screenshot + description)
+  - About pages (team photo + company story)
+
+  Props:
+    - imagePosition (string): Layout - 'left', 'right', 'top' (default: 'left')
+    - image (object): Image properties (REQUIRED)
+      - src (string): Image source URL
+      - alt (string): Alternative text for accessibility
+      - loading (string): Lazy loading - 'lazy', 'eager' (default: 'lazy')
+    - aspectRatio (string): Image aspect ratio - '16-9', '4-3', '1-1', 'auto' (default: 'auto')
+    - headline (string): Main heading text
+    - headingLevel (number): Semantic heading level 1-6 (default: 2)
+    - description (string): Body text description
+    - cta (object): Call-to-action button (optional)
+      - text (string): Button text
+      - href (string): Button URL
+      - variant (string): Button style variant
+    - caption (string): Image caption (optional)
+    - backgroundColor (string): Background color variant - 'primary', 'secondary', 'accent', 'neutral' (optional)
+    - ratio (string): Column width ratio - '50-50', '40-60', '60-40', '33-67', '67-33' (default: '50-50')
+    - gap (string): Spacing gap - 'sm', 'md', 'lg', 'xl', '2xl' (default: 'lg')
+    - verticalAlign (string): Vertical alignment - 'top', 'center', 'bottom' (default: 'center')
+    - alternate (boolean): Apply alternating pattern (for use in sequences) (default: false)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+
+  Usage:
+    {% from "molecules/image-text/image-text.njk" import imageText %}
+    {% from "atoms/heading/heading.njk" import heading %}
+    {% from "atoms/text/text.njk" import text %}
+    {% from "atoms/button/button.njk" import button %}
+
+    {# Basic usage - image left #}
+    {{ imageText({
+      image: {
+        src: 'feature.jpg',
+        alt: 'Feature screenshot'
+      },
+      headline: 'Powerful Analytics',
+      description: 'Track your growth with detailed analytics and insights.'
+    }) }}
+
+    {# Image right with CTA #}
+    {{ imageText({
+      imagePosition: 'right',
+      image: {
+        src: 'dashboard.jpg',
+        alt: 'Dashboard interface'
+      },
+      aspectRatio: '16-9',
+      headline: 'Real-Time Dashboard',
+      description: 'Monitor your metrics in real-time with our intuitive dashboard.',
+      cta: {
+        text: 'Learn more',
+        href: '/analytics',
+        variant: 'primary'
+      }
+    }) }}
+
+    {# With caption and background color #}
+    {{ imageText({
+      imagePosition: 'left',
+      image: {
+        src: 'team.jpg',
+        alt: 'Team collaboration'
+      },
+      caption: 'Our team in action',
+      headline: 'Collaboration Made Easy',
+      description: 'Work together seamlessly with real-time collaboration tools.',
+      backgroundColor: 'neutral',
+      ratio: '60-40'
+    }) }}
+#}
+
+{% from "atoms/heading/heading.njk" import heading %}
+{% from "atoms/text/text.njk" import text %}
+{% from "atoms/button/button.njk" import button %}
+
+{% macro imageText(props = {}) %}
+  {% set defaults = {
+    imagePosition: 'left',
+    image: {},
+    aspectRatio: 'auto',
+    headingLevel: 2,
+    ratio: '50-50',
+    gap: 'lg',
+    verticalAlign: 'center',
+    alternate: false,
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Validate required image props #}
+  {% if not config.image.src or not config.image.alt %}
+    <!-- Error: image-text requires image.src and image.alt -->
+  {% endif %}
+
+  {# Build class list #}
+  {% set classList = [
+    'image-text',
+    'image-text-image-' + config.imagePosition,
+    'image-text-aspect-' + config.aspectRatio if config.aspectRatio != 'auto',
+    'image-text-ratio-' + config.ratio if config.ratio != '50-50',
+    'image-text-gap-' + config.gap if config.gap != 'lg',
+    'image-text-align-' + config.verticalAlign if config.verticalAlign != 'center',
+    'image-text-bg-' + config.backgroundColor if config.backgroundColor,
+    config.className
+  ] | reject('equalto', false) | join(' ') | trim %}
+
+  {# Main container #}
+  <div
+    class="{{ classList }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.role %}role="{{ config.a11y.role }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Media section (image) #}
+    <div class="image-text-media">
+      <figure class="image-text-figure">
+        <img
+          src="{{ config.image.src }}"
+          alt="{{ config.image.alt }}"
+          class="image-text-image"
+          loading="{{ config.image.loading or 'lazy' }}"
+        >
+        {% if config.caption %}
+          <figcaption class="image-text-caption">
+            {{ config.caption }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    </div>
+
+    {# Content section (text + CTA) #}
+    <div class="image-text-content">
+      {# Headline #}
+      {% if config.headline %}
+        {{ heading({
+          text: config.headline,
+          level: config.headingLevel,
+          size: 'xl'
+        }) }}
+      {% endif %}
+
+      {# Description #}
+      {% if config.description %}
+        {{ text({
+          content: config.description,
+          size: 'lg',
+          lineHeight: 'relaxed',
+          color: 'muted'
+        }) }}
+      {% endif %}
+
+      {# Call-to-action button #}
+      {% if config.cta %}
+        {{ button({
+          text: config.cta.text,
+          href: config.cta.href,
+          variant: config.cta.variant or 'primary',
+          size: config.cta.size or 'md'
+        }) }}
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}

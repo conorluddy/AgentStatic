@@ -1,0 +1,382 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentstatic.dev/schemas/molecules/pricing.json",
+  "title": "Pricing",
+  "description": "Pricing plan card component for brochureware conversion. Critical decision-making component implementing marketing psychology patterns (anchoring, decoy effect, loss aversion). Displays plan name, price, features, and CTA with optional badge and strikethrough pricing.",
+  "type": "object",
+  "category": "molecule",
+  "tags": ["pricing", "plans", "conversion", "cta", "marketing", "saas", "subscription"],
+  "required": ["name", "price", "cta"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Plan name (e.g., 'Pro', 'Enterprise', 'Team')",
+      "examples": ["Free", "Pro", "Business", "Enterprise", "Team", "Starter"]
+    },
+    "price": {
+      "type": "string",
+      "description": "Price amount (e.g., '$99', '$0', 'Contact Sales')",
+      "examples": ["$0", "$9", "$49", "$99", "$199", "Contact Sales", "Custom"]
+    },
+    "period": {
+      "type": "string",
+      "description": "Billing period",
+      "default": "month",
+      "examples": ["month", "year", "user/month", "project/month", "one-time"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief plan description (1-2 sentences)",
+      "examples": [
+        "For individuals and small projects",
+        "For growing teams",
+        "For large organizations",
+        "Most popular plan"
+      ]
+    },
+    "features": {
+      "type": "array",
+      "description": "List of included features (uses Feature List molecule)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Feature description"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon name (default: 'check')",
+            "enum": ["check", "x", "verified", "star"]
+          },
+          "included": {
+            "type": "boolean",
+            "description": "Whether feature is included (default: true)",
+            "default": true
+          }
+        },
+        "required": ["text"]
+      }
+    },
+    "cta": {
+      "type": "object",
+      "description": "Call-to-action button",
+      "required": ["text", "href"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Button text",
+          "examples": [
+            "Get Started",
+            "Start Free Trial",
+            "Contact Sales",
+            "Choose Plan",
+            "Sign Up Free"
+          ]
+        },
+        "href": {
+          "type": "string",
+          "description": "Button URL",
+          "examples": [
+            "/signup",
+            "/signup?plan=pro",
+            "/contact",
+            "/demo"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "description": "Button variant",
+          "enum": ["primary", "secondary", "ghost", "danger"],
+          "default": "primary"
+        },
+        "size": {
+          "type": "string",
+          "description": "Button size",
+          "enum": ["sm", "md", "lg"],
+          "default": "lg"
+        }
+      }
+    },
+    "ctaNote": {
+      "type": "string",
+      "description": "Text below CTA button (reduces friction)",
+      "examples": [
+        "No credit card required",
+        "14-day free trial",
+        "Cancel anytime",
+        "No commitment"
+      ]
+    },
+    "badge": {
+      "type": "string",
+      "description": "Badge text for highlighting plan (social proof, urgency)",
+      "examples": [
+        "Most Popular",
+        "Best Value",
+        "Recommended",
+        "Limited Time",
+        "New"
+      ]
+    },
+    "badgeVariant": {
+      "type": "string",
+      "description": "Badge color variant",
+      "enum": ["primary", "secondary", "success", "warning", "error", "info"],
+      "default": "primary"
+    },
+    "highlighted": {
+      "type": "boolean",
+      "description": "Whether this is the recommended plan (visual emphasis)",
+      "default": false
+    },
+    "originalPrice": {
+      "type": "string",
+      "description": "Original price for strikethrough display (shows savings, loss aversion)",
+      "examples": ["$149", "$999", "$199"]
+    },
+    "savings": {
+      "type": "string",
+      "description": "Savings text (e.g., 'Save 20%', '$600/year')",
+      "examples": ["Save 20%", "Save $600/year", "33% off", "$240 savings"]
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the pricing card"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for the pricing card"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "name": "Free",
+      "price": "$0",
+      "period": "month",
+      "description": "Perfect for individuals and small projects",
+      "features": [
+        { "text": "5 projects" },
+        { "text": "1 GB storage" },
+        { "text": "Community support" }
+      ],
+      "cta": {
+        "text": "Get Started",
+        "href": "/signup?plan=free",
+        "variant": "ghost"
+      }
+    },
+    {
+      "name": "Pro",
+      "price": "$49",
+      "originalPrice": "$79",
+      "period": "month",
+      "savings": "Save 38%",
+      "description": "For growing teams and businesses",
+      "badge": "Most Popular",
+      "badgeVariant": "primary",
+      "highlighted": true,
+      "features": [
+        { "text": "Unlimited projects" },
+        { "text": "100 GB storage" },
+        { "text": "Priority support" },
+        { "text": "Advanced analytics" }
+      ],
+      "cta": {
+        "text": "Start Free Trial",
+        "href": "/signup?plan=pro",
+        "variant": "primary"
+      },
+      "ctaNote": "No credit card required"
+    },
+    {
+      "name": "Enterprise",
+      "price": "Contact Sales",
+      "description": "Custom solutions for large organizations",
+      "features": [
+        { "text": "Unlimited everything" },
+        { "text": "Dedicated support" },
+        { "text": "Custom integrations" },
+        { "text": "SLA guarantee" }
+      ],
+      "cta": {
+        "text": "Contact Sales",
+        "href": "/contact-sales",
+        "variant": "secondary"
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "requirements": [
+      "Pricing card must have accessible label (aria-label)",
+      "Price amount must be large and readable (4.5:1 contrast)",
+      "CTA button must meet 44px touch target",
+      "Keyboard navigation must work for entire card",
+      "Focus states must be visible on all interactive elements"
+    ],
+    "notes": [
+      "Badge should not be the only way to identify the recommended plan",
+      "Price must be readable by screen readers",
+      "Strikethrough pricing must indicate original vs. current price clearly"
+    ]
+  },
+  "responsive": {
+    "mobile": "Single column, remove scale on highlighted plan",
+    "tablet": "2 columns",
+    "desktop": "3 columns maximum, centered grid"
+  },
+  "darkMode": {
+    "supported": true,
+    "implementation": "Automatic via design tokens and CSS custom properties",
+    "notes": [
+      "Highlighted plan shadow adjusts for dark mode",
+      "Savings badge uses different colors in dark mode",
+      "All text maintains WCAG AA contrast in both modes"
+    ]
+  },
+  "performance": {
+    "bundleSize": {
+      "target": "< 1.5KB gzipped",
+      "dependencies": ["Button atom", "Badge atom", "Feature List molecule"]
+    }
+  },
+  "marketingPsychology": {
+    "patterns": [
+      {
+        "name": "Anchoring",
+        "description": "Show expensive plan first to make others seem affordable",
+        "implementation": "Order plans from Free → Pro → Enterprise, or Enterprise → Pro → Free",
+        "example": "Showing $999/month Enterprise plan makes $49/month Pro seem like a steal"
+      },
+      {
+        "name": "Decoy Effect (Goldilocks Pricing)",
+        "description": "Middle plan becomes 'just right' when flanked by cheaper and more expensive options",
+        "implementation": "Create 3 plans where middle plan offers best value",
+        "example": "Free (limited), Pro (highlighted, 'Most Popular'), Enterprise (expensive)"
+      },
+      {
+        "name": "Loss Aversion",
+        "description": "Strikethrough pricing shows what customers are 'saving'",
+        "implementation": "Use originalPrice + savings props to show crossed-out price",
+        "example": "~~$79~~ $49/month (Save 38%) makes discount feel like avoiding a loss"
+      },
+      {
+        "name": "Social Proof",
+        "description": "Badge guides decision-making ('Most Popular' plan feels safe)",
+        "implementation": "Use badge prop on recommended plan",
+        "example": "'Most Popular' badge on Pro plan increases conversion by 20-30%"
+      },
+      {
+        "name": "Friction Reduction",
+        "description": "Remove barriers to signup ('No credit card required')",
+        "implementation": "Use ctaNote prop below CTA button",
+        "example": "'14-day free trial' or 'Cancel anytime' reduces signup anxiety"
+      },
+      {
+        "name": "Price Anchoring (Annual vs. Monthly)",
+        "description": "Show annual savings to encourage longer commitment",
+        "implementation": "Display monthly price with 'Save 20% with annual billing'",
+        "example": "$49/month or $39/month (billed annually, save $120/year)"
+      }
+    ],
+    "conversionOptimization": [
+      {
+        "tip": "Highlight one plan (recommended)",
+        "impact": "Increases conversions by 25-40%",
+        "implementation": "Set highlighted: true on middle-tier plan"
+      },
+      {
+        "tip": "Use specific feature counts",
+        "impact": "More credible than 'unlimited' (paradox of choice)",
+        "implementation": "'100 projects' vs 'Unlimited projects'"
+      },
+      {
+        "tip": "Order plans strategically",
+        "impact": "Left-to-right vs. center focus changes behavior",
+        "implementation": "Desktop: Cheap → Mid → Expensive (or center highlighted plan)"
+      },
+      {
+        "tip": "Make CTAs specific",
+        "impact": "'Start Free Trial' converts better than 'Sign Up'",
+        "implementation": "Use action-oriented CTA text: 'Get Started', 'Try for Free'"
+      },
+      {
+        "tip": "Add urgency sparingly",
+        "impact": "'Limited Time' badge can increase urgency, but use authentically",
+        "implementation": "Only use urgency badges for genuine promotions"
+      }
+    ],
+    "abTestingRecommendations": [
+      "Test highlighted plan (left vs. center vs. right position)",
+      "Test CTA wording ('Get Started' vs. 'Start Free Trial' vs. 'Sign Up')",
+      "Test badge text ('Most Popular' vs. 'Best Value' vs. 'Recommended')",
+      "Test strikethrough pricing (with vs. without savings badge)",
+      "Test annual vs. monthly pricing toggle",
+      "Test number of features shown (5-7 is optimal, more causes choice paralysis)",
+      "Test feature order (most valuable features first)",
+      "Test pricing order (ascending vs. descending price)"
+    ]
+  },
+  "contentGuidelines": {
+    "planNames": {
+      "good": ["Free", "Pro", "Business", "Enterprise", "Team", "Starter", "Growth"],
+      "avoid": ["Plan A", "Plan B", "Silver", "Gold", "Platinum" (feels dated)],
+      "notes": "Use audience-specific names (e.g., 'Freelancer', 'Agency', 'Enterprise')"
+    },
+    "pricing": {
+      "good": ["$49", "$0", "Contact Sales", "Custom"],
+      "avoid": ["$49.00" (unnecessary decimals), "$49/month/user" (confusing)],
+      "notes": "Keep pricing simple and easy to understand at a glance"
+    },
+    "features": {
+      "good": ["Unlimited projects", "Priority support", "Advanced analytics"],
+      "avoid": ["Everything in Free, plus...", "All features" (too vague)],
+      "notes": "Be specific and benefit-focused. Lead with most valuable features."
+    },
+    "cta": {
+      "good": ["Start Free Trial", "Get Started", "Try for Free", "Contact Sales"],
+      "avoid": ["Submit", "Click Here", "Buy Now" (too transactional)],
+      "notes": "Use action-oriented, low-friction language"
+    }
+  },
+  "realWorldExamples": [
+    {
+      "company": "Notion",
+      "strategy": "Free, Plus, Business, Enterprise. Monthly/annual toggle. 'Most popular' badge on Plus.",
+      "conversion": "Highlight + annual discount + free trial = high conversion"
+    },
+    {
+      "company": "Slack",
+      "strategy": "Per-user pricing calculator, comparison table, 'Most popular' on Pro.",
+      "conversion": "Transparency + calculator = trust + higher ACV"
+    },
+    {
+      "company": "Stripe",
+      "strategy": "Simple 2-tier (Pay as you go, Custom). Contact Sales for Enterprise.",
+      "conversion": "Simplicity reduces choice paralysis for SMB segment"
+    },
+    {
+      "company": "GitHub",
+      "strategy": "Free, Team, Enterprise. Focus on Free tier to build user base.",
+      "conversion": "Generous free tier = massive user growth, upsell later"
+    }
+  ]
+}

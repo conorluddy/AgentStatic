@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/atoms/button/schema",
+  "title": "Button",
+  "type": "object",
+  "description": "Interactive button atom for triggering actions and navigation. Supports multiple variants (primary, secondary, ghost, danger), sizes (sm, md, lg), icons, loading states, and can render as either button or link elements.",
+  "category": "atom",
+  "metadata": {
+    "displayName": "Button",
+    "description": "Versatile button component for CTAs, form submissions, and navigation. Includes primary (high emphasis), secondary (medium emphasis), ghost (low emphasis), and danger (destructive actions) variants. Supports icon-only buttons with proper accessibility, loading states with spinners, and responsive full-width layouts.",
+    "tags": ["atom", "interactive", "cta", "action", "button", "link", "form", "navigation"],
+    "composedOf": [],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "focusIndicator": true,
+      "touchTarget": "44x44px minimum",
+      "features": [
+        "Visible focus ring with 3px outline and 2px offset",
+        "ARIA busy state for loading buttons",
+        "ARIA label support for icon-only buttons",
+        "ARIA disabled for link variants",
+        "High contrast mode border enhancement",
+        "Reduced motion support for animations"
+      ]
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fluid",
+      "mobileFirst": true,
+      "features": [
+        "44x44px minimum touch target on mobile",
+        "Optional full-width on mobile (button-responsive class)",
+        "Fluid sizing based on viewport",
+        "Safe zone padding maintained"
+      ]
+    },
+    "darkMode": true,
+    "performance": {
+      "bundleSize": "<500B gzipped",
+      "renderTime": "<16ms",
+      "repaints": "minimal"
+    },
+    "usageExamples": [
+      {
+        "title": "Primary CTA Button",
+        "description": "High-emphasis call-to-action button with primary brand color",
+        "code": "{{ button({ text: 'Get Started', variant: 'primary', size: 'lg' }) }}"
+      },
+      {
+        "title": "Secondary Action",
+        "description": "Medium-emphasis button for secondary actions",
+        "code": "{{ button({ text: 'Learn More', variant: 'secondary' }) }}"
+      },
+      {
+        "title": "Ghost Button",
+        "description": "Low-emphasis button with transparent background",
+        "code": "{{ button({ text: 'Cancel', variant: 'ghost' }) }}"
+      },
+      {
+        "title": "Danger Button",
+        "description": "Destructive action button for critical operations",
+        "code": "{{ button({ text: 'Delete Account', variant: 'danger' }) }}"
+      },
+      {
+        "title": "Button with Icon (Start)",
+        "description": "Button with icon positioned before text",
+        "code": "{{ button({ text: 'Download', variant: 'primary', iconStart: '<svg>...</svg>' }) }}"
+      },
+      {
+        "title": "Button with Icon (End)",
+        "description": "Button with arrow icon for forward navigation",
+        "code": "{{ button({ text: 'Continue', variant: 'primary', iconEnd: '<svg>→</svg>' }) }}"
+      },
+      {
+        "title": "Icon-Only Button",
+        "description": "Button with only icon visible (text hidden but accessible)",
+        "code": "{{ button({ text: 'Close', iconOnly: true, iconStart: '<svg>×</svg>', a11y: { ariaLabel: 'Close dialog' } }) }}"
+      },
+      {
+        "title": "Link Styled as Button",
+        "description": "Anchor element styled as button for navigation",
+        "code": "{{ button({ text: 'View Product', href: '/product', variant: 'primary' }) }}"
+      },
+      {
+        "title": "External Link Button",
+        "description": "Button linking to external site with proper rel attributes",
+        "code": "{{ button({ text: 'View Demo', href: 'https://example.com', target: '_blank', iconEnd: '<svg>↗</svg>' }) }}"
+      },
+      {
+        "title": "Loading State",
+        "description": "Button with loading spinner and disabled state",
+        "code": "{{ button({ text: 'Submitting...', loading: true, disabled: true }) }}"
+      },
+      {
+        "title": "Full-Width Button",
+        "description": "Button spanning full width of container",
+        "code": "{{ button({ text: 'Sign Up', variant: 'primary', size: 'lg', fullWidth: true }) }}"
+      },
+      {
+        "title": "Submit Button",
+        "description": "Form submission button",
+        "code": "{{ button({ text: 'Submit Form', type: 'submit', variant: 'primary' }) }}"
+      }
+    ],
+    "browserSupport": {
+      "chrome": "90+",
+      "firefox": "88+",
+      "safari": "14+",
+      "edge": "90+"
+    }
+  },
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Button label text. Required for accessibility even on icon-only buttons (will be visually hidden).",
+      "examples": ["Get Started", "Learn More", "Submit", "Cancel", "Delete"]
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["primary", "secondary", "ghost", "danger"],
+      "default": "primary",
+      "description": "Visual style variant. Primary: high emphasis brand color. Secondary: medium emphasis neutral color. Ghost: low emphasis transparent background. Danger: destructive actions red color."
+    },
+    "size": {
+      "type": "string",
+      "enum": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Size variant. Small: 32px height. Medium: 44px height (minimum touch target). Large: 56px height."
+    },
+    "href": {
+      "type": "string",
+      "description": "If provided, renders as anchor element styled as button. Use for navigation, not actions.",
+      "examples": ["/about", "/products", "https://example.com"]
+    },
+    "target": {
+      "type": "string",
+      "enum": ["_self", "_blank", "_parent", "_top"],
+      "description": "Link target attribute. Use '_blank' for external links.",
+      "default": "_self"
+    },
+    "rel": {
+      "type": "string",
+      "description": "Link rel attribute. Automatically set to 'noopener noreferrer' for target='_blank' if not provided.",
+      "examples": ["noopener noreferrer", "nofollow"]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["button", "submit", "reset"],
+      "default": "button",
+      "description": "Button type attribute. Only applies when rendering as button element (no href)."
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Disabled state. Prevents interaction and applies disabled styling."
+    },
+    "loading": {
+      "type": "boolean",
+      "default": false,
+      "description": "Loading state. Shows spinner, hides content, and disables interaction."
+    },
+    "iconStart": {
+      "type": "string",
+      "description": "SVG icon markup to display before text. Icon is aria-hidden and decorative.",
+      "examples": ["<svg>...</svg>", "<svg viewBox='0 0 24 24'><path d='...' /></svg>"]
+    },
+    "iconEnd": {
+      "type": "string",
+      "description": "SVG icon markup to display after text. Commonly used for arrows (→, ↗).",
+      "examples": ["<svg>→</svg>", "<svg>↗</svg>"]
+    },
+    "iconOnly": {
+      "type": "boolean",
+      "default": false,
+      "description": "Icon-only variant. Hides text visually but keeps it accessible for screen readers. Requires text and ariaLabel props. Enforces 44x44px minimum touch target."
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "default": false,
+      "description": "Full-width button spanning container width. Useful for mobile layouts."
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the button element.",
+      "examples": ["submit-btn", "cta-hero", "delete-confirm"]
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply. Use for custom styling or utility classes.",
+      "examples": ["custom-button", "mt-4", "button-responsive"]
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes as key-value pairs.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        { "data-track": "cta-click" },
+        { "data-testid": "submit-button" }
+      ]
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties for enhanced screen reader support.",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for screen readers. Required for icon-only buttons. Overrides text content.",
+          "examples": ["Close dialog", "Open menu", "Submit form"]
+        },
+        "ariaDescribedBy": {
+          "type": "string",
+          "description": "ID of element that describes this button. Used for additional context.",
+          "examples": ["help-text", "error-message"]
+        },
+        "ariaBusy": {
+          "type": "boolean",
+          "description": "Busy state for screen readers. Automatically set to true when loading=true.",
+          "default": false
+        }
+      }
+    }
+  },
+  "required": ["text"],
+  "additionalProperties": false
+}

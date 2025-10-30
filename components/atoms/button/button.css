@@ -1,0 +1,380 @@
+/* components/atoms/button/button.css */
+
+/**
+ * Button Component Styles
+ *
+ * Interactive button atom with multiple variants, sizes, and states.
+ * Supports icons, loading states, full-width layout, and link rendering.
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .button
+ * - Children: .button-text, .button-icon, .button-spinner
+ * - Variants: .button-primary, .button-secondary, .button-ghost, .button-danger
+ * - Sizes: .button-sm, .button-md, .button-lg
+ * - States: hover, focus, active, disabled, loading
+ *
+ * Pure CSS only - no preprocessors.
+ * Uses design tokens from components/_system/tokens.css
+ */
+
+@layer components {
+  /* ============================================
+     Base Component Styles
+     ============================================ */
+  .button {
+    /* Component-level custom properties for easy variant overrides */
+    --button-height: 2.75rem;        /* 44px minimum touch target */
+    --button-padding-x: 1.5rem;      /* 24px horizontal padding */
+    --button-padding-y: 0.75rem;     /* 12px vertical padding */
+    --button-font-size: var(--font-size-base);
+    --button-gap: 0.5rem;            /* 8px gap between icon and text */
+    --button-bg: var(--color-gray-100);
+    --button-bg-hover: var(--color-gray-200);
+    --button-color: var(--color-text);
+    --button-border-color: var(--color-border);
+    --button-border-width: var(--border-width-thin);
+    --button-border-radius: var(--border-radius-md);
+
+    /* Reset browser defaults */
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+
+    /* Layout */
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--button-gap);
+    min-height: var(--button-height);
+    padding: var(--button-padding-y) var(--button-padding-x);
+
+    /* Typography */
+    font-family: var(--font-sans);
+    font-size: var(--button-font-size);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-tight);
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Colors */
+    color: var(--button-color);
+    background-color: var(--button-bg);
+
+    /* Borders */
+    border: var(--button-border-width) solid var(--button-border-color);
+    border-radius: var(--button-border-radius);
+
+    /* Interaction */
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    /* Transitions */
+    transition: var(--transition-colors),
+                transform var(--transition-fast);
+  }
+
+  /* Remove default link styling when button is a link */
+  a.button {
+    text-decoration: none;
+  }
+
+  /* ============================================
+     Child Elements (simple scoped naming)
+     ============================================ */
+  .button-text {
+    display: inline-block;
+    line-height: inherit;
+  }
+
+  .button-icon {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 1.25em;
+    height: 1.25em;
+    line-height: 1;
+  }
+
+  .button-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Icon positioning */
+  .button-icon-start {
+    order: -1;
+  }
+
+  .button-icon-end {
+    order: 1;
+  }
+
+  /* Icon-only variant (44x44px minimum touch target) */
+  .button-icon-only {
+    padding: var(--button-padding-y);
+    min-width: var(--button-height);
+    aspect-ratio: 1;
+  }
+
+  .button-icon-only .button-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* ============================================
+     Loading State
+     ============================================ */
+  .button-loading {
+    color: transparent;
+    pointer-events: none;
+    cursor: wait;
+  }
+
+  .button-loading .button-text,
+  .button-loading .button-icon {
+    visibility: hidden;
+  }
+
+  .button-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--border-radius-full);
+    animation: button-spin 0.6s linear infinite;
+  }
+
+  @keyframes button-spin {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* ============================================
+     Variant Styles
+     ============================================ */
+
+  /* Primary - High emphasis, brand color */
+  .button-primary {
+    --button-bg: var(--color-primary-600);
+    --button-bg-hover: var(--color-primary-700);
+    --button-color: var(--color-white);
+    --button-border-color: var(--color-primary-600);
+  }
+
+  /* Secondary - Medium emphasis, neutral color */
+  .button-secondary {
+    --button-bg: var(--color-gray-700);
+    --button-bg-hover: var(--color-gray-800);
+    --button-color: var(--color-white);
+    --button-border-color: var(--color-gray-700);
+  }
+
+  /* Ghost - Low emphasis, transparent background */
+  .button-ghost {
+    --button-bg: transparent;
+    --button-bg-hover: var(--color-gray-100);
+    --button-color: var(--color-text);
+    --button-border-color: var(--color-border);
+  }
+
+  /* Danger - Destructive actions, red color scheme */
+  .button-danger {
+    --button-bg: var(--color-error);
+    --button-bg-hover: #dc2626;
+    --button-color: var(--color-white);
+    --button-border-color: var(--color-error);
+  }
+
+  /* ============================================
+     Size Variants
+     ============================================ */
+
+  /* Small - Compact size */
+  .button-sm {
+    --button-height: 2rem;           /* 32px */
+    --button-padding-x: 1rem;        /* 16px */
+    --button-padding-y: 0.5rem;      /* 8px */
+    --button-font-size: var(--font-size-sm);
+    --button-gap: 0.375rem;          /* 6px */
+  }
+
+  /* Medium - Default size (44x44px minimum) */
+  .button-md {
+    --button-height: 2.75rem;        /* 44px */
+    --button-padding-x: 1.5rem;      /* 24px */
+    --button-padding-y: 0.75rem;     /* 12px */
+    --button-font-size: var(--font-size-base);
+    --button-gap: 0.5rem;            /* 8px */
+  }
+
+  /* Large - Prominent size */
+  .button-lg {
+    --button-height: 3.5rem;         /* 56px */
+    --button-padding-x: 2rem;        /* 32px */
+    --button-padding-y: 1rem;        /* 16px */
+    --button-font-size: var(--font-size-lg);
+    --button-gap: 0.625rem;          /* 10px */
+  }
+
+  /* ============================================
+     Full Width Variant
+     ============================================ */
+  .button-full {
+    width: 100%;
+    display: flex;
+  }
+
+  /* ============================================
+     Interactive States
+     ============================================ */
+
+  /* Hover */
+  .button:hover:not(:disabled):not(.button-loading) {
+    background-color: var(--button-bg-hover);
+    transform: translateY(-1px);
+  }
+
+  /* Focus */
+  .button:focus-visible {
+    outline: 3px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  /* Active */
+  .button:active:not(:disabled):not(.button-loading) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Disabled */
+  .button:disabled,
+  .button[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .button {
+      /* Ghost variant needs dark mode adjustment */
+    }
+
+    .button-ghost {
+      --button-bg-hover: var(--color-gray-800);
+    }
+
+    .button-primary {
+      --button-bg: var(--color-primary-500);
+      --button-bg-hover: var(--color-primary-600);
+      --button-border-color: var(--color-primary-500);
+    }
+
+    .button-secondary {
+      --button-bg: var(--color-gray-600);
+      --button-bg-hover: var(--color-gray-700);
+      --button-border-color: var(--color-gray-600);
+    }
+  }
+
+  /* Manual dark mode toggle */
+  [data-theme="dark"] .button-ghost {
+    --button-bg-hover: var(--color-gray-800);
+  }
+
+  [data-theme="dark"] .button-primary {
+    --button-bg: var(--color-primary-500);
+    --button-bg-hover: var(--color-primary-600);
+    --button-border-color: var(--color-primary-500);
+  }
+
+  [data-theme="dark"] .button-secondary {
+    --button-bg: var(--color-gray-600);
+    --button-bg-hover: var(--color-gray-700);
+    --button-border-color: var(--color-gray-600);
+  }
+
+  /* ============================================
+     Responsive Design (mobile-first)
+     ============================================ */
+
+  /* Mobile: Full width on small screens for improved UX */
+  @media (max-width: 47.9375em) {
+    .button-responsive {
+      width: 100%;
+      display: flex;
+    }
+  }
+
+  /* Tablet (768px+) - Safe zone padding maintained */
+  @media (min-width: 48em) {
+    .button {
+      /* Tablet-specific adjustments if needed */
+    }
+  }
+
+  /* Desktop (1440px+) */
+  @media (min-width: 90em) {
+    .button {
+      /* Desktop-specific adjustments if needed */
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: var(--transition-colors);
+    }
+
+    .button:hover:not(:disabled):not(.button-loading),
+    .button:active:not(:disabled):not(.button-loading) {
+      transform: none;
+    }
+
+    .button-spinner {
+      animation-duration: 1.2s;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .button {
+      border-width: 2px;
+    }
+
+    .button:focus-visible {
+      outline-width: 4px;
+    }
+  }
+
+  /* Ensure minimum touch target size on mobile */
+  @media (pointer: coarse) {
+    .button {
+      min-height: 2.75rem;  /* 44px minimum */
+      min-width: 2.75rem;   /* 44px minimum for icon-only */
+    }
+  }
+}

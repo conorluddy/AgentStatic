@@ -1,0 +1,216 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentstatic.dev/schemas/organisms/feature-grid.schema.json",
+  "title": "Feature Grid",
+  "type": "object",
+  "category": "organism",
+  "description": "Versatile marketing component for showcasing product features and benefits. Supports grid and alternating layouts, multiple column configurations, icon-based features, image-based features, and detailed features with feature lists.",
+  "metadata": {
+    "displayName": "Feature Grid",
+    "description": "Showcase product features in flexible grid or alternating layouts. Ideal for SaaS feature pages, product showcases, service offerings, and benefits communication. Supports icon-based, image-based, and detailed feature presentations with progressive disclosure.",
+    "category": "organism",
+    "tags": [
+      "features",
+      "grid",
+      "product",
+      "benefits",
+      "alternating",
+      "showcase",
+      "services",
+      "icon-grid",
+      "brochureware",
+      "marketing",
+      "conversion",
+      "value-proposition"
+    ],
+    "composedOf": [
+      "atoms/heading",
+      "atoms/text",
+      "atoms/icon",
+      "molecules/image-text",
+      "molecules/feature-list"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "ariaRole": "region",
+      "landmarkRole": true,
+      "focusManagement": "Proper heading hierarchy (h2 section heading, h3 feature titles). Semantic section and list structures. Icon decorative status."
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fully-responsive",
+      "mobileStackable": true,
+      "containerQueries": true
+    },
+    "darkMode": true,
+    "layoutPatterns": [
+      "grid-2-column",
+      "grid-3-column",
+      "grid-4-column",
+      "alternating-image-text",
+      "icon-grid",
+      "card-grid",
+      "bordered-grid",
+      "minimal-grid"
+    ],
+    "version": "1.0.0",
+    "usageExamples": [
+      {
+        "title": "SaaS Feature Grid (3-Column Icon-Based)",
+        "description": "Classic SaaS landing page feature showcase with icons, titles, and descriptions. Most common pattern for communicating core product capabilities.",
+        "code": "{{ featureGrid({\n  heading: 'Everything You Need to Succeed',\n  description: 'Powerful features to help you build, launch, and grow your business',\n  features: [\n    {\n      icon: 'analytics',\n      title: 'Advanced Analytics',\n      description: 'Track your growth with detailed insights and real-time reports.'\n    },\n    {\n      icon: 'shield',\n      title: 'Enterprise Security',\n      description: 'Bank-level encryption keeps your data safe and secure.'\n    },\n    {\n      icon: 'zap',\n      title: 'Lightning Fast',\n      description: 'Optimized performance for the best user experience.'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Product Features (Alternating Image/Text)",
+        "description": "Showcase product features with screenshots using alternating image left/right pattern. Increases engagement and reduces visual monotony.",
+        "code": "{{ featureGrid({\n  heading: 'See What You Can Do',\n  layout: 'alternating',\n  features: [\n    {\n      title: 'Beautiful Dashboards',\n      description: 'Visualize your data with customizable charts and graphs.',\n      image: {\n        src: '/images/dashboard.jpg',\n        alt: 'Dashboard interface'\n      },\n      imagePosition: 'left'\n    },\n    {\n      title: 'Team Collaboration',\n      description: 'Work together seamlessly with real-time updates.',\n      image: {\n        src: '/images/collaboration.jpg',\n        alt: 'Team collaboration'\n      },\n      imagePosition: 'right'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Service Offerings (2-Column Cards)",
+        "description": "Agency or consultancy service offerings with card-style presentation for clear differentiation.",
+        "code": "{{ featureGrid({\n  heading: 'Our Services',\n  description: 'Comprehensive solutions for your digital needs',\n  columns: 2,\n  variant: 'cards',\n  features: [\n    {\n      icon: 'code',\n      title: 'Web Development',\n      description: 'Custom websites built with modern technologies and best practices.'\n    },\n    {\n      icon: 'mobile',\n      title: 'Mobile Apps',\n      description: 'Native iOS and Android applications for seamless experiences.'\n    },\n    {\n      icon: 'megaphone',\n      title: 'Digital Marketing',\n      description: 'SEO, content marketing, and social media strategies that convert.'\n    },\n    {\n      icon: 'chart',\n      title: 'Analytics & Insights',\n      description: 'Data-driven insights to optimize your digital presence.'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Benefits Showcase (4-Column Grid)",
+        "description": "High-level benefits in compact 4-column grid. Perfect for above-the-fold value propositions.",
+        "code": "{{ featureGrid({\n  heading: 'Why Choose Us',\n  columns: 4,\n  variant: 'minimal',\n  contentAlign: 'center',\n  features: [\n    { icon: 'check', title: 'Easy Setup', description: 'Get started in minutes' },\n    { icon: 'zap', title: 'Fast Performance', description: 'Lightning-speed delivery' },\n    { icon: 'shield', title: 'Secure', description: 'Bank-level security' },\n    { icon: 'support', title: '24/7 Support', description: 'Always here to help' }\n  ]\n}) }}"
+      },
+      {
+        "title": "Detailed Features with Feature Lists",
+        "description": "Comprehensive feature presentation with icon, title, description, and nested feature list for detailed capabilities.",
+        "code": "{{ featureGrid({\n  heading: 'Platform Capabilities',\n  columns: 2,\n  variant: 'bordered',\n  features: [\n    {\n      icon: 'users',\n      title: 'Team Management',\n      description: 'Comprehensive tools for managing your team',\n      featureList: {\n        items: [\n          { text: 'Unlimited team members' },\n          { text: 'Role-based permissions' },\n          { text: 'Activity tracking' }\n        ]\n      }\n    },\n    {\n      icon: 'integrations',\n      title: 'Integrations',\n      description: 'Connect with your favorite tools',\n      featureList: {\n        items: [\n          { text: '100+ integrations' },\n          { text: 'API access' },\n          { text: 'Webhooks support' }\n        ]\n      }\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Image Grid (Portfolio/Case Studies)",
+        "description": "Grid of image-based features for portfolio items, case studies, or visual content.",
+        "code": "{{ featureGrid({\n  heading: 'Recent Projects',\n  columns: 3,\n  variant: 'cards',\n  features: [\n    {\n      image: { src: '/portfolio/project1.jpg', alt: 'Project 1' },\n      title: 'E-commerce Platform',\n      description: 'Modern shopping experience for fashion brand'\n    },\n    {\n      image: { src: '/portfolio/project2.jpg', alt: 'Project 2' },\n      title: 'SaaS Dashboard',\n      description: 'Analytics platform for marketing teams'\n    },\n    {\n      image: { src: '/portfolio/project3.jpg', alt: 'Project 3' },\n      title: 'Mobile App',\n      description: 'Health tracking app for iOS and Android'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "How It Works (Step-by-Step)",
+        "description": "Process explanation with alternating images showing sequential steps. Common for onboarding and explainer pages.",
+        "code": "{{ featureGrid({\n  heading: 'How It Works',\n  description: 'Get started in three simple steps',\n  layout: 'alternating',\n  features: [\n    {\n      title: '1. Connect Your Tools',\n      description: 'Integrate with your existing workflow in minutes. No technical knowledge required.',\n      image: { src: '/how-it-works/step1.jpg', alt: 'Connect tools' },\n      imagePosition: 'left'\n    },\n    {\n      title: '2. Automate Your Workflow',\n      description: 'Set up automation rules and save hours every week. Watch your productivity soar.',\n      image: { src: '/how-it-works/step2.jpg', alt: 'Automate workflow' },\n      imagePosition: 'right'\n    },\n    {\n      title: '3. Track Your Results',\n      description: 'Monitor your progress with detailed analytics and insights. Optimize for better outcomes.',\n      image: { src: '/how-it-works/step3.jpg', alt: 'Track results' },\n      imagePosition: 'left'\n    }\n  ]\n}) }}"
+      }
+    ]
+  },
+  "properties": {
+    "heading": {
+      "type": "string",
+      "description": "Section heading (optional)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Section description (optional)"
+    },
+    "headerAlign": {
+      "type": "string",
+      "enum": ["center", "left"],
+      "default": "center",
+      "description": "Header alignment"
+    },
+    "features": {
+      "type": "array",
+      "description": "Array of feature objects (required)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Feature title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Feature description"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon name (for icon-based features)"
+          },
+          "image": {
+            "type": "object",
+            "description": "Image properties (for image-based features)",
+            "properties": {
+              "src": {
+                "type": "string",
+                "description": "Image URL"
+              },
+              "alt": {
+                "type": "string",
+                "description": "Image alt text"
+              }
+            },
+            "required": ["src", "alt"]
+          },
+          "featureList": {
+            "type": "object",
+            "description": "Feature list properties (for detailed features)",
+            "properties": {
+              "items": {
+                "type": "array",
+                "description": "Array of feature list items"
+              }
+            }
+          },
+          "imagePosition": {
+            "type": "string",
+            "enum": ["left", "right"],
+            "default": "left",
+            "description": "Image position (for alternating layout)"
+          }
+        }
+      }
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["grid", "alternating"],
+      "default": "grid",
+      "description": "Layout type"
+    },
+    "columns": {
+      "type": "number",
+      "enum": [2, 3, 4],
+      "default": 3,
+      "description": "Number of columns (only for grid layout)"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "bordered", "cards", "minimal"],
+      "default": "default",
+      "description": "Visual style variant"
+    },
+    "contentAlign": {
+      "type": "string",
+      "enum": ["center", "left"],
+      "default": "center",
+      "description": "Content alignment (only for grid layout)"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "enum": ["primary", "secondary", "accent"],
+      "description": "Background color variant (optional)"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "$ref": "../../_config/component.schema.json#/definitions/a11yProps"
+    }
+  },
+  "required": ["features"],
+  "additionalProperties": false
+}

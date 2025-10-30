@@ -1,0 +1,352 @@
+{# components/atoms/input/input.njk #}
+
+{#
+  Input Component
+
+  Versatile form input component supporting all standard HTML input types:
+  - Text inputs (text, email, password, number, tel, url, search)
+  - Textarea
+  - Select dropdown
+  - Checkbox
+  - Radio button
+
+  Props:
+    - type (string): Input type - 'text', 'email', 'password', 'number', 'tel', 'url', 'search', 'textarea', 'select', 'checkbox', 'radio' (default: 'text')
+    - size (string): Size variant - 'sm', 'md', 'lg' (default: 'md')
+    - name (string): Form field name attribute
+    - id (string): Unique identifier for the input element
+    - value (string): Input value
+    - placeholder (string): Placeholder text
+    - disabled (boolean): Disabled state (default: false)
+    - readonly (boolean): Readonly state (default: false)
+    - required (boolean): Required field (default: false)
+    - state (string): Validation state - 'default', 'error', 'success', 'warning' (default: 'default')
+    - iconStart (string): SVG icon content for start position
+    - iconEnd (string): SVG icon content for end position
+    - fullWidth (boolean): Full container width (default: false)
+    - rows (number): Textarea rows (default: 4)
+    - options (array): Options for select dropdown
+      Each option: { value: string, label: string, disabled: boolean, selected: boolean }
+    - checked (boolean): Checkbox/radio checked state (default: false)
+    - label (string): Checkbox/radio label text
+    - ariaLabel (string): Accessible label
+    - ariaDescribedBy (string): ID of describing element (for error messages)
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+
+  Usage Examples:
+
+    Text Input:
+    {% from "atoms/input/input.njk" import input %}
+    {{ input({
+      type: 'text',
+      placeholder: 'Enter your name',
+      ariaLabel: 'Full name'
+    }) }}
+
+    Email Input with Icon:
+    {{ input({
+      type: 'email',
+      placeholder: 'your@email.com',
+      iconStart: '<svg>...</svg>',
+      ariaLabel: 'Email address'
+    }) }}
+
+    Textarea:
+    {{ input({
+      type: 'textarea',
+      placeholder: 'Your message',
+      rows: 6,
+      ariaLabel: 'Message'
+    }) }}
+
+    Select Dropdown:
+    {{ input({
+      type: 'select',
+      options: [
+        { value: '', label: 'Select country', disabled: true, selected: true },
+        { value: 'us', label: 'United States' },
+        { value: 'uk', label: 'United Kingdom' }
+      ],
+      ariaLabel: 'Country'
+    }) }}
+
+    Checkbox:
+    {{ input({
+      type: 'checkbox',
+      name: 'terms',
+      label: 'I agree to the terms and conditions',
+      checked: false
+    }) }}
+
+    Radio Button:
+    {{ input({
+      type: 'radio',
+      name: 'plan',
+      value: 'monthly',
+      label: 'Monthly billing',
+      checked: true
+    }) }}
+
+    Error State:
+    {{ input({
+      type: 'email',
+      value: 'invalid-email',
+      state: 'error',
+      ariaDescribedBy: 'email-error',
+      ariaLabel: 'Email address'
+    }) }}
+#}
+
+{% macro input(props = {}) %}
+  {% set defaults = {
+    type: 'text',
+    size: 'md',
+    name: '',
+    id: '',
+    value: '',
+    placeholder: '',
+    disabled: false,
+    readonly: false,
+    required: false,
+    state: 'default',
+    iconStart: '',
+    iconEnd: '',
+    fullWidth: false,
+    rows: 4,
+    options: [],
+    checked: false,
+    label: '',
+    ariaLabel: '',
+    ariaDescribedBy: '',
+    className: '',
+    attributes: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Generate unique ID if not provided #}
+  {% if not config.id %}
+    {% set config = config | merge({ id: 'input-' ~ range(1000, 9999) | random }) %}
+  {% endif %}
+
+  {# Build class list for standard inputs #}
+  {% set inputClasses = [
+    'input',
+    'input-' + config.size
+  ] %}
+
+  {# Add state classes #}
+  {% if config.state != 'default' %}
+    {% set inputClasses = (inputClasses.push('input-' + config.state), inputClasses) %}
+  {% endif %}
+
+  {# Add icon classes #}
+  {% if config.iconStart %}
+    {% set inputClasses = (inputClasses.push('input-with-icon-start'), inputClasses) %}
+  {% endif %}
+
+  {% if config.iconEnd %}
+    {% set inputClasses = (inputClasses.push('input-with-icon-end'), inputClasses) %}
+  {% endif %}
+
+  {# Add full width class #}
+  {% if config.fullWidth %}
+    {% set inputClasses = (inputClasses.push('input-full-width'), inputClasses) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set inputClasses = (inputClasses.push(config.className), inputClasses) %}
+  {% endif %}
+
+  {% set inputClassList = inputClasses | join(' ') | trim %}
+
+  {# ========== CHECKBOX ========== #}
+  {% if config.type == 'checkbox' %}
+    <label class="input-checkbox input-checkbox-{{ config.size }} {{ config.className }}">
+      <input
+        type="checkbox"
+        class="input-checkbox-input"
+        {% if config.name %}name="{{ config.name }}"{% endif %}
+        {% if config.id %}id="{{ config.id }}"{% endif %}
+        {% if config.value %}value="{{ config.value }}"{% endif %}
+        {% if config.checked %}checked{% endif %}
+        {% if config.disabled %}disabled{% endif %}
+        {% if config.required %}required{% endif %}
+        {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+        {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+        {% for key, value in config.attributes %}
+          {{ key }}="{{ value }}"
+        {% endfor %}
+      >
+      <span class="input-checkbox-label">{{ config.label | safe }}</span>
+      <span class="input-checkbox-box"></span>
+    </label>
+
+  {# ========== RADIO BUTTON ========== #}
+  {% elif config.type == 'radio' %}
+    <label class="input-radio input-radio-{{ config.size }} {{ config.className }}">
+      <input
+        type="radio"
+        class="input-radio-input"
+        {% if config.name %}name="{{ config.name }}"{% endif %}
+        {% if config.id %}id="{{ config.id }}"{% endif %}
+        {% if config.value %}value="{{ config.value }}"{% endif %}
+        {% if config.checked %}checked{% endif %}
+        {% if config.disabled %}disabled{% endif %}
+        {% if config.required %}required{% endif %}
+        {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+        {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+        {% for key, value in config.attributes %}
+          {{ key }}="{{ value }}"
+        {% endfor %}
+      >
+      <span class="input-radio-label">{{ config.label | safe }}</span>
+      <span class="input-radio-circle"></span>
+    </label>
+
+  {# ========== TEXTAREA ========== #}
+  {% elif config.type == 'textarea' %}
+    {% set textareaClasses = inputClasses %}
+    {% set textareaClasses = (textareaClasses.push('input-textarea'), textareaClasses) %}
+    {% set textareaClassList = textareaClasses | join(' ') | trim %}
+
+    <textarea
+      class="{{ textareaClassList }}"
+      {% if config.name %}name="{{ config.name }}"{% endif %}
+      {% if config.id %}id="{{ config.id }}"{% endif %}
+      {% if config.placeholder %}placeholder="{{ config.placeholder }}"{% endif %}
+      {% if config.rows %}rows="{{ config.rows }}"{% endif %}
+      {% if config.disabled %}disabled{% endif %}
+      {% if config.readonly %}readonly{% endif %}
+      {% if config.required %}required{% endif %}
+      {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+      {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+      {% if config.state == 'error' %}aria-invalid="true"{% endif %}
+      {% for key, value in config.attributes %}
+        {{ key }}="{{ value }}"
+      {% endfor %}
+    >{{ config.value }}</textarea>
+
+  {# ========== SELECT DROPDOWN ========== #}
+  {% elif config.type == 'select' %}
+    {% set selectClasses = inputClasses %}
+    {% set selectClasses = (selectClasses.push('input-select'), selectClasses) %}
+    {% set selectClassList = selectClasses | join(' ') | trim %}
+
+    {% if config.iconStart or config.iconEnd %}
+      <div class="input-wrapper {% if config.fullWidth %}input-full-width{% endif %}">
+        {% if config.iconStart %}
+          <span class="input-icon input-icon-start" aria-hidden="true">
+            {{ config.iconStart | safe }}
+          </span>
+        {% endif %}
+
+        <select
+          class="{{ selectClassList }}"
+          {% if config.name %}name="{{ config.name }}"{% endif %}
+          {% if config.id %}id="{{ config.id }}"{% endif %}
+          {% if config.disabled %}disabled{% endif %}
+          {% if config.required %}required{% endif %}
+          {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+          {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+          {% if config.state == 'error' %}aria-invalid="true"{% endif %}
+          {% for key, value in config.attributes %}
+            {{ key }}="{{ value }}"
+          {% endfor %}
+        >
+          {% for option in config.options %}
+            <option
+              value="{{ option.value }}"
+              {% if option.disabled %}disabled{% endif %}
+              {% if option.selected %}selected{% endif %}
+            >{{ option.label }}</option>
+          {% endfor %}
+        </select>
+
+        {% if config.iconEnd %}
+          <span class="input-icon input-icon-end" aria-hidden="true">
+            {{ config.iconEnd | safe }}
+          </span>
+        {% endif %}
+      </div>
+    {% else %}
+      <select
+        class="{{ selectClassList }}"
+        {% if config.name %}name="{{ config.name }}"{% endif %}
+        {% if config.id %}id="{{ config.id }}"{% endif %}
+        {% if config.disabled %}disabled{% endif %}
+        {% if config.required %}required{% endif %}
+        {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+        {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+        {% if config.state == 'error' %}aria-invalid="true"{% endif %}
+        {% for key, value in config.attributes %}
+          {{ key }}="{{ value }}"
+        {% endfor %}
+      >
+        {% for option in config.options %}
+          <option
+            value="{{ option.value }}"
+            {% if option.disabled %}disabled{% endif %}
+            {% if option.selected %}selected{% endif %}
+          >{{ option.label }}</option>
+        {% endfor %}
+      </select>
+    {% endif %}
+
+  {# ========== TEXT INPUTS (text, email, password, number, tel, url, search) ========== #}
+  {% else %}
+    {% if config.iconStart or config.iconEnd %}
+      <div class="input-wrapper {% if config.fullWidth %}input-full-width{% endif %}">
+        {% if config.iconStart %}
+          <span class="input-icon input-icon-start" aria-hidden="true">
+            {{ config.iconStart | safe }}
+          </span>
+        {% endif %}
+
+        <input
+          type="{{ config.type }}"
+          class="{{ inputClassList }}"
+          {% if config.name %}name="{{ config.name }}"{% endif %}
+          {% if config.id %}id="{{ config.id }}"{% endif %}
+          {% if config.value %}value="{{ config.value }}"{% endif %}
+          {% if config.placeholder %}placeholder="{{ config.placeholder }}"{% endif %}
+          {% if config.disabled %}disabled{% endif %}
+          {% if config.readonly %}readonly{% endif %}
+          {% if config.required %}required{% endif %}
+          {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+          {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+          {% if config.state == 'error' %}aria-invalid="true"{% endif %}
+          {% for key, value in config.attributes %}
+            {{ key }}="{{ value }}"
+          {% endfor %}
+        >
+
+        {% if config.iconEnd %}
+          <span class="input-icon input-icon-end" aria-hidden="true">
+            {{ config.iconEnd | safe }}
+          </span>
+        {% endif %}
+      </div>
+    {% else %}
+      <input
+        type="{{ config.type }}"
+        class="{{ inputClassList }}"
+        {% if config.name %}name="{{ config.name }}"{% endif %}
+        {% if config.id %}id="{{ config.id }}"{% endif %}
+        {% if config.value %}value="{{ config.value }}"{% endif %}
+        {% if config.placeholder %}placeholder="{{ config.placeholder }}"{% endif %}
+        {% if config.disabled %}disabled{% endif %}
+        {% if config.readonly %}readonly{% endif %}
+        {% if config.required %}required{% endif %}
+        {% if config.ariaLabel %}aria-label="{{ config.ariaLabel }}"{% endif %}
+        {% if config.ariaDescribedBy %}aria-describedby="{{ config.ariaDescribedBy }}"{% endif %}
+        {% if config.state == 'error' %}aria-invalid="true"{% endif %}
+        {% for key, value in config.attributes %}
+          {{ key }}="{{ value }}"
+        {% endfor %}
+      >
+    {% endif %}
+  {% endif %}
+{% endmacro %}

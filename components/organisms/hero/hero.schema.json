@@ -1,0 +1,357 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/organisms/hero/schema",
+  "title": "Hero",
+  "type": "object",
+  "description": "Full-width hero section for landing pages - THE MOST IMPORTANT COMPONENT for first impressions and conversion. Supports email capture, social proof, trust signals, and multiple layout variants.",
+  "category": "organism",
+  "metadata": {
+    "displayName": "Hero Section",
+    "description": "Primary hero section for landing pages with headline, CTA, email capture, social proof, and background media support. First impression component - 70% of visitors decide to stay or leave based on hero section quality.",
+    "tags": [
+      "hero",
+      "landing",
+      "above-fold",
+      "conversion",
+      "email-capture",
+      "social-proof",
+      "brochureware",
+      "marketing",
+      "first-impression",
+      "cta",
+      "trust-signals"
+    ],
+    "composedOf": [
+      "atoms/button",
+      "atoms/heading",
+      "atoms/input",
+      "molecules/cta-block",
+      "molecules/logo-grid"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "ariaRole": "region",
+      "landmarkRole": true,
+      "focusManagement": "All interactive elements (buttons, inputs) are keyboard accessible with visible focus states",
+      "colorContrast": "4.5:1 minimum for all text, overlay gradients ensure readability on background images"
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fully-responsive",
+      "mobileStackable": true,
+      "containerQueries": false,
+      "mobileFirst": true,
+      "mobileBehavior": "Content stacks vertically, images appear above text, CTAs remain above fold"
+    },
+    "darkMode": true,
+    "usageExamples": [
+      {
+        "title": "SaaS Landing Page Hero",
+        "description": "Centered hero with email capture and social proof - optimized for SaaS products",
+        "code": "{{ hero({\n  eyebrow: 'Join the Beta',\n  headline: 'Ship Landing Pages in Minutes, Not Days',\n  subheading: 'AI-powered components built for conversion',\n  emailCapture: {\n    enabled: true,\n    placeholder: 'your@email.com',\n    buttonText: 'Start Free Trial',\n    privacyText: 'No credit card required.'\n  },\n  socialProof: {\n    enabled: true,\n    title: 'Trusted by 10,000+ developers',\n    logos: [...]\n  }\n}) }}"
+      },
+      {
+        "title": "Product Marketing Hero",
+        "description": "Split layout with product screenshot and dual CTAs",
+        "code": "{{ hero({\n  layout: 'split',\n  headline: 'Transform Your Workflow',\n  subheading: 'Save 10 hours every week with automated page building',\n  cta: {\n    primary: { text: 'Watch Demo', href: '/demo' },\n    secondary: { text: 'Learn More', href: '/features', variant: 'ghost' }\n  },\n  media: {\n    type: 'image',\n    src: '/images/product-screenshot.png',\n    alt: 'Product dashboard'\n  }\n}) }}"
+      },
+      {
+        "title": "Hero with Background Image",
+        "description": "Full-width hero with background image overlay and trust signals",
+        "code": "{{ hero({\n  background: {\n    type: 'image',\n    image: '/images/hero-bg.jpg',\n    overlay: 'dark'\n  },\n  headline: 'Build the Future of Your Business',\n  subheading: 'Join 10,000+ companies transforming digital presence',\n  cta: {\n    primary: { text: 'Start Free Trial', href: '/signup' }\n  },\n  trustSignals: [\n    { value: '10,000+', text: 'Happy customers' },\n    { value: '4.9/5', text: 'Average rating' }\n  ]\n}) }}"
+      },
+      {
+        "title": "Agency Portfolio Hero",
+        "description": "Split reverse with video showcase",
+        "code": "{{ hero({\n  layout: 'split-reverse',\n  headline: 'We Build Digital Experiences',\n  subheading: 'Award-winning agency specializing in brochureware sites',\n  cta: {\n    primary: { text: 'View Our Work', href: '/portfolio' }\n  },\n  media: {\n    type: 'video',\n    src: '/videos/showcase.mp4',\n    poster: '/images/video-poster.jpg',\n    autoplay: true,\n    loop: true,\n    muted: true\n  }\n}) }}"
+      },
+      {
+        "title": "E-commerce Hero",
+        "description": "Gradient background with urgency and trust signals",
+        "code": "{{ hero({\n  background: { type: 'gradient' },\n  eyebrow: 'Limited Time Offer',\n  headline: 'Get 50% Off All Products',\n  subheading: 'Premium quality at unbeatable prices',\n  cta: {\n    primary: { text: 'Shop Now', href: '/products' }\n  },\n  trustSignals: [\n    { value: '50,000+', text: 'Products sold' },\n    { value: '4.8/5', text: 'Customer rating' },\n    { value: 'Free', text: 'Shipping worldwide' }\n  ]\n}) }}"
+      },
+      {
+        "title": "Minimal Hero",
+        "description": "Clean, minimal hero for content-focused sites",
+        "code": "{{ hero({\n  layout: 'centered',\n  height: 'minimal',\n  headline: 'Expert Insights on Web Development',\n  subheading: 'Weekly articles, tutorials, and deep dives',\n  cta: {\n    primary: { text: 'Read Latest Post', href: '/blog' }\n  }\n}) }}"
+      },
+      {
+        "title": "Email Capture Focus",
+        "description": "Hero optimized for email list building",
+        "code": "{{ hero({\n  headline: 'Master Modern CSS',\n  subheading: 'Get our free 7-day email course on CSS Grid, Flexbox, and custom properties',\n  emailCapture: {\n    enabled: true,\n    placeholder: 'Enter your email',\n    buttonText: 'Get Free Course',\n    privacyText: 'Join 25,000+ subscribers. No spam ever.'\n  },\n  trustSignals: [\n    { value: '25,000+', text: 'Subscribers' },\n    { value: '4.9/5', text: 'Course rating' }\n  ]\n}) }}"
+      },
+      {
+        "title": "Trust Signal Heavy",
+        "description": "Hero with maximum social proof for unknown brands",
+        "code": "{{ hero({\n  headline: 'The Most Trusted Platform',\n  subheading: 'Join the companies already transforming their business',\n  cta: {\n    primary: { text: 'Start Free Trial', href: '/signup' }\n  },\n  socialProof: {\n    enabled: true,\n    title: 'Trusted by industry leaders',\n    logos: [\n      { src: '/logos/company-1.svg', alt: 'Company 1' },\n      { src: '/logos/company-2.svg', alt: 'Company 2' },\n      { src: '/logos/company-3.svg', alt: 'Company 3' },\n      { src: '/logos/company-4.svg', alt: 'Company 4' }\n    ]\n  },\n  trustSignals: [\n    { value: '10,000+', text: 'Companies' },\n    { value: '4.9/5', text: 'G2 rating' },\n    { value: 'SOC 2', text: 'Compliant' }\n  ]\n}) }}"
+      }
+    ],
+    "layoutPatterns": [
+      "centered",
+      "split",
+      "split-reverse",
+      "full-width"
+    ],
+    "typicalUseCase": "Primary hero section for landing pages, product pages, and marketing sites. First component users see - critical for conversion.",
+    "sectionType": "hero",
+    "marketingContext": {
+      "conversionOptimization": "5-second rule: Users decide to stay or leave within 5 seconds. Email capture is #1 conversion goal for SaaS/marketing sites.",
+      "socialProofImpact": "42% trust increase when recognizable logos appear above the fold (Nielsen Norman Group)",
+      "copyGuidelines": "Benefit-focused headlines convert 90% better than feature-focused. Use first-person CTA copy ('Start My Trial' vs 'Start Trial')",
+      "emailCaptureROI": "Email subscribers are 3x more valuable than social media followers - owned audience vs. rented",
+      "visualHierarchy": "Eyebrow (context) → Headline (benefit) → Subheading (detail) → CTA (action) → Social proof (trust)"
+    },
+    "performanceTarget": "<5KB gzipped",
+    "version": "1.0.0"
+  },
+  "properties": {
+    "layout": {
+      "type": "string",
+      "enum": ["centered", "split", "split-reverse", "full-width"],
+      "default": "centered",
+      "description": "Layout style - centered (default), split (text left/image right), split-reverse (image left/text right), full-width"
+    },
+    "height": {
+      "type": "string",
+      "enum": ["full", "tall", "medium", "compact", "minimal"],
+      "default": "tall",
+      "description": "Height variant - full (100vh), tall (80vh), medium (50vh), compact (auto with large padding), minimal (auto with minimal padding)"
+    },
+    "background": {
+      "type": "object",
+      "description": "Background configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["default", "image", "video", "gradient", "gradient-subtle"],
+          "default": "default",
+          "description": "Background type"
+        },
+        "image": {
+          "type": "string",
+          "description": "Background image URL (when type='image')"
+        },
+        "video": {
+          "type": "string",
+          "description": "Background video URL (when type='video')"
+        },
+        "overlay": {
+          "type": "string",
+          "enum": ["none", "light", "dark"],
+          "default": "dark",
+          "description": "Overlay style for image/video backgrounds to ensure text readability"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alt text for background image (accessibility)"
+        }
+      }
+    },
+    "eyebrow": {
+      "type": "string",
+      "description": "Small label text above heading (e.g., 'New Feature', 'Limited Offer', 'Join the Beta')"
+    },
+    "headline": {
+      "type": "string",
+      "description": "Main heading text (REQUIRED) - should be benefit-focused, not feature-focused. Examples: 'Save 10 Hours Every Week' not 'Automated Scheduling Tool'"
+    },
+    "headingLevel": {
+      "type": "number",
+      "enum": [1, 2, 3, 4, 5, 6],
+      "default": 1,
+      "description": "Semantic heading level (almost always 1 for hero sections)"
+    },
+    "subheading": {
+      "type": "string",
+      "description": "Supporting text below headline - expands on the main benefit"
+    },
+    "description": {
+      "type": "string",
+      "description": "Body text explaining the value proposition in more detail"
+    },
+    "cta": {
+      "type": "object",
+      "description": "Call-to-action buttons",
+      "properties": {
+        "primary": {
+          "type": "object",
+          "description": "Primary CTA button configuration",
+          "properties": {
+            "text": { "type": "string", "description": "Button text" },
+            "href": { "type": "string", "description": "Button URL" },
+            "variant": { "type": "string", "default": "primary" },
+            "size": { "type": "string", "default": "lg" },
+            "target": { "type": "string" },
+            "rel": { "type": "string" }
+          },
+          "required": ["text", "href"]
+        },
+        "secondary": {
+          "type": "object",
+          "description": "Secondary CTA button configuration (optional)",
+          "properties": {
+            "text": { "type": "string", "description": "Button text" },
+            "href": { "type": "string", "description": "Button URL" },
+            "variant": { "type": "string", "default": "ghost" },
+            "size": { "type": "string", "default": "lg" },
+            "target": { "type": "string" },
+            "rel": { "type": "string" }
+          },
+          "required": ["text", "href"]
+        }
+      }
+    },
+    "emailCapture": {
+      "type": "object",
+      "description": "Email capture form configuration - #1 conversion goal for SaaS/marketing sites",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show email capture form (replaces CTA buttons when enabled)"
+        },
+        "placeholder": {
+          "type": "string",
+          "default": "Enter your email",
+          "description": "Input placeholder text"
+        },
+        "buttonText": {
+          "type": "string",
+          "default": "Get Started",
+          "description": "Submit button text - use action-oriented copy"
+        },
+        "privacyText": {
+          "type": "string",
+          "default": "No spam. Unsubscribe anytime.",
+          "description": "Privacy notice below form - builds trust"
+        }
+      }
+    },
+    "socialProof": {
+      "type": "object",
+      "description": "Logo Grid configuration for social proof - 42% trust increase when visible (Nielsen Norman)",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show social proof logo grid"
+        },
+        "title": {
+          "type": "string",
+          "description": "Section title (e.g., 'Trusted by industry leaders', 'Join 10,000+ companies')"
+        },
+        "logos": {
+          "type": "array",
+          "description": "Array of logo objects",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": { "type": "string", "description": "Logo image URL" },
+              "alt": { "type": "string", "description": "Company name" },
+              "href": { "type": "string", "description": "Optional link URL" },
+              "width": { "type": "number" },
+              "height": { "type": "number" }
+            },
+            "required": ["src", "alt"]
+          }
+        }
+      }
+    },
+    "trustSignals": {
+      "type": "array",
+      "description": "Trust signal elements (customer count, ratings, awards, certifications)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "icon": {
+            "type": "string",
+            "description": "Icon identifier (e.g., 'users', 'star', 'award', 'shield')"
+          },
+          "text": {
+            "type": "string",
+            "description": "Descriptive text (e.g., 'Happy customers', 'Average rating', 'Industry awards')"
+          },
+          "value": {
+            "type": "string",
+            "description": "Trust signal value (e.g., '10,000+', '4.9/5', 'SOC 2 Compliant')"
+          }
+        },
+        "required": ["text", "value"]
+      }
+    },
+    "media": {
+      "type": "object",
+      "description": "Hero media for split layouts (image/video showcase)",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["image", "video"],
+          "default": "image",
+          "description": "Media type"
+        },
+        "src": {
+          "type": "string",
+          "description": "Media source URL"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alt text for images (required for accessibility)"
+        },
+        "poster": {
+          "type": "string",
+          "description": "Video poster image URL"
+        },
+        "autoplay": {
+          "type": "boolean",
+          "default": false,
+          "description": "Autoplay video"
+        },
+        "loop": {
+          "type": "boolean",
+          "default": false,
+          "description": "Loop video"
+        },
+        "muted": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mute video (must be true for autoplay)"
+        }
+      },
+      "required": ["src"]
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component instance"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for screen readers"
+        },
+        "landmarkLabel": {
+          "type": "string",
+          "description": "Landmark label for section (referenced by aria-labelledby)"
+        }
+      }
+    }
+  },
+  "required": ["headline"],
+  "additionalProperties": false
+}

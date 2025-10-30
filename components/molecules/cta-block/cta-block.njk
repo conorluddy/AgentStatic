@@ -1,0 +1,241 @@
+{# components/molecules/cta-block/cta-block.njk #}
+
+{#
+  CTA Block Component (Molecule)
+
+  PRIMARY CONVERSION ELEMENT - Final conversion push before footer.
+
+  Description: Call-to-action block combining heading, description, and buttons with
+  marketing enhancements like trust signals, urgency elements, and background variants.
+
+  Props:
+    - layout (string): Layout style - 'centered', 'split', 'inline' (default: 'centered')
+    - background (object): Background configuration
+      - type (string): 'default', 'primary', 'gradient', 'gradient-subtle', 'image'
+      - image (string): Background image URL (when type='image')
+      - overlay (string): Overlay type - 'dark', 'light' (default: 'dark')
+    - eyebrow (string): Small label text above heading (optional)
+    - headline (string): Main heading text (REQUIRED)
+    - headingLevel (number): Semantic heading level 1-6 (default: 2)
+    - subheadline (string): Supporting text below headline (optional)
+    - description (string): Body text explaining the CTA (REQUIRED)
+    - cta (object): Call-to-action buttons (REQUIRED)
+      - primary (object): Primary button props { text, href, variant, size }
+      - secondary (object): Secondary button props (optional) { text, href, variant, size }
+    - trustSignal (string|object): Trust signal text or component markup (optional)
+    - urgency (string|object): Urgency element text or markup (optional)
+    - visual (string|object): Image/illustration for split layout (optional)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+
+  Usage:
+    {% from "molecules/cta-block/cta-block.njk" import ctaBlock %}
+
+    {# Basic centered CTA #}
+    {{ ctaBlock({
+      headline: 'Ready to get started?',
+      description: 'Join thousands of happy customers using our platform.',
+      cta: {
+        primary: { text: 'Start Free Trial', href: '/signup' }
+      }
+    }) }}
+
+    {# With trust signal and urgency #}
+    {{ ctaBlock({
+      headline: 'Limited Time Offer',
+      description: 'Get 50% off for the next 24 hours only.',
+      cta: {
+        primary: { text: 'Claim Discount', href: '/pricing' },
+        secondary: { text: 'Learn More', href: '/about', variant: 'ghost' }
+      },
+      trustSignal: 'Join 10,000+ happy customers',
+      urgency: 'Offer ends in 24 hours',
+      background: { type: 'gradient' }
+    }) }}
+
+    {# Horizontal split with image #}
+    {{ ctaBlock({
+      layout: 'split',
+      headline: 'See it in action',
+      description: 'Watch how our platform transforms your workflow.',
+      cta: {
+        primary: { text: 'Watch Demo', href: '/demo' }
+      },
+      visual: '/images/demo-screenshot.png'
+    }) }}
+#}
+
+{% macro ctaBlock(props = {}) %}
+  {# Import dependencies #}
+  {% from "atoms/heading/heading.njk" import heading %}
+  {% from "atoms/button/button.njk" import button %}
+
+  {% set defaults = {
+    layout: 'centered',
+    background: { type: 'default' },
+    headingLevel: 2,
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = ['cta-block'] %}
+
+  {# Layout variant #}
+  {% if config.layout == 'centered' %}
+    {% set classList = (classList.push('cta-block-centered'), classList) %}
+  {% elif config.layout == 'split' %}
+    {% set classList = (classList.push('cta-block-split'), classList) %}
+  {% elif config.layout == 'inline' %}
+    {% set classList = (classList.push('cta-block-inline'), classList) %}
+  {% endif %}
+
+  {# Background variant #}
+  {% if config.background.type == 'primary' %}
+    {% set classList = (classList.push('cta-block-bg-primary'), classList) %}
+  {% elif config.background.type == 'gradient' %}
+    {% set classList = (classList.push('cta-block-bg-gradient'), classList) %}
+  {% elif config.background.type == 'gradient-subtle' %}
+    {% set classList = (classList.push('cta-block-bg-gradient-subtle'), classList) %}
+  {% elif config.background.type == 'image' %}
+    {% set classList = (classList.push('cta-block-bg-image'), classList) %}
+  {% endif %}
+
+  {# Custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Main container #}
+  <section
+    class="{{ classString }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.role %}role="{{ config.a11y.role }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Background image (if specified) #}
+    {% if config.background.type == 'image' and config.background.image %}
+      <div
+        class="cta-block-background"
+        style="background-image: url('{{ config.background.image }}');"
+        aria-hidden="true"
+      ></div>
+      <div class="cta-block-overlay {% if config.background.overlay == 'light' %}cta-block-overlay-light{% endif %}"></div>
+    {% endif %}
+
+    {# Content container #}
+    <div class="cta-block-container">
+      {# Split layout - visual side #}
+      {% if config.layout == 'split' and config.visual %}
+        <div class="cta-block-split-visual">
+          {% if config.visual is string %}
+            <img src="{{ config.visual }}" alt="" loading="lazy" />
+          {% else %}
+            {{ config.visual | safe }}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# Content side #}
+      <div>
+        {# Urgency element (optional) #}
+        {% if config.urgency %}
+          <div class="cta-block-urgency">
+            <span class="cta-block-urgency-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="7" />
+                <line x1="8" y1="4" x2="8" y2="8" />
+                <line x1="8" y1="8" x2="10" y2="10" />
+              </svg>
+            </span>
+            <span>
+              {% if config.urgency is string %}
+                {{ config.urgency }}
+              {% else %}
+                {{ config.urgency | safe }}
+              {% endif %}
+            </span>
+          </div>
+        {% endif %}
+
+        {# Main content #}
+        <div class="cta-block-content">
+          {# Eyebrow text (optional) #}
+          {% if config.eyebrow %}
+            <div class="cta-block-eyebrow">{{ config.eyebrow }}</div>
+          {% endif %}
+
+          {# Heading #}
+          {% if config.headline %}
+            {{ heading({
+              text: config.headline,
+              level: config.headingLevel,
+              size: '2xl'
+            }) }}
+          {% endif %}
+
+          {# Subheadline (optional) #}
+          {% if config.subheadline %}
+            <div class="cta-block-subheadline">{{ config.subheadline }}</div>
+          {% endif %}
+
+          {# Description #}
+          {% if config.description %}
+            <p class="cta-block-description">{{ config.description }}</p>
+          {% endif %}
+        </div>
+
+        {# CTA Actions #}
+        {% if config.cta %}
+          <div class="cta-block-actions">
+            {# Primary CTA (required) #}
+            {% if config.cta.primary %}
+              {{ button({
+                text: config.cta.primary.text,
+                href: config.cta.primary.href,
+                variant: config.cta.primary.variant or 'primary',
+                size: config.cta.primary.size or 'lg',
+                target: config.cta.primary.target,
+                rel: config.cta.primary.rel
+              }) }}
+            {% endif %}
+
+            {# Secondary CTA (optional) #}
+            {% if config.cta.secondary %}
+              {{ button({
+                text: config.cta.secondary.text,
+                href: config.cta.secondary.href,
+                variant: config.cta.secondary.variant or 'ghost',
+                size: config.cta.secondary.size or 'lg',
+                target: config.cta.secondary.target,
+                rel: config.cta.secondary.rel
+              }) }}
+            {% endif %}
+          </div>
+
+          {# Trust signal below CTAs (optional) #}
+          {% if config.trustSignal %}
+            <div class="cta-block-trust">
+              {% if config.trustSignal is string %}
+                {{ config.trustSignal }}
+              {% else %}
+                {{ config.trustSignal | safe }}
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endmacro %}

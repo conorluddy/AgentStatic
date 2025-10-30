@@ -1,0 +1,296 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/molecules/logo-grid/schema",
+  "title": "Logo Grid",
+  "type": "object",
+  "description": "Trust signal component for showcasing customer/partner logos. The 'Trusted by...' section found on 80%+ of SaaS homepages.",
+  "category": "molecule",
+  "metadata": {
+    "displayName": "Logo Grid",
+    "description": "Trust signal component that displays customer, partner, or integration logos in a visually appealing grid, horizontal scroll, or marquee animation. Industry standard for building credibility and social proof. Supports three layout variants (grid, scroll, marquee), three color schemes (grayscale-hover, grayscale, color), optional clickable logos, and fully responsive with mobile-optimized horizontal scrolling. Critical for conversion optimization on landing pages.",
+    "tags": [
+      "molecule",
+      "trust signal",
+      "social proof",
+      "logos",
+      "customers",
+      "partners",
+      "integrations",
+      "credibility",
+      "marketing",
+      "conversion",
+      "grayscale",
+      "marquee",
+      "animation"
+    ],
+    "composedOf": [],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "semanticHTML": true,
+      "notes": "All logos include descriptive alt text. Clickable logos are keyboard accessible with clear focus indicators. Marquee animation respects prefers-reduced-motion. High contrast mode disables grayscale filters."
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "adaptive",
+      "notes": "Responsive grid: 2 columns (mobile), 4 columns (tablet), 6 columns (desktop). Horizontal scroll variant provides touch-friendly scrolling on mobile. Logo size scales down on mobile for optimal display."
+    },
+    "darkMode": true,
+    "performance": {
+      "bundleSize": "~750B",
+      "critical": false,
+      "notes": "Logos use lazy loading for performance. Marquee animation uses CSS transforms with will-change for GPU acceleration. Minimal JavaScript (none required)."
+    },
+    "marketingContext": {
+      "conversionImpact": "HIGH",
+      "trustSignal": "CRITICAL",
+      "statistics": [
+        "Logo walls increase trust by 42% for unknown brands (Nielsen Norman Group)",
+        "23% increase in 'Sign Up' clicks when logos present (Unbounce)",
+        "80%+ of SaaS homepages have logo sections",
+        "Instant credibility with recognizable brand names"
+      ],
+      "placement": [
+        "Below hero section (most common)",
+        "Above fold for immediate trust",
+        "Before pricing (reduces purchase anxiety)",
+        "In footer (secondary trust signal)"
+      ],
+      "bestLogoCount": "6-8 logos ideal (too few = weak, too many = overwhelming)",
+      "realWorldExamples": [
+        "Stripe: Fortune 500 logos with grayscale hover",
+        "Notion: Horizontal scrolling customer logos",
+        "Figma: Marquee animation with customer logos",
+        "Linear: Clean grid of investor/customer logos",
+        "Vercel: Centered grid with grayscale hover"
+      ]
+    },
+    "usageExamples": [
+      {
+        "title": "Grid Layout (Default)",
+        "description": "Standard responsive grid - most common variant",
+        "code": "{{ logoGrid({ title: 'Trusted by industry leaders', subtitle: 'Join thousands of companies', logos: [{ src: '/logo1.svg', alt: 'Company 1' }] }) }}"
+      },
+      {
+        "title": "Grayscale Hover (Industry Standard)",
+        "description": "Logos grayscale, color on hover - modern, clean look",
+        "code": "{{ logoGrid({ title: 'Our Partners', logos: [...], colorScheme: 'grayscale-hover' }) }}"
+      },
+      {
+        "title": "Clickable Logos",
+        "description": "Logos link to partner/customer websites",
+        "code": "{{ logoGrid({ logos: [{ src: '/logo.svg', alt: 'Partner', href: 'https://partner.com' }] }) }}"
+      },
+      {
+        "title": "Horizontal Scroll (Mobile-Friendly)",
+        "description": "Touch-friendly scrolling, great for mobile",
+        "code": "{{ logoGrid({ title: 'Trusted by', logos: [...], variant: 'scroll' }) }}"
+      },
+      {
+        "title": "Marquee Animation",
+        "description": "Infinite scrolling animation for visual interest",
+        "code": "{{ logoGrid({ logos: [...], variant: 'marquee', animation: { speed: 'slow' } }) }}"
+      },
+      {
+        "title": "Large Gap Variant",
+        "description": "More breathing room between logos",
+        "code": "{{ logoGrid({ logos: [...], gap: 'lg' }) }}"
+      },
+      {
+        "title": "Left-Aligned Header",
+        "description": "Header aligned left instead of center",
+        "code": "{{ logoGrid({ title: 'Partners', logos: [...], align: 'left' }) }}"
+      },
+      {
+        "title": "Full Color Always",
+        "description": "No grayscale - always show full color",
+        "code": "{{ logoGrid({ logos: [...], colorScheme: 'color' }) }}"
+      }
+    ],
+    "bestPractices": [
+      "Use 6-8 logos for optimal visual impact",
+      "Choose recognizable brands over quantity",
+      "Logos should be similar visual weight (size/prominence)",
+      "SVG format preferred for crisp scaling",
+      "All logos should have transparent backgrounds",
+      "Grayscale-hover is industry standard (modern, clean)",
+      "Place below hero for immediate trust signal",
+      "Use meaningful alt text (company name, not 'logo')",
+      "Optimize logo files (compress SVGs, remove unnecessary paths)",
+      "Consider logo diversity (industry, size, geography)"
+    ],
+    "logoPreparation": {
+      "format": "SVG (vector) preferred, PNG fallback",
+      "background": "Transparent (works on light/dark themes)",
+      "sizing": "Consistent visual weight across all logos",
+      "optimization": "Compress SVGs, remove metadata",
+      "naming": "Descriptive filenames (company-name.svg)",
+      "aspectRatio": "Maintain original proportions",
+      "colorMode": "Ensure logos work in grayscale"
+    },
+    "seo": {
+      "importance": "medium",
+      "notes": "Logo alt text helps with brand association SEO. Consider schema.org markup for partners/affiliates in future enhancement."
+    }
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Section title displayed above logos (e.g., 'Trusted by industry leaders', 'Our Partners')",
+      "examples": [
+        "Trusted by industry leaders",
+        "Join thousands of companies",
+        "Our partners",
+        "Integrations",
+        "As seen in",
+        "Featured customers"
+      ]
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Section subtitle displayed below title (optional)",
+      "examples": [
+        "Join thousands of companies using our platform",
+        "Trusted by Fortune 500 companies",
+        "Powering teams at leading organizations"
+      ]
+    },
+    "logos": {
+      "type": "array",
+      "description": "Array of logo objects (REQUIRED)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "description": "Logo image URL or path (REQUIRED)",
+            "examples": ["/logos/company-1.svg", "https://cdn.example.com/logo.png"]
+          },
+          "alt": {
+            "type": "string",
+            "description": "Logo alt text - company/brand name (REQUIRED for accessibility)",
+            "examples": ["Stripe", "Microsoft", "Amazon Web Services", "Google Cloud"]
+          },
+          "href": {
+            "type": "string",
+            "description": "Optional link URL for clickable logos",
+            "examples": ["https://partner.com", "https://customer.com/case-study"]
+          },
+          "width": {
+            "type": "number",
+            "description": "Optional explicit width (intrinsic sizing preferred)"
+          },
+          "height": {
+            "type": "number",
+            "description": "Optional explicit height (intrinsic sizing preferred)"
+          }
+        },
+        "required": ["src", "alt"]
+      }
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["grid", "scroll", "marquee"],
+      "default": "grid",
+      "description": "Layout variant: 'grid' (responsive grid), 'scroll' (horizontal scrolling), 'marquee' (infinite animation)"
+    },
+    "colorScheme": {
+      "type": "string",
+      "enum": ["color", "grayscale", "grayscale-hover"],
+      "default": "grayscale-hover",
+      "description": "Logo color treatment: 'color' (full color), 'grayscale' (always grayscale), 'grayscale-hover' (grayscale → color on hover - RECOMMENDED)"
+    },
+    "columns": {
+      "type": "object",
+      "description": "Responsive column counts (CSS custom properties handle this automatically)",
+      "properties": {
+        "mobile": {
+          "type": "number",
+          "default": 2,
+          "description": "Columns on mobile (<768px)"
+        },
+        "tablet": {
+          "type": "number",
+          "default": 4,
+          "description": "Columns on tablet (768px-1439px)"
+        },
+        "desktop": {
+          "type": "number",
+          "default": 6,
+          "description": "Columns on desktop (1440px+)"
+        }
+      }
+    },
+    "gap": {
+      "type": "string",
+      "enum": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Spacing between logos: 'sm' (16px), 'md' (24px), 'lg' (48px)"
+    },
+    "align": {
+      "type": "string",
+      "enum": ["left", "center", "right"],
+      "default": "center",
+      "description": "Header (title/subtitle) text alignment"
+    },
+    "animation": {
+      "type": "object",
+      "description": "Animation settings for marquee variant",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable marquee animation (auto-enabled for marquee variant)"
+        },
+        "speed": {
+          "type": "string",
+          "enum": ["slow", "normal", "fast"],
+          "default": "normal",
+          "description": "Animation speed: 'slow' (45s), 'normal' (30s), 'fast' (20s)"
+        },
+        "pauseOnHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "Pause animation when user hovers (better UX)"
+        }
+      }
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "default": "Customer logos",
+          "description": "Accessible label for the section",
+          "examples": [
+            "Customer logos",
+            "Partner companies",
+            "Integration partners",
+            "Featured in"
+          ]
+        }
+      }
+    }
+  },
+  "required": ["logos"],
+  "additionalProperties": false
+}

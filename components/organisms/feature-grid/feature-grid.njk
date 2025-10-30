@@ -1,0 +1,333 @@
+{# components/organisms/feature-grid/feature-grid.njk #}
+
+{#
+  Feature Grid Organism
+
+  Description: Versatile marketing component for showcasing product features
+  and benefits. Supports both grid and alternating layouts, multiple column
+  configurations, and various content types (icons, images, detailed features).
+
+  Marketing Use Cases:
+  - SaaS feature grids (3-column icon-based)
+  - Product feature showcases (alternating image/text)
+  - Service offerings (2-column cards)
+  - Benefits showcase (4-column grid)
+  - "How it works" sections with step-by-step visuals
+
+  Props:
+    - heading (string): Section heading (optional)
+    - description (string): Section description (optional)
+    - headerAlign (string): Header alignment - 'center', 'left' (default: 'center')
+    - features (array, required): Array of feature objects
+      Each feature has:
+        - title (string): Feature title
+        - description (string): Feature description
+        - icon (string): Icon name (for icon-based features)
+        - image (object): Image properties (for image-based features)
+          - src (string): Image URL
+          - alt (string): Image alt text
+        - featureList (object): Feature list properties (for detailed features)
+          - items (array): Array of feature list items
+        - imagePosition (string): 'left' or 'right' (for alternating layout)
+    - layout (string): Layout type - 'grid', 'alternating' (default: 'grid')
+    - columns (number): Number of columns - 2, 3, 4 (default: 3, only for grid layout)
+    - variant (string): Visual style - 'default', 'bordered', 'cards', 'minimal' (default: 'default')
+    - contentAlign (string): Content alignment - 'center', 'left' (default: 'center', only for grid layout)
+    - backgroundColor (string): Background color variant - 'primary', 'secondary', 'accent' (optional)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+
+  Usage:
+    {% from "organisms/feature-grid/feature-grid.njk" import featureGrid %}
+
+    {# Icon-based 3-column grid #}
+    {{ featureGrid({
+      heading: 'Powerful Features',
+      description: 'Everything you need to build and grow your business',
+      features: [
+        {
+          icon: 'analytics',
+          title: 'Advanced Analytics',
+          description: 'Track your growth with detailed insights and reports.'
+        },
+        {
+          icon: 'shield',
+          title: 'Enterprise Security',
+          description: 'Bank-level encryption keeps your data safe and secure.'
+        },
+        {
+          icon: 'zap',
+          title: 'Lightning Fast',
+          description: 'Optimized performance for the best user experience.'
+        }
+      ]
+    }) }}
+
+    {# Alternating image/text layout #}
+    {{ featureGrid({
+      heading: 'How It Works',
+      layout: 'alternating',
+      features: [
+        {
+          title: 'Connect Your Tools',
+          description: 'Integrate with your existing workflow in minutes.',
+          image: {
+            src: '/images/connect.jpg',
+            alt: 'Connect tools'
+          },
+          imagePosition: 'left'
+        },
+        {
+          title: 'Automate Your Work',
+          description: 'Set up automation rules and save hours every week.',
+          image: {
+            src: '/images/automate.jpg',
+            alt: 'Automate workflow'
+          },
+          imagePosition: 'right'
+        }
+      ]
+    }) }}
+
+    {# Card variant with 2 columns #}
+    {{ featureGrid({
+      heading: 'Service Offerings',
+      columns: 2,
+      variant: 'cards',
+      features: [
+        {
+          icon: 'code',
+          title: 'Web Development',
+          description: 'Custom websites built with modern technologies.'
+        },
+        {
+          icon: 'mobile',
+          title: 'Mobile Apps',
+          description: 'Native iOS and Android applications.'
+        }
+      ]
+    }) }}
+#}
+
+{% from "atoms/heading/heading.njk" import heading %}
+{% from "atoms/text/text.njk" import text %}
+{% from "atoms/icon/icon.njk" import icon %}
+{% from "molecules/image-text/image-text.njk" import imageText %}
+{% from "molecules/feature-list/feature-list.njk" import featureList %}
+
+{% macro featureGrid(props = {}) %}
+  {% set defaults = {
+    heading: '',
+    description: '',
+    headerAlign: 'center',
+    features: [],
+    layout: 'grid',
+    columns: 3,
+    variant: 'default',
+    contentAlign: 'center',
+    backgroundColor: '',
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Validate required features array #}
+  {% if config.features.length == 0 %}
+    <!-- Error: feature-grid requires at least one feature -->
+  {% endif %}
+
+  {# Build class list for main container #}
+  {% set classList = [
+    'feature-grid',
+    'feature-grid-bg-' + config.backgroundColor if config.backgroundColor,
+    config.className
+  ] | reject('equalto', false) | join(' ') | trim %}
+
+  {# Build class list for items container #}
+  {% set itemsClassList = [
+    'feature-grid-items',
+    'feature-grid-items-' + config.layout,
+    'feature-grid-items-' + config.columns + 'col' if config.layout == 'grid',
+    'feature-grid-items-' + config.variant if config.variant != 'default',
+    'feature-grid-items-' + config.contentAlign if config.layout == 'grid' and config.contentAlign != 'center'
+  ] | reject('equalto', false) | join(' ') | trim %}
+
+  {# Build class list for header #}
+  {% set headerClassList = [
+    'feature-grid-header',
+    'feature-grid-header-' + config.headerAlign if config.headerAlign != 'center'
+  ] | reject('equalto', false) | join(' ') | trim %}
+
+  {# Main container #}
+  <section
+    class="{{ classList }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaLabelledBy %}aria-labelledby="{{ config.a11y.ariaLabelledBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    <div class="feature-grid-container">
+      {# Section header (optional) #}
+      {% if config.heading or config.description %}
+        <header class="{{ headerClassList }}">
+          {% if config.heading %}
+            {{ heading({
+              text: config.heading,
+              level: 2,
+              size: '2xl',
+              className: 'feature-grid-heading'
+            }) }}
+          {% endif %}
+
+          {% if config.description %}
+            {{ text({
+              content: config.description,
+              size: 'lg',
+              lineHeight: 'relaxed',
+              color: 'muted',
+              className: 'feature-grid-description'
+            }) }}
+          {% endif %}
+        </header>
+      {% endif %}
+
+      {# Features container #}
+      <div class="{{ itemsClassList }}">
+        {% for feature in config.features %}
+          {% set featureDefaults = {
+            title: '',
+            description: '',
+            icon: '',
+            image: null,
+            featureList: null,
+            imagePosition: 'left'
+          } %}
+          {% set featureConfig = featureDefaults | merge(feature) %}
+
+          {# Determine feature type and render accordingly #}
+          {% if config.layout == 'alternating' and featureConfig.image %}
+            {# Alternating layout: Use image-text molecule #}
+            <div class="feature-grid-item feature-grid-item-with-image">
+              {{ imageText({
+                imagePosition: featureConfig.imagePosition,
+                image: featureConfig.image,
+                headline: featureConfig.title,
+                description: featureConfig.description,
+                headingLevel: 3,
+                ratio: '50-50',
+                gap: 'xl',
+                verticalAlign: 'center'
+              }) }}
+            </div>
+
+          {% elif featureConfig.image %}
+            {# Grid layout with image #}
+            <div class="feature-grid-item feature-grid-item-with-image">
+              <div class="feature-grid-media">
+                <img
+                  src="{{ featureConfig.image.src }}"
+                  alt="{{ featureConfig.image.alt }}"
+                  class="feature-grid-image"
+                  loading="lazy"
+                >
+              </div>
+              <div class="feature-grid-content">
+                {% if featureConfig.title %}
+                  {{ heading({
+                    text: featureConfig.title,
+                    level: 3,
+                    size: 'lg',
+                    className: 'feature-grid-title'
+                  }) }}
+                {% endif %}
+                {% if featureConfig.description %}
+                  {{ text({
+                    content: featureConfig.description,
+                    size: 'base',
+                    lineHeight: 'relaxed',
+                    color: 'muted',
+                    className: 'feature-grid-description'
+                  }) }}
+                {% endif %}
+              </div>
+            </div>
+
+          {% elif featureConfig.featureList %}
+            {# Detailed feature with feature list #}
+            <div class="feature-grid-item feature-grid-item-detailed">
+              {% if featureConfig.icon %}
+                <div class="feature-grid-icon-wrapper">
+                  {{ icon({
+                    name: featureConfig.icon,
+                    size: 'lg',
+                    decorative: true
+                  }) }}
+                </div>
+              {% endif %}
+              <div class="feature-grid-content">
+                {% if featureConfig.title %}
+                  {{ heading({
+                    text: featureConfig.title,
+                    level: 3,
+                    size: 'lg',
+                    className: 'feature-grid-title'
+                  }) }}
+                {% endif %}
+                {% if featureConfig.description %}
+                  {{ text({
+                    content: featureConfig.description,
+                    size: 'base',
+                    lineHeight: 'relaxed',
+                    color: 'muted',
+                    className: 'feature-grid-description'
+                  }) }}
+                {% endif %}
+                {# Feature list integration #}
+                {{ featureList(featureConfig.featureList) }}
+              </div>
+            </div>
+
+          {% else %}
+            {# Icon-based feature (default) #}
+            <div class="feature-grid-item">
+              {% if featureConfig.icon %}
+                <div class="feature-grid-icon-wrapper">
+                  {{ icon({
+                    name: featureConfig.icon,
+                    size: 'lg',
+                    decorative: true
+                  }) }}
+                </div>
+              {% endif %}
+              <div class="feature-grid-content">
+                {% if featureConfig.title %}
+                  {{ heading({
+                    text: featureConfig.title,
+                    level: 3,
+                    size: 'lg',
+                    className: 'feature-grid-title'
+                  }) }}
+                {% endif %}
+                {% if featureConfig.description %}
+                  {{ text({
+                    content: featureConfig.description,
+                    size: 'base',
+                    lineHeight: 'relaxed',
+                    color: 'muted',
+                    className: 'feature-grid-description'
+                  }) }}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endmacro %}
