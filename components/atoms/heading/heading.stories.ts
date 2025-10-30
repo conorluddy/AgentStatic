@@ -1,6 +1,7 @@
 // components/atoms/heading/heading.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
 
 /**
  * Heading Component Stories
@@ -296,25 +297,21 @@ export const WithEyebrow: Story = {
  */
 export const WithHighlight: Story = {
   render: () => {
-    return env.renderString(
-      `
-      {% from "components/atoms/heading/heading.njk" import heading %}
+    return `
       <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-        {% call heading({ level: 1, align: 'center' }) %}
+        <h1 class="heading heading-align-center">
           Build <span class="heading-highlight">faster</span> with AI
-        {% endcall %}
+        </h1>
 
-        {% call heading({ level: 2 }) %}
+        <h2 class="heading">
           Ship websites in <span class="heading-highlight">hours</span>, not days
-        {% endcall %}
+        </h2>
 
-        {% call heading({ level: 2, color: 'primary' }) %}
+        <h2 class="heading heading-color-primary">
           The <span class="heading-highlight">easiest</span> way to build landing pages
-        {% endcall %}
+        </h2>
       </div>
-    `,
-      {}
-    );
+    `;
   },
 };
 
@@ -455,7 +452,7 @@ export const ResponsiveSizing: Story = {
  */
 export const AllVariants: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "components/atoms/heading/heading.njk" import heading %}
       <div style="display: flex; flex-direction: column; gap: 3rem;">

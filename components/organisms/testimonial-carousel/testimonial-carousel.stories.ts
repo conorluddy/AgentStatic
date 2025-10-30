@@ -25,22 +25,17 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import nunjucks from 'nunjucks';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 // Configure Nunjucks
-const env = nunjucks.configure('components', {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
 // Template function
 function renderTestimonialCarousel(args: any): string {
   const template = `
     {% from "organisms/testimonial-carousel/testimonial-carousel.njk" import testimonialCarousel %}
     {{ testimonialCarousel(props) }}
   `;
-  return env.renderString(template, { props: args });
+  return renderNunjucksTemplate(template, { props: args });
 }
 
 // Sample testimonial data

@@ -1,8 +1,8 @@
 // components/molecules/testimonial/testimonial.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import nunjucks from 'nunjucks';
-import path from 'path';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 /**
  * Testimonial Molecule Component Stories
@@ -35,12 +35,6 @@ import path from 'path';
 
 // Configure Nunjucks
 const componentsPath = path.resolve(__dirname, '../../');
-const env = nunjucks.configure(componentsPath, {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
 // Placeholder images for demos
 const placeholderAvatar = 'data:image/svg+xml,%3Csvg width="48" height="48" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="24" cy="24" r="24" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" font-family="Arial" font-size="20" fill="%23999" text-anchor="middle" dominant-baseline="middle"%3ESJ%3C/text%3E%3C/svg%3E';
 const placeholderLogo = 'data:image/svg+xml,%3Csvg width="100" height="40" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="100" height="40" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" font-family="Arial" font-size="12" fill="%23999" text-anchor="middle" dominant-baseline="middle"%3ELogo%3C/text%3E%3C/svg%3E';
@@ -136,7 +130,7 @@ export default meta;
 type Story = StoryObj;
 
 const renderComponent = (args: any) => {
-  return env.renderString(
+  return renderNunjucksTemplate(
     `
     {% from "molecules/testimonial/testimonial.njk" import testimonial %}
     {{ testimonial(props) }}

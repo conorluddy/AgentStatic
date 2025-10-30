@@ -1,9 +1,9 @@
 // components/molecules/pricing/pricing.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Pricing Molecule Stories
@@ -14,12 +14,6 @@ import nunjucks from 'nunjucks';
  * Shows pricing plan cards with name, price, features, CTA, optional badge,
  * and strikethrough pricing for promotions.
  */
-
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
 
 const meta: Meta = {
   title: 'Molecules/Pricing',
@@ -73,7 +67,7 @@ export default meta;
 type Story = StoryObj;
 
 const renderComponent = (args: any) => {
-  return env.renderString(
+  return renderNunjucksTemplate(
     `
     {% from "molecules/pricing/pricing.njk" import pricing %}
     {{ pricing(props) }}
@@ -271,7 +265,7 @@ export const ThreePlanGrid: Story = {
       },
     };
 
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/pricing/pricing.njk" import pricing %}
       <div class="pricing-grid">
@@ -341,7 +335,7 @@ export const MultipleBadgeOptions: Story = {
       },
     };
 
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/pricing/pricing.njk" import pricing %}
       <div class="pricing-grid">
@@ -565,7 +559,7 @@ export const AllPricingCards: Story = {
       },
     ];
 
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/pricing/pricing.njk" import pricing %}
       <div class="pricing-grid">

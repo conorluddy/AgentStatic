@@ -1,8 +1,8 @@
 // components/molecules/cta-block/cta-block.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import nunjucks from 'nunjucks';
-import path from 'path';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 /**
  * CTA Block Component Stories
@@ -27,12 +27,6 @@ import path from 'path';
 
 // Configure Nunjucks
 const componentsPath = path.resolve(__dirname, '../../');
-const env = nunjucks.configure(componentsPath, {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
 // Simple placeholder image for demos
 const placeholderImage = 'data:image/svg+xml,%3Csvg width="600" height="400" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="600" height="400" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" font-family="Arial" font-size="24" fill="%23999" text-anchor="middle" dominant-baseline="middle"%3EDemo Screenshot%3C/text%3E%3C/svg%3E';
 
@@ -169,8 +163,8 @@ const renderComponent = (props: any) => {
   if (visual) componentProps.visual = visual;
 
   // Render template
-  return env.render('molecules/cta-block/cta-block.njk', {
-    ctaBlock: (config: any) => env.render('molecules/cta-block/cta-block.njk', config),
+  return renderNunjucksTemplate('molecules/cta-block/cta-block.njk', {
+    ctaBlock: (config: any) => renderNunjucksTemplate('molecules/cta-block/cta-block.njk', config),
     ...componentProps,
   });
 };

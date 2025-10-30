@@ -1,5 +1,40 @@
 import type { Preview } from '@storybook/html-vite';
 import '../components/index.css';
+import nunjucks from 'nunjucks';
+
+// Global type for precompiled templates
+declare global {
+  interface Window {
+    nunjucksPrecompiled?: Record<string, any>;
+  }
+}
+
+// ============================================================================
+// CRITICAL: Load precompiled templates BEFORE configuring nunjucks
+// ============================================================================
+// Import precompiled templates synchronously to populate window.nunjucksPrecompiled
+// This must happen before nunjucks.configure() is called
+import './precompiled-templates.js';
+
+console.debug('[Storybook] Precompiled Nunjucks templates imported');
+
+// ============================================================================
+// Configure Nunjucks for browser use with precompiled templates
+// ============================================================================
+// The FileSystemLoader is disabled in browser context. Instead, nunjucks will
+// use the precompiled templates from window.nunjucksPrecompiled that were
+// registered by the precompiled-templates.js module above.
+const env = nunjucks.configure({
+  autoescape: true,
+  noCache: true, // Prevent browser caching issues
+  // Don't specify a loader - nunjucks will look for templates in the global store
+});
+
+// Verify templates loaded
+if (typeof window !== 'undefined' && window.nunjucksPrecompiled) {
+  const templateCount = Object.keys(window.nunjucksPrecompiled).length;
+  console.debug(`[Storybook] ${templateCount} precompiled templates available`);
+}
 
 const preview: Preview = {
   parameters: {

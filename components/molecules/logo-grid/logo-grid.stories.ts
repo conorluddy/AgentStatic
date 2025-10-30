@@ -1,6 +1,8 @@
 // components/molecules/logo-grid/logo-grid.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 /**
  * Logo Grid Component Stories
@@ -537,7 +539,7 @@ export const IntegrationPattern: Story = {
  */
 export const AllVariants: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "components/molecules/logo-grid/logo-grid.njk" import logoGrid %}
       <div style="display: flex; flex-direction: column; gap: 4rem;">

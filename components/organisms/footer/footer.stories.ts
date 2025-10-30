@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import nunjucks from 'nunjucks';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 /**
  * Footer Organism Stories
@@ -15,11 +16,10 @@ import nunjucks from 'nunjucks';
  */
 
 // Configure Nunjucks
-const env = nunjucks.configure('components', { autoescape: true });
 
 // Helper to render footer
 const renderFooter = (props: any) => {
-  return env.render('organisms/footer/footer.njk', { props });
+  return renderNunjucksTemplate('organisms/footer/footer.njk', { props });
 };
 
 // Social media icons (reusable)

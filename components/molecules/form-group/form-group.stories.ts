@@ -1,6 +1,8 @@
 // components/molecules/form-group/form-group.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 /**
  * Form Group Molecule Stories
@@ -317,11 +319,10 @@ export const NewsletterSignup: Story = {
   name: 'Newsletter Signup (Hero CTA)',
   render: () => {
     return `
-      <style>${combinedStyles}</style>
       <div style="max-width: 400px; padding: 2rem; background: var(--color-gray-50); border-radius: var(--border-radius-lg);">
         <h3 style="margin-top: 0;">Subscribe to our newsletter</h3>
         <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">Get the latest updates delivered to your inbox.</p>
-        ${env.renderString(
+        ${renderNunjucksTemplate(
           `
           {% from "molecules/form-group/form-group.njk" import formGroup %}
           {{ formGroup({
@@ -347,10 +348,9 @@ export const ContactForm: Story = {
   name: 'Contact Form Fields',
   render: () => {
     return `
-      <style>${combinedStyles}</style>
       <div style="max-width: 600px; padding: 2rem; border: 1px solid var(--color-border); border-radius: var(--border-radius-lg);">
         <h2 style="margin-top: 0;">Get in Touch</h2>
-        ${env.renderString(
+        ${renderNunjucksTemplate(
           `
           {% from "molecules/form-group/form-group.njk" import formGroup %}
 
@@ -409,11 +409,10 @@ export const LeadCaptureForm: Story = {
   name: 'Lead Capture Form',
   render: () => {
     return `
-      <style>${combinedStyles}</style>
       <div style="max-width: 500px; padding: 2rem; background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-secondary-50) 100%); border-radius: var(--border-radius-xl);">
         <h2 style="margin-top: 0;">Start Your Free Trial</h2>
         <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">No credit card required. Cancel anytime.</p>
-        ${env.renderString(
+        ${renderNunjucksTemplate(
           `
           {% from "molecules/form-group/form-group.njk" import formGroup %}
 
@@ -466,9 +465,8 @@ export const LeadCaptureForm: Story = {
 export const DarkMode: Story = {
   render: () => {
     return `
-      <style>${combinedStyles}</style>
       <div data-theme="dark" style="background: var(--color-gray-900); padding: 2rem; border-radius: var(--border-radius-lg);">
-        ${env.renderString(
+        ${renderNunjucksTemplate(
           `
           {% from "molecules/form-group/form-group.njk" import formGroup %}
 
@@ -507,7 +505,6 @@ export const AllStates: Story = {
   name: 'All States Comparison',
   render: () => {
     return `
-      <style>${combinedStyles}</style>
       <div style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
         <div>
           <h4 style="margin-top: 0;">Default</h4>

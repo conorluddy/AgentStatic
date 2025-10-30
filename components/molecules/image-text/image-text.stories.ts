@@ -1,9 +1,9 @@
 // components/molecules/image-text/image-text.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 import fs from 'fs';
-import path from 'path';
-import nunjucks from 'nunjucks';
 
 /**
  * Image+Text Component Stories
@@ -17,12 +17,6 @@ import nunjucks from 'nunjucks';
  * - Product pages (screenshot + description)
  * - About pages (team photo + company story)
  */
-
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
 
 // Component metadata
 const meta: Meta = {
@@ -106,7 +100,7 @@ type Story = StoryObj;
 
 // Render function
 const renderComponent = (args: any) => {
-  return env.renderString(
+  return renderNunjucksTemplate(
     `
     {% from "components/molecules/image-text/image-text.njk" import imageText %}
     {{ imageText(props) }}
@@ -273,7 +267,7 @@ export const BackgroundColors: Story = {
  */
 export const AlternatingPattern: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "components/molecules/image-text/image-text.njk" import imageText %}
       <div class="image-text-alternate" style="display: flex; flex-direction: column; gap: 4rem;">
@@ -338,7 +332,7 @@ export const ProductFeature: Story = {
  */
 export const MarketingSection: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "components/molecules/image-text/image-text.njk" import imageText %}
       <div style="max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;">
@@ -394,7 +388,7 @@ export const MarketingSection: Story = {
  */
 export const DarkMode: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "components/molecules/image-text/image-text.njk" import imageText %}
       <div style="display: flex; flex-direction: column; gap: 3rem;">

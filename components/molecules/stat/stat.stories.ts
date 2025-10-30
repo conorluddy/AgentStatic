@@ -1,6 +1,8 @@
 // components/molecules/stat/stat.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 /**
  * Stat Molecule Stories
@@ -331,7 +333,7 @@ export const InlineVariant: Story = {
  */
 export const HeroStatGroup: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/stat/stat.njk" import stat %}
       <div class="stat-group stat-group-3">
@@ -350,7 +352,7 @@ export const HeroStatGroup: Story = {
  */
 export const StatGroupDividers: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/stat/stat.njk" import stat %}
       <div class="stat-group stat-group-4 stat-group-dividers">
@@ -370,7 +372,7 @@ export const StatGroupDividers: Story = {
  */
 export const DashboardStats: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/stat/stat.njk" import stat %}
       <div class="stat-group stat-group-3">
@@ -409,7 +411,7 @@ export const DashboardStats: Story = {
  */
 export const ColorVariants: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/stat/stat.njk" import stat %}
       <div class="stat-group">
@@ -430,7 +432,7 @@ export const ColorVariants: Story = {
  */
 export const SizeVariants: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/stat/stat.njk" import stat %}
       <div class="stat-group">
@@ -450,7 +452,7 @@ export const SizeVariants: Story = {
  */
 export const SaaSLandingPage: Story = {
   render: () => {
-    return env.renderString(
+    return renderNunjucksTemplate(
       `
       {% from "molecules/stat/stat.njk" import stat %}
       <div style="padding: 3rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">

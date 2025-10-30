@@ -323,7 +323,6 @@ export const Checkbox: Story = {
 export const RadioButtons: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
         ${renderComponent({ type: 'radio', name: 'plan', value: 'monthly', label: 'Monthly billing ($10/month)', checked: true })}
         ${renderComponent({ type: 'radio', name: 'plan', value: 'yearly', label: 'Yearly billing ($100/year - Save 17%)', checked: false })}
@@ -338,7 +337,6 @@ export const RadioButtons: Story = {
 export const SmallSize: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px;">
         ${renderComponent({ type: 'text', size: 'sm', placeholder: 'Small text input', ariaLabel: 'Small text' })}
         ${renderComponent({ type: 'email', size: 'sm', placeholder: 'email@example.com', ariaLabel: 'Small email' })}
@@ -354,7 +352,6 @@ export const SmallSize: Story = {
 export const MediumSize: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 400px;">
         ${renderComponent({ type: 'text', size: 'md', placeholder: 'Medium text input', ariaLabel: 'Medium text' })}
         ${renderComponent({ type: 'email', size: 'md', placeholder: 'email@example.com', ariaLabel: 'Medium email' })}
@@ -370,7 +367,6 @@ export const MediumSize: Story = {
 export const LargeSize: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 500px;">
         ${renderComponent({ type: 'text', size: 'lg', placeholder: 'Large text input', ariaLabel: 'Large text' })}
         ${renderComponent({ type: 'email', size: 'lg', placeholder: 'email@example.com', iconStart: emailIcon, ariaLabel: 'Large email' })}
@@ -386,7 +382,6 @@ export const LargeSize: Story = {
 export const ErrorState: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 400px;">
         ${renderComponent({ type: 'email', value: 'invalid-email', state: 'error', ariaDescribedBy: 'email-error', ariaLabel: 'Email with error' })}
         <p id="email-error" style="color: #ef4444; font-size: 0.875rem; margin: 0;">Please enter a valid email address</p>
@@ -404,7 +399,6 @@ export const ErrorState: Story = {
 export const SuccessState: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 400px;">
         ${renderComponent({ type: 'email', value: 'valid@email.com', state: 'success', ariaLabel: 'Valid email' })}
         <p style="color: #22c55e; font-size: 0.875rem; margin: 0;">Email is valid</p>
@@ -435,7 +429,6 @@ export const WarningState: Story = {
 export const Disabled: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; max-width: 400px;">
         ${renderComponent({ type: 'text', value: 'Disabled input', disabled: true, ariaLabel: 'Disabled text' })}
         ${renderComponent({ type: 'email', value: 'disabled@email.com', disabled: true, ariaLabel: 'Disabled email' })}
@@ -465,7 +458,6 @@ export const Readonly: Story = {
 export const FullWidth: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
         ${renderComponent({ type: 'email', placeholder: 'your@email.com', fullWidth: true, ariaLabel: 'Full width email' })}
         ${renderComponent({ type: 'text', placeholder: 'Full name', fullWidth: true, ariaLabel: 'Full width name' })}
@@ -481,7 +473,6 @@ export const FullWidth: Story = {
 export const ContactForm: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <form style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px; padding: 1.5rem; background: #f9fafb; border-radius: 0.5rem;">
         <h3 style="margin: 0 0 0.5rem; font-size: 1.5rem;">Contact Us</h3>
 
@@ -528,7 +519,6 @@ export const ContactForm: Story = {
 export const HeroEmailCapture: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="max-width: 600px; padding: 3rem 1.5rem; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem;">
         <h1 style="color: white; font-size: 2.5rem; margin: 0 0 1rem;">Start Your Free Trial</h1>
         <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin: 0 0 2rem;">Join 10,000+ companies already using our platform</p>
@@ -549,7 +539,6 @@ export const HeroEmailCapture: Story = {
 export const AllInputTypes: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
         <div>
           <h4 style="margin: 0 0 0.5rem;">Text</h4>
@@ -618,7 +607,6 @@ export const AllInputTypes: Story = {
 export const DarkMode: Story = {
   render: () => {
     return `
-      <style>${styles}</style>
       <div data-theme="dark" style="padding: 2rem; background: #1f2937; border-radius: 0.5rem;">
         <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
           ${renderComponent({ type: 'text', placeholder: 'Text input', ariaLabel: 'Dark text' })}

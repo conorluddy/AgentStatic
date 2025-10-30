@@ -6,15 +6,10 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import nunjucks from 'nunjucks';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 
 // Configure Nunjucks
-const env = nunjucks.configure('components', {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
 // Import styles
 import './feature-grid.css';
 import '../../_system/tokens.css';
@@ -86,7 +81,7 @@ type Story = StoryObj;
 
 // Render function
 function render(args: any) {
-  return env.render('organisms/feature-grid/feature-grid.njk', args);
+  return renderNunjucksTemplate('organisms/feature-grid/feature-grid.njk', args);
 }
 
 /**

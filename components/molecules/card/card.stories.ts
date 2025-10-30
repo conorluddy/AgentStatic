@@ -1,8 +1,7 @@
 // components/molecules/card/card.stories.ts
 
 import type { Meta, StoryObj } from '@storybook/html';
-import path from 'path';
-import nunjucks from 'nunjucks';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
 
 /**
  * Card Molecule Stories
@@ -21,12 +20,6 @@ import nunjucks from 'nunjucks';
  * - Dark mode support
  * - Marketing-optimized hover effects
  */
-
-const env = nunjucks.configure(path.join(__dirname, '../../..'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
 
 // Helper icons for demos
 const checkIcon = '<svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor"><path d="M18 32.34L9.66 24l-2.83 2.83L18 38l24-24-2.83-2.83z"/></svg>';
@@ -75,7 +68,7 @@ export default meta;
 type Story = StoryObj;
 
 const renderComponent = (args: any) => {
-  return env.renderString(
+  return renderNunjucksTemplate(
     `
     {% from "molecules/card/card.njk" import card %}
     {{ card(props) }}

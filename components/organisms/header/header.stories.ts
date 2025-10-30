@@ -6,25 +6,20 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import nunjucks from 'nunjucks';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 // Configure Nunjucks environment
-const env = nunjucks.configure(resolve(__dirname, '../../'), {
-  autoescape: true,
-  trimBlocks: true,
-  lstripBlocks: true,
-});
-
 // Load templates
 const headerTemplate = readFileSync(resolve(__dirname, 'header.njk'), 'utf8');
 const buttonTemplate = readFileSync(resolve(__dirname, '../../atoms/button/button.njk'), 'utf8');
 const linkTemplate = readFileSync(resolve(__dirname, '../../atoms/link/link.njk'), 'utf8');
 
-env.renderString(headerTemplate);
-env.renderString(buttonTemplate);
-env.renderString(linkTemplate);
+renderNunjucksTemplate(headerTemplate);
+renderNunjucksTemplate(buttonTemplate);
+renderNunjucksTemplate(linkTemplate);
 
 /**
  * Primary site navigation organism with logo, nav links, actions, and mobile menu.
@@ -100,7 +95,7 @@ type Story = StoryObj;
  */
 export const Default: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       {% from "organisms/header/header.njk" import header %}
       {{ header(${JSON.stringify(args)}) }}
       <main id="main" style="padding: 2rem;">
@@ -160,7 +155,7 @@ export const CenteredLayout: Story = {
  */
 export const Sticky: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       {% from "organisms/header/header.njk" import header %}
       {{ header(${JSON.stringify(args)}) }}
       <main id="main" style="padding: 2rem;">
@@ -184,7 +179,7 @@ export const Sticky: Story = {
  */
 export const TransparentWithScrollDetection: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       {% from "organisms/header/header.njk" import header %}
       {{ header(${JSON.stringify(args)}) }}
       <div style="height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white;">
@@ -304,7 +299,7 @@ export const Mobile: Story = {
  */
 export const DarkMode: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       <div data-theme="dark">
         {% from "organisms/header/header.njk" import header %}
         {{ header(${JSON.stringify(args)}) }}
@@ -331,7 +326,7 @@ export const DarkMode: Story = {
  */
 export const RealWorldSaaS: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       {% from "organisms/header/header.njk" import header %}
       {{ header(${JSON.stringify(args)}) }}
       <main id="main" style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;">
@@ -375,7 +370,7 @@ export const RealWorldSaaS: Story = {
  */
 export const RealWorldAgency: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       {% from "organisms/header/header.njk" import header %}
       {{ header(${JSON.stringify(args)}) }}
       <div style="height: 100vh; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); display: flex; align-items: center; justify-content: center; color: white; text-align: center; padding: 2rem;">
@@ -423,7 +418,7 @@ export const RealWorldAgency: Story = {
  */
 export const RealWorldB2B: Story = {
   render: (args) => {
-    return env.renderString(`
+    return renderNunjucksTemplate(`
       {% from "organisms/header/header.njk" import header %}
       {{ header(${JSON.stringify(args)}) }}
       <main id="main" style="padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;">
