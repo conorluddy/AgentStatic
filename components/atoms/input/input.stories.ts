@@ -128,7 +128,8 @@ const renderComponent = (props: any) => {
 
   // Build class list for standard inputs
   const inputClasses = ['input', `input-${size}`];
-  if (state !== 'default') inputClasses.push(`input-${state}`);
+  // Always add state class to ensure all validation states work correctly
+  if (state) inputClasses.push(`input-${state}`);
   if (iconStart) inputClasses.push('input-with-icon-start');
   if (iconEnd) inputClasses.push('input-with-icon-end');
   if (fullWidth) inputClasses.push('input-full-width');

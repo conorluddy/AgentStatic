@@ -114,11 +114,12 @@ const renderComponent = (props: any) => {
 
   // Build class list
   const classList = ['text'];
-  if (size !== 'base') classList.push(`text-${size}`);
-  if (weight !== 'normal') classList.push(`text-${weight}`);
-  if (color !== 'default') classList.push(`text-${color}`);
-  if (align !== 'left') classList.push(`text-${align}`);
-  if (lineHeight !== 'normal') classList.push(`text-${lineHeight}`);
+  // Always add size, weight, color, align, and lineHeight classes to ensure all variants work
+  if (size) classList.push(`text-${size}`);
+  if (weight) classList.push(`text-${weight}`);
+  if (color) classList.push(`text-${color}`);
+  if (align) classList.push(`text-${align}`);
+  if (lineHeight) classList.push(`text-${lineHeight}`);
   if (lead) classList.push('text-lead');
   if (readable) classList.push('text-readable');
   if (truncate) classList.push('text-truncate');

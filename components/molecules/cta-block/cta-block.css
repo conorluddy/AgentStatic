@@ -1,0 +1,454 @@
+/* components/molecules/cta-block/cta-block.css */
+
+/**
+ * CTA Block Component Styles (Molecule)
+ *
+ * PRIMARY CONVERSION ELEMENT - Critical for driving user actions.
+ * This is where visitors make the decision to convert, so every pixel matters.
+ *
+ * Features:
+ * - Three layout variants: centered (default), horizontal split, inline
+ * - Background variants: solid, gradient, image with overlay
+ * - Trust signal support (customer count, ratings)
+ * - Urgency element styling (countdown timers)
+ * - Responsive stacking on mobile
+ * - Dark mode support
+ *
+ * Marketing Context:
+ * - CTA blocks are the final conversion push before footer
+ * - Trust signals increase conversions by 15-25%
+ * - Urgency elements create FOMO (fear of missing out)
+ * - Horizontal split layouts work well with illustrations
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .cta-block
+ * - Children: .cta-block-content, .cta-block-actions
+ * - Variants: .cta-block-centered, .cta-block-split
+ *
+ * Pure CSS only - no preprocessors.
+ */
+
+@layer components {
+  /* ============================================
+     Base Component Styles - Section Level
+     ============================================ */
+  .cta-block {
+    /* Container */
+    position: relative;
+    width: 100%;
+
+    /* Spacing - generous section padding */
+    padding: var(--spacing-3xl) var(--spacing-lg);
+
+    /* Colors - default light background */
+    background-color: var(--color-surface-alt);
+    color: var(--color-text);
+
+    /* Borders - subtle rounding */
+    border-radius: var(--border-radius-lg);
+
+    /* Overflow for background images */
+    overflow: hidden;
+
+    /* Component-specific custom properties */
+    --cta-block-max-width: var(--container-3xl);
+    --cta-block-gap: var(--spacing-lg);
+  }
+
+  /* ============================================
+     Content Container - Centers content
+     ============================================ */
+  .cta-block-container {
+    max-width: var(--cta-block-max-width);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1; /* Above background */
+  }
+
+  /* ============================================
+     Content Section - Main text content
+     ============================================ */
+  .cta-block-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Eyebrow text (optional label above heading) */
+  .cta-block-eyebrow {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary-600);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  /* Subheadline below main heading */
+  .cta-block-subheadline {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    line-height: var(--line-height-snug);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Description text */
+  .cta-block-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    max-width: 60ch; /* Optimal reading width */
+  }
+
+  /* ============================================
+     Actions Section - CTA Buttons
+     ============================================ */
+  .cta-block-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* ============================================
+     Trust Signal - Social proof below CTAs
+     ============================================ */
+  .cta-block-trust {
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  /* Star rating inside trust signal */
+  .cta-block-trust-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--color-warning);
+  }
+
+  /* ============================================
+     Urgency Element - Countdown timer, scarcity
+     ============================================ */
+  .cta-block-urgency {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-warning-bg);
+    color: var(--color-text);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .cta-block-urgency-icon {
+    display: flex;
+    color: var(--color-warning);
+  }
+
+  /* ============================================
+     Background Image - With overlay
+     ============================================ */
+  .cta-block-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Overlay for readability on background images */
+  .cta-block-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    z-index: 0;
+  }
+
+  /* Light overlay variant */
+  .cta-block-overlay-light {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.85) 100%
+    );
+  }
+
+  /* ============================================
+     Layout Variant: Centered (Default)
+     ============================================ */
+  .cta-block-centered .cta-block-content,
+  .cta-block-centered .cta-block-actions,
+  .cta-block-centered .cta-block-trust,
+  .cta-block-centered .cta-block-urgency {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cta-block-centered .cta-block-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================
+     Layout Variant: Horizontal Split
+     ============================================ */
+  .cta-block-split .cta-block-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+  }
+
+  .cta-block-split-visual {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+  }
+
+  .cta-block-split-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Content side of split layout */
+  .cta-block-split .cta-block-content {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  /* ============================================
+     Layout Variant: Inline (Less Prominent)
+     ============================================ */
+  .cta-block-inline {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .cta-block-inline .cta-block-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-xl);
+  }
+
+  .cta-block-inline .cta-block-content {
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .cta-block-inline .cta-block-actions {
+    flex-shrink: 0;
+  }
+
+  /* Hide trust signal in inline layout (too cramped) */
+  .cta-block-inline .cta-block-trust {
+    display: none;
+  }
+
+  /* ============================================
+     Background Variants
+     ============================================ */
+
+  /* Primary color background */
+  .cta-block-bg-primary {
+    background-color: var(--color-primary-600);
+    color: var(--color-text-inverse);
+  }
+
+  .cta-block-bg-primary .cta-block-subheadline,
+  .cta-block-bg-primary .cta-block-eyebrow {
+    color: var(--color-text-inverse);
+  }
+
+  .cta-block-bg-primary .cta-block-description,
+  .cta-block-bg-primary .cta-block-trust {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Gradient background */
+  .cta-block-bg-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-600) 0%,
+      var(--color-primary-700) 50%,
+      var(--color-secondary-600) 100%
+    );
+    color: var(--color-text-inverse);
+  }
+
+  .cta-block-bg-gradient .cta-block-subheadline,
+  .cta-block-bg-gradient .cta-block-eyebrow {
+    color: var(--color-text-inverse);
+  }
+
+  .cta-block-bg-gradient .cta-block-description,
+  .cta-block-bg-gradient .cta-block-trust {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Subtle gradient background */
+  .cta-block-bg-gradient-subtle {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-50) 0%,
+      var(--color-secondary-50) 100%
+    );
+  }
+
+  /* Image background (use with overlay) */
+  .cta-block-bg-image {
+    color: var(--color-text-inverse);
+  }
+
+  .cta-block-bg-image .cta-block-subheadline,
+  .cta-block-bg-image .cta-block-eyebrow {
+    color: var(--color-text-inverse);
+  }
+
+  .cta-block-bg-image .cta-block-description,
+  .cta-block-bg-image .cta-block-trust {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .cta-block {
+      background-color: var(--color-gray-800);
+      color: var(--color-text);
+    }
+
+    :root:not([data-theme="light"]) .cta-block-urgency {
+      background-color: rgba(245, 158, 11, 0.2);
+    }
+
+    :root:not([data-theme="light"]) .cta-block-bg-gradient-subtle {
+      background: linear-gradient(
+        135deg,
+        var(--color-primary-900) 0%,
+        var(--color-secondary-900) 100%
+      );
+    }
+  }
+
+  [data-theme="dark"] .cta-block {
+    background-color: var(--color-gray-800);
+    color: var(--color-text);
+  }
+
+  [data-theme="dark"] .cta-block-urgency {
+    background-color: rgba(245, 158, 11, 0.2);
+  }
+
+  [data-theme="dark"] .cta-block-bg-gradient-subtle {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-900) 0%,
+      var(--color-secondary-900) 100%
+    );
+  }
+
+  /* ============================================
+     Responsive Design - Mobile First
+     ============================================ */
+
+  /* Tablet (768px+) */
+  @media (min-width: 48em) {
+    .cta-block {
+      padding: var(--spacing-4xl) var(--spacing-xl);
+    }
+
+    .cta-block-inline {
+      padding: var(--spacing-2xl) var(--spacing-xl);
+    }
+
+    .cta-block-description {
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  /* Desktop (1024px+) */
+  @media (min-width: 64em) {
+    .cta-block {
+      border-radius: var(--border-radius-2xl);
+    }
+  }
+
+  /* Mobile adjustments - stack split layout */
+  @media (max-width: 47.99em) {
+    .cta-block-split .cta-block-container {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+
+    /* Visual first on mobile for impact */
+    .cta-block-split-visual {
+      order: -1;
+      min-height: 200px;
+    }
+
+    /* Stack inline layout on mobile */
+    .cta-block-inline .cta-block-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .cta-block-inline .cta-block-actions {
+      width: 100%;
+    }
+
+    /* Full width buttons on mobile */
+    .cta-block-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .cta-block-actions .button {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-block {
+      transition: none;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    .cta-block {
+      border: 2px solid currentColor;
+    }
+
+    .cta-block-urgency {
+      border: 1px solid currentColor;
+    }
+  }
+
+  /* Focus styles for keyboard navigation */
+  .cta-block:focus-within {
+    outline: 3px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+}

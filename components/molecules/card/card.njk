@@ -1,0 +1,288 @@
+{# components/molecules/card/card.njk #}
+
+{#
+  Card Component (Molecule)
+
+  Description: Versatile content container combining image, text, and actions.
+  Perfect for blog posts, features, team members, case studies, and product listings.
+
+  Props:
+    - variant (string): Layout variant - 'default', 'horizontal', 'overlay', 'minimal', 'icon', 'stat' (default: 'default')
+    - clickable (boolean): Makes entire card clickable (default: false)
+    - href (string): Link destination if clickable (required if clickable=true)
+    - image (object): Image configuration
+      - src (string): Image URL
+      - alt (string): Image alt text
+      - aspectRatio (string): Aspect ratio - '16-9', '4-3', 'square', '21-9' (default: '16-9')
+    - badge (object): Badge overlay
+      - text (string): Badge text
+      - variant (string): Badge variant
+    - icon (string): SVG icon HTML for icon variant
+    - stat (object): Stat card configuration
+      - value (string): Large stat value
+      - label (string): Stat label
+    - title (string): Card title (required for default/horizontal/overlay variants)
+    - description (string): Card description text
+    - metadata (object): Metadata configuration
+      - author (string): Author name
+      - date (string): Date string
+      - category (string): Category name
+    - tags (array): Array of tag strings
+    - actions (object): Action buttons
+      - primary (object): Primary button config (button atom props)
+      - secondary (object): Secondary link config (link atom props)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+
+  Usage:
+    {% from "molecules/card/card.njk" import card %}
+
+    {# Blog post card #}
+    {{ card({
+      image: { src: '/blog-cover.jpg', alt: 'Blog post cover' },
+      title: 'How to Build Better Websites',
+      description: 'Learn the best practices for modern web development.',
+      metadata: { author: 'Jane Doe', date: 'Jan 15, 2024' },
+      tags: ['Web Dev', 'Tutorial'],
+      actions: {
+        primary: { text: 'Read More', href: '/blog/post-1' }
+      }
+    }) }}
+
+    {# Clickable card #}
+    {{ card({
+      clickable: true,
+      href: '/blog/post-1',
+      image: { src: '/blog-cover.jpg', alt: 'Blog post cover' },
+      badge: { text: 'New', variant: 'primary' },
+      title: 'Latest Article',
+      description: 'Click anywhere on this card to read more.'
+    }) }}
+
+    {# Icon card (feature showcase) #}
+    {{ card({
+      variant: 'icon',
+      icon: '<svg>...</svg>',
+      title: 'Fast Performance',
+      description: 'Built for speed with modern web technologies.'
+    }) }}
+
+    {# Stat card #}
+    {{ card({
+      variant: 'stat',
+      stat: { value: '10,000+', label: 'Happy Customers' }
+    }) }}
+
+    {# Horizontal layout #}
+    {{ card({
+      variant: 'horizontal',
+      image: { src: '/team-member.jpg', alt: 'Team member' },
+      title: 'Jane Doe',
+      description: 'Senior Product Designer with 10+ years experience.'
+    }) }}
+
+    {# Overlay variant #}
+    {{ card({
+      variant: 'overlay',
+      image: { src: '/hero-bg.jpg', alt: 'Background' },
+      title: 'Stunning Visual Design',
+      description: 'Text overlays on background images.'
+    }) }}
+#}
+
+{% macro card(props = {}) %}
+  {# Import atom components #}
+  {% from "atoms/button/button.njk" import button %}
+  {% from "atoms/heading/heading.njk" import heading %}
+  {% from "atoms/link/link.njk" import link %}
+  {% from "atoms/text/text.njk" import text %}
+  {% from "atoms/badge/badge.njk" import badge %}
+
+  {% set defaults = {
+    variant: 'default',
+    clickable: false,
+    href: '',
+    image: {},
+    badge: null,
+    icon: '',
+    stat: {},
+    title: '',
+    description: '',
+    metadata: {},
+    tags: [],
+    actions: {},
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = [
+    'card'
+  ] %}
+
+  {# Add variant class #}
+  {% if config.variant == 'horizontal' %}
+    {% set classList = (classList.push('card-horizontal'), classList) %}
+  {% elif config.variant == 'overlay' %}
+    {% set classList = (classList.push('card-overlay'), classList) %}
+  {% elif config.variant == 'minimal' %}
+    {% set classList = (classList.push('card-minimal'), classList) %}
+  {% elif config.variant == 'icon' %}
+    {% set classList = (classList.push('card-icon'), classList) %}
+  {% elif config.variant == 'stat' %}
+    {% set classList = (classList.push('card-stat'), classList) %}
+  {% endif %}
+
+  {# Add clickable class #}
+  {% if config.clickable %}
+    {% set classList = (classList.push('card-link'), classList) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {# Join class list #}
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Determine wrapper element #}
+  {% set wrapperTag = 'a' if config.clickable else 'article' %}
+
+  {# Main card container #}
+  <{{ wrapperTag }}
+    class="{{ classString }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.clickable and config.href %}href="{{ config.href }}"{% endif %}
+    {% if config.a11y.role %}role="{{ config.a11y.role }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Badge overlay #}
+    {% if config.badge %}
+      <div class="card-badge">
+        {{ badge(config.badge) }}
+      </div>
+    {% endif %}
+
+    {# Icon Card Variant #}
+    {% if config.variant == 'icon' %}
+      {% if config.icon %}
+        <div class="card-icon-image" aria-hidden="true">
+          {{ config.icon | safe }}
+        </div>
+      {% endif %}
+
+      {% if config.title %}
+        {{ heading({
+          text: config.title,
+          level: 3,
+          align: 'center',
+          className: 'card-title'
+        }) }}
+      {% endif %}
+
+      {% if config.description %}
+        {{ text({
+          content: config.description,
+          align: 'center',
+          color: 'muted',
+          className: 'card-description'
+        }) }}
+      {% endif %}
+
+    {# Stat Card Variant #}
+    {% elif config.variant == 'stat' %}
+      <div class="card-stat-value">{{ config.stat.value }}</div>
+      <div class="card-stat-label">{{ config.stat.label }}</div>
+
+    {# Default/Horizontal/Overlay/Minimal Variants #}
+    {% else %}
+      {# Image section #}
+      {% if config.image and config.image.src %}
+        <div class="card-media {% if config.image.aspectRatio == '4-3' %}card-media-4-3{% elif config.image.aspectRatio == 'square' %}card-media-square{% elif config.image.aspectRatio == '21-9' %}card-media-21-9{% endif %}">
+          <img
+            src="{{ config.image.src }}"
+            alt="{{ config.image.alt or '' }}"
+            class="card-image"
+            loading="lazy"
+          />
+        </div>
+      {% endif %}
+
+      {# Content section #}
+      <div class="card-content">
+        {# Header (title + metadata) #}
+        {% if config.title or config.metadata %}
+          <div class="card-header">
+            {% if config.title %}
+              {{ heading({
+                text: config.title,
+                level: 3,
+                className: 'card-title'
+              }) }}
+            {% endif %}
+
+            {% if config.metadata and (config.metadata.author or config.metadata.date or config.metadata.category) %}
+              <div class="card-metadata">
+                {% if config.metadata.author %}
+                  <span class="card-metadata-item">{{ config.metadata.author }}</span>
+                {% endif %}
+                {% if config.metadata.date %}
+                  <time class="card-metadata-item">{{ config.metadata.date }}</time>
+                {% endif %}
+                {% if config.metadata.category %}
+                  <span class="card-metadata-item">{{ config.metadata.category }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Body (description + tags) #}
+        <div class="card-body">
+          {% if config.description %}
+            {{ text({
+              content: config.description,
+              className: 'card-description'
+            }) }}
+          {% endif %}
+
+          {# Tags #}
+          {% if config.tags and config.tags.length > 0 %}
+            <div class="card-tags">
+              {% for tag in config.tags %}
+                {{ badge({
+                  text: tag,
+                  size: 'sm',
+                  style: 'outline',
+                  variant: 'default'
+                }) }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        {# Footer (actions) #}
+        {% if config.actions and (config.actions.primary or config.actions.secondary) %}
+          <div class="card-footer">
+            {% if config.actions.primary %}
+              {{ button(config.actions.primary) }}
+            {% endif %}
+            {% if config.actions.secondary %}
+              {{ link(config.actions.secondary) }}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </{{ wrapperTag }}>
+{% endmacro %}

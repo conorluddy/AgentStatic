@@ -21,5 +21,8 @@
     "vite": "^6.0.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "nunjucks": "^3.2.4"
+  }
 }

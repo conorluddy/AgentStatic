@@ -106,8 +106,10 @@ const renderComponent = (props: any) => {
 
   const inputType = input.type || 'text';
   const classList = ['form-group'];
-  if (layout !== 'vertical') classList.push(`form-group-${layout}`);
-  if (state !== 'default') classList.push(`form-group--${state}`);
+  // Always add layout class to ensure all layout variants work correctly
+  if (layout) classList.push(`form-group-${layout}`);
+  // Always add state class to ensure all validation states work correctly
+  if (state) classList.push(`form-group--${state}`);
   if (className) classList.push(className);
 
   const helpId = `${inputId}-help`;

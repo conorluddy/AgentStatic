@@ -1,0 +1,192 @@
+{# components/molecules/pricing/pricing.njk #}
+
+{#
+  Pricing Component (Molecule)
+
+  Description: Pricing plan card for brochureware conversion. Critical decision-making
+  component implementing marketing psychology patterns (anchoring, decoy effect, loss aversion).
+  Displays plan name, price, features, and CTA with optional badge and strikethrough pricing.
+
+  Props:
+    - name (string, required): Plan name (e.g., "Pro", "Enterprise")
+    - price (string, required): Price amount (e.g., "$99", "Contact Sales")
+    - period (string): Billing period (e.g., "month", "year", "user/month") (default: "month")
+    - description (string): Brief plan description (e.g., "For growing teams")
+    - features (array): List of included features (uses Feature List molecule)
+      Each feature: { text: string, icon: string, included: boolean }
+    - cta (object, required): Call-to-action button
+      { text: string, href: string, variant: string }
+    - ctaNote (string): Text below CTA button (e.g., "No credit card required")
+    - badge (string): Badge text for highlighting (e.g., "Most Popular", "Best Value")
+    - badgeVariant (string): Badge color variant (default: "primary")
+    - highlighted (boolean): Whether this is the recommended plan (default: false)
+    - originalPrice (string): Original price for strikethrough display (optional)
+    - savings (string): Savings text (e.g., "Save 20%", "$600/year") (optional)
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+      - ariaLabel (string): Accessible label for the pricing card
+
+  Usage:
+    {% from "molecules/pricing/pricing.njk" import pricing %}
+
+    {# Basic plan #}
+    {{ pricing({
+      name: "Pro",
+      price: "$99",
+      period: "month",
+      description: "For growing teams",
+      features: [
+        { text: "Unlimited projects" },
+        { text: "Priority support" },
+        { text: "Advanced analytics" }
+      ],
+      cta: {
+        text: "Start Free Trial",
+        href: "/signup?plan=pro",
+        variant: "primary"
+      }
+    }) }}
+
+    {# Highlighted plan with badge and savings #}
+    {{ pricing({
+      name: "Business",
+      price: "$79",
+      originalPrice: "$99",
+      period: "month",
+      savings: "Save 20%",
+      description: "Most popular plan",
+      badge: "Most Popular",
+      badgeVariant: "primary",
+      highlighted: true,
+      features: [...],
+      cta: {
+        text: "Get Started",
+        href: "/signup?plan=business",
+        variant: "primary"
+      },
+      ctaNote: "No credit card required"
+    }) }}
+
+    {# Grid of 3 plans #}
+    <div class="pricing-grid">
+      {{ pricing({ ... }) }}
+      {{ pricing({ ... }) }}
+      {{ pricing({ ... }) }}
+    </div>
+#}
+
+{% from "atoms/button/button.njk" import button %}
+{% from "atoms/badge/badge.njk" import badge %}
+{% from "molecules/feature-list/feature-list.njk" import featureList %}
+
+{% macro pricing(props = {}) %}
+  {% set defaults = {
+    name: '',
+    price: '',
+    period: 'month',
+    description: '',
+    features: [],
+    cta: {},
+    ctaNote: '',
+    badge: '',
+    badgeVariant: 'primary',
+    highlighted: false,
+    originalPrice: '',
+    savings: '',
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = ['pricing'] %}
+
+  {# Add highlighted variant #}
+  {% if config.highlighted %}
+    {% set classList = (classList.push('pricing-highlighted'), classList) %}
+  {% endif %}
+
+  {# Add custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {# Main pricing card container #}
+  <div
+    class="{{ classList | join(' ') }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% else %}aria-label="{{ config.name }} pricing plan"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Badge wrapper (Popular, Best Value) #}
+    {% if config.badge %}
+      <div class="pricing-badge-wrapper">
+        {{ badge({
+          text: config.badge,
+          variant: config.badgeVariant,
+          size: 'md',
+          shape: 'pill'
+        }) }}
+      </div>
+    {% endif %}
+
+    {# Header: Plan name and description #}
+    <div class="pricing-header">
+      <h3 class="pricing-name">{{ config.name }}</h3>
+      {% if config.description %}
+        <p class="pricing-description">{{ config.description }}</p>
+      {% endif %}
+    </div>
+
+    {# Price display with optional strikethrough #}
+    <div class="pricing-price-wrapper">
+      {# Show original price with strikethrough if provided #}
+      {% if config.originalPrice %}
+        <div class="pricing-original">
+          <span class="pricing-original-amount">{{ config.originalPrice }}</span>
+          {% if config.savings %}
+            <span class="pricing-savings">{{ config.savings }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# Current price #}
+      <div class="pricing-price">
+        <span class="pricing-amount">{{ config.price }}</span>
+        <span class="pricing-period">/{{ config.period }}</span>
+      </div>
+    </div>
+
+    {# Features list #}
+    {% if config.features and config.features.length > 0 %}
+      <div class="pricing-features">
+        {{ featureList({
+          items: config.features,
+          iconPosition: 'left',
+          density: 'normal'
+        }) }}
+      </div>
+    {% endif %}
+
+    {# CTA section #}
+    <div class="pricing-cta">
+      {{ button({
+        text: config.cta.text,
+        href: config.cta.href,
+        variant: config.cta.variant or 'primary',
+        size: config.cta.size or 'lg',
+        fullWidth: true
+      }) }}
+
+      {% if config.ctaNote %}
+        <p class="pricing-cta-note">{{ config.ctaNote }}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}

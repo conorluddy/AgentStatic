@@ -102,7 +102,9 @@ const renderComponent = (props: any) => {
   // Build class list
   const classList = ['heading', `heading-h${level}`];
   if (size) classList.push(`heading-size-${size}`);
-  if (align !== 'left') classList.push(`heading-${align}`);
+  // Always add alignment class since text-align: left is the default
+  // This ensures all alignment variants work correctly
+  if (align) classList.push(`heading-${align}`);
   if (weight !== 'bold') classList.push(`heading-weight-${weight}`);
   if (color !== 'default') classList.push(`heading-${color}`);
   if (gradient) classList.push('heading-gradient');

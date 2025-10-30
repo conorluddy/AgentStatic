@@ -118,7 +118,8 @@ const renderComponent = (props: any) => {
   // Build class list
   const classList = ['badge'];
 
-  if (variant !== 'default') {
+  // Always add variant class to ensure all variants work correctly
+  if (variant) {
     classList.push(`badge-${variant}`);
   }
 

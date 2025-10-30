@@ -1,0 +1,400 @@
+/* components/molecules/pricing/pricing.css */
+
+/**
+ * Pricing Component Styles (Molecule)
+ *
+ * Critical decision-making component for brochureware conversion.
+ * Implements marketing psychology patterns (anchoring, decoy effect, loss aversion).
+ *
+ * Features:
+ * - Plan card with badge, price, features, CTA
+ * - Highlighted/recommended plan variant
+ * - Strikethrough pricing for showing savings
+ * - Pricing grid layout (1-3 columns)
+ * - Dark mode support
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .pricing
+ * - Card: .pricing-card
+ * - Elements: .pricing-badge, .pricing-price, .pricing-cta, etc.
+ * - Variants: .pricing-highlighted, .pricing-grid
+ *
+ * Pure CSS only - no preprocessors.
+ */
+
+@layer components {
+  /* ============================================
+     Pricing Card - Base Component
+     ============================================ */
+  .pricing {
+    /* Component-level custom properties */
+    --pricing-padding: var(--spacing-xl);
+    --pricing-gap: var(--spacing-lg);
+    --pricing-border-color: var(--color-border);
+    --pricing-bg: var(--color-background);
+    --pricing-highlight-border: var(--color-primary-500);
+    --pricing-highlight-shadow: 0 10px 40px -10px hsl(var(--color-primary-hsl) / 0.2);
+
+    /* Layout */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--pricing-gap);
+
+    /* Spacing */
+    padding: var(--pricing-padding);
+
+    /* Typography */
+    font-family: var(--font-sans);
+
+    /* Colors */
+    color: var(--color-text);
+    background-color: var(--pricing-bg);
+
+    /* Borders */
+    border: var(--border-width-thin) solid var(--pricing-border-color);
+    border-radius: var(--border-radius-lg);
+
+    /* Effects */
+    box-shadow: var(--shadow-sm);
+
+    /* Interaction */
+    transition: var(--transition-all);
+  }
+
+  /* Hover state for non-highlighted cards */
+  .pricing:not(.pricing-highlighted):hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ============================================
+     Highlighted Plan Variant (Most Popular)
+     ============================================ */
+  .pricing-highlighted {
+    /* Enhanced border and shadow for emphasis */
+    border-color: var(--pricing-highlight-border);
+    border-width: var(--border-width-medium);
+    box-shadow: var(--pricing-highlight-shadow);
+
+    /* Scale up slightly */
+    transform: scale(1.05);
+    z-index: 1;
+  }
+
+  /* Highlighted plan hover */
+  .pricing-highlighted:hover {
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 20px 50px -10px hsl(var(--color-primary-hsl) / 0.3);
+  }
+
+  /* ============================================
+     Badge Positioning (Popular, Best Value)
+     ============================================ */
+  .pricing-badge-wrapper {
+    position: absolute;
+    top: calc(var(--spacing-md) * -1);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  /* Badge styling already handled by badge atom */
+  .pricing-badge-wrapper .badge {
+    /* No additional styles needed, badge atom handles it */
+  }
+
+  /* ============================================
+     Plan Header (Name, Description)
+     ============================================ */
+  .pricing-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-md); /* Space for badge */
+  }
+
+  .pricing-name {
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+  }
+
+  .pricing-description {
+    margin: 0;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-muted);
+  }
+
+  /* ============================================
+     Price Display
+     ============================================ */
+  .pricing-price-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md) 0;
+    border-bottom: var(--border-width-thin) solid var(--pricing-border-color);
+  }
+
+  .pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-xs);
+  }
+
+  .pricing-amount {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .pricing-period {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-muted);
+  }
+
+  /* Strikethrough pricing (show original price crossed out) */
+  .pricing-original {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .pricing-original-amount {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  .pricing-savings {
+    display: inline-flex;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-success-700);
+    background-color: var(--color-success-50);
+    border-radius: var(--border-radius-full);
+  }
+
+  /* ============================================
+     Features Section (uses Feature List molecule)
+     ============================================ */
+  .pricing-features {
+    flex: 1;
+    padding: var(--spacing-md) 0;
+  }
+
+  /* Override feature list spacing for pricing context */
+  .pricing-features .feature-list {
+    gap: var(--spacing-md);
+  }
+
+  /* ============================================
+     CTA Section
+     ============================================ */
+  .pricing-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+  }
+
+  /* CTA button is full-width in pricing card */
+  .pricing-cta .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Additional text below CTA (e.g., "No credit card required") */
+  .pricing-cta-note {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  /* ============================================
+     Pricing Grid Layout (3 plans side-by-side)
+     ============================================ */
+  .pricing-grid {
+    display: grid;
+    gap: var(--spacing-xl);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: start;
+  }
+
+  /* On desktop, ensure 3-column max */
+  @media (min-width: 90em) {
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+  }
+
+  /* ============================================
+     Pricing Comparison Table (Advanced)
+     ============================================ */
+  .pricing-comparison {
+    display: grid;
+    gap: var(--spacing-xs);
+  }
+
+  .pricing-comparison-header {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-gray-50);
+    border-radius: var(--border-radius-md);
+  }
+
+  .pricing-comparison-row {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-bottom: var(--border-width-thin) solid var(--color-border);
+  }
+
+  .pricing-comparison-row:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-comparison-feature {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+  }
+
+  .pricing-comparison-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .pricing {
+      --pricing-border-color: var(--color-border);
+      --pricing-bg: var(--color-surface);
+      --pricing-highlight-shadow: 0 10px 40px -10px hsl(var(--color-primary-hsl) / 0.3);
+    }
+
+    .pricing-savings {
+      color: var(--color-success-300);
+      background-color: hsl(var(--color-success-hsl) / 0.15);
+    }
+
+    .pricing-comparison-header {
+      background-color: var(--color-gray-800);
+    }
+  }
+
+  [data-theme="dark"] .pricing {
+    --pricing-border-color: var(--color-border);
+    --pricing-bg: var(--color-surface);
+    --pricing-highlight-shadow: 0 10px 40px -10px hsl(var(--color-primary-hsl) / 0.3);
+  }
+
+  [data-theme="dark"] .pricing-savings {
+    color: var(--color-success-300);
+    background-color: hsl(var(--color-success-hsl) / 0.15);
+  }
+
+  [data-theme="dark"] .pricing-comparison-header {
+    background-color: var(--color-gray-800);
+  }
+
+  /* ============================================
+     Responsive Design (mobile-first)
+     ============================================ */
+
+  /* Mobile: Stack pricing cards vertically */
+  @media (max-width: 47.99em) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pricing-highlighted {
+      transform: scale(1); /* Remove scale on mobile */
+    }
+
+    .pricing-highlighted:hover {
+      transform: translateY(-4px);
+    }
+
+    .pricing-comparison-header,
+    .pricing-comparison-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xs);
+    }
+
+    .pricing-comparison-value {
+      justify-content: flex-start;
+      padding-left: var(--spacing-md);
+    }
+  }
+
+  /* Tablet (768px+) - 2 columns */
+  @media (min-width: 48em) and (max-width: 89.99em) {
+    .pricing-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  }
+
+  /* Desktop (1440px+) - 3 columns max */
+  @media (min-width: 90em) {
+    .pricing {
+      /* Desktop-specific refinements */
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .pricing {
+      transition: var(--transition-colors);
+    }
+
+    .pricing:hover,
+    .pricing-highlighted:hover {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .pricing {
+      border-width: var(--border-width-medium);
+    }
+
+    .pricing-highlighted {
+      border-width: var(--border-width-thick);
+    }
+  }
+
+  /* Focus state for keyboard navigation */
+  .pricing:focus-within {
+    outline: 3px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+}

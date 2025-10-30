@@ -1,0 +1,415 @@
+/* components/molecules/card/card.css */
+
+/**
+ * Card Component Styles (Molecule)
+ *
+ * Versatile content container combining image, text, actions, and metadata.
+ * Used for blog posts, features, team members, case studies, and product listings.
+ *
+ * Marketing features:
+ * - Hover lift effect for interactivity
+ * - Fully clickable card option
+ * - Badge overlay support
+ * - Tag list display
+ * - Multiple layout variants
+ * - Aspect ratio control for grid consistency
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .card
+ * - Children: .card-child
+ * - Variants: .card-variant
+ *
+ * Pure CSS only - no preprocessors.
+ */
+
+@layer components {
+  /* ============================================
+     Base Card Styles
+     ============================================ */
+  .card {
+    /* Layout */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /* Spacing */
+    padding: 0;
+
+    /* Colors */
+    color: var(--color-text);
+    background-color: var(--color-surface);
+
+    /* Borders */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    /* Effects */
+    box-shadow: var(--shadow-sm);
+
+    /* Interaction */
+    transition: all var(--transition-base);
+  }
+
+  /* ============================================
+     Card as Link (Fully Clickable)
+     ============================================ */
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .card-link:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-link:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* ============================================
+     Card Media Section
+     ============================================ */
+  .card-media {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-gray-100);
+  }
+
+  /* Default aspect ratio (16:9) */
+  .card-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Aspect ratio variants */
+  .card-media-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .card-media-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  .card-media-21-9 {
+    aspect-ratio: 21 / 9;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ============================================
+     Card Content Section
+     ============================================ */
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    flex: 1;
+  }
+
+  /* ============================================
+     Card Header (Title + Metadata)
+     ============================================ */
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+  }
+
+  .card-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .card-metadata-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  /* ============================================
+     Card Body
+     ============================================ */
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .card-description {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* ============================================
+     Card Footer (Actions)
+     ============================================ */
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: auto;
+    padding-top: var(--spacing-sm);
+  }
+
+  /* ============================================
+     Badge Overlay
+     ============================================ */
+  .card-badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    z-index: 1;
+  }
+
+  /* ============================================
+     Tag List
+     ============================================ */
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  /* ============================================
+     Icon/Stat Card Variants
+     ============================================ */
+  .card-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-xl);
+  }
+
+  .card-icon-image {
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+  }
+
+  .card-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-xl);
+  }
+
+  .card-stat-value {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .card-stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================
+     Variant: Horizontal
+     ============================================ */
+  .card-horizontal {
+    flex-direction: row;
+  }
+
+  .card-horizontal .card-media {
+    flex: 0 0 40%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .card-horizontal .card-content {
+    flex: 1;
+  }
+
+  /* ============================================
+     Variant: Overlay
+     ============================================ */
+  .card-overlay {
+    color: white;
+  }
+
+  .card-overlay .card-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .card-overlay .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      transparent 100%
+    );
+    color: white;
+  }
+
+  .card-overlay .card-title,
+  .card-overlay .card-description,
+  .card-overlay .card-metadata {
+    color: white;
+  }
+
+  /* ============================================
+     Variant: Minimal
+     ============================================ */
+  .card-minimal {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .card-minimal:hover {
+    box-shadow: none;
+  }
+
+  .card-minimal.card-link:hover {
+    transform: none;
+    opacity: 0.85;
+  }
+
+  /* ============================================
+     Hover Effect (Non-Clickable Cards)
+     ============================================ */
+  .card:hover:not(.card-link) {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ============================================
+     Focus States
+     ============================================ */
+  .card:focus-within:not(.card-link) {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .card {
+      background-color: var(--color-surface);
+      border-color: var(--color-border);
+    }
+
+    .card-media {
+      background-color: var(--color-gray-800);
+    }
+
+    .card-overlay .card-content {
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.7) 50%,
+        transparent 100%
+      );
+    }
+  }
+
+  [data-theme="dark"] .card {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  [data-theme="dark"] .card-media {
+    background-color: var(--color-gray-800);
+  }
+
+  [data-theme="dark"] .card-overlay .card-content {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      transparent 100%
+    );
+  }
+
+  /* ============================================
+     Responsive Design
+     ============================================ */
+
+  /* Mobile: Stack horizontal cards */
+  @media (max-width: 47.99em) {
+    .card-horizontal {
+      flex-direction: column;
+    }
+
+    .card-horizontal .card-media {
+      flex: 1 1 auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    .card-content {
+      padding: var(--spacing-md);
+    }
+
+    .card-icon,
+    .card-stat {
+      padding: var(--spacing-lg);
+    }
+  }
+
+  /* Tablet (768px+) */
+  @media (min-width: 48em) {
+    .card-title {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  /* Desktop (1440px+) */
+  @media (min-width: 90em) {
+    .card-content {
+      padding: var(--spacing-xl);
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .card-link {
+      transition: none;
+    }
+
+    .card-link:hover {
+      transform: none;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    .card {
+      border-width: 2px;
+    }
+  }
+}

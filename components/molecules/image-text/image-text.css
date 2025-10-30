@@ -1,0 +1,420 @@
+/* components/molecules/image-text/image-text.css */
+
+/**
+ * Image+Text Component Styles (Molecule)
+ *
+ * WORKHORSE molecule for feature showcases and product pages.
+ * Combines image with text content in flexible layout configurations.
+ *
+ * Marketing Use Cases:
+ * - Feature showcases (alternating image/text)
+ * - "How it works" sections with step-by-step visuals
+ * - Product pages (screenshot + description)
+ * - About pages (team photo + company story)
+ *
+ * Component-scoped naming convention (NOT BEM):
+ * - Base: .image-text
+ * - Children: .image-text-media, .image-text-content
+ * - Variants: .image-text-image-right, .image-text-aspect-16-9
+ *
+ * Performance: <1.2KB gzipped
+ * Pure CSS only - no preprocessors.
+ */
+
+@layer components {
+  /* ============================================
+     Base Component Styles
+     ============================================ */
+  .image-text {
+    /* Reset */
+    margin: 0;
+    padding: 0;
+
+    /* Layout - Grid for flexible positioning */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+
+    /* Spacing */
+    container-type: inline-size;
+
+    /* Component-specific custom properties */
+    --it-gap: var(--spacing-lg);
+    --it-image-border-radius: var(--radius-lg);
+  }
+
+  /* ============================================
+     Media Section (Image Container)
+     ============================================ */
+  .image-text-media {
+    position: relative;
+    width: 100%;
+  }
+
+  .image-text-figure {
+    margin: 0;
+    padding: 0;
+  }
+
+  .image-text-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--it-image-border-radius);
+    object-fit: cover;
+  }
+
+  .image-text-caption {
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ============================================
+     Content Section (Text Container)
+     ============================================ */
+  .image-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  /* Nested atom spacing */
+  .image-text-content > .heading {
+    margin: 0;
+  }
+
+  .image-text-content > .text {
+    margin: 0;
+  }
+
+  .image-text-content > .button {
+    align-self: flex-start;
+  }
+
+  /* ============================================
+     Layout Variants
+     ============================================ */
+
+  /* Image Left (Default) - Desktop 2-column grid */
+  @container (min-width: 48rem) {
+    .image-text-image-left {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "media content";
+    }
+
+    .image-text-image-left .image-text-media {
+      grid-area: media;
+    }
+
+    .image-text-image-left .image-text-content {
+      grid-area: content;
+    }
+  }
+
+  /* Image Right - Desktop 2-column grid with reversed order */
+  @container (min-width: 48rem) {
+    .image-text-image-right {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "content media";
+    }
+
+    .image-text-image-right .image-text-media {
+      grid-area: media;
+    }
+
+    .image-text-image-right .image-text-content {
+      grid-area: content;
+    }
+  }
+
+  /* Image Top - Stacked vertical layout */
+  .image-text-image-top {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .image-text-image-top .image-text-media {
+    margin-bottom: var(--spacing-md);
+  }
+
+  /* ============================================
+     Column Ratio Variants
+     ============================================ */
+
+  /* 40/60 split - Image smaller */
+  @container (min-width: 48rem) {
+    .image-text-ratio-40-60.image-text-image-left {
+      grid-template-columns: 2fr 3fr;
+    }
+
+    .image-text-ratio-40-60.image-text-image-right {
+      grid-template-columns: 3fr 2fr;
+    }
+  }
+
+  /* 60/40 split - Image larger */
+  @container (min-width: 48rem) {
+    .image-text-ratio-60-40.image-text-image-left {
+      grid-template-columns: 3fr 2fr;
+    }
+
+    .image-text-ratio-60-40.image-text-image-right {
+      grid-template-columns: 2fr 3fr;
+    }
+  }
+
+  /* 33/67 split - Image much smaller */
+  @container (min-width: 48rem) {
+    .image-text-ratio-33-67.image-text-image-left {
+      grid-template-columns: 1fr 2fr;
+    }
+
+    .image-text-ratio-33-67.image-text-image-right {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /* 67/33 split - Image much larger */
+  @container (min-width: 48rem) {
+    .image-text-ratio-67-33.image-text-image-left {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .image-text-ratio-67-33.image-text-image-right {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  /* ============================================
+     Image Aspect Ratio Variants
+     Marketing Enhancement: Consistency across features
+     ============================================ */
+  .image-text-aspect-16-9 .image-text-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .image-text-aspect-4-3 .image-text-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .image-text-aspect-1-1 .image-text-image {
+    aspect-ratio: 1 / 1;
+  }
+
+  .image-text-aspect-auto .image-text-image {
+    aspect-ratio: auto;
+  }
+
+  /* ============================================
+     Gap Variants
+     ============================================ */
+  .image-text-gap-sm {
+    --it-gap: var(--spacing-sm);
+  }
+
+  .image-text-gap-md {
+    --it-gap: var(--spacing-md);
+  }
+
+  .image-text-gap-xl {
+    --it-gap: var(--spacing-xl);
+  }
+
+  .image-text-gap-2xl {
+    --it-gap: var(--spacing-2xl);
+  }
+
+  /* ============================================
+     Background Color Blocks
+     Marketing Enhancement: Visual interest
+     ============================================ */
+  .image-text-bg-primary {
+    background-color: var(--color-primary-50);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .image-text-bg-secondary {
+    background-color: var(--color-secondary-50);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .image-text-bg-accent {
+    background-color: var(--color-accent-50);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .image-text-bg-neutral {
+    background-color: var(--color-neutral-50);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+  }
+
+  /* ============================================
+     Alternating Pattern Helper
+     Marketing Enhancement: Sequential left/right switching
+     ============================================ */
+
+  /*
+   * Usage: Add .image-text-alternate to container wrapping multiple image-text components
+   * Even items will be image-left, odd items will be image-right
+   */
+  .image-text-alternate .image-text:nth-child(even) {
+    /* Even items stay default (image-left if that's the class) */
+  }
+
+  @container (min-width: 48rem) {
+    .image-text-alternate .image-text-image-left:nth-child(odd) {
+      grid-template-areas: "content media";
+    }
+
+    .image-text-alternate .image-text-image-left:nth-child(odd) .image-text-media {
+      grid-area: media;
+    }
+
+    .image-text-alternate .image-text-image-left:nth-child(odd) .image-text-content {
+      grid-area: content;
+    }
+  }
+
+  /* ============================================
+     Vertical Alignment Variants
+     ============================================ */
+  .image-text-align-top {
+    align-items: flex-start;
+  }
+
+  .image-text-align-center {
+    align-items: center;
+  }
+
+  .image-text-align-bottom {
+    align-items: flex-end;
+  }
+
+  /* ============================================
+     Image Overlay Text Variant
+     Marketing Enhancement: Text over image
+     ============================================ */
+  .image-text-overlay .image-text-media {
+    position: relative;
+  }
+
+  .image-text-overlay .image-text-overlay-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-lg);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.4) 50%,
+      transparent 100%
+    );
+    color: var(--color-white);
+    border-radius: 0 0 var(--it-image-border-radius) var(--it-image-border-radius);
+  }
+
+  .image-text-overlay .image-text-overlay-content .heading {
+    color: var(--color-white);
+  }
+
+  /* ============================================
+     Dark Mode
+     ============================================ */
+  @media (prefers-color-scheme: dark) {
+    .image-text-bg-primary {
+      background-color: var(--color-primary-900);
+    }
+
+    .image-text-bg-secondary {
+      background-color: var(--color-secondary-900);
+    }
+
+    .image-text-bg-accent {
+      background-color: var(--color-accent-900);
+    }
+
+    .image-text-bg-neutral {
+      background-color: var(--color-neutral-800);
+    }
+  }
+
+  [data-theme="dark"] .image-text-bg-primary {
+    background-color: var(--color-primary-900);
+  }
+
+  [data-theme="dark"] .image-text-bg-secondary {
+    background-color: var(--color-secondary-900);
+  }
+
+  [data-theme="dark"] .image-text-bg-accent {
+    background-color: var(--color-accent-900);
+  }
+
+  [data-theme="dark"] .image-text-bg-neutral {
+    background-color: var(--color-neutral-800);
+  }
+
+  /* ============================================
+     Responsive Design
+     ============================================ */
+
+  /* Mobile: Always stack vertically */
+  @media (max-width: 47.99em) {
+    .image-text {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .image-text-bg-primary,
+    .image-text-bg-secondary,
+    .image-text-bg-accent,
+    .image-text-bg-neutral {
+      padding: var(--spacing-lg);
+    }
+  }
+
+  /* Tablet and above: Enable side-by-side layouts */
+  @media (min-width: 48em) {
+    .image-text {
+      gap: var(--it-gap);
+    }
+  }
+
+  /* Desktop: Larger gaps and spacing */
+  @media (min-width: 90em) {
+    .image-text {
+      --it-gap: var(--spacing-2xl);
+    }
+
+    .image-text-bg-primary,
+    .image-text-bg-secondary,
+    .image-text-bg-accent,
+    .image-text-bg-neutral {
+      padding: var(--spacing-2xl);
+    }
+  }
+
+  /* ============================================
+     Accessibility
+     ============================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .image-text * {
+      transition: none;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    .image-text-image {
+      border: 2px solid currentColor;
+    }
+  }
+}

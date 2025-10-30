@@ -113,7 +113,8 @@ const renderComponent = (props: any) => {
 
   // Build class list
   const classList = ['breadcrumb'];
-  if (size !== 'md') classList.push(`breadcrumb-${size}`);
+  // Always add size class to ensure all size variants work correctly
+  if (size) classList.push(`breadcrumb-${size}`);
   if (truncate) classList.push('breadcrumb-truncate');
   if (className) classList.push(className);
 

@@ -39,11 +39,13 @@
    =========================================== */
 
 /* Atoms (Phase 2) */
-/* @import './atoms/button/button.css'; */
+@import './atoms/button/button.css';
+@import './atoms/heading/heading.css';
 /* @import './atoms/input/input.css'; */
 /* ... more atoms ... */
 
 /* Molecules (Phase 2) */
+@import './molecules/cta-block/cta-block.css';
 /* @import './molecules/card/card.css'; */
 /* @import './molecules/form-group/form-group.css'; */
 /* ... more molecules ... */
