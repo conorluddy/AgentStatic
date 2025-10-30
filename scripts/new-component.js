@@ -117,6 +117,10 @@ async function createComponent(type, name) {
         continue;
       }
 
+      // Skip non-template files (files ending with .template are templates)
+      // All other files should be processed
+      const isTemplate = file.endsWith('.template');
+
       // Read template content
       let content = await fs.readFile(templateFilePath, 'utf-8');
 
@@ -128,7 +132,12 @@ async function createComponent(type, name) {
         .replace(/COMPONENT_TYPE/g, type);
 
       // Determine new file name
-      const newFileName = file.replace('component', kebabName);
+      // If it's a .template file, remove the .template suffix
+      let newFileName = file.replace('component', kebabName);
+      if (isTemplate) {
+        newFileName = newFileName.replace('.template', '');
+      }
+
       const newFilePath = path.join(componentDir, newFileName);
 
       // Write the processed file
