@@ -16,7 +16,7 @@ const env = nunjucks.configure(join(__dirname, '../../'), {
 });
 
 // Load templates
-const comparisonTableTemplate = readFileSync(
+const comparisonTableContent = readFileSync(
   join(__dirname, 'comparison-table.njk'),
   'utf-8'
 );
@@ -30,7 +30,7 @@ const badgeTemplate = readFileSync(
 );
 
 // Add templates to environment
-env.addGlobal('comparisonTable', comparisonTableTemplate);
+env.addGlobal('comparisonTable', comparisonTableContent);
 env.addGlobal('button', buttonTemplate);
 env.addGlobal('badge', badgeTemplate);
 

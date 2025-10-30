@@ -4,6 +4,7 @@
   "description": "AI-first static site generator for brochureware marketing websites",
   "type": "module",
   "scripts": {
+    "start": "storybook dev -p 6006",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

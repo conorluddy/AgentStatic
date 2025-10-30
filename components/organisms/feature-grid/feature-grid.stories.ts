@@ -160,7 +160,7 @@ export const TwoColumn: Story = {
         icon: 'chart',
         title: 'Actionable Insights',
         description:
-          'Turn data into action with intelligent analytics and recommendations. Understand what's working and what needs improvement at a glance.',
+          'Turn data into action with intelligent analytics and recommendations. Understand what\'s working and what needs improvement at a glance.',
       },
       {
         icon: 'lock',
@@ -626,7 +626,7 @@ export const HowItWorks: Story = {
       {
         title: '3. Track Your Results',
         description:
-          'Monitor your progress with detailed analytics and insights. See how much time you're saving, identify bottlenecks, and optimize your workflows for even better results.',
+          'Monitor your progress with detailed analytics and insights. See how much time you\'re saving, identify bottlenecks, and optimize your workflows for even better results.',
         image: {
           src: 'https://placehold.co/800x600/fef3c7/f59e0b?text=Step+3',
           alt: 'Analytics dashboard',

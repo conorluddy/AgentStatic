@@ -30,6 +30,7 @@
 
   --color-background: #ffffff;         /* Pure white page background */
   --color-background-secondary: #f9fafb; /* Light gray for subtle sections */
+  --color-background-tertiary: #f3f4f6;  /* Tertiary background */
 
   --color-surface: #ffffff;            /* White cards/panels */
   --color-surface-elevated: #ffffff;   /* Elevated surfaces (modals, dropdowns) */
@@ -86,6 +87,7 @@
 
     --color-background: #0f172a;         /* Deep blue-gray page background */
     --color-background-secondary: #1e293b; /* Slightly lighter for sections */
+    --color-background-tertiary: #334155;  /* Tertiary background */
 
     --color-surface: #1e293b;            /* Dark cards/panels */
     --color-surface-elevated: #334155;   /* Elevated surfaces (modals, dropdowns) */
@@ -143,6 +145,7 @@
 
   --color-background: #0f172a;
   --color-background-secondary: #1e293b;
+  --color-background-tertiary: #334155;
 
   --color-surface: #1e293b;
   --color-surface-elevated: #334155;
@@ -198,6 +201,7 @@
 
   --color-background: #ffffff;
   --color-background-secondary: #f9fafb;
+  --color-background-tertiary: #f3f4f6;
 
   --color-surface: #ffffff;
   --color-surface-elevated: #ffffff;

@@ -138,6 +138,26 @@
     --color-secondary-900: #14532d;
 
     /* ------------------------------------------------------------------------
+       Brand Colors - Accent
+       Tertiary brand color for highlights and special emphasis
+       ------------------------------------------------------------------------ */
+    --color-accent-50: #fdf4ff;
+    --color-accent-100: #fae8ff;
+    --color-accent-200: #f5d0fe;
+    --color-accent-300: #f0abfc;
+    --color-accent-400: #e879f9;
+    --color-accent-500: #d946ef;    /* Base accent color */
+    --color-accent-600: #c026d3;    /* Accent actions */
+    --color-accent-700: #a21caf;
+    --color-accent-800: #86198f;
+    --color-accent-900: #701a75;
+
+    /* Semantic color shortcuts */
+    --color-primary: var(--color-primary-600);
+    --color-secondary: var(--color-secondary-600);
+    --color-accent: var(--color-accent-600);
+
+    /* ------------------------------------------------------------------------
        Neutral Colors - Gray Scale
        Complete neutral palette for text, borders, backgrounds
        ------------------------------------------------------------------------ */
@@ -174,6 +194,8 @@
        Backgrounds and surfaces for layering
        ------------------------------------------------------------------------ */
     --color-background: #ffffff;      /* Page background */
+    --color-background-secondary: #f9fafb; /* Secondary background */
+    --color-background-tertiary: #f3f4f6;  /* Tertiary background */
     --color-surface: #ffffff;         /* Card/panel surface */
     --color-surface-alt: #f9fafb;     /* Alternate surface (slight contrast) */
     --color-surface-raised: #ffffff;  /* Elevated surfaces (modals, dropdowns) */
@@ -197,6 +219,7 @@
     --color-border-light: #f3f4f6;    /* Subtle dividers */
     --color-border-strong: #d1d5db;   /* Emphasized borders */
     --color-border-focus: #3b82f6;    /* Focus ring color */
+    --color-focus: #3b82f6;           /* Focus state color */
 
     /* ========================================================================
        SPACING SYSTEM
