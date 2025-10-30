@@ -1,0 +1,260 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/atoms/badge/schema",
+  "title": "Badge",
+  "type": "object",
+  "description": "Small inline label for status, notifications, categories, and marketing callouts. Perfect for highlighting urgency, social proof, and product features on brochureware sites.",
+  "category": "atom",
+  "metadata": {
+    "displayName": "Badge",
+    "description": "Versatile inline label component with extensive variant support for brochureware marketing. Displays status indicators, promotional messages (NEW, SALE, LIMITED), social proof (POPULAR, BESTSELLER), trust signals (VERIFIED, SECURE), and notification counts. Includes standard badges, notification bubbles, and status dots.",
+    "tags": [
+      "atom",
+      "badge",
+      "label",
+      "tag",
+      "status",
+      "notification",
+      "marketing",
+      "callout",
+      "indicator",
+      "social-proof",
+      "urgency",
+      "trust"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "notes": [
+        "Dismissible badges are keyboard accessible via button element",
+        "Notification badges require aria-label for screen reader context",
+        "Status dots require aria-label to convey meaning",
+        "Close buttons have descriptive aria-label",
+        "All color variants meet WCAG AA contrast requirements"
+      ]
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "inline-flex",
+      "notes": "Badges scale with font size and use relative units for responsive typography"
+    },
+    "darkMode": true,
+    "performance": {
+      "target": "400B gzipped",
+      "notes": "Lightweight component using CSS custom properties for variants"
+    },
+    "useCases": [
+      {
+        "title": "Product Status",
+        "description": "Show product availability and features",
+        "examples": ["NEW", "SALE", "FEATURED", "LIMITED EDITION", "OUT OF STOCK"]
+      },
+      {
+        "title": "Social Proof",
+        "description": "Display popularity and recommendations",
+        "examples": ["BESTSELLER", "POPULAR", "TRENDING", "RECOMMENDED", "TOP RATED"]
+      },
+      {
+        "title": "Urgency & Scarcity",
+        "description": "Create urgency with limited availability",
+        "examples": ["LIMITED TIME", "ONLY 3 LEFT", "ENDS SOON", "LAST CHANCE", "50% OFF"]
+      },
+      {
+        "title": "Trust Signals",
+        "description": "Build confidence with trust badges",
+        "examples": ["VERIFIED", "SECURE", "GUARANTEED", "CERTIFIED", "OFFICIAL"]
+      },
+      {
+        "title": "Status Indicators",
+        "description": "Show system or user status",
+        "examples": ["ONLINE", "OFFLINE", "ACTIVE", "PENDING", "COMPLETED"]
+      },
+      {
+        "title": "Notifications",
+        "description": "Display notification counts",
+        "examples": ["Unread message counts", "Cart item counts", "Alert counts"]
+      }
+    ],
+    "usageExamples": [
+      {
+        "title": "Basic Badge",
+        "description": "Simple badge with default styling",
+        "code": "{{ badge({ text: 'New' }) }}"
+      },
+      {
+        "title": "Sale Badge (Marketing)",
+        "description": "Eye-catching sale badge with error variant for urgency",
+        "code": "{{ badge({ text: '50% OFF', variant: 'error', size: 'lg', shape: 'pill' }) }}"
+      },
+      {
+        "title": "Popular Badge (Social Proof)",
+        "description": "Social proof badge with subtle styling",
+        "code": "{{ badge({ text: 'Bestseller', variant: 'primary', style: 'subtle' }) }}"
+      },
+      {
+        "title": "Verified Badge with Icon",
+        "description": "Trust badge with verification icon",
+        "code": "{{ badge({ text: 'Verified', variant: 'success', icon: '<svg>...</svg>' }) }}"
+      },
+      {
+        "title": "Notification Count",
+        "description": "Circular notification badge with count",
+        "code": "{{ badge({ text: '5', notification: true, a11y: { ariaLabel: '5 unread messages' } }) }}"
+      },
+      {
+        "title": "Status Dot",
+        "description": "Simple colored dot indicator for online/offline status",
+        "code": "{{ badge({ dot: true, variant: 'success', a11y: { ariaLabel: 'Online' } }) }}"
+      },
+      {
+        "title": "Dismissible Badge",
+        "description": "Badge with close button for filters or tags",
+        "code": "{{ badge({ text: 'Category', variant: 'secondary', dismissible: true }) }}"
+      }
+    ]
+  },
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Badge text content (required for standard badges, optional for dot indicators)",
+      "examples": ["New", "Sale", "Popular", "50% OFF", "Limited", "Verified", "5"]
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "primary", "secondary", "success", "warning", "error", "info"],
+      "default": "default",
+      "description": "Color variant of the badge. Default: neutral gray, Primary: brand blue, Secondary: brand green, Success: green for positive states, Warning: amber for cautions, Error: red for urgency/alerts, Info: blue for informational"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Size variant. Small: 10px, Medium: 11px (default), Large: 12px"
+    },
+    "style": {
+      "type": "string",
+      "enum": ["filled", "outline", "subtle"],
+      "default": "filled",
+      "description": "Visual style variant. Filled: solid background (default), Outline: transparent with border, Subtle: light background with colored text"
+    },
+    "shape": {
+      "type": "string",
+      "enum": ["rounded", "pill"],
+      "description": "Shape variant. Default: small border radius (4px), Rounded: medium border radius (8px), Pill: full border radius (circular ends)"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Icon HTML/SVG to display before text. Typically used for trust badges (verified checkmark) or feature badges"
+    },
+    "dismissible": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show close button to allow removing the badge. Useful for filter tags or temporary callouts"
+    },
+    "notification": {
+      "type": "boolean",
+      "default": false,
+      "description": "Render as notification badge (small circular badge with number). Commonly used for message counts, cart items, alerts. Requires aria-label for accessibility"
+    },
+    "dot": {
+      "type": "boolean",
+      "default": false,
+      "description": "Render as status dot indicator (small colored circle). Used for online/offline status, availability indicators. Requires aria-label for accessibility"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component instance"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for screen readers. Required for notification badges and status dots to provide context"
+        },
+        "ariaDescribedBy": {
+          "type": "string",
+          "description": "ID of element that describes this badge"
+        },
+        "ariaLive": {
+          "type": "string",
+          "enum": ["polite", "assertive", "off"],
+          "description": "ARIA live region behavior for dynamic notification updates"
+        },
+        "role": {
+          "type": "string",
+          "description": "ARIA role override (rarely needed)"
+        }
+      }
+    }
+  },
+  "required": [],
+  "additionalProperties": false,
+  "marketing": {
+    "primaryUseCase": "Highlighting urgency, social proof, and product features on brochureware marketing sites",
+    "conversionOptimization": [
+      "Use 'error' variant for sale/discount badges to create urgency",
+      "Use 'subtle' style for social proof to avoid overwhelming design",
+      "Combine with icons for trust badges (verified checkmarks)",
+      "Use 'pill' shape for prominent promotional badges",
+      "Stack multiple badges to show multiple product attributes"
+    ],
+    "commonPatterns": [
+      {
+        "name": "Discount Badge",
+        "config": {
+          "text": "50% OFF",
+          "variant": "error",
+          "size": "lg",
+          "shape": "pill"
+        }
+      },
+      {
+        "name": "Scarcity Badge",
+        "config": {
+          "text": "Only 3 Left",
+          "variant": "warning",
+          "size": "md"
+        }
+      },
+      {
+        "name": "Social Proof Badge",
+        "config": {
+          "text": "Bestseller",
+          "variant": "primary",
+          "style": "subtle"
+        }
+      },
+      {
+        "name": "Trust Badge",
+        "config": {
+          "text": "Verified",
+          "variant": "success",
+          "icon": "<svg>...</svg>"
+        }
+      },
+      {
+        "name": "New Product Badge",
+        "config": {
+          "text": "New",
+          "variant": "info",
+          "style": "filled"
+        }
+      }
+    ]
+  }
+}

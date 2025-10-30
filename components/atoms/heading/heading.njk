@@ -1,0 +1,146 @@
+{# components/atoms/heading/heading.njk #}
+
+{#
+  Heading Component
+
+  Semantic heading component (h1-h6) with flexible visual styling.
+  Supports responsive sizing, alignment, color variants, and marketing enhancements.
+
+  Props:
+    - text (string): Heading text content (REQUIRED)
+    - level (number): Semantic heading level 1-6 (default: 2)
+    - size (string): Visual size override - 'xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'
+    - align (string): Text alignment - 'left', 'center', 'right' (default: 'left')
+    - weight (string): Font weight - 'normal', 'medium', 'semibold', 'bold' (default: 'bold')
+    - color (string): Color variant - 'default', 'primary', 'secondary', 'muted' (default: 'default')
+    - gradient (boolean): Apply gradient text fill (default: false)
+    - eyebrow (string): Small label text above heading (optional)
+    - id (string): Unique identifier for the component
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+      - ariaLabel (string): Accessible label override
+      - ariaDescribedBy (string): ID of describing element
+      - role (string): ARIA role override
+
+  Usage:
+    {% from "atoms/heading/heading.njk" import heading %}
+
+    {# Basic usage #}
+    {{ heading({ text: 'Welcome to Our Product', level: 1 }) }}
+
+    {# With size override #}
+    {{ heading({
+      text: 'Oversized h2',
+      level: 2,
+      size: '4xl'
+    }) }}
+
+    {# Hero headline with gradient #}
+    {{ heading({
+      text: 'Build. Ship. Scale.',
+      level: 1,
+      gradient: true,
+      align: 'center'
+    }) }}
+
+    {# With eyebrow text #}
+    {{ heading({
+      eyebrow: 'New Feature',
+      text: 'Introducing AI Page Builder',
+      level: 2
+    }) }}
+
+    {# Custom HTML content with highlight #}
+    {% call heading({ level: 1, align: 'center' }) %}
+      Build <span class="heading-highlight">faster</span> with AI
+    {% endcall %}
+#}
+
+{% macro heading(props = {}) %}
+  {% set defaults = {
+    level: 2,
+    align: 'left',
+    weight: 'bold',
+    color: 'default',
+    gradient: false,
+    eyebrow: '',
+    className: '',
+    attributes: {},
+    a11y: {}
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = [
+    'heading',
+    'heading-h' + config.level|string
+  ] %}
+
+  {# Size override (optional) #}
+  {% if config.size %}
+    {% set classList = (classList.push('heading-size-' + config.size), classList) %}
+  {% endif %}
+
+  {# Alignment #}
+  {% if config.align != 'left' %}
+    {% set classList = (classList.push('heading-' + config.align), classList) %}
+  {% endif %}
+
+  {# Weight #}
+  {% if config.weight != 'bold' %}
+    {% set classList = (classList.push('heading-weight-' + config.weight), classList) %}
+  {% endif %}
+
+  {# Color variant #}
+  {% if config.color != 'default' %}
+    {% set classList = (classList.push('heading-' + config.color), classList) %}
+  {% endif %}
+
+  {# Gradient #}
+  {% if config.gradient %}
+    {% set classList = (classList.push('heading-gradient'), classList) %}
+  {% endif %}
+
+  {# Custom classes #}
+  {% if config.className %}
+    {% set classList = (classList.push(config.className), classList) %}
+  {% endif %}
+
+  {# Join classes #}
+  {% set classString = classList | join(' ') | trim %}
+
+  {# Determine heading tag #}
+  {% set tag = 'h' + config.level|string %}
+
+  {# Render wrapper if eyebrow exists #}
+  {% if config.eyebrow %}
+  <div class="heading-container">
+    <span class="heading-eyebrow">{{ config.eyebrow }}</span>
+  {% endif %}
+
+  {# Main heading element #}
+  <{{ tag }}
+    class="{{ classString }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.role %}role="{{ config.a11y.role }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Text content or caller content #}
+    {% if config.text %}
+      {{ config.text }}
+    {% else %}
+      {{ caller() if caller }}
+    {% endif %}
+  </{{ tag }}>
+
+  {# Close wrapper if eyebrow exists #}
+  {% if config.eyebrow %}
+  </div>
+  {% endif %}
+{% endmacro %}

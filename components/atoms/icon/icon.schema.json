@@ -1,0 +1,361 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/atoms/icon/schema",
+  "title": "Icon",
+  "type": "object",
+  "description": "SVG icon component for consistent icon usage across the design system with accessibility support",
+  "category": "atom",
+  "metadata": {
+    "displayName": "Icon",
+    "description": "Inline SVG icon wrapper with size variants, color options, and circle backgrounds. Supports 50+ common UI icons, navigation icons, brand icons, and trust icons for brochureware marketing sites.",
+    "tags": [
+      "atom",
+      "icon",
+      "svg",
+      "visual",
+      "decorative",
+      "navigation",
+      "ui",
+      "social",
+      "brochureware",
+      "marketing"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": false,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "notes": "Icons can be decorative (aria-hidden) or semantic (with aria-label). Decorative icons should accompany visible text. Semantic icons require aria-label."
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fixed-size",
+      "notes": "Icons scale with size variant but maintain aspect ratio. Use em-based sizing for inline icons with text."
+    },
+    "darkMode": true,
+    "performance": {
+      "bundleSize": "~300B gzipped per icon (inline SVG)",
+      "renderCost": "low",
+      "notes": "Inline SVG for optimal performance, no external requests"
+    },
+    "usageExamples": [
+      {
+        "title": "Basic Icon",
+        "description": "Default icon inherits text color",
+        "code": "{{ icon({ name: 'check' }) }}"
+      },
+      {
+        "title": "Sized Icon",
+        "description": "Icon with specific size",
+        "code": "{{ icon({ name: 'search', size: 'lg' }) }}"
+      },
+      {
+        "title": "Colored Icon",
+        "description": "Icon with semantic color",
+        "code": "{{ icon({ name: 'alert-circle', color: 'warning' }) }}"
+      },
+      {
+        "title": "Icon in Circle (Marketing Pattern)",
+        "description": "Icon inside circular background for feature sections",
+        "code": "{{ icon({ name: 'shield', circle: true, circleColor: 'primary-light', size: 'xl' }) }}"
+      },
+      {
+        "title": "Social Media Icon",
+        "description": "Brand icon for social links",
+        "code": "{{ icon({ name: 'twitter', size: 'md', color: 'primary' }) }}"
+      },
+      {
+        "title": "Decorative Icon",
+        "description": "Icon hidden from screen readers",
+        "code": "{{ icon({ name: 'star', decorative: true }) }}"
+      },
+      {
+        "title": "Semantic Icon",
+        "description": "Icon with accessible label",
+        "code": "{{ icon({ name: 'external-link', ariaLabel: 'Opens in new window' }) }}"
+      }
+    ],
+    "variants": {
+      "sizes": ["xs", "sm", "md", "lg", "xl", "2xl"],
+      "colors": ["primary", "secondary", "accent", "success", "warning", "error", "muted", "white"],
+      "circleColors": [
+        "primary",
+        "secondary",
+        "accent",
+        "success",
+        "primary-light",
+        "secondary-light",
+        "accent-light"
+      ],
+      "categories": [
+        "UI Actions",
+        "Navigation",
+        "Status",
+        "Media",
+        "Social",
+        "Trust",
+        "General"
+      ]
+    },
+    "availableIcons": {
+      "uiActions": [
+        "check",
+        "x",
+        "plus",
+        "minus",
+        "search",
+        "menu",
+        "settings",
+        "download",
+        "upload",
+        "share"
+      ],
+      "navigation": [
+        "chevron-down",
+        "chevron-up",
+        "chevron-right",
+        "chevron-left",
+        "arrow-right",
+        "arrow-left",
+        "external-link",
+        "link",
+        "home"
+      ],
+      "status": [
+        "info",
+        "alert-circle",
+        "alert-triangle",
+        "verified",
+        "lock",
+        "unlock",
+        "eye",
+        "eye-off"
+      ],
+      "media": [
+        "image",
+        "video",
+        "play",
+        "pause",
+        "file",
+        "calendar",
+        "clock"
+      ],
+      "social": [
+        "twitter",
+        "linkedin",
+        "github",
+        "facebook",
+        "instagram",
+        "youtube",
+        "globe"
+      ],
+      "trust": [
+        "shield",
+        "verified",
+        "lock",
+        "trophy",
+        "gift"
+      ],
+      "general": [
+        "user",
+        "mail",
+        "phone",
+        "star",
+        "heart",
+        "tag",
+        "bookmark"
+      ]
+    }
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "enum": [
+        "check",
+        "x",
+        "plus",
+        "minus",
+        "chevron-down",
+        "chevron-up",
+        "chevron-right",
+        "chevron-left",
+        "arrow-right",
+        "arrow-left",
+        "external-link",
+        "download",
+        "upload",
+        "search",
+        "menu",
+        "user",
+        "settings",
+        "mail",
+        "phone",
+        "home",
+        "star",
+        "heart",
+        "info",
+        "alert-circle",
+        "alert-triangle",
+        "lock",
+        "unlock",
+        "shield",
+        "verified",
+        "trophy",
+        "gift",
+        "calendar",
+        "clock",
+        "eye",
+        "eye-off",
+        "play",
+        "pause",
+        "twitter",
+        "linkedin",
+        "github",
+        "facebook",
+        "instagram",
+        "youtube",
+        "globe",
+        "link",
+        "file",
+        "image",
+        "video",
+        "tag",
+        "bookmark",
+        "share"
+      ],
+      "default": "check",
+      "description": "Icon identifier - selects which SVG icon to render"
+    },
+    "size": {
+      "type": "string",
+      "enum": ["xs", "sm", "md", "lg", "xl", "2xl"],
+      "default": "md",
+      "description": "Size variant (xs=12px, sm=16px, md=24px, lg=32px, xl=40px, 2xl=48px)"
+    },
+    "color": {
+      "type": "string",
+      "enum": [
+        "primary",
+        "secondary",
+        "accent",
+        "success",
+        "warning",
+        "error",
+        "muted",
+        "white"
+      ],
+      "description": "Color variant using semantic design tokens (defaults to currentColor)"
+    },
+    "circle": {
+      "type": "boolean",
+      "default": false,
+      "description": "Wrap icon in circular background (common marketing pattern for feature sections)"
+    },
+    "circleColor": {
+      "type": "string",
+      "enum": [
+        "primary",
+        "secondary",
+        "accent",
+        "success",
+        "primary-light",
+        "secondary-light",
+        "accent-light"
+      ],
+      "description": "Circle background color variant (requires circle: true)"
+    },
+    "decorative": {
+      "type": "boolean",
+      "default": false,
+      "description": "Mark icon as decorative (adds aria-hidden='true'). Use when icon accompanies visible text."
+    },
+    "ariaLabel": {
+      "type": "string",
+      "description": "Accessible label for semantic icons (required when icon conveys meaning without text)"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["name"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "description": "Basic check icon",
+      "props": {
+        "name": "check"
+      }
+    },
+    {
+      "description": "Large primary chevron",
+      "props": {
+        "name": "chevron-right",
+        "size": "lg",
+        "color": "primary"
+      }
+    },
+    {
+      "description": "Shield icon in light circle (feature section)",
+      "props": {
+        "name": "shield",
+        "size": "xl",
+        "circle": true,
+        "circleColor": "primary-light"
+      }
+    },
+    {
+      "description": "Twitter social icon",
+      "props": {
+        "name": "twitter",
+        "size": "md",
+        "color": "primary",
+        "ariaLabel": "Follow us on Twitter"
+      }
+    },
+    {
+      "description": "Decorative star icon",
+      "props": {
+        "name": "star",
+        "decorative": true
+      }
+    }
+  ],
+  "a11yGuidelines": {
+    "decorativeIcons": {
+      "when": "Icon accompanies visible text or is purely decorative",
+      "implementation": "Set decorative: true to add aria-hidden='true'",
+      "example": "{{ icon({ name: 'check', decorative: true }) }} Success!"
+    },
+    "semanticIcons": {
+      "when": "Icon conveys meaning without accompanying text",
+      "implementation": "Provide ariaLabel describing the icon's purpose",
+      "example": "{{ icon({ name: 'external-link', ariaLabel: 'Opens in new window' }) }}"
+    },
+    "interactiveIcons": {
+      "when": "Icon is clickable (button or link)",
+      "implementation": "Wrap in <button> or <a> element with accessible label",
+      "example": "<button aria-label='Close'>{{ icon({ name: 'x', decorative: true }) }}</button>"
+    },
+    "colorContrast": {
+      "requirement": "3:1 minimum contrast ratio for UI components (WCAG AA)",
+      "notes": "Semantic color tokens ensure sufficient contrast in light and dark modes"
+    }
+  },
+  "bestPractices": [
+    "Use decorative: true when icon accompanies visible text",
+    "Always provide ariaLabel for standalone semantic icons",
+    "Prefer currentColor for inline icons to inherit text color",
+    "Use circle variant with light colors for feature sections",
+    "Keep icon size proportional to surrounding text",
+    "Limit icon usage to enhance, not replace, clear text labels",
+    "Use semantic colors (success, warning, error) for status indicators"
+  ]
+}
