@@ -1,10 +1,24 @@
 {
   "name": "agentstatic",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "AI-first static site generator for brochureware marketing websites",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "bun test",
+    "test:a11y": "echo 'Accessibility tests not yet configured' && exit 0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.0.1",
+    "@storybook/html": "^10.0.1",
+    "@storybook/html-vite": "^10.0.1",
+    "storybook": "^10.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
   },
   "author": "",
   "license": "ISC"

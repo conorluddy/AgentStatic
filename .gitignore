@@ -54,3 +54,4 @@ storybook-static/
 # Generated files
 components.json
 registry.json
+*storybook.log

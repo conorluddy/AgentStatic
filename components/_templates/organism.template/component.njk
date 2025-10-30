@@ -1,0 +1,142 @@
+{# components/organisms/COMPONENT_NAME_KEBAB/COMPONENT_NAME_KEBAB.njk #}
+
+{#
+  COMPONENT_NAME_PASCAL Component (Organism)
+
+  Description: [Brief description - organisms are complete page sections]
+
+  Props:
+    - variant (string): Visual style variant
+    - layout (string): Layout pattern - 'default', 'split', 'centered'
+    - size (string): Size variant - 'compact', 'default', 'spacious'
+    - header (object): Header section configuration
+    - content (object): Main content configuration
+    - footer (object): Footer/actions configuration
+    - id (string): Unique identifier
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+    - [organism-specific props]
+
+  Usage:
+    {% from "organisms/COMPONENT_NAME_KEBAB/COMPONENT_NAME_KEBAB.njk" import COMPONENT_NAME_KEBAB %}
+    {{ COMPONENT_NAME_KEBAB({
+      variant: 'default',
+      layout: 'centered',
+      header: {
+        heading: 'Section Title',
+        subheading: 'Section description'
+      },
+      content: {
+        items: [...]
+      },
+      footer: {
+        actions: [...]
+      }
+    }) }}
+#}
+
+{# Import required molecules and atoms #}
+{# {% from "molecules/card/card.njk" import card %} #}
+{# {% from "atoms/button/button.njk" import button %} #}
+{# {% from "atoms/heading/heading.njk" import heading %} #}
+
+{% macro COMPONENT_NAME_KEBAB(props = {}) %}
+  {% set defaults = {
+    variant: 'default',
+    layout: 'default',
+    size: 'default',
+    className: '',
+    attributes: {},
+    a11y: {
+      role: 'region'
+    }
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = [
+    'COMPONENT_NAME_KEBAB',
+    'COMPONENT_NAME_KEBAB-' + config.variant,
+    'COMPONENT_NAME_KEBAB-' + config.layout,
+    'COMPONENT_NAME_KEBAB-' + config.size,
+    config.className
+  ] | join(' ') | trim %}
+
+  {# Main organism container #}
+  <section
+    class="{{ classList }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.role %}role="{{ config.a11y.role }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    {% if config.a11y.ariaDescribedBy %}aria-describedby="{{ config.a11y.ariaDescribedBy }}"{% endif %}
+    {% if config.a11y.ariaLabelledBy %}aria-labelledby="{{ config.a11y.ariaLabelledBy }}"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Header section (optional) #}
+    {% if config.header %}
+      <div class="COMPONENT_NAME_KEBAB-header">
+        {% if config.header.heading %}
+          {# Use heading atom component #}
+          <h2>{{ config.header.heading }}</h2>
+        {% endif %}
+
+        {% if config.header.subheading %}
+          <p>{{ config.header.subheading }}</p>
+        {% endif %}
+
+        {% if config.header.description %}
+          <div>{{ config.header.description | safe }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# Main content section #}
+    <div class="COMPONENT_NAME_KEBAB-body">
+      {% if config.layout == 'split' %}
+        {# Split layout with primary and secondary sections #}
+        <div class="COMPONENT_NAME_KEBAB-primary">
+          {{ config.content.primary | safe if config.content.primary }}
+        </div>
+
+        <div class="COMPONENT_NAME_KEBAB-secondary">
+          {{ config.content.secondary | safe if config.content.secondary }}
+        </div>
+      {% else %}
+        {# Default layout - iterate over items #}
+        {% if config.content.items %}
+          {% for item in config.content.items %}
+            {# Render molecules/atoms for each item #}
+            <div class="COMPONENT_NAME_KEBAB-item">
+              {{ item | safe }}
+            </div>
+          {% endfor %}
+        {% else %}
+          {# Custom content #}
+          {{ config.content | safe if config.content }}
+          {{ caller() if caller }}
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {# Footer section with actions (optional) #}
+    {% if config.footer %}
+      <div class="COMPONENT_NAME_KEBAB-footer">
+        {% if config.footer.actions %}
+          {% for action in config.footer.actions %}
+            {# Render button atoms #}
+            {# {{ button(action) }} #}
+            {{ action | safe }}
+          {% endfor %}
+        {% endif %}
+
+        {% if config.footer.content %}
+          {{ config.footer.content | safe }}
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+{% endmacro %}

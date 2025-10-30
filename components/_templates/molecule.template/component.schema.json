@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/molecules/COMPONENT_NAME_KEBAB/schema",
+  "title": "COMPONENT_NAME_PASCAL",
+  "type": "object",
+  "description": "[Molecule - combines multiple atoms into a functional group]",
+  "category": "molecule",
+  "metadata": {
+    "displayName": "COMPONENT_NAME_PASCAL",
+    "description": "[Detailed description for component discovery]",
+    "tags": ["molecule", "composite"],
+    "composedOf": [
+      "atoms/component-1",
+      "atoms/component-2"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "ariaRole": "region"
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "adaptive",
+      "mobileStackable": true
+    },
+    "darkMode": true,
+    "usageExamples": [
+      {
+        "title": "Basic Usage",
+        "description": "Standard molecule composition",
+        "code": "{{ COMPONENT_NAME_KEBAB({ header: {...}, body: {...} }) }}"
+      }
+    ],
+    "layoutPatterns": [
+      "vertical",
+      "horizontal",
+      "grid"
+    ]
+  },
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": ["default", "primary", "secondary"],
+      "default": "default",
+      "description": "Visual style variant"
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["vertical", "horizontal"],
+      "default": "vertical",
+      "description": "Layout direction"
+    },
+    "header": {
+      "type": "object",
+      "description": "Header section configuration",
+      "properties": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" }
+      }
+    },
+    "body": {
+      "type": "object",
+      "description": "Main content configuration"
+    },
+    "footer": {
+      "type": "object",
+      "description": "Footer section configuration"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component instance"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for screen readers"
+        },
+        "ariaDescribedBy": {
+          "type": "string",
+          "description": "ID of element that describes this component"
+        },
+        "role": {
+          "type": "string",
+          "description": "ARIA role override"
+        }
+      }
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}
