@@ -1,0 +1,308 @@
+{# components/organisms/header/header.njk #}
+
+{#
+  Header/Navigation Organism
+
+  Description: Primary site navigation with logo, navigation links, action buttons,
+  and responsive mobile menu. Supports multiple layout variants, sticky positioning,
+  and transparent-on-scroll behavior.
+
+  Props:
+    - logo (object): Logo configuration (required)
+      - src (string): Logo image URL
+      - alt (string): Logo alt text
+      - text (string): Text-only logo (alternative to image)
+      - href (string): Logo link destination (default: '/')
+    - navigation (array): Navigation menu items
+      - text (string): Link text
+      - href (string): Link destination
+      - active (boolean): Whether link is active/current page
+      - children (array): Dropdown menu items (same structure)
+    - actions (object): Header action buttons/links
+      - secondary (object): Secondary action (link props)
+      - primary (object): Primary CTA (button props)
+    - variant (string): Layout variant - 'default', 'split', 'centered' (default: 'default')
+    - sticky (boolean): Enable sticky positioning (default: false)
+    - transparent (boolean): Transparent header that overlays content (default: false)
+    - scrollDetection (boolean): Detect scroll and add solid background (default: false, only works with transparent=true)
+    - mobileBreakpoint (string): Breakpoint for mobile menu - '768', '1024' (default: '768')
+    - skipToMain (boolean): Show skip-to-main-content link (default: true)
+    - id (string): Unique identifier for the component
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+      - navLabel (string): Accessible label for main navigation (default: 'Main navigation')
+      - menuButtonLabel (string): Accessible label for mobile menu button (default: 'Toggle menu')
+
+  Usage:
+    {% from "organisms/header/header.njk" import header %}
+
+    {# Basic header #}
+    {{ header({
+      logo: {
+        src: '/logo.svg',
+        alt: 'AgentStatic'
+      },
+      navigation: [
+        { text: 'Features', href: '/features' },
+        { text: 'Pricing', href: '/pricing' },
+        { text: 'About', href: '/about' }
+      ],
+      actions: {
+        secondary: { text: 'Sign In', href: '/login' },
+        primary: { text: 'Get Started', href: '/signup' }
+      }
+    }) }}
+
+    {# Sticky header with dropdown #}
+    {{ header({
+      logo: { src: '/logo.svg', alt: 'Company' },
+      navigation: [
+        { text: 'Home', href: '/', active: true },
+        {
+          text: 'Products',
+          href: '#',
+          children: [
+            { text: 'Product A', href: '/products/a' },
+            { text: 'Product B', href: '/products/b' }
+          ]
+        }
+      ],
+      sticky: true,
+      variant: 'split'
+    }) }}
+
+    {# Transparent hero header #}
+    {{ header({
+      logo: { text: 'AgentStatic' },
+      navigation: [
+        { text: 'Features', href: '#features' },
+        { text: 'Pricing', href: '#pricing' }
+      ],
+      transparent: true,
+      scrollDetection: true
+    }) }}
+#}
+
+{% from "../atoms/button/button.njk" import button %}
+{% from "../atoms/link/link.njk" import link %}
+
+{% macro header(props = {}) %}
+  {% set defaults = {
+    logo: {},
+    navigation: [],
+    actions: {},
+    variant: 'default',
+    sticky: false,
+    transparent: false,
+    scrollDetection: false,
+    mobileBreakpoint: '768',
+    skipToMain: true,
+    className: '',
+    attributes: {},
+    a11y: {
+      navLabel: 'Main navigation',
+      menuButtonLabel: 'Toggle menu'
+    }
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = [
+    'header',
+    'header-' + config.variant,
+    'header-sticky' if config.sticky else '',
+    'header-transparent' if config.transparent else '',
+    config.className
+  ] | join(' ') | trim %}
+
+  {# Generate unique IDs for ARIA relationships #}
+  {% set mobileMenuId = config.id ~ '-mobile-menu' if config.id else 'header-mobile-menu' %}
+  {% set mobileBackdropId = config.id ~ '-mobile-backdrop' if config.id else 'header-mobile-backdrop' %}
+
+  {# Chevron down SVG for dropdown indicators #}
+  {% set chevronDown %}
+    <svg class="header-nav-arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+      <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06z" clip-rule="evenodd"/>
+    </svg>
+  {% endset %}
+
+  <header
+    class="{{ classList }}"
+    role="banner"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.scrollDetection %}data-scroll-detection="true"{% endif %}
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Skip to main content link for accessibility #}
+    {% if config.skipToMain %}
+    <a href="#main" class="header-skip-link">Skip to main content</a>
+    {% endif %}
+
+    <div class="header-container">
+      {# Logo #}
+      <div class="header-logo">
+        <a
+          href="{{ config.logo.href or '/' }}"
+          class="header-logo-link"
+          aria-label="{{ config.logo.alt or 'Home' }}"
+        >
+          {% if config.logo.src %}
+            <img
+              src="{{ config.logo.src }}"
+              alt="{{ config.logo.alt or '' }}"
+              class="header-logo-img"
+            />
+          {% endif %}
+          {% if config.logo.text %}
+            <span class="header-logo-text">{{ config.logo.text }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      {# Desktop Navigation #}
+      {% if config.navigation and config.navigation.length > 0 %}
+      <nav class="header-nav" aria-label="{{ config.a11y.navLabel }}">
+        <ul class="header-nav-list" role="list">
+          {% for item in config.navigation %}
+          <li class="header-nav-item {{ 'header-nav-item-active' if item.active else '' }}">
+            {% if item.children and item.children.length > 0 %}
+              {# Dropdown menu #}
+              <button
+                class="header-nav-link"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                {{ item.text }}
+                {{ chevronDown | safe }}
+              </button>
+              <ul class="header-dropdown" role="menu">
+                {% for child in item.children %}
+                <li class="header-dropdown-item" role="none">
+                  <a
+                    href="{{ child.href }}"
+                    class="header-dropdown-link"
+                    role="menuitem"
+                    {% if child.active %}aria-current="page"{% endif %}
+                  >
+                    {{ child.text }}
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              {# Regular link #}
+              <a
+                href="{{ item.href }}"
+                class="header-nav-link"
+                {% if item.active %}aria-current="page"{% endif %}
+              >
+                {{ item.text }}
+              </a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% endif %}
+
+      {# Desktop Actions #}
+      {% if config.actions.secondary or config.actions.primary %}
+      <div class="header-actions">
+        {% if config.actions.secondary %}
+          {{ link(config.actions.secondary) }}
+        {% endif %}
+        {% if config.actions.primary %}
+          {{ button(config.actions.primary | merge({ size: 'sm' })) }}
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {# Mobile Menu Toggle #}
+      <button
+        class="header-mobile-toggle"
+        aria-expanded="false"
+        aria-controls="{{ mobileMenuId }}"
+        aria-label="{{ config.a11y.menuButtonLabel }}"
+      >
+        <span class="header-mobile-toggle-bar"></span>
+        <span class="header-mobile-toggle-bar"></span>
+        <span class="header-mobile-toggle-bar"></span>
+      </button>
+    </div>
+
+    {# Mobile Menu Panel #}
+    <div
+      id="{{ mobileMenuId }}"
+      class="header-mobile-menu"
+      aria-hidden="true"
+    >
+      {# Mobile Navigation #}
+      {% if config.navigation and config.navigation.length > 0 %}
+      <nav aria-label="{{ config.a11y.navLabel }}">
+        <ul class="header-mobile-nav-list" role="list">
+          {% for item in config.navigation %}
+          <li class="header-mobile-nav-item {{ 'header-mobile-nav-item-active' if item.active else '' }}">
+            {% if item.children and item.children.length > 0 %}
+              {# Dropdown in mobile #}
+              <button
+                class="header-mobile-nav-link"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                <span>{{ item.text }}</span>
+                {{ chevronDown | safe }}
+              </button>
+              <ul class="header-mobile-dropdown">
+                {% for child in item.children %}
+                <li class="header-mobile-dropdown-item">
+                  <a
+                    href="{{ child.href }}"
+                    class="header-mobile-dropdown-link"
+                    {% if child.active %}aria-current="page"{% endif %}
+                  >
+                    {{ child.text }}
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              {# Regular link #}
+              <a
+                href="{{ item.href }}"
+                class="header-mobile-nav-link"
+                {% if item.active %}aria-current="page"{% endif %}
+              >
+                {{ item.text }}
+              </a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% endif %}
+
+      {# Mobile Actions #}
+      {% if config.actions.secondary or config.actions.primary %}
+      <div class="header-mobile-actions">
+        {% if config.actions.secondary %}
+          {{ link(config.actions.secondary | merge({ className: 'button button-ghost button-full' })) }}
+        {% endif %}
+        {% if config.actions.primary %}
+          {{ button(config.actions.primary | merge({ fullWidth: true })) }}
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    {# Mobile Menu Backdrop #}
+    <div
+      id="{{ mobileBackdropId }}"
+      class="header-mobile-backdrop"
+      aria-hidden="true"
+    ></div>
+  </header>
+{% endmacro %}

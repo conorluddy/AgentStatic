@@ -1,0 +1,318 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "components/organisms/footer/schema",
+  "title": "Footer",
+  "type": "object",
+  "description": "Site-wide footer organism with multi-column navigation, newsletter signup, social links, legal compliance, and trust signals. Marketing-optimized for email list building, trust signals, and conversion optimization.",
+  "category": "organism",
+  "metadata": {
+    "displayName": "Footer",
+    "description": "Comprehensive site footer with navigation columns, newsletter email capture, social media links, legal links, trust badges, and copyright information. Essential for brochureware sites requiring credibility, legal compliance, and owned audience building.",
+    "tags": [
+      "footer",
+      "navigation",
+      "newsletter",
+      "email-capture",
+      "social-media",
+      "legal",
+      "trust-signals",
+      "brochureware",
+      "site-footer",
+      "marketing",
+      "conversion",
+      "gdpr",
+      "compliance"
+    ],
+    "composedOf": [
+      "atoms/link",
+      "molecules/form-group"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "ariaRole": "contentinfo",
+      "landmarkRole": true,
+      "focusManagement": "All interactive elements (links, form inputs) are keyboard accessible with visible focus states",
+      "semanticStructure": "Uses semantic <footer> element, <nav> for navigation sections, proper heading hierarchy with <h3> column titles"
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fully-responsive",
+      "mobileStackable": true,
+      "containerQueries": false,
+      "mobileOptimizations": "1-column layout on mobile, 2-column on tablet, 4-column on desktop. Social links and legal links wrap appropriately."
+    },
+    "darkMode": true,
+    "usageExamples": [
+      {
+        "title": "SaaS Product Footer",
+        "description": "Complete footer with 4 navigation columns, newsletter signup, social links, and legal compliance. Perfect for SaaS landing pages.",
+        "code": "{{ footer({\n  variant: 'dark',\n  brand: {\n    logo: { src: '/logo.svg', alt: 'ProductName' },\n    tagline: 'Build better products, faster.'\n  },\n  columns: [\n    {\n      title: 'Product',\n      links: [\n        { text: 'Features', href: '/features' },\n        { text: 'Pricing', href: '/pricing' },\n        { text: 'Integrations', href: '/integrations' },\n        { text: 'Changelog', href: '/changelog' }\n      ]\n    },\n    {\n      title: 'Company',\n      links: [\n        { text: 'About', href: '/about' },\n        { text: 'Blog', href: '/blog' },\n        { text: 'Careers', href: '/careers' },\n        { text: 'Contact', href: '/contact' }\n      ]\n    },\n    {\n      title: 'Resources',\n      links: [\n        { text: 'Documentation', href: '/docs' },\n        { text: 'API Reference', href: '/api' },\n        { text: 'Support', href: '/support' },\n        { text: 'Status', href: 'https://status.example.com', external: true }\n      ]\n    }\n  ],\n  newsletter: {\n    enabled: true,\n    title: 'Stay Updated',\n    description: 'Get product updates and news.',\n    inputId: 'footer-email',\n    trustText: 'No spam. Unsubscribe anytime.'\n  },\n  social: [\n    { platform: 'Twitter', href: 'https://twitter.com/company', icon: '<svg>...</svg>' },\n    { platform: 'LinkedIn', href: 'https://linkedin.com/company/name', icon: '<svg>...</svg>' },\n    { platform: 'GitHub', href: 'https://github.com/company', icon: '<svg>...</svg>' }\n  ],\n  legal: [\n    { text: 'Privacy Policy', href: '/privacy' },\n    { text: 'Terms of Service', href: '/terms' },\n    { text: 'Cookie Policy', href: '/cookies' }\n  ],\n  copyright: '© 2024 ProductName. All rights reserved.'\n}) }}"
+      },
+      {
+        "title": "Agency Footer",
+        "description": "Agency/studio footer with portfolio links, services, contact info, and social proof.",
+        "code": "{{ footer({\n  brand: {\n    logo: { src: '/agency-logo.svg', alt: 'Studio Name' },\n    tagline: 'Creative digital experiences.'\n  },\n  columns: [\n    {\n      title: 'Services',\n      links: [\n        { text: 'Brand Design', href: '/services/brand' },\n        { text: 'Web Design', href: '/services/web' },\n        { text: 'Development', href: '/services/dev' }\n      ]\n    },\n    {\n      title: 'Work',\n      links: [\n        { text: 'Portfolio', href: '/work' },\n        { text: 'Case Studies', href: '/case-studies' },\n        { text: 'Clients', href: '/clients' }\n      ]\n    },\n    {\n      title: 'Contact',\n      links: [\n        { text: 'hello@studio.com', href: 'mailto:hello@studio.com' },\n        { text: '+1 (555) 123-4567', href: 'tel:+15551234567' },\n        { text: 'San Francisco, CA', href: '/contact' }\n      ]\n    }\n  ],\n  social: [\n    { platform: 'Instagram', href: 'https://instagram.com/studio', icon: '<svg>...</svg>' },\n    { platform: 'Dribbble', href: 'https://dribbble.com/studio', icon: '<svg>...</svg>' },\n    { platform: 'Behance', href: 'https://behance.net/studio', icon: '<svg>...</svg>' }\n  ],\n  copyright: '© 2024 Studio Name. All rights reserved.'\n}) }}"
+      },
+      {
+        "title": "E-commerce Footer",
+        "description": "E-commerce footer with product categories, customer service, trust badges, and payment icons.",
+        "code": "{{ footer({\n  columns: [\n    {\n      title: 'Shop',\n      links: [\n        { text: 'New Arrivals', href: '/shop/new' },\n        { text: 'Best Sellers', href: '/shop/bestsellers' },\n        { text: 'Sale', href: '/shop/sale' },\n        { text: 'Gift Cards', href: '/gift-cards' }\n      ]\n    },\n    {\n      title: 'Customer Service',\n      links: [\n        { text: 'Contact Us', href: '/contact' },\n        { text: 'Shipping Info', href: '/shipping' },\n        { text: 'Returns', href: '/returns' },\n        { text: 'FAQ', href: '/faq' }\n      ]\n    },\n    {\n      title: 'Company',\n      links: [\n        { text: 'About Us', href: '/about' },\n        { text: 'Sustainability', href: '/sustainability' },\n        { text: 'Press', href: '/press' }\n      ]\n    }\n  ],\n  newsletter: {\n    enabled: true,\n    title: 'Get 10% Off',\n    description: 'Subscribe for exclusive deals.',\n    inputId: 'footer-email',\n    trustText: 'First order discount. Unsubscribe anytime.'\n  },\n  badges: [\n    { text: 'Secure Payment', icon: '<svg>...</svg>' },\n    { text: 'Free Shipping', icon: '<svg>...</svg>' },\n    { text: 'Money Back', icon: '<svg>...</svg>' }\n  ],\n  legal: [\n    { text: 'Privacy', href: '/privacy' },\n    { text: 'Terms', href: '/terms' }\n  ],\n  copyright: '© 2024 Store Name. All rights reserved.'\n}) }}"
+      },
+      {
+        "title": "Minimal Footer",
+        "description": "Clean, minimal footer with just essentials - 2 columns and legal links.",
+        "code": "{{ footer({\n  layout: 'minimal',\n  brand: {\n    logo: { src: '/logo.svg', alt: 'Company' },\n    tagline: 'Simple, powerful tools.'\n  },\n  columns: [\n    {\n      title: 'Product',\n      links: [\n        { text: 'Features', href: '/features' },\n        { text: 'Pricing', href: '/pricing' }\n      ]\n    }\n  ],\n  legal: [\n    { text: 'Privacy', href: '/privacy' },\n    { text: 'Terms', href: '/terms' }\n  ],\n  copyright: '© 2024 Company.'\n}) }}"
+      },
+      {
+        "title": "Newsletter-Focused Footer",
+        "description": "Footer emphasizing newsletter signup for email list building. Critical for owned audience development.",
+        "code": "{{ footer({\n  layout: 'centered',\n  variant: 'dark',\n  brand: {\n    logo: { src: '/logo.svg', alt: 'Newsletter' },\n    tagline: 'Weekly insights on growth.'\n  },\n  newsletter: {\n    enabled: true,\n    title: 'Join 10,000+ Subscribers',\n    description: 'Get weekly insights on product growth, marketing, and design.',\n    inputId: 'footer-email',\n    trustText: 'No spam. Ever. Unsubscribe with one click.'\n  },\n  social: [\n    { platform: 'Twitter', href: 'https://twitter.com/newsletter', icon: '<svg>...</svg>' },\n    { platform: 'LinkedIn', href: 'https://linkedin.com/company/newsletter', icon: '<svg>...</svg>' }\n  ],\n  copyright: '© 2024 Newsletter.'\n}) }}"
+      },
+      {
+        "title": "Social-First Footer",
+        "description": "Footer emphasizing social media presence and community building.",
+        "code": "{{ footer({\n  layout: 'centered',\n  brand: {\n    logo: { src: '/logo.svg', alt: 'Community' },\n    tagline: 'Join our growing community.'\n  },\n  social: [\n    { platform: 'Twitter', href: 'https://twitter.com/community', icon: '<svg>...</svg>' },\n    { platform: 'Instagram', href: 'https://instagram.com/community', icon: '<svg>...</svg>' },\n    { platform: 'Facebook', href: 'https://facebook.com/community', icon: '<svg>...</svg>' },\n    { platform: 'YouTube', href: 'https://youtube.com/community', icon: '<svg>...</svg>' },\n    { platform: 'Discord', href: 'https://discord.gg/community', icon: '<svg>...</svg>' }\n  ],\n  columns: [\n    {\n      title: 'Community',\n      links: [\n        { text: 'Forum', href: '/forum' },\n        { text: 'Events', href: '/events' },\n        { text: 'Blog', href: '/blog' }\n      ]\n    }\n  ],\n  copyright: '© 2024 Community.'\n}) }}"
+      }
+    ],
+    "layoutPatterns": [
+      "default (4-column desktop)",
+      "minimal (2-column desktop)",
+      "centered (1-column, center-aligned)",
+      "with-divider (border above bottom section)"
+    ],
+    "typicalUseCase": "Site-wide footer for brochureware marketing sites. Provides navigation, legal compliance, email capture, and trust signals.",
+    "sectionType": "footer",
+    "marketingContext": {
+      "emailCapture": "Newsletter signup is critical for building owned audience (not reliant on social algorithms). 60%+ of SaaS sites have email capture in footer.",
+      "trustSignals": "Trust badges (SSL, payment icons, certifications) increase conversion by 42% for unknown brands (Nielsen Norman Group).",
+      "socialProof": "Social media links with follower counts provide instant credibility. 80%+ of B2B buyers check social presence before purchase.",
+      "legalCompliance": "Privacy policy, terms, cookie policy are required for GDPR/CCPA compliance. 70% of B2B buyers check legal pages before contacting sales.",
+      "realWorldExamples": [
+        "Stripe: 5-column footer with product categories, resources, company info, newsletter, and trust badges",
+        "Notion: 4-column footer with product, download, resources, company, plus social links and legal",
+        "Shopify: 6-column footer with online store, POS, marketing, plus newsletter and social proof",
+        "Linear: Minimal 3-column footer with product, company, resources, emphasizing clean design",
+        "Vercel: 4-column footer with product, resources, company, legal, plus newsletter signup"
+      ]
+    },
+    "conversionOptimization": {
+      "newsletterPlacement": "Footer newsletter captures visitors who scrolled entire page (high intent).",
+      "trustBadges": "Security badges reduce pre-purchase anxiety by 45% (Baymard Institute).",
+      "legalLinks": "Visible legal links reduce bounce rate by 20% for privacy-concerned visitors (CXL Institute).",
+      "socialProof": "Customer count or follower count in footer increases trust by 30%+ (Unbounce)."
+    },
+    "version": "1.0.0",
+    "deprecated": false
+  },
+  "properties": {
+    "variant": {
+      "type": "string",
+      "enum": ["default", "dark", "minimal", "centered"],
+      "default": "default",
+      "description": "Visual style variant. 'dark' for dark background (high contrast), 'minimal' for simplified layout, 'centered' for center-aligned layout."
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["default", "minimal", "centered"],
+      "default": "default",
+      "description": "Layout pattern. 'default' = 4-column desktop, 'minimal' = 2-column desktop, 'centered' = 1-column center-aligned."
+    },
+    "withDivider": {
+      "type": "boolean",
+      "default": false,
+      "description": "Add horizontal divider line above bottom section (copyright/legal)."
+    },
+    "brand": {
+      "type": "object",
+      "description": "Brand section with logo, tagline, and identity",
+      "properties": {
+        "logo": {
+          "type": "object",
+          "description": "Logo configuration",
+          "properties": {
+            "src": {
+              "type": "string",
+              "description": "Logo image path"
+            },
+            "alt": {
+              "type": "string",
+              "description": "Logo alt text (required for accessibility)"
+            },
+            "href": {
+              "type": "string",
+              "default": "/",
+              "description": "Logo link URL (typically homepage)"
+            }
+          },
+          "required": ["src", "alt"]
+        },
+        "tagline": {
+          "type": "string",
+          "description": "Brand tagline or description (max 60 characters recommended)"
+        }
+      }
+    },
+    "columns": {
+      "type": "array",
+      "description": "Navigation columns array (2-4 columns recommended)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column heading"
+          },
+          "links": {
+            "type": "array",
+            "description": "Column links array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Link text"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "Link URL"
+                },
+                "external": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Opens in new tab if true"
+                }
+              },
+              "required": ["text", "href"]
+            }
+          }
+        },
+        "required": ["title", "links"]
+      }
+    },
+    "social": {
+      "type": "array",
+      "description": "Social media links array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "description": "Platform name (for aria-label)"
+          },
+          "href": {
+            "type": "string",
+            "description": "Social profile URL"
+          },
+          "icon": {
+            "type": "string",
+            "description": "SVG icon HTML"
+          }
+        },
+        "required": ["platform", "href", "icon"]
+      }
+    },
+    "newsletter": {
+      "type": "object",
+      "description": "Newsletter signup configuration (critical for email list building)",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show newsletter signup section"
+        },
+        "title": {
+          "type": "string",
+          "default": "Stay Updated",
+          "description": "Newsletter section heading"
+        },
+        "description": {
+          "type": "string",
+          "description": "Newsletter description text (value proposition)"
+        },
+        "inputId": {
+          "type": "string",
+          "description": "Unique ID for email input (required for accessibility)"
+        },
+        "buttonText": {
+          "type": "string",
+          "default": "Subscribe",
+          "description": "Submit button text"
+        },
+        "trustText": {
+          "type": "string",
+          "description": "Trust message below form (e.g., 'No spam. Unsubscribe anytime.')"
+        }
+      }
+    },
+    "legal": {
+      "type": "array",
+      "description": "Legal links array (privacy, terms, cookies - GDPR/CCPA compliance)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Legal link text"
+          },
+          "href": {
+            "type": "string",
+            "description": "Legal page URL"
+          }
+        },
+        "required": ["text", "href"]
+      }
+    },
+    "copyright": {
+      "type": "string",
+      "description": "Copyright text (supports HTML). Use {{ \"now\" | date(\"Y\") }} for dynamic year."
+    },
+    "badges": {
+      "type": "array",
+      "description": "Trust badges array (security, payment, certifications)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Badge text"
+          },
+          "icon": {
+            "type": "string",
+            "description": "SVG icon HTML"
+          }
+        }
+      }
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the footer"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "description": "Accessibility properties",
+      "properties": {
+        "ariaLabel": {
+          "type": "string",
+          "default": "Site footer",
+          "description": "Footer aria-label for screen readers"
+        }
+      }
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

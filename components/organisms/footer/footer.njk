@@ -1,0 +1,296 @@
+{# components/organisms/footer/footer.njk #}
+
+{#
+  Footer Component (Organism)
+
+  Site-wide footer with multi-column navigation, newsletter signup,
+  social links, legal compliance, and trust signals.
+
+  Marketing-optimized for:
+  - Newsletter email capture (email list building = owned audience)
+  - Trust signals (customer logos, security badges, payment icons)
+  - Social proof (follower counts, certifications)
+  - Legal compliance (privacy policy, terms, GDPR)
+  - Clear contact information
+
+  Props:
+    - variant (string): Visual style variant - 'default', 'dark', 'minimal', 'centered'
+    - layout (string): Layout pattern - 'default' (4-col), 'minimal' (2-col), 'centered' (1-col)
+    - withDivider (boolean): Add divider line above bottom section (default: false)
+    - brand (object): Brand section configuration
+      - logo (object): Logo configuration
+        - src (string): Logo image path
+        - alt (string): Logo alt text
+        - href (string): Logo link URL (default: '/')
+      - tagline (string): Brand tagline/description
+    - columns (array): Array of navigation column objects
+      - title (string): Column heading
+      - links (array): Array of link objects
+        - text (string): Link text
+        - href (string): Link URL
+        - external (boolean): External link flag
+    - social (array): Array of social link objects
+      - platform (string): Platform name (for aria-label)
+      - href (string): Social profile URL
+      - icon (string): SVG icon HTML
+    - newsletter (object): Newsletter signup configuration
+      - enabled (boolean): Show newsletter section (default: false)
+      - title (string): Newsletter section title
+      - description (string): Newsletter description text
+      - inputId (string): Unique ID for email input (required if enabled)
+      - buttonText (string): Submit button text (default: 'Subscribe')
+      - trustText (string): Trust message below form (e.g., "No spam, ever")
+    - legal (array): Array of legal link objects
+      - text (string): Link text
+      - href (string): Link URL
+    - copyright (string): Copyright text (supports HTML, dynamic year via {{ "now" | date("Y") }})
+    - badges (array): Trust badges array (payment icons, security badges)
+      - text (string): Badge text
+      - icon (string): SVG icon HTML
+    - id (string): Unique identifier for the footer
+    - className (string): Additional CSS classes
+    - attributes (object): Additional HTML attributes
+    - a11y (object): Accessibility properties
+      - ariaLabel (string): Footer aria-label (default: 'Site footer')
+
+  Usage:
+    {% from "organisms/footer/footer.njk" import footer %}
+
+    // Basic footer
+    {{ footer({
+      brand: {
+        logo: { src: '/logo.svg', alt: 'AgentStatic' },
+        tagline: 'Building better websites, faster.'
+      },
+      columns: [
+        {
+          title: 'Product',
+          links: [
+            { text: 'Features', href: '/features' },
+            { text: 'Pricing', href: '/pricing' }
+          ]
+        }
+      ],
+      copyright: '© 2024 AgentStatic. All rights reserved.'
+    }) }}
+
+    // Footer with newsletter signup
+    {{ footer({
+      variant: 'dark',
+      newsletter: {
+        enabled: true,
+        title: 'Stay Updated',
+        description: 'Get the latest updates and news.',
+        inputId: 'footer-email',
+        trustText: 'No spam. Unsubscribe anytime.'
+      },
+      legal: [
+        { text: 'Privacy Policy', href: '/privacy' },
+        { text: 'Terms of Service', href: '/terms' }
+      ]
+    }) }}
+#}
+
+{% from "atoms/link/link.njk" import link %}
+{% from "molecules/form-group/form-group.njk" import formGroup %}
+
+{% macro footer(props = {}) %}
+  {% set defaults = {
+    variant: 'default',
+    layout: 'default',
+    withDivider: false,
+    brand: {},
+    columns: [],
+    social: [],
+    newsletter: {
+      enabled: false,
+      title: 'Stay Updated',
+      description: '',
+      buttonText: 'Subscribe',
+      trustText: ''
+    },
+    legal: [],
+    copyright: '',
+    badges: [],
+    className: '',
+    attributes: {},
+    a11y: {
+      ariaLabel: 'Site footer'
+    }
+  } %}
+
+  {% set config = defaults | merge(props) %}
+
+  {# Build class list #}
+  {% set classList = [
+    'footer',
+    'footer-' + config.variant if config.variant != 'default',
+    'footer-' + config.layout if config.layout != 'default',
+    'footer-divider' if config.withDivider,
+    config.className
+  ] | join(' ') | trim %}
+
+  {# Main footer element #}
+  <footer
+    class="{{ classList }}"
+    {% if config.id %}id="{{ config.id }}"{% endif %}
+    {% if config.a11y.ariaLabel %}aria-label="{{ config.a11y.ariaLabel }}"{% endif %}
+    role="contentinfo"
+    {% for key, value in config.attributes %}
+      {{ key }}="{{ value }}"
+    {% endfor %}
+  >
+    {# Main footer section with columns #}
+    <div class="footer-main">
+      <div class="footer-grid">
+        {# Brand section (logo, tagline, social) #}
+        {% if config.brand.logo or config.brand.tagline or config.social %}
+          <div class="footer-brand">
+            {# Logo #}
+            {% if config.brand.logo %}
+              <a href="{{ config.brand.logo.href or '/' }}" class="footer-logo">
+                <img
+                  src="{{ config.brand.logo.src }}"
+                  alt="{{ config.brand.logo.alt }}"
+                  loading="lazy"
+                >
+              </a>
+            {% endif %}
+
+            {# Tagline #}
+            {% if config.brand.tagline %}
+              <p class="footer-tagline">{{ config.brand.tagline }}</p>
+            {% endif %}
+
+            {# Social links #}
+            {% if config.social %}
+              <div class="footer-social">
+                {% for social in config.social %}
+                  <a
+                    href="{{ social.href }}"
+                    class="footer-social-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="{{ social.platform }}"
+                  >
+                    {{ social.icon | safe }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Navigation columns #}
+        {% for column in config.columns %}
+          <nav class="footer-column" aria-labelledby="footer-{{ loop.index }}">
+            <h3 id="footer-{{ loop.index }}" class="footer-column-title">
+              {{ column.title }}
+            </h3>
+            {% if column.links %}
+              <ul class="footer-links">
+                {% for linkItem in column.links %}
+                  <li>
+                    {{ link({
+                      text: linkItem.text,
+                      href: linkItem.href,
+                      external: linkItem.external or false,
+                      variant: 'inherit',
+                      className: 'footer-link'
+                    }) }}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </nav>
+        {% endfor %}
+
+        {# Newsletter signup section #}
+        {% if config.newsletter.enabled %}
+          <div class="footer-newsletter">
+            <h3 class="footer-newsletter-title">
+              {{ config.newsletter.title }}
+            </h3>
+
+            {% if config.newsletter.description %}
+              <p class="footer-newsletter-text">
+                {{ config.newsletter.description }}
+              </p>
+            {% endif %}
+
+            <div class="footer-newsletter-form">
+              {{ formGroup({
+                label: 'Email address',
+                inputId: config.newsletter.inputId or 'footer-newsletter-email',
+                input: {
+                  type: 'email',
+                  placeholder: 'your@email.com',
+                  required: true,
+                  autocomplete: 'email'
+                },
+                required: true
+              }) }}
+
+              {# Newsletter submit button would be added here in a real implementation #}
+              {# For now, form-group includes the input, button would be part of a form wrapper #}
+            </div>
+
+            {% if config.newsletter.trustText %}
+              <p class="footer-trust">
+                {{ config.newsletter.trustText }}
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {# Trust badges (if provided) #}
+      {% if config.badges %}
+        <div class="footer-badges">
+          {% for badge in config.badges %}
+            <div class="footer-badge">
+              {% if badge.icon %}
+                {{ badge.icon | safe }}
+              {% endif %}
+              {% if badge.text %}
+                <span>{{ badge.text }}</span>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {# Bottom section (copyright + legal links) #}
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <div class="footer-bottom-content">
+          {# Copyright #}
+          {% if config.copyright %}
+            <p class="footer-copyright">
+              {{ config.copyright | safe }}
+            </p>
+          {% endif %}
+
+          {# Legal links #}
+          {% if config.legal %}
+            <nav class="footer-legal" aria-label="Legal">
+              <ul class="footer-legal">
+                {% for legalLink in config.legal %}
+                  <li>
+                    {{ link({
+                      text: legalLink.text,
+                      href: legalLink.href,
+                      variant: 'inherit',
+                      className: 'footer-legal-link'
+                    }) }}
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endmacro %}

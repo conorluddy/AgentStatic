@@ -13,6 +13,7 @@
     "test:a11y": "echo 'Accessibility tests not yet configured' && exit 0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@storybook/addon-a11y": "^10.0.1",
     "@storybook/html": "^10.0.1",
     "@storybook/html-vite": "^10.0.1",

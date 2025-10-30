@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentstatic.dev/schemas/organisms/accordion.schema.json",
+  "title": "Accordion",
+  "type": "object",
+  "category": "organism",
+  "description": "Collapsible Q&A component for FAQs, feature details, and content organization with single-open, multi-open, or static behavior modes.",
+  "metadata": {
+    "displayName": "Accordion / FAQ",
+    "description": "Accessible accordion component with collapsible panels for organizing FAQ sections, feature details, and expandable content. Critical for objection handling and conversion optimization on marketing sites.",
+    "category": "organism",
+    "tags": [
+      "accordion",
+      "faq",
+      "collapsible",
+      "expandable",
+      "questions",
+      "answers",
+      "support",
+      "help",
+      "objection-handling",
+      "brochureware",
+      "marketing",
+      "conversion",
+      "interactive",
+      "accessible"
+    ],
+    "composedOf": [
+      "atoms/heading",
+      "atoms/icon"
+    ],
+    "accessibility": {
+      "wcagLevel": "AA",
+      "keyboardNavigable": true,
+      "screenReaderFriendly": true,
+      "contrastCompliant": true,
+      "ariaRole": "region",
+      "focusManagement": "Focus remains on trigger button after toggle. Arrow keys navigate between items.",
+      "keyboardShortcuts": [
+        {
+          "key": "Enter",
+          "action": "Toggle accordion item"
+        },
+        {
+          "key": "Space",
+          "action": "Toggle accordion item"
+        },
+        {
+          "key": "ArrowDown",
+          "action": "Move focus to next item"
+        },
+        {
+          "key": "ArrowUp",
+          "action": "Move focus to previous item"
+        },
+        {
+          "key": "Home",
+          "action": "Move focus to first item"
+        },
+        {
+          "key": "End",
+          "action": "Move focus to last item"
+        }
+      ]
+    },
+    "responsive": {
+      "breakpoints": ["mobile", "tablet", "desktop"],
+      "behavior": "fully-responsive",
+      "mobileStackable": true,
+      "containerQueries": false
+    },
+    "darkMode": true,
+    "layoutPatterns": [
+      "FAQ sections on landing pages",
+      "Help center content",
+      "Product feature details",
+      "Pre-purchase objection handling",
+      "Terms and conditions",
+      "Privacy policy sections",
+      "Expandable content panels",
+      "Progressive disclosure"
+    ],
+    "usageExamples": [
+      {
+        "title": "Pricing FAQ (Single-Open)",
+        "description": "Common pricing questions with single-open accordion behavior - only one answer visible at a time for easier scanning",
+        "code": "{{ accordion({\n  title: 'Pricing Questions',\n  subtitle: 'Everything you need to know about our pricing',\n  behavior: 'single',\n  items: [\n    {\n      id: 'refund',\n      question: 'What is your refund policy?',\n      answer: 'We offer a 30-day money-back guarantee. If you\\'re not satisfied, contact us within 30 days for a full refund.',\n      defaultOpen: true\n    },\n    {\n      id: 'cancel',\n      question: 'How do I cancel my subscription?',\n      answer: 'You can cancel anytime from your account settings. No questions asked.'\n    },\n    {\n      id: 'upgrade',\n      question: 'Can I upgrade or downgrade my plan?',\n      answer: 'Yes! You can change plans anytime. Changes are prorated automatically.'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Product FAQ (Multi-Open)",
+        "description": "Product questions with multi-open behavior - users can compare multiple answers at once",
+        "code": "{{ accordion({\n  title: 'Product Questions',\n  behavior: 'multi',\n  variant: 'bordered',\n  items: [\n    {\n      id: 'features',\n      question: 'What features are included?',\n      answer: '<p>All plans include:</p><ul><li>Unlimited projects</li><li>Priority support</li><li>Advanced analytics</li></ul>'\n    },\n    {\n      id: 'integrations',\n      question: 'What integrations do you support?',\n      answer: 'We integrate with Slack, GitHub, Jira, and 100+ other tools.'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Support FAQ (Grouped by Category)",
+        "description": "Help center with questions organized by category for easier navigation",
+        "code": "{{ accordion({\n  title: 'Help Center',\n  grouped: true,\n  variant: 'minimal',\n  categories: [\n    {\n      title: 'Getting Started',\n      items: [\n        {\n          id: 'setup',\n          question: 'How do I set up my account?',\n          answer: 'Click Sign Up and follow the 3-step wizard.'\n        },\n        {\n          id: 'onboarding',\n          question: 'Do you offer onboarding help?',\n          answer: 'Yes! We provide free onboarding calls for all new customers.'\n        }\n      ]\n    },\n    {\n      title: 'Billing & Payments',\n      items: [\n        {\n          id: 'payment-methods',\n          question: 'What payment methods do you accept?',\n          answer: 'We accept all major credit cards, PayPal, and wire transfers.'\n        }\n      ]\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Pre-Purchase FAQ (Before CTA)",
+        "description": "Last-minute objection handling placed before final call-to-action to reduce abandonment",
+        "code": "{{ accordion({\n  title: 'Still have questions?',\n  subtitle: 'Here are answers to our most common questions',\n  variant: 'card',\n  behavior: 'single',\n  items: [\n    {\n      id: 'trial',\n      question: 'Is there a free trial?',\n      answer: 'Yes! All plans include a 14-day free trial. No credit card required.',\n      defaultOpen: true\n    },\n    {\n      id: 'contract',\n      question: 'Do I need a long-term contract?',\n      answer: 'No. All plans are month-to-month. Cancel anytime with no penalties.'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Technical FAQ (Static All-Open)",
+        "description": "All answers visible by default - useful for comprehensive documentation or printable content",
+        "code": "{{ accordion({\n  title: 'Technical Documentation',\n  behavior: 'static',\n  variant: 'minimal',\n  items: [\n    {\n      id: 'api',\n      question: 'Is there an API?',\n      answer: 'Yes! We provide a REST API and webhooks. <a href=\"/docs/api\">View API docs</a>',\n      defaultOpen: true\n    },\n    {\n      id: 'security',\n      question: 'How secure is your platform?',\n      answer: 'We use bank-level 256-bit encryption and are SOC 2 Type II certified.',\n      defaultOpen: true\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "Feature Details (Icon Left)",
+        "description": "Feature expansion with icon on left side for visual variety",
+        "code": "{{ accordion({\n  title: 'Feature Details',\n  iconPosition: 'left',\n  variant: 'bordered',\n  items: [\n    {\n      id: 'collaboration',\n      question: 'Team Collaboration',\n      answer: 'Real-time collaboration with unlimited team members. Comments, mentions, and activity feeds keep everyone in sync.'\n    },\n    {\n      id: 'analytics',\n      question: 'Advanced Analytics',\n      answer: 'Track performance with custom dashboards, automated reports, and data exports.'\n    }\n  ]\n}) }}"
+      },
+      {
+        "title": "SEO-Optimized FAQ with Schema.org Markup",
+        "description": "FAQ section designed for rich snippets in Google search results with proper schema markup",
+        "code": "{{ accordion({\n  title: 'Frequently Asked Questions',\n  subtitle: 'Quick answers to common questions',\n  items: [\n    {\n      id: 'pricing',\n      question: 'How much does it cost?',\n      answer: 'Plans start at $19/month. See our <a href=\"/pricing\">pricing page</a> for details.'\n    },\n    {\n      id: 'free-trial',\n      question: 'Is there a free trial?',\n      answer: 'Yes! All plans include a 14-day free trial with full access to all features.'\n    }\n  ]\n}) }}\n{# Add schema.org FAQPage markup for SEO #}\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"FAQPage\",\n  \"mainEntity\": [\n    {\n      \"@type\": \"Question\",\n      \"name\": \"How much does it cost?\",\n      \"acceptedAnswer\": {\n        \"@type\": \"Answer\",\n        \"text\": \"Plans start at $19/month.\"\n      }\n    }\n  ]\n}\n</script>"
+      }
+    ],
+    "version": "1.0.0",
+    "deprecated": false
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Optional section title displayed above accordion"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Optional section subtitle/description"
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of accordion items (questions and answers)",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "question", "answer"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the item (used for ARIA and deep linking)"
+          },
+          "question": {
+            "type": "string",
+            "description": "Question text displayed in the trigger button"
+          },
+          "answer": {
+            "type": "string",
+            "description": "Answer content (plain text or HTML). Supports paragraph tags, lists, links, etc."
+          },
+          "defaultOpen": {
+            "type": "boolean",
+            "description": "Whether this item starts in the open state",
+            "default": false
+          }
+        }
+      }
+    },
+    "behavior": {
+      "type": "string",
+      "enum": ["single", "multi", "static"],
+      "description": "Accordion behavior: 'single' = only one open at a time (true accordion), 'multi' = multiple can be open (toggle), 'static' = all open by default (no collapse)",
+      "default": "single"
+    },
+    "variant": {
+      "type": "string",
+      "enum": ["default", "bordered", "card", "minimal"],
+      "description": "Visual style variant: 'default' = standard borders, 'bordered' = thick borders with highlight, 'card' = elevated with shadows, 'minimal' = borderless with dividers",
+      "default": "default"
+    },
+    "iconPosition": {
+      "type": "string",
+      "enum": ["left", "right"],
+      "description": "Position of the expand/collapse icon",
+      "default": "right"
+    },
+    "grouped": {
+      "type": "boolean",
+      "description": "Whether items are grouped by category (uses categories prop instead of items)",
+      "default": false
+    },
+    "categories": {
+      "type": "array",
+      "description": "Category groups when grouped=true. Each category contains a title and items array.",
+      "items": {
+        "type": "object",
+        "required": ["title", "items"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Category section title"
+          },
+          "items": {
+            "type": "array",
+            "description": "Array of accordion items in this category (same structure as root items)",
+            "items": {
+              "type": "object",
+              "required": ["id", "question", "answer"]
+            }
+          }
+        }
+      }
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component instance"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional HTML attributes",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false,
+  "marketingContext": {
+    "conversionImpact": "HIGH - Critical for reducing pre-purchase friction and checkout abandonment",
+    "useCases": [
+      "Pre-purchase objection handling (place before final CTA)",
+      "Pricing page FAQ to reduce sales inquiry volume",
+      "Product page feature details",
+      "Help center and support documentation",
+      "Legal content (terms, privacy policy) progressive disclosure",
+      "Onboarding and getting-started guides"
+    ],
+    "bestPractices": [
+      "Lead with most common questions first (use analytics to prioritize)",
+      "Keep answers concise (2-3 sentences) with links to detailed pages",
+      "Use reassuring, non-defensive tone in answers",
+      "Include social proof when relevant ('10,000+ customers trust us')",
+      "Single-open behavior reduces cognitive load for scanning",
+      "Place FAQ before final CTA to address last-minute objections",
+      "Use schema.org FAQPage markup for Google rich snippets"
+    ],
+    "psychologyPrinciples": [
+      "Objection Handling: Every unanswered question is a potential lost sale",
+      "Progressive Disclosure: Reduce overwhelming information by hiding details until needed",
+      "Trust Building: Transparency about policies builds confidence",
+      "Friction Reduction: Answer questions before users need to ask (reduces support tickets by 45%)"
+    ],
+    "conversionData": {
+      "b2bCheckRate": "70% of B2B buyers check FAQ before contacting sales (Demand Gen Report)",
+      "conversionLift": "20% increase when FAQ placed before final CTA (CXL Institute)",
+      "supportReduction": "45% reduction in support tickets with comprehensive FAQ (Zendesk)"
+    },
+    "realWorldExamples": [
+      "Stripe: Pricing FAQ addresses billing questions before signup",
+      "Notion: Product FAQ expands feature details on demand",
+      "Linear: Help center with categorized technical questions",
+      "Figma: Pre-purchase FAQ on pricing page",
+      "Shopify: Support FAQ organized by topic"
+    ],
+    "strategicPlacement": [
+      "Before pricing CTA: Address value/cost objections",
+      "Before final CTA: Remove last-minute friction",
+      "Footer: Catch users who scrolled through entire page",
+      "Product pages: Answer 'how does this work?' questions",
+      "Pricing pages: Clarify billing, refunds, upgrades"
+    ],
+    "questionWriting": [
+      "Start with question words: What, How, When, Why",
+      "Use customer language (not internal jargon)",
+      "Be specific: 'What's your refund policy?' not 'Policies?'",
+      "Match search intent: Think about what users type into Google"
+    ],
+    "answerWriting": [
+      "Be direct: Answer in the first sentence",
+      "Be brief: 2-3 sentences maximum",
+      "Add links: Link to detailed documentation",
+      "Use formatting: Bold key points, use bullet lists",
+      "Include CTAs: Link to contact, signup, or demo pages when relevant"
+    ]
+  }
+}
