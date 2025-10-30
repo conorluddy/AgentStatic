@@ -1,0 +1,287 @@
+/**
+ * Dark Mode Infrastructure
+ *
+ * Pure CSS approach to dark mode theming using CSS custom properties.
+ * Supports both system preference detection and manual override.
+ *
+ * Architecture:
+ * 1. System preference via @media (prefers-color-scheme: dark)
+ * 2. Manual override via [data-theme="dark"] attribute
+ * 3. All color tokens defined as CSS variables for easy switching
+ *
+ * Usage:
+ * - Automatic: Respects user's OS dark mode setting
+ * - Manual: Toggle via `document.documentElement.setAttribute('data-theme', 'dark')`
+ * - JS Script: See components/_scripts/dark-mode-toggle.js
+ *
+ * @layer base (defined in CSS architecture)
+ */
+
+/* ==========================================================================
+   Default Light Mode Theme
+   ========================================================================== */
+
+:root {
+  /* Core Semantic Colors - Light Mode */
+  --color-text: #1a1a1a;              /* Near black for primary text */
+  --color-text-secondary: #4a4a4a;     /* Medium gray for secondary text */
+  --color-text-tertiary: #737373;      /* Lighter gray for tertiary text */
+  --color-text-inverse: #ffffff;       /* White text on dark backgrounds */
+
+  --color-background: #ffffff;         /* Pure white page background */
+  --color-background-secondary: #f9fafb; /* Light gray for subtle sections */
+
+  --color-surface: #ffffff;            /* White cards/panels */
+  --color-surface-elevated: #ffffff;   /* Elevated surfaces (modals, dropdowns) */
+  --color-surface-alt: #f3f4f6;        /* Alternate surface color */
+
+  --color-border: #e5e7eb;             /* Light gray borders */
+  --color-border-strong: #d1d5db;      /* Darker borders for emphasis */
+  --color-border-subtle: #f3f4f6;      /* Very subtle borders */
+
+  --color-divider: #e5e7eb;            /* Dividing lines */
+
+  /* Interactive States - Light Mode */
+  --color-hover: #f9fafb;              /* Subtle hover background */
+  --color-focus: rgba(59, 130, 246, 0.1); /* Focus ring background */
+  --color-active: #f3f4f6;             /* Active/pressed state */
+
+  /* Status Colors - Light Mode */
+  --color-success: #10b981;            /* Green for success states */
+  --color-success-bg: #d1fae5;         /* Light green background */
+  --color-success-text: #047857;       /* Dark green text */
+
+  --color-error: #ef4444;              /* Red for error states */
+  --color-error-bg: #fee2e2;           /* Light red background */
+  --color-error-text: #991b1b;         /* Dark red text */
+
+  --color-warning: #f59e0b;            /* Amber for warning states */
+  --color-warning-bg: #fef3c7;         /* Light amber background */
+  --color-warning-text: #92400e;       /* Dark amber text */
+
+  --color-info: #3b82f6;               /* Blue for info states */
+  --color-info-bg: #dbeafe;            /* Light blue background */
+  --color-info-text: #1e40af;          /* Dark blue text */
+
+  /* Shadow Definitions - Light Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   Dark Mode - System Preference
+   Applied when user has OS-level dark mode enabled
+   NOT applied when [data-theme="light"] is explicitly set
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Core Semantic Colors - Dark Mode */
+    --color-text: #f9fafb;              /* Near white for primary text */
+    --color-text-secondary: #d1d5db;     /* Light gray for secondary text */
+    --color-text-tertiary: #9ca3af;      /* Medium gray for tertiary text */
+    --color-text-inverse: #1a1a1a;       /* Dark text on light backgrounds */
+
+    --color-background: #0f172a;         /* Deep blue-gray page background */
+    --color-background-secondary: #1e293b; /* Slightly lighter for sections */
+
+    --color-surface: #1e293b;            /* Dark cards/panels */
+    --color-surface-elevated: #334155;   /* Elevated surfaces (modals, dropdowns) */
+    --color-surface-alt: #334155;        /* Alternate surface color */
+
+    --color-border: #334155;             /* Medium gray borders */
+    --color-border-strong: #475569;      /* Lighter borders for emphasis */
+    --color-border-subtle: #1e293b;      /* Very subtle borders */
+
+    --color-divider: #334155;            /* Dividing lines */
+
+    /* Interactive States - Dark Mode */
+    --color-hover: #334155;              /* Hover background */
+    --color-focus: rgba(59, 130, 246, 0.2); /* Slightly brighter focus in dark mode */
+    --color-active: #475569;             /* Active/pressed state */
+
+    /* Status Colors - Dark Mode */
+    --color-success: #34d399;            /* Brighter green for dark backgrounds */
+    --color-success-bg: #064e3b;         /* Dark green background */
+    --color-success-text: #6ee7b7;       /* Light green text */
+
+    --color-error: #f87171;              /* Brighter red for dark backgrounds */
+    --color-error-bg: #7f1d1d;           /* Dark red background */
+    --color-error-text: #fca5a5;         /* Light red text */
+
+    --color-warning: #fbbf24;            /* Brighter amber for dark backgrounds */
+    --color-warning-bg: #78350f;         /* Dark amber background */
+    --color-warning-text: #fcd34d;       /* Light amber text */
+
+    --color-info: #60a5fa;               /* Brighter blue for dark backgrounds */
+    --color-info-bg: #1e3a8a;            /* Dark blue background */
+    --color-info-text: #93c5fd;          /* Light blue text */
+
+    /* Shadow Definitions - Dark Mode */
+    /* Shadows are more subtle in dark mode and use lighter colors for contrast */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ==========================================================================
+   Dark Mode - Manual Override
+   Applied when [data-theme="dark"] is explicitly set via JavaScript
+   Overrides system preference and light mode
+   ========================================================================== */
+
+[data-theme="dark"] {
+  /* Core Semantic Colors - Dark Mode */
+  --color-text: #f9fafb;
+  --color-text-secondary: #d1d5db;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #1a1a1a;
+
+  --color-background: #0f172a;
+  --color-background-secondary: #1e293b;
+
+  --color-surface: #1e293b;
+  --color-surface-elevated: #334155;
+  --color-surface-alt: #334155;
+
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-border-subtle: #1e293b;
+
+  --color-divider: #334155;
+
+  /* Interactive States - Dark Mode */
+  --color-hover: #334155;
+  --color-focus: rgba(59, 130, 246, 0.2);
+  --color-active: #475569;
+
+  /* Status Colors - Dark Mode */
+  --color-success: #34d399;
+  --color-success-bg: #064e3b;
+  --color-success-text: #6ee7b7;
+
+  --color-error: #f87171;
+  --color-error-bg: #7f1d1d;
+  --color-error-text: #fca5a5;
+
+  --color-warning: #fbbf24;
+  --color-warning-bg: #78350f;
+  --color-warning-text: #fcd34d;
+
+  --color-info: #60a5fa;
+  --color-info-bg: #1e3a8a;
+  --color-info-text: #93c5fd;
+
+  /* Shadow Definitions - Dark Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   Light Mode - Manual Override
+   Applied when [data-theme="light"] is explicitly set via JavaScript
+   Forces light mode even when system preference is dark
+   ========================================================================== */
+
+[data-theme="light"] {
+  /* Core Semantic Colors - Light Mode */
+  --color-text: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-tertiary: #737373;
+  --color-text-inverse: #ffffff;
+
+  --color-background: #ffffff;
+  --color-background-secondary: #f9fafb;
+
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-alt: #f3f4f6;
+
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+  --color-border-subtle: #f3f4f6;
+
+  --color-divider: #e5e7eb;
+
+  /* Interactive States - Light Mode */
+  --color-hover: #f9fafb;
+  --color-focus: rgba(59, 130, 246, 0.1);
+  --color-active: #f3f4f6;
+
+  /* Status Colors - Light Mode */
+  --color-success: #10b981;
+  --color-success-bg: #d1fae5;
+  --color-success-text: #047857;
+
+  --color-error: #ef4444;
+  --color-error-bg: #fee2e2;
+  --color-error-text: #991b1b;
+
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #92400e;
+
+  --color-info: #3b82f6;
+  --color-info-bg: #dbeafe;
+  --color-info-text: #1e40af;
+
+  /* Shadow Definitions - Light Mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   Smooth Theme Transitions
+   Subtle transitions when switching between light and dark modes
+   ========================================================================== */
+
+:root {
+  /* Transition properties for smooth theme switching */
+  transition-property: background-color, color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Apply transitions to common elements */
+*,
+*::before,
+*::after {
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Disable transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+  }
+}
+
+/* ==========================================================================
+   Color Scheme Metadata
+   Inform browser about supported color schemes for native elements
+   ========================================================================== */
+
+:root {
+  color-scheme: light dark; /* Browser can adapt native controls */
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}

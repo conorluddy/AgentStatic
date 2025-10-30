@@ -1,0 +1,54 @@
+/**
+ * AGENTSTATIC COMPONENT LIBRARY
+ * Main CSS Entry Point
+ *
+ * Import Order (CRITICAL - DO NOT CHANGE):
+ * 1. Cascade layer definitions (MUST be first!)
+ * 2. Design tokens
+ * 3. Foundation styles (reset, base, utilities)
+ * 4. Component styles (atoms, molecules, organisms)
+ *
+ * Phase 1: Foundation (this file)
+ * - Design system foundation
+ * - Cascade layers
+ * - Base styles
+ *
+ * Future phases will add component imports below.
+ */
+
+/* ===========================================
+   1. CASCADE LAYERS (MUST BE FIRST!)
+   =========================================== */
+@import './_system/layers.css';
+
+/* ===========================================
+   2. DESIGN TOKENS
+   =========================================== */
+@import './_system/tokens.css';
+@import './_system/dark-mode.css';
+
+/* ===========================================
+   3. FOUNDATION STYLES
+   =========================================== */
+@import './_system/reset.css';
+@import './_system/base.css';
+@import './_system/utilities.css';
+
+/* ===========================================
+   4. COMPONENT STYLES (coming in Phase 2+)
+   =========================================== */
+
+/* Atoms (Phase 2) */
+/* @import './atoms/button/button.css'; */
+/* @import './atoms/input/input.css'; */
+/* ... more atoms ... */
+
+/* Molecules (Phase 2) */
+/* @import './molecules/card/card.css'; */
+/* @import './molecules/form-group/form-group.css'; */
+/* ... more molecules ... */
+
+/* Organisms (Phase 3) */
+/* @import './organisms/hero/hero.css'; */
+/* @import './organisms/navigation/navigation.css'; */
+/* ... more organisms ... */
