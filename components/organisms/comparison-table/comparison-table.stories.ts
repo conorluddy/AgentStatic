@@ -6,7 +6,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import { comparisonTableTemplate } from './comparison-table.template';
+import { renderNunjucks } from '../../../.storybook/nunjucks-helpers';
 
 const meta: Meta = {
   title: 'Organisms/Comparison Table',
@@ -133,7 +133,7 @@ export const SaaSPricing: Story = {
       caption: 'Pricing plan comparison: Basic, Pro, and Enterprise tiers',
     },
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -189,7 +189,7 @@ export const ProductComparison: Story = {
       caption: 'Product comparison: Our product vs Competitor X',
     },
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -264,7 +264,7 @@ export const FeatureMatrix: Story = {
     ],
     variant: 'default',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -319,7 +319,7 @@ export const AnchoredPricing: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -380,7 +380,7 @@ export const CompetitorComparison: Story = {
       caption: 'Competitor comparison: Our product vs Competitor A and B',
     },
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -419,7 +419,7 @@ export const BorderedVariant: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -462,7 +462,7 @@ export const StripedVariant: Story = {
     ],
     variant: 'striped',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -500,7 +500,7 @@ export const MinimalVariant: Story = {
     ],
     variant: 'minimal',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -541,7 +541,7 @@ export const MobileCards: Story = {
     responsive: 'cards',
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
@@ -593,7 +593,7 @@ export const DarkMode: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
   parameters: {
     backgrounds: { default: 'dark' },
   },
@@ -664,7 +664,7 @@ export const LongFeatureList: Story = {
     ],
     variant: 'striped',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
 
 /**
@@ -724,5 +724,5 @@ export const WithTooltips: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: (args) => renderNunjucks('organisms/comparison-table/comparison-table.njk', 'comparisonTable', args),
 };
