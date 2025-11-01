@@ -11,7 +11,17 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderNunjucks } from '../../../.storybook/nunjucks-helpers';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/hero/hero.njk" import hero %}
+    {{ hero(props) }}
+  `,
+    { props: args }
+  );
+};
 
 const meta: Meta = {
   title: 'Organisms/Hero',

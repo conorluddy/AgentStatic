@@ -6,7 +6,17 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderNunjucks } from '../../../.storybook/nunjucks-helpers';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/gallery/gallery.njk" import gallery %}
+    {{ gallery(props) }}
+  `,
+    { props: args }
+  );
+};
 
 const meta: Meta = {
   title: 'Organisms/Gallery',
@@ -143,7 +153,7 @@ export const Default: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -188,7 +198,7 @@ export const TwoColumn: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -248,7 +258,7 @@ export const FourColumn: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -307,7 +317,7 @@ export const OverlayVariant: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -347,7 +357,7 @@ export const MinimalVariant: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -389,7 +399,7 @@ export const MasonryLayout: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -444,7 +454,7 @@ export const CardsVariant: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -509,7 +519,7 @@ export const SquareAspectRatio: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -550,7 +560,7 @@ export const LogoWall: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -613,7 +623,7 @@ export const WithFilters: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -662,7 +672,7 @@ export const WithPagination: Story = {
       },
     ],
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };
 
 /**
@@ -695,5 +705,5 @@ export const MobileView: Story = {
       defaultViewport: 'mobile1',
     },
   },
-  render: (args) => renderNunjucks('organisms/gallery/gallery.njk', 'gallery', args),
+  render: renderComponent,
 };

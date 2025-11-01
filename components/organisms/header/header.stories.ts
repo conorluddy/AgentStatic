@@ -8,6 +8,16 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
 
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/header/header.njk" import header %}
+    {{ header(props) }}
+  `,
+    { props: args }
+  );
+};
+
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 

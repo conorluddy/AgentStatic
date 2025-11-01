@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
 
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/footer/footer.njk" import footer %}
+    {{ footer(props) }}
+  `,
+    { props: args }
+  );
+};
+
 
 /**
  * Footer Organism Stories

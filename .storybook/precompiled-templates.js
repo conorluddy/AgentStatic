@@ -7625,7 +7625,7 @@ try {
 var parentTemplate = null;
 output += "<!-- components/organisms/accordion/accordion.njk -->\n\n";
 output += "\n\n";
-env.getTemplate("../atoms/heading/heading.njk", false, "organisms/accordion/accordion.njk", false, function(t_2,t_1) {
+env.getTemplate("atoms/heading/heading.njk", false, "organisms/accordion/accordion.njk", false, function(t_2,t_1) {
 if(t_2) { cb(t_2); return; }
 t_1.getExported(function(t_3,t_1) {
 if(t_3) { cb(t_3); return; }
@@ -7636,7 +7636,7 @@ cb(new Error("cannot import 'heading'")); return;
 }
 context.setVariable("heading", t_4);
 output += "\n";
-env.getTemplate("../atoms/icon/icon.njk", false, "organisms/accordion/accordion.njk", false, function(t_6,t_5) {
+env.getTemplate("atoms/icon/icon.njk", false, "organisms/accordion/accordion.njk", false, function(t_6,t_5) {
 if(t_6) { cb(t_6); return; }
 t_5.getExported(function(t_7,t_5) {
 if(t_7) { cb(t_7); return; }
@@ -8027,7 +8027,7 @@ try {
 var parentTemplate = null;
 output += "<!-- components/organisms/comparison-table/comparison-table.njk -->\n\n";
 output += "\n\n";
-env.getTemplate("../atoms/button/button.njk", false, "organisms/comparison-table/comparison-table.njk", false, function(t_2,t_1) {
+env.getTemplate("atoms/button/button.njk", false, "organisms/comparison-table/comparison-table.njk", false, function(t_2,t_1) {
 if(t_2) { cb(t_2); return; }
 t_1.getExported(function(t_3,t_1) {
 if(t_3) { cb(t_3); return; }
@@ -8038,7 +8038,7 @@ cb(new Error("cannot import 'button'")); return;
 }
 context.setVariable("button", t_4);
 output += "\n";
-env.getTemplate("../atoms/badge/badge.njk", false, "organisms/comparison-table/comparison-table.njk", false, function(t_6,t_5) {
+env.getTemplate("atoms/badge/badge.njk", false, "organisms/comparison-table/comparison-table.njk", false, function(t_6,t_5) {
 if(t_6) { cb(t_6); return; }
 t_5.getExported(function(t_7,t_5) {
 if(t_7) { cb(t_7); return; }
@@ -9334,7 +9334,7 @@ kwargs = kwargs || {};
 if (Object.prototype.hasOwnProperty.call(kwargs, "caller")) {
 frame.set("caller", kwargs.caller); }
 frame.set("props", Object.prototype.hasOwnProperty.call(kwargs, "props") ? kwargs["props"] : {});var t_2 = "";t_2 += "\n  <!-- Import Card molecule for 'cards' variant -->\n  ";
-env.getTemplate("../molecules/card/card.njk", false, "organisms/gallery/gallery.njk", false, function(t_4,t_3) {
+env.getTemplate("molecules/card/card.njk", false, "organisms/gallery/gallery.njk", false, function(t_4,t_3) {
 if(t_4) { cb(t_4); return; }
 t_3.getExported(function(t_5,t_3) {
 if(t_5) { cb(t_5); return; }
@@ -9866,7 +9866,7 @@ try {
 var parentTemplate = null;
 output += "<!-- components/organisms/header/header.njk -->\n\n";
 output += "\n\n";
-env.getTemplate("../atoms/button/button.njk", false, "organisms/header/header.njk", false, function(t_2,t_1) {
+env.getTemplate("atoms/button/button.njk", false, "organisms/header/header.njk", false, function(t_2,t_1) {
 if(t_2) { cb(t_2); return; }
 t_1.getExported(function(t_3,t_1) {
 if(t_3) { cb(t_3); return; }
@@ -9877,7 +9877,7 @@ cb(new Error("cannot import 'button'")); return;
 }
 context.setVariable("button", t_4);
 output += "\n";
-env.getTemplate("../atoms/link/link.njk", false, "organisms/header/header.njk", false, function(t_6,t_5) {
+env.getTemplate("atoms/link/link.njk", false, "organisms/header/header.njk", false, function(t_6,t_5) {
 if(t_6) { cb(t_6); return; }
 t_5.getExported(function(t_7,t_5) {
 if(t_7) { cb(t_7); return; }
