@@ -226,8 +226,12 @@
 
                   <!-- CTA button -->
                   {% if col.cta.text %}
+                    {% set buttonVariant = 'secondary' %}
+                    {% if col.highlighted %}
+                      {% set buttonVariant = 'primary' %}
+                    {% endif %}
                     {% set ctaDefaults = {
-                      variant: col.highlighted ? 'primary' : 'secondary',
+                      variant: buttonVariant,
                       size: 'md'
                     } %}
                     {% set ctaConfig = ctaDefaults | merge(col.cta) %}

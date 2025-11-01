@@ -334,13 +334,17 @@
         <!-- Social proof (Logo Grid) -->
         {% if config.socialProof.enabled and config.socialProof.logos %}
           <div class="hero-social-proof">
+            {% set logoAlign = 'left' %}
+            {% if config.layout == 'centered' %}
+              {% set logoAlign = 'center' %}
+            {% endif %}
             {{ logoGrid({
               title: config.socialProof.title,
               logos: config.socialProof.logos,
               variant: 'grid',
               colorScheme: 'grayscale-hover',
               gap: 'md',
-              align: config.layout == 'centered' ? 'center' : 'left'
+              align: logoAlign
             }) }}
           </div>
         {% endif %}

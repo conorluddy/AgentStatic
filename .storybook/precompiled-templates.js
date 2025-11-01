@@ -7750,6 +7750,548 @@ root: root
 
 })();
 })();
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/comparison-table/comparison-table.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = 0;
+var colno = 0;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<!-- components/organisms/comparison-table/comparison-table.njk -->\n\n";
+output += "\n\n";
+env.getTemplate("../atoms/button/button.njk", false, "organisms/comparison-table/comparison-table.njk", false, function(t_2,t_1) {
+if(t_2) { cb(t_2); return; }
+t_1.getExported(function(t_3,t_1) {
+if(t_3) { cb(t_3); return; }
+if(Object.prototype.hasOwnProperty.call(t_1, "button")) {
+var t_4 = t_1.button;
+} else {
+cb(new Error("cannot import 'button'")); return;
+}
+context.setVariable("button", t_4);
+output += "\n";
+env.getTemplate("../atoms/badge/badge.njk", false, "organisms/comparison-table/comparison-table.njk", false, function(t_6,t_5) {
+if(t_6) { cb(t_6); return; }
+t_5.getExported(function(t_7,t_5) {
+if(t_7) { cb(t_7); return; }
+if(Object.prototype.hasOwnProperty.call(t_5, "badge")) {
+var t_8 = t_5.badge;
+} else {
+cb(new Error("cannot import 'badge'")); return;
+}
+context.setVariable("badge", t_8);
+output += "\n\n";
+var macro_t_9 = runtime.makeMacro(
+[], 
+["props"], 
+function (kwargs) {
+var callerFrame = frame;
+frame = new runtime.Frame();
+kwargs = kwargs || {};
+if (Object.prototype.hasOwnProperty.call(kwargs, "caller")) {
+frame.set("caller", kwargs.caller); }
+frame.set("props", Object.prototype.hasOwnProperty.call(kwargs, "props") ? kwargs["props"] : {});var t_10 = "";t_10 += "\n  ";
+var t_11;
+t_11 = {"columns": [],"rows": [],"variant": "default","responsive": "scroll","className": "","attributes": {},"a11y": {}};
+frame.set("defaults", t_11, true);
+if(frame.topLevel) {
+context.setVariable("defaults", t_11);
+}
+if(frame.topLevel) {
+context.addExport("defaults", t_11);
+}
+t_10 += "\n\n  ";
+var t_12;
+t_12 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "defaults"),runtime.contextOrFrameLookup(context, frame, "props"));
+frame.set("config", t_12, true);
+if(frame.topLevel) {
+context.setVariable("config", t_12);
+}
+if(frame.topLevel) {
+context.addExport("config", t_12);
+}
+t_10 += "\n\n  <!-- Build class list -->\n  ";
+var t_13;
+t_13 = ["comparison-table"];
+frame.set("classList", t_13, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_13);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_13);
+}
+t_10 += "\n\n  <!-- Add variant class -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") != "default") {
+t_10 += "\n    ";
+var t_14;
+t_14 = ((lineno = 118, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["comparison-table-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_14, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_14);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_14);
+}
+t_10 += "\n  ";
+;
+}
+t_10 += "\n\n  <!-- Add responsive class -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"responsive") == "cards") {
+t_10 += "\n    ";
+var t_15;
+t_15 = ((lineno = 123, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["comparison-table-cards"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_15, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_15);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_15);
+}
+t_10 += "\n  ";
+;
+}
+t_10 += "\n\n  <!-- Add custom classes -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")) {
+t_10 += "\n    ";
+var t_16;
+t_16 = ((lineno = 128, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, [runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_16, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_16);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_16);
+}
+t_10 += "\n  ";
+;
+}
+t_10 += "\n\n  <!-- Main container with horizontal scroll -->\n  <div\n    class=\"";
+t_10 += runtime.suppressValue(env.getFilter("join").call(context, runtime.contextOrFrameLookup(context, frame, "classList")," "), env.opts.autoescape);
+t_10 += "\"\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id")) {
+t_10 += "id=\"";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id"), env.opts.autoescape);
+t_10 += "\"";
+;
+}
+t_10 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel")) {
+t_10 += "aria-label=\"";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel"), env.opts.autoescape);
+t_10 += "\"";
+;
+}
+t_10 += "\n    role=\"region\"\n    aria-describedby=\"table-caption-";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id") || "default", env.opts.autoescape);
+t_10 += "\"\n    tabindex=\"0\"\n    ";
+frame = frame.push();
+var t_19 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"attributes");
+if(t_19) {t_19 = runtime.fromIterator(t_19);
+var t_17;
+if(runtime.isArray(t_19)) {
+var t_18 = t_19.length;
+for(t_17=0; t_17 < t_19.length; t_17++) {
+var t_20 = t_19[t_17][0];
+frame.set("[object Object]", t_19[t_17][0]);
+var t_21 = t_19[t_17][1];
+frame.set("[object Object]", t_19[t_17][1]);
+frame.set("loop.index", t_17 + 1);
+frame.set("loop.index0", t_17);
+frame.set("loop.revindex", t_18 - t_17);
+frame.set("loop.revindex0", t_18 - t_17 - 1);
+frame.set("loop.first", t_17 === 0);
+frame.set("loop.last", t_17 === t_18 - 1);
+frame.set("loop.length", t_18);
+t_10 += "\n      ";
+t_10 += runtime.suppressValue(t_20, env.opts.autoescape);
+t_10 += "=\"";
+t_10 += runtime.suppressValue(t_21, env.opts.autoescape);
+t_10 += "\"\n    ";
+;
+}
+} else {
+t_17 = -1;
+var t_18 = runtime.keys(t_19).length;
+for(var t_22 in t_19) {
+t_17++;
+var t_23 = t_19[t_22];
+frame.set("key", t_22);
+frame.set("value", t_23);
+frame.set("loop.index", t_17 + 1);
+frame.set("loop.index0", t_17);
+frame.set("loop.revindex", t_18 - t_17);
+frame.set("loop.revindex0", t_18 - t_17 - 1);
+frame.set("loop.first", t_17 === 0);
+frame.set("loop.last", t_17 === t_18 - 1);
+frame.set("loop.length", t_18);
+t_10 += "\n      ";
+t_10 += runtime.suppressValue(t_22, env.opts.autoescape);
+t_10 += "=\"";
+t_10 += runtime.suppressValue(t_23, env.opts.autoescape);
+t_10 += "\"\n    ";
+;
+}
+}
+}
+frame = frame.pop();
+t_10 += "\n  >\n    <div class=\"comparison-table-wrapper\">\n      <table class=\"comparison-table-table\" role=\"table\">\n        <!-- Table caption for accessibility -->\n        ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"caption")) {
+t_10 += "\n        <caption id=\"table-caption-";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id") || "default", env.opts.autoescape);
+t_10 += "\" class=\"comparison-table-sr-only\">\n          ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"caption"), env.opts.autoescape);
+t_10 += "\n        </caption>\n        ";
+;
+}
+t_10 += "\n\n        <!-- Table Header: Plan columns -->\n        <thead class=\"comparison-table-header\">\n          <tr>\n            <!-- First column: \"Features\" header -->\n            <th scope=\"col\" class=\"comparison-table-feature-header\">\n              Features\n            </th>\n\n            <!-- Plan columns -->\n            ";
+frame = frame.push();
+var t_26 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"columns");
+if(t_26) {t_26 = runtime.fromIterator(t_26);
+var t_25 = t_26.length;
+for(var t_24=0; t_24 < t_26.length; t_24++) {
+var t_27 = t_26[t_24];
+frame.set("column", t_27);
+frame.set("loop.index", t_24 + 1);
+frame.set("loop.index0", t_24);
+frame.set("loop.revindex", t_25 - t_24);
+frame.set("loop.revindex0", t_25 - t_24 - 1);
+frame.set("loop.first", t_24 === 0);
+frame.set("loop.last", t_24 === t_25 - 1);
+frame.set("loop.length", t_25);
+t_10 += "\n              ";
+var t_28;
+t_28 = {"title": "","subtitle": "","price": "","priceAmount": "","pricePeriod": "","description": "","highlighted": false,"badge": "","cta": {}};
+frame.set("columnDefaults", t_28, true);
+if(frame.topLevel) {
+context.setVariable("columnDefaults", t_28);
+}
+if(frame.topLevel) {
+context.addExport("columnDefaults", t_28);
+}
+t_10 += "\n              ";
+var t_29;
+t_29 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "columnDefaults"),t_27);
+frame.set("col", t_29, true);
+if(frame.topLevel) {
+context.setVariable("col", t_29);
+}
+if(frame.topLevel) {
+context.addExport("col", t_29);
+}
+t_10 += "\n\n              ";
+var t_30;
+t_30 = "comparison-table-plan";
+frame.set("columnClass", t_30, true);
+if(frame.topLevel) {
+context.setVariable("columnClass", t_30);
+}
+if(frame.topLevel) {
+context.addExport("columnClass", t_30);
+}
+t_10 += "\n              ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"highlighted")) {
+t_10 += "\n                ";
+var t_31;
+t_31 = runtime.contextOrFrameLookup(context, frame, "columnClass") + " comparison-table-plan-highlighted";
+frame.set("columnClass", t_31, true);
+if(frame.topLevel) {
+context.setVariable("columnClass", t_31);
+}
+if(frame.topLevel) {
+context.addExport("columnClass", t_31);
+}
+t_10 += "\n              ";
+;
+}
+t_10 += "\n\n              <th scope=\"col\" class=\"";
+t_10 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "columnClass"), env.opts.autoescape);
+t_10 += "\">\n                <!-- Badge for highlighted plans -->\n                ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"badge")) {
+t_10 += "\n                <div class=\"comparison-table-badge\">\n                  ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"badge"), env.opts.autoescape);
+t_10 += "\n                </div>\n                ";
+;
+}
+t_10 += "\n\n                <div class=\"comparison-table-plan-content\">\n                  <!-- Plan title -->\n                  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"title")) {
+t_10 += "\n                  <h3 class=\"comparison-table-plan-title\">\n                    ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"title"), env.opts.autoescape);
+t_10 += "\n                  </h3>\n                  ";
+;
+}
+t_10 += "\n\n                  <!-- Plan subtitle -->\n                  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"subtitle")) {
+t_10 += "\n                  <p class=\"comparison-table-plan-subtitle\">\n                    ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"subtitle"), env.opts.autoescape);
+t_10 += "\n                  </p>\n                  ";
+;
+}
+t_10 += "\n\n                  <!-- Price display (simple or complex) -->\n                  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"priceAmount") || runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"pricePeriod")) {
+t_10 += "\n                  <div class=\"comparison-table-plan-price\">\n                    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"priceAmount")) {
+t_10 += "\n                    <span class=\"comparison-table-plan-price-amount\">";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"priceAmount"), env.opts.autoescape);
+t_10 += "</span>\n                    ";
+;
+}
+t_10 += "\n                    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"pricePeriod")) {
+t_10 += "\n                    <span class=\"comparison-table-plan-price-period\">";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"pricePeriod"), env.opts.autoescape);
+t_10 += "</span>\n                    ";
+;
+}
+t_10 += "\n                  </div>\n                  ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"price")) {
+t_10 += "\n                  <div class=\"comparison-table-plan-price\">\n                    ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"price"), env.opts.autoescape);
+t_10 += "\n                  </div>\n                  ";
+;
+}
+;
+}
+t_10 += "\n\n                  <!-- Description -->\n                  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"description")) {
+t_10 += "\n                  <p class=\"comparison-table-plan-description\">\n                    ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"description"), env.opts.autoescape);
+t_10 += "\n                  </p>\n                  ";
+;
+}
+t_10 += "\n\n                  <!-- CTA button -->\n                  ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"cta")),"text")) {
+t_10 += "\n                    ";
+var t_32;
+t_32 = "secondary";
+frame.set("buttonVariant", t_32, true);
+if(frame.topLevel) {
+context.setVariable("buttonVariant", t_32);
+}
+if(frame.topLevel) {
+context.addExport("buttonVariant", t_32);
+}
+t_10 += "\n                    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"highlighted")) {
+t_10 += "\n                      ";
+var t_33;
+t_33 = "primary";
+frame.set("buttonVariant", t_33, true);
+if(frame.topLevel) {
+context.setVariable("buttonVariant", t_33);
+}
+if(frame.topLevel) {
+context.addExport("buttonVariant", t_33);
+}
+t_10 += "\n                    ";
+;
+}
+t_10 += "\n                    ";
+var t_34;
+t_34 = {"variant": runtime.contextOrFrameLookup(context, frame, "buttonVariant"),"size": "md"};
+frame.set("ctaDefaults", t_34, true);
+if(frame.topLevel) {
+context.setVariable("ctaDefaults", t_34);
+}
+if(frame.topLevel) {
+context.addExport("ctaDefaults", t_34);
+}
+t_10 += "\n                    ";
+var t_35;
+t_35 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "ctaDefaults"),runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "col")),"cta"));
+frame.set("ctaConfig", t_35, true);
+if(frame.topLevel) {
+context.setVariable("ctaConfig", t_35);
+}
+if(frame.topLevel) {
+context.addExport("ctaConfig", t_35);
+}
+t_10 += "\n                    ";
+t_10 += runtime.suppressValue((lineno = 237, colno = 29, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "button"), "button", context, [runtime.contextOrFrameLookup(context, frame, "ctaConfig")])), env.opts.autoescape);
+t_10 += "\n                  ";
+;
+}
+t_10 += "\n                </div>\n              </th>\n            ";
+;
+}
+}
+frame = frame.pop();
+t_10 += "\n          </tr>\n        </thead>\n\n        <!-- Table Body: Feature rows -->\n        <tbody>\n          ";
+frame = frame.push();
+var t_38 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"rows");
+if(t_38) {t_38 = runtime.fromIterator(t_38);
+var t_37 = t_38.length;
+for(var t_36=0; t_36 < t_38.length; t_36++) {
+var t_39 = t_38[t_36];
+frame.set("row", t_39);
+frame.set("loop.index", t_36 + 1);
+frame.set("loop.index0", t_36);
+frame.set("loop.revindex", t_37 - t_36);
+frame.set("loop.revindex0", t_37 - t_36 - 1);
+frame.set("loop.first", t_36 === 0);
+frame.set("loop.last", t_36 === t_37 - 1);
+frame.set("loop.length", t_37);
+t_10 += "\n            ";
+var t_40;
+t_40 = {"feature": "","category": "","values": [],"tooltip": ""};
+frame.set("rowDefaults", t_40, true);
+if(frame.topLevel) {
+context.setVariable("rowDefaults", t_40);
+}
+if(frame.topLevel) {
+context.addExport("rowDefaults", t_40);
+}
+t_10 += "\n            ";
+var t_41;
+t_41 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "rowDefaults"),t_39);
+frame.set("rowConfig", t_41, true);
+if(frame.topLevel) {
+context.setVariable("rowConfig", t_41);
+}
+if(frame.topLevel) {
+context.addExport("rowConfig", t_41);
+}
+t_10 += "\n\n            <!-- Category row (spans all columns) -->\n            ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"category")) {
+t_10 += "\n            <tr class=\"comparison-table-category-row\">\n              <td colspan=\"";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"columns")),"length") + 1, env.opts.autoescape);
+t_10 += "\" class=\"comparison-table-category\">\n                ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"category"), env.opts.autoescape);
+t_10 += "\n              </td>\n            </tr>\n\n            <!-- Feature row -->\n            ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"feature")) {
+t_10 += "\n            <tr>\n              <!-- Feature name (first column) -->\n              <th scope=\"row\" class=\"comparison-table-feature\">\n                ";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"feature"), env.opts.autoescape);
+t_10 += "\n                ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"tooltip")) {
+t_10 += "\n                <span class=\"comparison-table-feature-tooltip\" title=\"";
+t_10 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"tooltip"), env.opts.autoescape);
+t_10 += "\">\n                  <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n                    <circle cx=\"8\" cy=\"8\" r=\"7\" stroke=\"currentColor\" stroke-width=\"1.5\"/>\n                    <path d=\"M8 7V11M8 5V5.5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>\n                  </svg>\n                </span>\n                ";
+;
+}
+t_10 += "\n              </th>\n\n              <!-- Feature values for each column -->\n              ";
+frame = frame.push();
+var t_44 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "rowConfig")),"values");
+if(t_44) {t_44 = runtime.fromIterator(t_44);
+var t_43 = t_44.length;
+for(var t_42=0; t_42 < t_44.length; t_42++) {
+var t_45 = t_44[t_42];
+frame.set("value", t_45);
+frame.set("loop.index", t_42 + 1);
+frame.set("loop.index0", t_42);
+frame.set("loop.revindex", t_43 - t_42);
+frame.set("loop.revindex0", t_43 - t_42 - 1);
+frame.set("loop.first", t_42 === 0);
+frame.set("loop.last", t_42 === t_43 - 1);
+frame.set("loop.length", t_43);
+t_10 += "\n                ";
+var t_46;
+t_46 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index") - 1;
+frame.set("valueIndex", t_46, true);
+if(frame.topLevel) {
+context.setVariable("valueIndex", t_46);
+}
+if(frame.topLevel) {
+context.addExport("valueIndex", t_46);
+}
+t_10 += "\n                ";
+var t_47;
+t_47 = runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"columns")),runtime.contextOrFrameLookup(context, frame, "valueIndex"))),"highlighted");
+frame.set("isHighlighted", t_47, true);
+if(frame.topLevel) {
+context.setVariable("isHighlighted", t_47);
+}
+if(frame.topLevel) {
+context.addExport("isHighlighted", t_47);
+}
+t_10 += "\n                ";
+var t_48;
+t_48 = "comparison-table-value";
+frame.set("valueClass", t_48, true);
+if(frame.topLevel) {
+context.setVariable("valueClass", t_48);
+}
+if(frame.topLevel) {
+context.addExport("valueClass", t_48);
+}
+t_10 += "\n                ";
+if(runtime.contextOrFrameLookup(context, frame, "isHighlighted")) {
+t_10 += "\n                  ";
+var t_49;
+t_49 = runtime.contextOrFrameLookup(context, frame, "valueClass") + " comparison-table-value-highlighted";
+frame.set("valueClass", t_49, true);
+if(frame.topLevel) {
+context.setVariable("valueClass", t_49);
+}
+if(frame.topLevel) {
+context.addExport("valueClass", t_49);
+}
+t_10 += "\n                ";
+;
+}
+t_10 += "\n\n                <td class=\"";
+t_10 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "valueClass"), env.opts.autoescape);
+t_10 += "\">\n                  <!-- Boolean value: render as check/cross icon -->\n                  ";
+if(t_45 === true) {
+t_10 += "\n                    <span class=\"comparison-table-icon comparison-table-icon-yes\" aria-hidden=\"true\">\n                      <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M20 6L9 17L4 12\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                      </svg>\n                    </span>\n                    <span class=\"comparison-table-sr-only\">Included</span>\n                  ";
+;
+}
+else {
+if(t_45 === false) {
+t_10 += "\n                    <span class=\"comparison-table-icon comparison-table-icon-no\" aria-hidden=\"true\">\n                      <svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M18 6L6 18M6 6L18 18\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                      </svg>\n                    </span>\n                    <span class=\"comparison-table-sr-only\">Not included</span>\n                  ";
+;
+}
+else {
+t_10 += "\n                    <!-- String or number value -->\n                    ";
+t_10 += runtime.suppressValue(t_45, env.opts.autoescape);
+t_10 += "\n                  ";
+;
+}
+;
+}
+t_10 += "\n                </td>\n              ";
+;
+}
+}
+frame = frame.pop();
+t_10 += "\n            </tr>\n            ";
+;
+}
+;
+}
+t_10 += "\n          ";
+;
+}
+}
+frame = frame.pop();
+t_10 += "\n        </tbody>\n      </table>\n    </div>\n  </div>\n";
+;
+frame = callerFrame;
+return new runtime.SafeString(t_10);
+});
+context.addExport("comparisonTable");
+context.setVariable("comparisonTable", macro_t_9);
+output += "\n";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+})})})});
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/feature-grid/feature-grid.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = 0;
@@ -8505,6 +9047,548 @@ root: root
 
 })();
 })();
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/gallery/gallery.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = 0;
+var colno = 0;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<!-- components/organisms/gallery/gallery.njk -->\n\n";
+output += "\n\n";
+var macro_t_1 = runtime.makeMacro(
+[], 
+["props"], 
+function (kwargs) {
+var callerFrame = frame;
+frame = new runtime.Frame();
+kwargs = kwargs || {};
+if (Object.prototype.hasOwnProperty.call(kwargs, "caller")) {
+frame.set("caller", kwargs.caller); }
+frame.set("props", Object.prototype.hasOwnProperty.call(kwargs, "props") ? kwargs["props"] : {});var t_2 = "";t_2 += "\n  <!-- Import Card molecule for 'cards' variant -->\n  ";
+env.getTemplate("../molecules/card/card.njk", false, "organisms/gallery/gallery.njk", false, function(t_4,t_3) {
+if(t_4) { cb(t_4); return; }
+t_3.getExported(function(t_5,t_3) {
+if(t_5) { cb(t_5); return; }
+if(Object.prototype.hasOwnProperty.call(t_3, "card")) {
+var t_6 = t_3.card;
+} else {
+cb(new Error("cannot import 'card'")); return;
+}
+context.setVariable("card", t_6);
+t_2 += "\n\n  ";
+var t_7;
+t_7 = {"title": "","description": "","items": [],"columns": 3,"layout": "grid","variant": "default","aspectRatio": "landscape","lazyLoad": true,"lightbox": false,"filters": [],"pagination": {},"id": "","className": "","attributes": {}};
+frame.set("defaults", t_7, true);
+if(frame.topLevel) {
+context.setVariable("defaults", t_7);
+}
+if(frame.topLevel) {
+context.addExport("defaults", t_7);
+}
+t_2 += "\n\n  ";
+var t_8;
+t_8 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "defaults"),runtime.contextOrFrameLookup(context, frame, "props"));
+frame.set("config", t_8, true);
+if(frame.topLevel) {
+context.setVariable("config", t_8);
+}
+if(frame.topLevel) {
+context.addExport("config", t_8);
+}
+t_2 += "\n\n  <!-- Validate required items -->\n  ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"items")),"length") === 0) {
+t_2 += "\n    <!-- Gallery requires items array -->\n    <div class=\"gallery-error\">\n      <p>Gallery component requires at least one item in the items array.</p>\n    </div>\n  ";
+;
+}
+else {
+t_2 += "\n\n  <!-- Build class list -->\n  ";
+var t_9;
+t_9 = ["gallery"];
+frame.set("classList", t_9, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_9);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_9);
+}
+t_2 += "\n\n  <!-- Add columns class -->\n  ";
+var t_10;
+t_10 = ((lineno = 127, colno = 36, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["gallery-columns-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"columns")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_10, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_10);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_10);
+}
+t_2 += "\n\n  <!-- Add layout class -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"layout") == "masonry") {
+t_2 += "\n    ";
+var t_11;
+t_11 = ((lineno = 131, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["gallery-masonry"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_11, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_11);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_11);
+}
+t_2 += "\n  ";
+;
+}
+t_2 += "\n\n  <!-- Add variant class -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") == "overlay") {
+t_2 += "\n    ";
+var t_12;
+t_12 = ((lineno = 136, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["gallery-overlay-variant"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_12, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_12);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_12);
+}
+t_2 += "\n  ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") == "minimal") {
+t_2 += "\n    ";
+var t_13;
+t_13 = ((lineno = 138, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["gallery-minimal"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_13, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_13);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_13);
+}
+t_2 += "\n  ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") == "cards") {
+t_2 += "\n    ";
+var t_14;
+t_14 = ((lineno = 140, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["gallery-cards"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_14, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_14);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_14);
+}
+t_2 += "\n  ";
+;
+}
+else {
+t_2 += "\n    ";
+var t_15;
+t_15 = ((lineno = 142, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["gallery-default"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_15, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_15);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_15);
+}
+t_2 += "\n  ";
+;
+}
+;
+}
+;
+}
+t_2 += "\n\n  <!-- Add custom classes -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")) {
+t_2 += "\n    ";
+var t_16;
+t_16 = ((lineno = 147, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, [runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_16, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_16);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_16);
+}
+t_2 += "\n  ";
+;
+}
+t_2 += "\n\n  ";
+var t_17;
+t_17 = env.getFilter("trim").call(context, env.getFilter("join").call(context, runtime.contextOrFrameLookup(context, frame, "classList")," "));
+frame.set("classString", t_17, true);
+if(frame.topLevel) {
+context.setVariable("classString", t_17);
+}
+if(frame.topLevel) {
+context.addExport("classString", t_17);
+}
+t_2 += "\n\n  <!-- Determine aspect ratio class -->\n  ";
+var t_18;
+t_18 = "gallery-media-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"aspectRatio");
+frame.set("aspectClass", t_18, true);
+if(frame.topLevel) {
+context.setVariable("aspectClass", t_18);
+}
+if(frame.topLevel) {
+context.addExport("aspectClass", t_18);
+}
+t_2 += "\n\n  <!-- Main gallery container -->\n  <section\n    class=\"";
+t_2 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "classString"), env.opts.autoescape);
+t_2 += "\"\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id")) {
+t_2 += "id=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    aria-label=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"title") || "Image gallery", env.opts.autoescape);
+t_2 += "\"\n    ";
+frame = frame.push();
+var t_21 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"attributes");
+if(t_21) {t_21 = runtime.fromIterator(t_21);
+var t_19;
+if(runtime.isArray(t_21)) {
+var t_20 = t_21.length;
+for(t_19=0; t_19 < t_21.length; t_19++) {
+var t_22 = t_21[t_19][0];
+frame.set("[object Object]", t_21[t_19][0]);
+var t_23 = t_21[t_19][1];
+frame.set("[object Object]", t_21[t_19][1]);
+frame.set("loop.index", t_19 + 1);
+frame.set("loop.index0", t_19);
+frame.set("loop.revindex", t_20 - t_19);
+frame.set("loop.revindex0", t_20 - t_19 - 1);
+frame.set("loop.first", t_19 === 0);
+frame.set("loop.last", t_19 === t_20 - 1);
+frame.set("loop.length", t_20);
+t_2 += "\n      ";
+t_2 += runtime.suppressValue(t_22, env.opts.autoescape);
+t_2 += "=\"";
+t_2 += runtime.suppressValue(t_23, env.opts.autoescape);
+t_2 += "\"\n    ";
+;
+}
+} else {
+t_19 = -1;
+var t_20 = runtime.keys(t_21).length;
+for(var t_24 in t_21) {
+t_19++;
+var t_25 = t_21[t_24];
+frame.set("key", t_24);
+frame.set("value", t_25);
+frame.set("loop.index", t_19 + 1);
+frame.set("loop.index0", t_19);
+frame.set("loop.revindex", t_20 - t_19);
+frame.set("loop.revindex0", t_20 - t_19 - 1);
+frame.set("loop.first", t_19 === 0);
+frame.set("loop.last", t_19 === t_20 - 1);
+frame.set("loop.length", t_20);
+t_2 += "\n      ";
+t_2 += runtime.suppressValue(t_24, env.opts.autoescape);
+t_2 += "=\"";
+t_2 += runtime.suppressValue(t_25, env.opts.autoescape);
+t_2 += "\"\n    ";
+;
+}
+}
+}
+frame = frame.pop();
+t_2 += "\n  >\n    <!-- Header (title + description) -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"title") || runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"description")) {
+t_2 += "\n      <header class=\"gallery-header\">\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"title")) {
+t_2 += "\n          <h2 class=\"gallery-title\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"title"), env.opts.autoescape);
+t_2 += "</h2>\n        ";
+;
+}
+t_2 += "\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"description")) {
+t_2 += "\n          <p class=\"gallery-description\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"description"), env.opts.autoescape);
+t_2 += "</p>\n        ";
+;
+}
+t_2 += "\n      </header>\n    ";
+;
+}
+t_2 += "\n\n    <!-- Filters (optional category filtering) -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"filters") && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"filters")),"length") > 0) {
+t_2 += "\n      <div class=\"gallery-filters\" role=\"group\" aria-label=\"Filter gallery by category\">\n        <button\n          type=\"button\"\n          class=\"gallery-filter gallery-filter-active\"\n          data-filter=\"all\"\n        >\n          All\n        </button>\n        ";
+frame = frame.push();
+var t_28 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"filters");
+if(t_28) {t_28 = runtime.fromIterator(t_28);
+var t_27 = t_28.length;
+for(var t_26=0; t_26 < t_28.length; t_26++) {
+var t_29 = t_28[t_26];
+frame.set("filter", t_29);
+frame.set("loop.index", t_26 + 1);
+frame.set("loop.index0", t_26);
+frame.set("loop.revindex", t_27 - t_26);
+frame.set("loop.revindex0", t_27 - t_26 - 1);
+frame.set("loop.first", t_26 === 0);
+frame.set("loop.last", t_26 === t_27 - 1);
+frame.set("loop.length", t_27);
+t_2 += "\n          <button\n            type=\"button\"\n            class=\"gallery-filter\"\n            data-filter=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_29),"value") || t_29, env.opts.autoescape);
+t_2 += "\"\n          >\n            ";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_29),"label") || t_29, env.opts.autoescape);
+t_2 += "\n          </button>\n        ";
+;
+}
+}
+frame = frame.pop();
+t_2 += "\n      </div>\n    ";
+;
+}
+t_2 += "\n\n    <!-- Gallery grid/masonry -->\n    <div class=\"gallery-grid\">\n      ";
+frame = frame.push();
+var t_32 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"items");
+if(t_32) {t_32 = runtime.fromIterator(t_32);
+var t_31 = t_32.length;
+for(var t_30=0; t_30 < t_32.length; t_30++) {
+var t_33 = t_32[t_30];
+frame.set("item", t_33);
+frame.set("loop.index", t_30 + 1);
+frame.set("loop.index0", t_30);
+frame.set("loop.revindex", t_31 - t_30);
+frame.set("loop.revindex0", t_31 - t_30 - 1);
+frame.set("loop.first", t_30 === 0);
+frame.set("loop.last", t_30 === t_31 - 1);
+frame.set("loop.length", t_31);
+t_2 += "\n        ";
+var t_34;
+t_34 = "gallery-item-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index");
+frame.set("itemId", t_34, true);
+if(frame.topLevel) {
+context.setVariable("itemId", t_34);
+}
+if(frame.topLevel) {
+context.addExport("itemId", t_34);
+}
+t_2 += "\n\n        <!-- Card variant - use Card molecule -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") == "cards" && runtime.memberLookup((t_33),"useCard")) {
+t_2 += "\n          <div class=\"gallery-item\" data-category=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"category") || "", env.opts.autoescape);
+t_2 += "\">\n            ";
+var t_35;
+t_35 = false;
+frame.set("isClickable", t_35, true);
+if(frame.topLevel) {
+context.setVariable("isClickable", t_35);
+}
+if(frame.topLevel) {
+context.addExport("isClickable", t_35);
+}
+t_2 += "\n            ";
+if(runtime.memberLookup((t_33),"link")) {
+t_2 += "\n              ";
+var t_36;
+t_36 = true;
+frame.set("isClickable", t_36, true);
+if(frame.topLevel) {
+context.setVariable("isClickable", t_36);
+}
+if(frame.topLevel) {
+context.addExport("isClickable", t_36);
+}
+t_2 += "\n            ";
+;
+}
+t_2 += "\n            ";
+t_2 += runtime.suppressValue((lineno = 210, colno = 19, runtime.callWrap(t_6, "card", context, [runtime.memberLookup((t_33),"cardProps") || {"image": runtime.memberLookup((t_33),"image"),"title": runtime.memberLookup((t_33),"title"),"description": runtime.memberLookup((t_33),"description"),"clickable": runtime.contextOrFrameLookup(context, frame, "isClickable"),"href": runtime.memberLookup((t_33),"link") || ""}])), env.opts.autoescape);
+t_2 += "\n          </div>\n\n        <!-- Standard image-based gallery items -->\n        ";
+;
+}
+else {
+t_2 += "\n          <div\n            class=\"gallery-item\"\n            data-category=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"category") || "", env.opts.autoescape);
+t_2 += "\"\n            ";
+if(runtime.memberLookup((t_33),"id")) {
+t_2 += "id=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"id"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n          >\n            ";
+if(runtime.memberLookup((t_33),"link")) {
+t_2 += "\n              <a\n                href=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"link"), env.opts.autoescape);
+t_2 += "\"\n                class=\"gallery-item-link\"\n                ";
+if(runtime.memberLookup((t_33),"title")) {
+t_2 += "aria-label=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"title"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n              >\n            ";
+;
+}
+t_2 += "\n\n            <!-- Image container -->\n            <div class=\"gallery-media ";
+t_2 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "aspectClass"), env.opts.autoescape);
+t_2 += "\">\n              <!-- Category badge -->\n              ";
+if(runtime.memberLookup((t_33),"category") && runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") !== "overlay") {
+t_2 += "\n                <span class=\"gallery-item-category\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"category"), env.opts.autoescape);
+t_2 += "</span>\n              ";
+;
+}
+t_2 += "\n\n              <!-- Image -->\n              ";
+if(runtime.memberLookup((t_33),"image") && runtime.memberLookup((runtime.memberLookup((t_33),"image")),"src")) {
+t_2 += "\n                <img\n                  src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((t_33),"image")),"src"), env.opts.autoescape);
+t_2 += "\"\n                  alt=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((t_33),"image")),"alt") || runtime.memberLookup((t_33),"title") || "", env.opts.autoescape);
+t_2 += "\"\n                  ";
+if(runtime.memberLookup((runtime.memberLookup((t_33),"image")),"srcset")) {
+t_2 += "srcset=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((t_33),"image")),"srcset"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n                  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"lazyLoad")) {
+t_2 += "loading=\"lazy\"";
+;
+}
+t_2 += "\n                  class=\"gallery-image\"\n                  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"lightbox")) {
+t_2 += "\n                    data-lightbox=\"true\"\n                    data-lightbox-src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((t_33),"image")),"src"), env.opts.autoescape);
+t_2 += "\"\n                    role=\"button\"\n                    tabindex=\"0\"\n                    aria-label=\"Open ";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"title") || "image", env.opts.autoescape);
+t_2 += " in lightbox\"\n                  ";
+;
+}
+t_2 += "\n                />\n              ";
+;
+}
+t_2 += "\n            </div>\n\n            <!-- Content (title + description) -->\n            ";
+if(runtime.memberLookup((t_33),"title") || runtime.memberLookup((t_33),"description")) {
+t_2 += "\n              <div class=\"gallery-content\">\n                ";
+if(runtime.memberLookup((t_33),"category") && runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant") == "overlay") {
+t_2 += "\n                  <span class=\"gallery-item-category\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"category"), env.opts.autoescape);
+t_2 += "</span>\n                ";
+;
+}
+t_2 += "\n                ";
+if(runtime.memberLookup((t_33),"title")) {
+t_2 += "\n                  <h3 class=\"gallery-item-title\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"title"), env.opts.autoescape);
+t_2 += "</h3>\n                ";
+;
+}
+t_2 += "\n                ";
+if(runtime.memberLookup((t_33),"description")) {
+t_2 += "\n                  <p class=\"gallery-item-description\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_33),"description"), env.opts.autoescape);
+t_2 += "</p>\n                ";
+;
+}
+t_2 += "\n              </div>\n            ";
+;
+}
+t_2 += "\n\n            ";
+if(runtime.memberLookup((t_33),"link")) {
+t_2 += "\n              </a>\n            ";
+;
+}
+t_2 += "\n          </div>\n        ";
+;
+}
+t_2 += "\n      ";
+;
+}
+}
+frame = frame.pop();
+t_2 += "\n    </div>\n\n    <!-- Pagination (optional) -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination") && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"total") > 1) {
+t_2 += "\n      <nav\n        class=\"gallery-pagination\"\n        role=\"navigation\"\n        aria-label=\"Gallery pagination\"\n      >\n        <button\n          type=\"button\"\n          class=\"gallery-pagination-button\"\n          aria-label=\"Previous page\"\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"current") == 1) {
+t_2 += "disabled";
+;
+}
+t_2 += "\n        >\n          &laquo; Prev\n        </button>\n\n        ";
+frame = frame.push();
+var t_39 = (lineno = 299, colno = 28, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "range"), "range", context, [1,runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"total") + 1]));
+if(t_39) {t_39 = runtime.fromIterator(t_39);
+var t_38 = t_39.length;
+for(var t_37=0; t_37 < t_39.length; t_37++) {
+var t_40 = t_39[t_37];
+frame.set("page", t_40);
+frame.set("loop.index", t_37 + 1);
+frame.set("loop.index0", t_37);
+frame.set("loop.revindex", t_38 - t_37);
+frame.set("loop.revindex0", t_38 - t_37 - 1);
+frame.set("loop.first", t_37 === 0);
+frame.set("loop.last", t_37 === t_38 - 1);
+frame.set("loop.length", t_38);
+t_2 += "\n          <button\n            type=\"button\"\n            class=\"gallery-pagination-button ";
+if(t_40 == runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"current")) {
+t_2 += "gallery-pagination-active";
+;
+}
+t_2 += "\"\n            aria-label=\"Page ";
+t_2 += runtime.suppressValue(t_40, env.opts.autoescape);
+t_2 += "\"\n            ";
+if(t_40 == runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"current")) {
+t_2 += "aria-current=\"page\"";
+;
+}
+t_2 += "\n          >\n            ";
+t_2 += runtime.suppressValue(t_40, env.opts.autoescape);
+t_2 += "\n          </button>\n        ";
+;
+}
+}
+frame = frame.pop();
+t_2 += "\n\n        <button\n          type=\"button\"\n          class=\"gallery-pagination-button\"\n          aria-label=\"Next page\"\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"current") == runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"pagination")),"total")) {
+t_2 += "disabled";
+;
+}
+t_2 += "\n        >\n          Next &raquo;\n        </button>\n      </nav>\n    ";
+;
+}
+t_2 += "\n\n    <!-- Lightbox/Modal (optional - requires JavaScript) -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"lightbox")) {
+t_2 += "\n      <div\n        class=\"gallery-lightbox\"\n        id=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id") || "gallery", env.opts.autoescape);
+t_2 += "-lightbox\"\n        role=\"dialog\"\n        aria-modal=\"true\"\n        aria-label=\"Image lightbox\"\n      >\n        <button\n          type=\"button\"\n          class=\"gallery-lightbox-close\"\n          aria-label=\"Close lightbox\"\n        >\n          &times;\n        </button>\n        <img\n          src=\"\"\n          alt=\"\"\n          class=\"gallery-lightbox-image\"\n        />\n      </div>\n    ";
+;
+}
+t_2 += "\n  </section>\n\n  ";
+;
+}
+t_2 += "\n";
+})});
+frame = callerFrame;
+return new runtime.SafeString(t_2);
+});
+context.addExport("gallery");
+context.setVariable("gallery", macro_t_1);
+output += "\n";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/header/header.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = 0;
@@ -8921,6 +10005,557 @@ parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 cb(null, output);
 }
 })})})});
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/hero/hero.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = 0;
+var colno = 0;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<!-- components/organisms/hero/hero.njk -->\n\n";
+output += "\n\n";
+var macro_t_1 = runtime.makeMacro(
+[], 
+["props"], 
+function (kwargs) {
+var callerFrame = frame;
+frame = new runtime.Frame();
+kwargs = kwargs || {};
+if (Object.prototype.hasOwnProperty.call(kwargs, "caller")) {
+frame.set("caller", kwargs.caller); }
+frame.set("props", Object.prototype.hasOwnProperty.call(kwargs, "props") ? kwargs["props"] : {});var t_2 = "";t_2 += "\n  <!-- Import dependencies -->\n  ";
+env.getTemplate("atoms/button/button.njk", false, "organisms/hero/hero.njk", false, function(t_4,t_3) {
+if(t_4) { cb(t_4); return; }
+t_3.getExported(function(t_5,t_3) {
+if(t_5) { cb(t_5); return; }
+if(Object.prototype.hasOwnProperty.call(t_3, "button")) {
+var t_6 = t_3.button;
+} else {
+cb(new Error("cannot import 'button'")); return;
+}
+context.setVariable("button", t_6);
+t_2 += "\n  ";
+env.getTemplate("atoms/heading/heading.njk", false, "organisms/hero/hero.njk", false, function(t_8,t_7) {
+if(t_8) { cb(t_8); return; }
+t_7.getExported(function(t_9,t_7) {
+if(t_9) { cb(t_9); return; }
+if(Object.prototype.hasOwnProperty.call(t_7, "heading")) {
+var t_10 = t_7.heading;
+} else {
+cb(new Error("cannot import 'heading'")); return;
+}
+context.setVariable("heading", t_10);
+t_2 += "\n  ";
+env.getTemplate("atoms/input/input.njk", false, "organisms/hero/hero.njk", false, function(t_12,t_11) {
+if(t_12) { cb(t_12); return; }
+t_11.getExported(function(t_13,t_11) {
+if(t_13) { cb(t_13); return; }
+if(Object.prototype.hasOwnProperty.call(t_11, "input")) {
+var t_14 = t_11.input;
+} else {
+cb(new Error("cannot import 'input'")); return;
+}
+context.setVariable("input", t_14);
+t_2 += "\n  ";
+env.getTemplate("molecules/cta-block/cta-block.njk", false, "organisms/hero/hero.njk", false, function(t_16,t_15) {
+if(t_16) { cb(t_16); return; }
+t_15.getExported(function(t_17,t_15) {
+if(t_17) { cb(t_17); return; }
+if(Object.prototype.hasOwnProperty.call(t_15, "ctaBlock")) {
+var t_18 = t_15.ctaBlock;
+} else {
+cb(new Error("cannot import 'ctaBlock'")); return;
+}
+context.setVariable("ctaBlock", t_18);
+t_2 += "\n  ";
+env.getTemplate("molecules/logo-grid/logo-grid.njk", false, "organisms/hero/hero.njk", false, function(t_20,t_19) {
+if(t_20) { cb(t_20); return; }
+t_19.getExported(function(t_21,t_19) {
+if(t_21) { cb(t_21); return; }
+if(Object.prototype.hasOwnProperty.call(t_19, "logoGrid")) {
+var t_22 = t_19.logoGrid;
+} else {
+cb(new Error("cannot import 'logoGrid'")); return;
+}
+context.setVariable("logoGrid", t_22);
+t_2 += "\n\n  ";
+var t_23;
+t_23 = {"layout": "centered","height": "tall","background": {"type": "default","overlay": "dark"},"headingLevel": 1,"emailCapture": {"enabled": false,"placeholder": "Enter your email","buttonText": "Get Started","privacyText": "No spam. Unsubscribe anytime."},"socialProof": {"enabled": false},"trustSignals": [],"className": "","attributes": {},"a11y": {}};
+frame.set("defaults", t_23, true);
+if(frame.topLevel) {
+context.setVariable("defaults", t_23);
+}
+if(frame.topLevel) {
+context.addExport("defaults", t_23);
+}
+t_2 += "\n\n  ";
+var t_24;
+t_24 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "defaults"),runtime.contextOrFrameLookup(context, frame, "props"));
+frame.set("config", t_24, true);
+if(frame.topLevel) {
+context.setVariable("config", t_24);
+}
+if(frame.topLevel) {
+context.addExport("config", t_24);
+}
+t_2 += "\n\n  <!-- Merge nested objects properly -->\n  ";
+var t_25;
+t_25 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "config"),{"background": env.getFilter("merge").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "defaults")),"background"),runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "props")),"background") || {}),"emailCapture": env.getFilter("merge").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "defaults")),"emailCapture"),runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "props")),"emailCapture") || {}),"socialProof": env.getFilter("merge").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "defaults")),"socialProof"),runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "props")),"socialProof") || {})});
+frame.set("config", t_25, true);
+if(frame.topLevel) {
+context.setVariable("config", t_25);
+}
+if(frame.topLevel) {
+context.addExport("config", t_25);
+}
+t_2 += "\n\n  <!-- Build class list -->\n  ";
+var t_26;
+t_26 = ["hero"];
+frame.set("classList", t_26, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_26);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_26);
+}
+t_2 += "\n\n  <!-- Layout variant -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"layout")) {
+t_2 += "\n    ";
+var t_27;
+t_27 = ((lineno = 166, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["hero-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"layout")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_27, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_27);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_27);
+}
+t_2 += "\n  ";
+;
+}
+t_2 += "\n\n  <!-- Height variant -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"height")) {
+t_2 += "\n    ";
+var t_28;
+t_28 = ((lineno = 171, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["hero-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"height")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_28, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_28);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_28);
+}
+t_2 += "\n  ";
+;
+}
+t_2 += "\n\n  <!-- Background type -->\n  ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type") == "gradient") {
+t_2 += "\n    ";
+var t_29;
+t_29 = ((lineno = 176, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["hero-gradient"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_29, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_29);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_29);
+}
+t_2 += "\n  ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type") == "gradient-subtle") {
+t_2 += "\n    ";
+var t_30;
+t_30 = ((lineno = 178, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["hero-gradient-subtle"])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_30, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_30);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_30);
+}
+t_2 += "\n  ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type") == "image" || runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type") == "video") {
+t_2 += "\n    ";
+var t_31;
+t_31 = ((lineno = 180, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, ["hero-with-background-" + runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_31, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_31);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_31);
+}
+t_2 += "\n  ";
+;
+}
+;
+}
+;
+}
+t_2 += "\n\n  <!-- Custom classes -->\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")) {
+t_2 += "\n    ";
+var t_32;
+t_32 = ((lineno = 185, colno = 38, runtime.callWrap(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "classList")),"push"), "classList[\"push\"]", context, [runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")])),runtime.contextOrFrameLookup(context, frame, "classList"));
+frame.set("classList", t_32, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_32);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_32);
+}
+t_2 += "\n  ";
+;
+}
+t_2 += "\n\n  ";
+var t_33;
+t_33 = env.getFilter("trim").call(context, env.getFilter("join").call(context, runtime.contextOrFrameLookup(context, frame, "classList")," "));
+frame.set("classString", t_33, true);
+if(frame.topLevel) {
+context.setVariable("classString", t_33);
+}
+if(frame.topLevel) {
+context.addExport("classString", t_33);
+}
+t_2 += "\n\n  <!-- Main hero section -->\n  <section\n    class=\"";
+t_2 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "classString"), env.opts.autoescape);
+t_2 += "\"\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id")) {
+t_2 += "id=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel")) {
+t_2 += "aria-label=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"landmarkLabel")) {
+t_2 += "aria-labelledby=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"landmarkLabel"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    role=\"region\"\n    ";
+frame = frame.push();
+var t_36 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"attributes");
+if(t_36) {t_36 = runtime.fromIterator(t_36);
+var t_34;
+if(runtime.isArray(t_36)) {
+var t_35 = t_36.length;
+for(t_34=0; t_34 < t_36.length; t_34++) {
+var t_37 = t_36[t_34][0];
+frame.set("[object Object]", t_36[t_34][0]);
+var t_38 = t_36[t_34][1];
+frame.set("[object Object]", t_36[t_34][1]);
+frame.set("loop.index", t_34 + 1);
+frame.set("loop.index0", t_34);
+frame.set("loop.revindex", t_35 - t_34);
+frame.set("loop.revindex0", t_35 - t_34 - 1);
+frame.set("loop.first", t_34 === 0);
+frame.set("loop.last", t_34 === t_35 - 1);
+frame.set("loop.length", t_35);
+t_2 += "\n      ";
+t_2 += runtime.suppressValue(t_37, env.opts.autoescape);
+t_2 += "=\"";
+t_2 += runtime.suppressValue(t_38, env.opts.autoescape);
+t_2 += "\"\n    ";
+;
+}
+} else {
+t_34 = -1;
+var t_35 = runtime.keys(t_36).length;
+for(var t_39 in t_36) {
+t_34++;
+var t_40 = t_36[t_39];
+frame.set("key", t_39);
+frame.set("value", t_40);
+frame.set("loop.index", t_34 + 1);
+frame.set("loop.index0", t_34);
+frame.set("loop.revindex", t_35 - t_34);
+frame.set("loop.revindex0", t_35 - t_34 - 1);
+frame.set("loop.first", t_34 === 0);
+frame.set("loop.last", t_34 === t_35 - 1);
+frame.set("loop.length", t_35);
+t_2 += "\n      ";
+t_2 += runtime.suppressValue(t_39, env.opts.autoescape);
+t_2 += "=\"";
+t_2 += runtime.suppressValue(t_40, env.opts.autoescape);
+t_2 += "\"\n    ";
+;
+}
+}
+}
+frame = frame.pop();
+t_2 += "\n  >\n    <!-- Background layer (image or video) -->\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type") == "image" && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"image")) {
+t_2 += "\n      <div class=\"hero-background\" aria-hidden=\"true\">\n        <img\n          src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"image"), env.opts.autoescape);
+t_2 += "\"\n          alt=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"alt") || "", env.opts.autoescape);
+t_2 += "\"\n          class=\"hero-background-image\"\n          loading=\"eager\"\n        >\n      </div>\n      ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"overlay") != "none") {
+t_2 += "\n        <div class=\"hero-overlay hero-overlay-";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"overlay"), env.opts.autoescape);
+t_2 += "\" aria-hidden=\"true\"></div>\n      ";
+;
+}
+t_2 += "\n    ";
+;
+}
+t_2 += "\n\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"type") == "video" && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"video")) {
+t_2 += "\n      <div class=\"hero-background\" aria-hidden=\"true\">\n        <video\n          class=\"hero-background-video\"\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"poster")) {
+t_2 += "poster=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"poster"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"autoplay")) {
+t_2 += "autoplay";
+;
+}
+t_2 += "\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"loop")) {
+t_2 += "loop";
+;
+}
+t_2 += "\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"muted")) {
+t_2 += "muted";
+;
+}
+t_2 += "\n          playsinline\n        >\n          <source src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"video"), env.opts.autoescape);
+t_2 += "\" type=\"video/mp4\">\n        </video>\n      </div>\n      ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"overlay") != "none") {
+t_2 += "\n        <div class=\"hero-overlay hero-overlay-";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"background")),"overlay"), env.opts.autoescape);
+t_2 += "\" aria-hidden=\"true\"></div>\n      ";
+;
+}
+t_2 += "\n    ";
+;
+}
+t_2 += "\n\n    <!-- Content container -->\n    <div class=\"hero-container\">\n      <!-- Content area -->\n      <div class=\"hero-content\">\n        <!-- Eyebrow text (optional) -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"eyebrow")) {
+t_2 += "\n          <span class=\"hero-eyebrow\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"eyebrow"), env.opts.autoescape);
+t_2 += "</span>\n        ";
+;
+}
+t_2 += "\n\n        <!-- Main heading (required) -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"headline")) {
+t_2 += "\n          <h";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"headingLevel"), env.opts.autoescape);
+t_2 += " class=\"hero-content-heading\">\n            ";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"headline"), env.opts.autoescape);
+t_2 += "\n          </h";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"headingLevel"), env.opts.autoescape);
+t_2 += ">\n        ";
+;
+}
+t_2 += "\n\n        <!-- Subheading (optional) -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"subheading")) {
+t_2 += "\n          <p class=\"hero-content-subheading\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"subheading"), env.opts.autoescape);
+t_2 += "</p>\n        ";
+;
+}
+t_2 += "\n\n        <!-- Description (optional) -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"description")) {
+t_2 += "\n          <p class=\"hero-content-description\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"description"), env.opts.autoescape);
+t_2 += "</p>\n        ";
+;
+}
+t_2 += "\n\n        <!-- Email capture form -->\n        ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"emailCapture")),"enabled")) {
+t_2 += "\n          <form class=\"hero-email-capture\" action=\"/subscribe\" method=\"POST\">\n            ";
+t_2 += runtime.suppressValue((lineno = 263, colno = 20, runtime.callWrap(t_14, "input", context, [{"type": "email","name": "email","placeholder": runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"emailCapture")),"placeholder"),"required": true,"ariaLabel": "Email address","size": "lg","fullWidth": true}])), env.opts.autoescape);
+t_2 += "\n            ";
+t_2 += runtime.suppressValue((lineno = 272, colno = 21, runtime.callWrap(t_6, "button", context, [{"text": runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"emailCapture")),"buttonText"),"type": "submit","variant": "primary","size": "lg"}])), env.opts.autoescape);
+t_2 += "\n            ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"emailCapture")),"privacyText")) {
+t_2 += "\n              <p class=\"hero-email-privacy\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"emailCapture")),"privacyText"), env.opts.autoescape);
+t_2 += "</p>\n            ";
+;
+}
+t_2 += "\n          </form>\n        ";
+;
+}
+t_2 += "\n\n        <!-- CTA buttons (if no email capture) -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta") && !runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"emailCapture")),"enabled")) {
+t_2 += "\n          <div class=\"hero-actions\">\n            <!-- Primary CTA -->\n            ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")) {
+t_2 += "\n              ";
+t_2 += runtime.suppressValue((lineno = 289, colno = 23, runtime.callWrap(t_6, "button", context, [{"text": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")),"text"),"href": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")),"href"),"variant": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")),"variant") || "primary","size": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")),"size") || "lg","target": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")),"target"),"rel": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"primary")),"rel")}])), env.opts.autoescape);
+t_2 += "\n            ";
+;
+}
+t_2 += "\n\n            <!-- Secondary CTA -->\n            ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")) {
+t_2 += "\n              ";
+t_2 += runtime.suppressValue((lineno = 301, colno = 23, runtime.callWrap(t_6, "button", context, [{"text": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")),"text"),"href": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")),"href"),"variant": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")),"variant") || "ghost","size": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")),"size") || "lg","target": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")),"target"),"rel": runtime.memberLookup((runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"cta")),"secondary")),"rel")}])), env.opts.autoescape);
+t_2 += "\n            ";
+;
+}
+t_2 += "\n          </div>\n        ";
+;
+}
+t_2 += "\n\n        <!-- Trust signals -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"trustSignals") && env.getFilter("length").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"trustSignals")) > 0) {
+t_2 += "\n          <div class=\"hero-trust-signals\">\n            ";
+frame = frame.push();
+var t_43 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"trustSignals");
+if(t_43) {t_43 = runtime.fromIterator(t_43);
+var t_42 = t_43.length;
+for(var t_41=0; t_41 < t_43.length; t_41++) {
+var t_44 = t_43[t_41];
+frame.set("signal", t_44);
+frame.set("loop.index", t_41 + 1);
+frame.set("loop.index0", t_41);
+frame.set("loop.revindex", t_42 - t_41);
+frame.set("loop.revindex0", t_42 - t_41 - 1);
+frame.set("loop.first", t_41 === 0);
+frame.set("loop.last", t_41 === t_42 - 1);
+frame.set("loop.length", t_42);
+t_2 += "\n              <div class=\"hero-trust-stat\">\n                ";
+if(runtime.memberLookup((t_44),"icon")) {
+t_2 += "\n                  <span class=\"hero-trust-stat-icon\" aria-hidden=\"true\">\n                    <!-- Icon placeholder - would be replaced with actual SVG -->\n                    <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\">\n                      <circle cx=\"10\" cy=\"10\" r=\"8\" />\n                    </svg>\n                  </span>\n                ";
+;
+}
+t_2 += "\n                <span class=\"hero-trust-stat-value\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_44),"value"), env.opts.autoescape);
+t_2 += "</span>\n                <span>";
+t_2 += runtime.suppressValue(runtime.memberLookup((t_44),"text"), env.opts.autoescape);
+t_2 += "</span>\n              </div>\n            ";
+;
+}
+}
+frame = frame.pop();
+t_2 += "\n          </div>\n        ";
+;
+}
+t_2 += "\n\n        <!-- Social proof (Logo Grid) -->\n        ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"socialProof")),"enabled") && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"socialProof")),"logos")) {
+t_2 += "\n          <div class=\"hero-social-proof\">\n            ";
+var t_45;
+t_45 = "left";
+frame.set("logoAlign", t_45, true);
+if(frame.topLevel) {
+context.setVariable("logoAlign", t_45);
+}
+if(frame.topLevel) {
+context.addExport("logoAlign", t_45);
+}
+t_2 += "\n            ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"layout") == "centered") {
+t_2 += "\n              ";
+var t_46;
+t_46 = "center";
+frame.set("logoAlign", t_46, true);
+if(frame.topLevel) {
+context.setVariable("logoAlign", t_46);
+}
+if(frame.topLevel) {
+context.addExport("logoAlign", t_46);
+}
+t_2 += "\n            ";
+;
+}
+t_2 += "\n            ";
+t_2 += runtime.suppressValue((lineno = 340, colno = 23, runtime.callWrap(t_22, "logoGrid", context, [{"title": runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"socialProof")),"title"),"logos": runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"socialProof")),"logos"),"variant": "grid","colorScheme": "grayscale-hover","gap": "md","align": runtime.contextOrFrameLookup(context, frame, "logoAlign")}])), env.opts.autoescape);
+t_2 += "\n          </div>\n        ";
+;
+}
+t_2 += "\n      </div>\n\n      <!-- Media area (for split layouts) -->\n      ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media") && (runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"layout") == "split" || runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"layout") == "split-reverse")) {
+t_2 += "\n        <div class=\"hero-media\">\n          ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"type") == "image") {
+t_2 += "\n            <img\n              src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"src"), env.opts.autoescape);
+t_2 += "\"\n              alt=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"alt") || "", env.opts.autoescape);
+t_2 += "\"\n              loading=\"eager\"\n            >\n          ";
+;
+}
+else {
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"type") == "video") {
+t_2 += "\n            <div class=\"hero-media-container\">\n              <video\n                ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"poster")) {
+t_2 += "poster=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"poster"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n                ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"autoplay")) {
+t_2 += "autoplay";
+;
+}
+t_2 += "\n                ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"loop")) {
+t_2 += "loop";
+;
+}
+t_2 += "\n                ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"muted")) {
+t_2 += "muted";
+;
+}
+t_2 += "\n                playsinline\n                controls\n              >\n                <source src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")),"src"), env.opts.autoescape);
+t_2 += "\" type=\"video/mp4\">\n                Your browser does not support the video tag.\n              </video>\n            </div>\n          ";
+;
+}
+else {
+t_2 += "\n            <!-- Custom markup -->\n            ";
+t_2 += runtime.suppressValue(env.getFilter("safe").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"media")), env.opts.autoescape);
+t_2 += "\n          ";
+;
+}
+;
+}
+t_2 += "\n        </div>\n      ";
+;
+}
+t_2 += "\n    </div>\n  </section>\n";
+})})})})})})})})})});
+frame = callerFrame;
+return new runtime.SafeString(t_2);
+});
+context.addExport("hero");
+context.setVariable("hero", macro_t_1);
+output += "\n";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
 } catch (e) {
   cb(runtime.handleError(e, lineno, colno));
 }

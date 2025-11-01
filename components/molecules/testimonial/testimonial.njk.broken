@@ -108,16 +108,18 @@
   {% if not config.quote %}
     {% set config.quote = 'Customer testimonial quote...' %}
   {% endif %}
-  {% if not config.author.name %}
-    {% set config.author = config.author | merge({ name: 'Anonymous' }) %}
+  {% if not config.author or not config.author.name %}
+    {% set config = config | merge({ author: { name: 'Anonymous' } }) %}
   {% endif %}
 
   <!-- Build class list -->
   {% set classList = [
     'testimonial',
-    'testimonial-' + config.variant,
-    config.className
-  ] | reject('equalto', '') | join(' ') | trim %}
+    'testimonial-' + config.variant
+  ] | join(' ') | trim %}
+  {% if config.className %}
+    {% set classList = classList + ' ' + config.className %}
+  {% endif %}
 
   <!-- Main container - use blockquote for semantic HTML -->
   <blockquote

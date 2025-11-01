@@ -204,11 +204,15 @@
         <!-- Card variant - use Card molecule -->
         {% if config.variant == 'cards' and item.useCard %}
           <div class="gallery-item" data-category="{{ item.category or '' }}">
+            {% set isClickable = false %}
+            {% if item.link %}
+              {% set isClickable = true %}
+            {% endif %}
             {{ card(item.cardProps or {
               image: item.image,
               title: item.title,
               description: item.description,
-              clickable: item.link ? true : false,
+              clickable: isClickable,
               href: item.link or ''
             }) }}
           </div>
