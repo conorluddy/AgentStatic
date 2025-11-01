@@ -8,6 +8,16 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
 
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/feature-grid/feature-grid.njk" import featureGrid %}
+    {{ featureGrid(props) }}
+  `,
+    { props: args }
+  );
+};
+
 
 // Configure Nunjucks
 // Import styles

@@ -1,4 +1,4 @@
-{# components/atoms/button/button.njk #}
+<!-- components/atoms/button/button.njk -->
 
 {#
   Button Component
@@ -31,21 +31,21 @@
   Usage:
     {% from "atoms/button/button.njk" import button %}
 
-    {# Primary CTA #}
+    <!-- Primary CTA -->
     {{ button({
       text: 'Get Started',
       variant: 'primary',
       size: 'lg'
     }) }}
 
-    {# Button with icon #}
+    <!-- Button with icon -->
     {{ button({
       text: 'Download',
       variant: 'secondary',
       iconStart: '<svg>...</svg>'
     }) }}
 
-    {# Icon-only button #}
+    <!-- Icon-only button -->
     {{ button({
       text: 'Close',
       iconOnly: true,
@@ -53,14 +53,14 @@
       a11y: { ariaLabel: 'Close dialog' }
     }) }}
 
-    {# Link styled as button #}
+    <!-- Link styled as button -->
     {{ button({
       text: 'Learn More',
       href: '/about',
       variant: 'ghost'
     }) }}
 
-    {# Loading state #}
+    <!-- Loading state -->
     {{ button({
       text: 'Submitting...',
       loading: true,
@@ -85,7 +85,7 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'button',
     'button-' + config.variant,
@@ -96,15 +96,15 @@
     config.className
   ] | join(' ') | trim %}
 
-  {# Determine if rendering as link or button #}
+  <!-- Determine if rendering as link or button -->
   {% set isLink = config.href %}
   {% set elementType = 'a' if isLink else 'button' %}
 
-  {# Build ARIA attributes #}
+  <!-- Build ARIA attributes -->
   {% set ariaLabel = config.a11y.ariaLabel or (config.text if config.iconOnly else '') %}
   {% set ariaBusy = config.loading %}
 
-  {# Render as link #}
+  <!-- Render as link -->
   {% if isLink %}
   <a
     class="{{ classList }}"
@@ -120,32 +120,32 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Icon start #}
+    <!-- Icon start -->
     {% if config.iconStart %}
     <span class="button-icon button-icon-start" aria-hidden="true">
       {{ config.iconStart | safe }}
     </span>
     {% endif %}
 
-    {# Button text #}
+    <!-- Button text -->
     {% if config.text %}
     <span class="button-text">{{ config.text }}</span>
     {% endif %}
 
-    {# Icon end #}
+    <!-- Icon end -->
     {% if config.iconEnd %}
     <span class="button-icon button-icon-end" aria-hidden="true">
       {{ config.iconEnd | safe }}
     </span>
     {% endif %}
 
-    {# Loading spinner #}
+    <!-- Loading spinner -->
     {% if config.loading %}
     <span class="button-spinner" aria-hidden="true"></span>
     {% endif %}
   </a>
   {% else %}
-  {# Render as button #}
+  <!-- Render as button -->
   <button
     class="{{ classList }}"
     type="{{ config.type }}"
@@ -158,26 +158,26 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Icon start #}
+    <!-- Icon start -->
     {% if config.iconStart %}
     <span class="button-icon button-icon-start" aria-hidden="true">
       {{ config.iconStart | safe }}
     </span>
     {% endif %}
 
-    {# Button text #}
+    <!-- Button text -->
     {% if config.text %}
     <span class="button-text">{{ config.text }}</span>
     {% endif %}
 
-    {# Icon end #}
+    <!-- Icon end -->
     {% if config.iconEnd %}
     <span class="button-icon button-icon-end" aria-hidden="true">
       {{ config.iconEnd | safe }}
     </span>
     {% endif %}
 
-    {# Loading spinner #}
+    <!-- Loading spinner -->
     {% if config.loading %}
     <span class="button-spinner" aria-hidden="true"></span>
     {% endif %}

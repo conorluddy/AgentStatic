@@ -1,4 +1,4 @@
-{# components/organisms/header/header.njk #}
+<!-- components/organisms/header/header.njk -->
 
 {#
   Header/Navigation Organism
@@ -37,7 +37,7 @@
   Usage:
     {% from "organisms/header/header.njk" import header %}
 
-    {# Basic header #}
+    <!-- Basic header -->
     {{ header({
       logo: {
         src: '/logo.svg',
@@ -54,7 +54,7 @@
       }
     }) }}
 
-    {# Sticky header with dropdown #}
+    <!-- Sticky header with dropdown -->
     {{ header({
       logo: { src: '/logo.svg', alt: 'Company' },
       navigation: [
@@ -72,7 +72,7 @@
       variant: 'split'
     }) }}
 
-    {# Transparent hero header #}
+    <!-- Transparent hero header -->
     {{ header({
       logo: { text: 'AgentStatic' },
       navigation: [
@@ -84,8 +84,8 @@
     }) }}
 #}
 
-{% from "../atoms/button/button.njk" import button %}
-{% from "../atoms/link/link.njk" import link %}
+{% from "atoms/button/button.njk" import button %}
+{% from "atoms/link/link.njk" import link %}
 
 {% macro header(props = {}) %}
   {% set defaults = {
@@ -108,7 +108,7 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'header',
     'header-' + config.variant,
@@ -117,11 +117,11 @@
     config.className
   ] | join(' ') | trim %}
 
-  {# Generate unique IDs for ARIA relationships #}
+  <!-- Generate unique IDs for ARIA relationships -->
   {% set mobileMenuId = config.id ~ '-mobile-menu' if config.id else 'header-mobile-menu' %}
   {% set mobileBackdropId = config.id ~ '-mobile-backdrop' if config.id else 'header-mobile-backdrop' %}
 
-  {# Chevron down SVG for dropdown indicators #}
+  <!-- Chevron down SVG for dropdown indicators -->
   {% set chevronDown %}
     <svg class="header-nav-arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
       <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06z" clip-rule="evenodd"/>
@@ -137,13 +137,13 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Skip to main content link for accessibility #}
+    <!-- Skip to main content link for accessibility -->
     {% if config.skipToMain %}
     <a href="#main" class="header-skip-link">Skip to main content</a>
     {% endif %}
 
     <div class="header-container">
-      {# Logo #}
+      <!-- Logo -->
       <div class="header-logo">
         <a
           href="{{ config.logo.href or '/' }}"
@@ -163,14 +163,14 @@
         </a>
       </div>
 
-      {# Desktop Navigation #}
+      <!-- Desktop Navigation -->
       {% if config.navigation and config.navigation.length > 0 %}
       <nav class="header-nav" aria-label="{{ config.a11y.navLabel }}">
         <ul class="header-nav-list" role="list">
           {% for item in config.navigation %}
           <li class="header-nav-item {{ 'header-nav-item-active' if item.active else '' }}">
             {% if item.children and item.children.length > 0 %}
-              {# Dropdown menu #}
+              <!-- Dropdown menu -->
               <button
                 class="header-nav-link"
                 aria-expanded="false"
@@ -194,7 +194,7 @@
                 {% endfor %}
               </ul>
             {% else %}
-              {# Regular link #}
+              <!-- Regular link -->
               <a
                 href="{{ item.href }}"
                 class="header-nav-link"
@@ -209,7 +209,7 @@
       </nav>
       {% endif %}
 
-      {# Desktop Actions #}
+      <!-- Desktop Actions -->
       {% if config.actions.secondary or config.actions.primary %}
       <div class="header-actions">
         {% if config.actions.secondary %}
@@ -221,7 +221,7 @@
       </div>
       {% endif %}
 
-      {# Mobile Menu Toggle #}
+      <!-- Mobile Menu Toggle -->
       <button
         class="header-mobile-toggle"
         aria-expanded="false"
@@ -234,20 +234,20 @@
       </button>
     </div>
 
-    {# Mobile Menu Panel #}
+    <!-- Mobile Menu Panel -->
     <div
       id="{{ mobileMenuId }}"
       class="header-mobile-menu"
       aria-hidden="true"
     >
-      {# Mobile Navigation #}
+      <!-- Mobile Navigation -->
       {% if config.navigation and config.navigation.length > 0 %}
       <nav aria-label="{{ config.a11y.navLabel }}">
         <ul class="header-mobile-nav-list" role="list">
           {% for item in config.navigation %}
           <li class="header-mobile-nav-item {{ 'header-mobile-nav-item-active' if item.active else '' }}">
             {% if item.children and item.children.length > 0 %}
-              {# Dropdown in mobile #}
+              <!-- Dropdown in mobile -->
               <button
                 class="header-mobile-nav-link"
                 aria-expanded="false"
@@ -270,7 +270,7 @@
                 {% endfor %}
               </ul>
             {% else %}
-              {# Regular link #}
+              <!-- Regular link -->
               <a
                 href="{{ item.href }}"
                 class="header-mobile-nav-link"
@@ -285,7 +285,7 @@
       </nav>
       {% endif %}
 
-      {# Mobile Actions #}
+      <!-- Mobile Actions -->
       {% if config.actions.secondary or config.actions.primary %}
       <div class="header-mobile-actions">
         {% if config.actions.secondary %}
@@ -298,7 +298,7 @@
       {% endif %}
     </div>
 
-    {# Mobile Menu Backdrop #}
+    <!-- Mobile Menu Backdrop -->
     <div
       id="{{ mobileBackdropId }}"
       class="header-mobile-backdrop"

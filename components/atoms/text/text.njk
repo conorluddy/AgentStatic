@@ -1,4 +1,4 @@
-{# components/atoms/text/text.njk #}
+<!-- components/atoms/text/text.njk -->
 
 {#
   Text Atom Component
@@ -28,16 +28,16 @@
   Usage:
     {% from "atoms/text/text.njk" import text %}
 
-    {# Basic paragraph #}
+    <!-- Basic paragraph -->
     {{ text({ content: 'This is body text.' }) }}
 
-    {# Lead paragraph #}
+    <!-- Lead paragraph -->
     {{ text({
       content: 'This is a lead paragraph with emphasis.',
       lead: true
     }) }}
 
-    {# Colored text with custom weight #}
+    <!-- Colored text with custom weight -->
     {{ text({
       content: 'Important message',
       color: 'primary',
@@ -45,13 +45,13 @@
       size: 'lg'
     }) }}
 
-    {# Inline span with custom styling #}
+    <!-- Inline span with custom styling -->
     <p>This is normal text {{ text({ content: 'with an inline span', element: 'span', color: 'muted' }) }}</p>
 
-    {# Text with inline code #}
+    <!-- Text with inline code -->
     {{ text({ content: 'Use the <code>text</code> component for body copy.' }) }}
 
-    {# Centered text #}
+    <!-- Centered text -->
     {{ text({
       content: 'Centered text',
       align: 'center',
@@ -78,7 +78,7 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'text',
     'text-' + config.size if config.size != 'base',
@@ -92,7 +92,7 @@
     config.className
   ] | reject('equalto', false) | join(' ') | trim %}
 
-  {# Render the appropriate element #}
+  <!-- Render the appropriate element -->
   {% if config.element == 'p' %}
     <p
       class="{{ classList }}"

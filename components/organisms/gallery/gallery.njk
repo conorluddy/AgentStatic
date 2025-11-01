@@ -1,4 +1,4 @@
-{# components/organisms/gallery/gallery.njk #}
+<!-- components/organisms/gallery/gallery.njk -->
 
 {#
   Gallery Organism
@@ -43,7 +43,7 @@
   Usage:
     {% from "organisms/gallery/gallery.njk" import gallery %}
 
-    {# Portfolio grid #}
+    <!-- Portfolio grid -->
     {{ gallery({
       title: 'Our Work',
       description: 'Recent projects we\'re proud of',
@@ -60,7 +60,7 @@
       ]
     }) }}
 
-    {# Masonry gallery #}
+    <!-- Masonry gallery -->
     {{ gallery({
       layout: 'masonry',
       variant: 'minimal',
@@ -70,7 +70,7 @@
       ]
     }) }}
 
-    {# Card-based blog grid #}
+    <!-- Card-based blog grid -->
     {{ gallery({
       title: 'Latest Posts',
       variant: 'cards',
@@ -91,8 +91,8 @@
 #}
 
 {% macro gallery(props = {}) %}
-  {# Import Card molecule for 'cards' variant #}
-  {% from "../molecules/card/card.njk" import card %}
+  <!-- Import Card molecule for 'cards' variant -->
+  {% from "molecules/card/card.njk" import card %}
 
   {% set defaults = {
     title: '',
@@ -113,7 +113,7 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Validate required items #}
+  <!-- Validate required items -->
   {% if config.items.length === 0 %}
     <!-- Gallery requires items array -->
     <div class="gallery-error">
@@ -121,18 +121,18 @@
     </div>
   {% else %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['gallery'] %}
 
-  {# Add columns class #}
+  <!-- Add columns class -->
   {% set classList = (classList.push('gallery-columns-' + config.columns), classList) %}
 
-  {# Add layout class #}
+  <!-- Add layout class -->
   {% if config.layout == 'masonry' %}
     {% set classList = (classList.push('gallery-masonry'), classList) %}
   {% endif %}
 
-  {# Add variant class #}
+  <!-- Add variant class -->
   {% if config.variant == 'overlay' %}
     {% set classList = (classList.push('gallery-overlay-variant'), classList) %}
   {% elif config.variant == 'minimal' %}
@@ -143,17 +143,17 @@
     {% set classList = (classList.push('gallery-default'), classList) %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
   {% set classString = classList | join(' ') | trim %}
 
-  {# Determine aspect ratio class #}
+  <!-- Determine aspect ratio class -->
   {% set aspectClass = 'gallery-media-' + config.aspectRatio %}
 
-  {# Main gallery container #}
+  <!-- Main gallery container -->
   <section
     class="{{ classString }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -162,7 +162,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Header (title + description) #}
+    <!-- Header (title + description) -->
     {% if config.title or config.description %}
       <header class="gallery-header">
         {% if config.title %}
@@ -174,7 +174,7 @@
       </header>
     {% endif %}
 
-    {# Filters (optional category filtering) #}
+    <!-- Filters (optional category filtering) -->
     {% if config.filters and config.filters.length > 0 %}
       <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
         <button
@@ -196,24 +196,28 @@
       </div>
     {% endif %}
 
-    {# Gallery grid/masonry #}
+    <!-- Gallery grid/masonry -->
     <div class="gallery-grid">
       {% for item in config.items %}
         {% set itemId = 'gallery-item-' + loop.index %}
 
-        {# Card variant - use Card molecule #}
+        <!-- Card variant - use Card molecule -->
         {% if config.variant == 'cards' and item.useCard %}
           <div class="gallery-item" data-category="{{ item.category or '' }}">
+            {% set isClickable = false %}
+            {% if item.link %}
+              {% set isClickable = true %}
+            {% endif %}
             {{ card(item.cardProps or {
               image: item.image,
               title: item.title,
               description: item.description,
-              clickable: item.link ? true : false,
+              clickable: isClickable,
               href: item.link or ''
             }) }}
           </div>
 
-        {# Standard image-based gallery items #}
+        <!-- Standard image-based gallery items -->
         {% else %}
           <div
             class="gallery-item"
@@ -228,14 +232,14 @@
               >
             {% endif %}
 
-            {# Image container #}
+            <!-- Image container -->
             <div class="gallery-media {{ aspectClass }}">
-              {# Category badge #}
+              <!-- Category badge -->
               {% if item.category and config.variant !== 'overlay' %}
                 <span class="gallery-item-category">{{ item.category }}</span>
               {% endif %}
 
-              {# Image #}
+              <!-- Image -->
               {% if item.image and item.image.src %}
                 <img
                   src="{{ item.image.src }}"
@@ -254,7 +258,7 @@
               {% endif %}
             </div>
 
-            {# Content (title + description) #}
+            <!-- Content (title + description) -->
             {% if item.title or item.description %}
               <div class="gallery-content">
                 {% if item.category and config.variant == 'overlay' %}
@@ -277,7 +281,7 @@
       {% endfor %}
     </div>
 
-    {# Pagination (optional) #}
+    <!-- Pagination (optional) -->
     {% if config.pagination and config.pagination.total > 1 %}
       <nav
         class="gallery-pagination"
@@ -315,7 +319,7 @@
       </nav>
     {% endif %}
 
-    {# Lightbox/Modal (optional - requires JavaScript) #}
+    <!-- Lightbox/Modal (optional - requires JavaScript) -->
     {% if config.lightbox %}
       <div
         class="gallery-lightbox"

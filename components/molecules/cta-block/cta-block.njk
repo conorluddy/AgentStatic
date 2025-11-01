@@ -1,4 +1,4 @@
-{# components/molecules/cta-block/cta-block.njk #}
+<!-- components/molecules/cta-block/cta-block.njk -->
 
 {#
   CTA Block Component (Molecule)
@@ -33,7 +33,7 @@
   Usage:
     {% from "molecules/cta-block/cta-block.njk" import ctaBlock %}
 
-    {# Basic centered CTA #}
+    <!-- Basic centered CTA -->
     {{ ctaBlock({
       headline: 'Ready to get started?',
       description: 'Join thousands of happy customers using our platform.',
@@ -42,7 +42,7 @@
       }
     }) }}
 
-    {# With trust signal and urgency #}
+    <!-- With trust signal and urgency -->
     {{ ctaBlock({
       headline: 'Limited Time Offer',
       description: 'Get 50% off for the next 24 hours only.',
@@ -55,7 +55,7 @@
       background: { type: 'gradient' }
     }) }}
 
-    {# Horizontal split with image #}
+    <!-- Horizontal split with image -->
     {{ ctaBlock({
       layout: 'split',
       headline: 'See it in action',
@@ -68,7 +68,7 @@
 #}
 
 {% macro ctaBlock(props = {}) %}
-  {# Import dependencies #}
+  <!-- Import dependencies -->
   {% from "atoms/heading/heading.njk" import heading %}
   {% from "atoms/button/button.njk" import button %}
 
@@ -83,10 +83,10 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['cta-block'] %}
 
-  {# Layout variant #}
+  <!-- Layout variant -->
   {% if config.layout == 'centered' %}
     {% set classList = (classList.push('cta-block-centered'), classList) %}
   {% elif config.layout == 'split' %}
@@ -95,7 +95,7 @@
     {% set classList = (classList.push('cta-block-inline'), classList) %}
   {% endif %}
 
-  {# Background variant #}
+  <!-- Background variant -->
   {% if config.background.type == 'primary' %}
     {% set classList = (classList.push('cta-block-bg-primary'), classList) %}
   {% elif config.background.type == 'gradient' %}
@@ -106,14 +106,14 @@
     {% set classList = (classList.push('cta-block-bg-image'), classList) %}
   {% endif %}
 
-  {# Custom classes #}
+  <!-- Custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
   {% set classString = classList | join(' ') | trim %}
 
-  {# Main container #}
+  <!-- Main container -->
   <section
     class="{{ classString }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -124,7 +124,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Background image (if specified) #}
+    <!-- Background image (if specified) -->
     {% if config.background.type == 'image' and config.background.image %}
       <div
         class="cta-block-background"
@@ -134,9 +134,9 @@
       <div class="cta-block-overlay {% if config.background.overlay == 'light' %}cta-block-overlay-light{% endif %}"></div>
     {% endif %}
 
-    {# Content container #}
+    <!-- Content container -->
     <div class="cta-block-container">
-      {# Split layout - visual side #}
+      <!-- Split layout - visual side -->
       {% if config.layout == 'split' and config.visual %}
         <div class="cta-block-split-visual">
           {% if config.visual is string %}
@@ -147,9 +147,9 @@
         </div>
       {% endif %}
 
-      {# Content side #}
+      <!-- Content side -->
       <div>
-        {# Urgency element (optional) #}
+        <!-- Urgency element (optional) -->
         {% if config.urgency %}
           <div class="cta-block-urgency">
             <span class="cta-block-urgency-icon" aria-hidden="true">
@@ -169,14 +169,14 @@
           </div>
         {% endif %}
 
-        {# Main content #}
+        <!-- Main content -->
         <div class="cta-block-content">
-          {# Eyebrow text (optional) #}
+          <!-- Eyebrow text (optional) -->
           {% if config.eyebrow %}
             <div class="cta-block-eyebrow">{{ config.eyebrow }}</div>
           {% endif %}
 
-          {# Heading #}
+          <!-- Heading -->
           {% if config.headline %}
             {{ heading({
               text: config.headline,
@@ -185,21 +185,21 @@
             }) }}
           {% endif %}
 
-          {# Subheadline (optional) #}
+          <!-- Subheadline (optional) -->
           {% if config.subheadline %}
             <div class="cta-block-subheadline">{{ config.subheadline }}</div>
           {% endif %}
 
-          {# Description #}
+          <!-- Description -->
           {% if config.description %}
             <p class="cta-block-description">{{ config.description }}</p>
           {% endif %}
         </div>
 
-        {# CTA Actions #}
+        <!-- CTA Actions -->
         {% if config.cta %}
           <div class="cta-block-actions">
-            {# Primary CTA (required) #}
+            <!-- Primary CTA (required) -->
             {% if config.cta.primary %}
               {{ button({
                 text: config.cta.primary.text,
@@ -211,7 +211,7 @@
               }) }}
             {% endif %}
 
-            {# Secondary CTA (optional) #}
+            <!-- Secondary CTA (optional) -->
             {% if config.cta.secondary %}
               {{ button({
                 text: config.cta.secondary.text,
@@ -224,7 +224,7 @@
             {% endif %}
           </div>
 
-          {# Trust signal below CTAs (optional) #}
+          <!-- Trust signal below CTAs (optional) -->
           {% if config.trustSignal %}
             <div class="cta-block-trust">
               {% if config.trustSignal is string %}

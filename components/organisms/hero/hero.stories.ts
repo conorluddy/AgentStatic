@@ -11,7 +11,17 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderNunjucks } from '../../../.storybook/nunjucks-loader';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/hero/hero.njk" import hero %}
+    {{ hero(props) }}
+  `,
+    { props: args }
+  );
+};
 
 const meta: Meta = {
   title: 'Organisms/Hero',
@@ -75,7 +85,7 @@ type Story = StoryObj;
  */
 export const Default: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       headline: 'Build Better Websites Faster',
       subheading: 'The AI-first static site generator for modern teams',
       description: 'Ship production-ready landing pages in minutes with our component library.',
@@ -94,7 +104,7 @@ export const Default: Story = {
  */
 export const SplitLayout: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'split',
       headline: 'Transform Your Workflow',
       subheading: 'See how our platform saves you 10 hours every week',
@@ -119,7 +129,7 @@ export const SplitLayout: Story = {
  */
 export const SplitReverse: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'split-reverse',
       headline: 'Design That Converts',
       subheading: 'Award-winning agency specializing in brochureware sites',
@@ -147,7 +157,7 @@ export const SplitReverse: Story = {
  */
 export const EmailCapture: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       eyebrow: 'Join the Beta',
       headline: 'Ship Landing Pages in Minutes',
       subheading: 'AI-powered components built for conversion',
@@ -176,7 +186,7 @@ export const EmailCapture: Story = {
  */
 export const SocialProof: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       headline: 'The Most Trusted Platform',
       subheading: 'Join the companies already transforming their business',
       cta: {
@@ -220,7 +230,7 @@ export const SocialProof: Story = {
  */
 export const BackgroundImage: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       background: {
         type: 'image',
         image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80',
@@ -248,7 +258,7 @@ export const BackgroundImage: Story = {
  */
 export const GradientBackground: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       background: { type: 'gradient' },
       eyebrow: 'Limited Time Offer',
       headline: 'Get 50% Off All Plans',
@@ -271,7 +281,7 @@ export const GradientBackground: Story = {
  */
 export const VideoBackground: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       background: {
         type: 'video',
         video: 'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -293,7 +303,7 @@ export const VideoBackground: Story = {
  */
 export const Minimal: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'centered',
       height: 'minimal',
       headline: 'Expert Insights on Web Development',
@@ -312,7 +322,7 @@ export const Minimal: Story = {
  */
 export const SaaSLandingPage: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       eyebrow: 'Now in Beta',
       headline: 'Build Landing Pages That Convert',
       subheading: 'AI-powered component library with built-in best practices',
@@ -352,7 +362,7 @@ export const SaaSLandingPage: Story = {
  */
 export const AgencyPortfolio: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'split-reverse',
       height: 'full',
       headline: 'We Build Digital Experiences',
@@ -377,7 +387,7 @@ export const AgencyPortfolio: Story = {
  */
 export const EcommercePromotion: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       background: { type: 'gradient' },
       eyebrow: 'Flash Sale - 24 Hours Only',
       headline: 'Save 50% on Premium Products',
@@ -401,7 +411,7 @@ export const EcommercePromotion: Story = {
  */
 export const DarkMode: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'split',
       headline: 'Dark Mode Optimized',
       subheading: 'Beautiful in both light and dark themes',
@@ -427,7 +437,7 @@ export const DarkMode: Story = {
  */
 export const Mobile: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'split',
       headline: 'Mobile-First Design',
       subheading: 'Optimized for 60%+ mobile traffic',
@@ -455,7 +465,7 @@ export const Mobile: Story = {
  */
 export const FullWidth: Story = {
   render: () =>
-    renderNunjucks('organisms/hero/hero.njk', {
+    renderNunjucks('organisms/hero/hero.njk', 'hero', {
       layout: 'full-width',
       background: {
         type: 'image',

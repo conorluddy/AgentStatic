@@ -6,7 +6,17 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import { comparisonTableTemplate } from './comparison-table.template';
+import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
+
+const renderComponent = (args: any) => {
+  return renderNunjucksTemplate(
+    `
+    {% from "organisms/comparison-table/comparison-table.njk" import comparisonTable %}
+    {{ comparisonTable(props) }}
+  `,
+    { props: args }
+  );
+};
 
 const meta: Meta = {
   title: 'Organisms/Comparison Table',
@@ -133,7 +143,7 @@ export const SaaSPricing: Story = {
       caption: 'Pricing plan comparison: Basic, Pro, and Enterprise tiers',
     },
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -189,7 +199,7 @@ export const ProductComparison: Story = {
       caption: 'Product comparison: Our product vs Competitor X',
     },
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -264,7 +274,7 @@ export const FeatureMatrix: Story = {
     ],
     variant: 'default',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -319,7 +329,7 @@ export const AnchoredPricing: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -380,7 +390,7 @@ export const CompetitorComparison: Story = {
       caption: 'Competitor comparison: Our product vs Competitor A and B',
     },
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -419,7 +429,7 @@ export const BorderedVariant: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -462,7 +472,7 @@ export const StripedVariant: Story = {
     ],
     variant: 'striped',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -500,7 +510,7 @@ export const MinimalVariant: Story = {
     ],
     variant: 'minimal',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -541,7 +551,7 @@ export const MobileCards: Story = {
     responsive: 'cards',
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
@@ -593,7 +603,7 @@ export const DarkMode: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
   parameters: {
     backgrounds: { default: 'dark' },
   },
@@ -664,7 +674,7 @@ export const LongFeatureList: Story = {
     ],
     variant: 'striped',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
 
 /**
@@ -724,5 +734,5 @@ export const WithTooltips: Story = {
     ],
     variant: 'bordered',
   },
-  render: (args) => comparisonTableTemplate(args),
+  render: renderComponent,
 };
