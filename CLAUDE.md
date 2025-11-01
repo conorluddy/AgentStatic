@@ -82,6 +82,35 @@ See `PLANNING/README.md` for detailed explanations.
 - **CSS Processing**: PostCSS + Lightning CSS
 - **Type Safety**: TypeScript throughout
 
+#### Nunjucks Gotchas (CRITICAL)
+
+**Avoid Complex Filter Chains** - They cause `charAt` parser errors during precompilation:
+```njk
+{# ❌ BROKEN: Triggers TypeError: Cannot read properties of undefined (reading 'charAt') #}
+{% set classList = ['item1', 'item2', var] | reject('equalto', '') | join(' ') | trim %}
+
+{# ✅ WORKS: Use simple string concatenation #}
+{% set classList = 'item1 item2' %}
+{% if var %}
+  {% set classList = classList + ' ' + var %}
+{% endif %}
+```
+
+**Avoid Ternary in Object Literals** - Nunjucks doesn't support them:
+```njk
+{# ❌ BROKEN: Causes parseAggregate error #}
+{% set props = { variant: isActive ? 'primary' : 'secondary' } %}
+
+{# ✅ WORKS: Extract to variable first #}
+{% set variant = 'secondary' %}
+{% if isActive %}
+  {% set variant = 'primary' %}
+{% endif %}
+{% set props = { variant: variant } %}
+```
+
+See `CODESTYLE.md` § Nunjucks Templating Standards for detailed guidance.
+
 ### Styling (Phase 1)
 - **Pure CSS**: No preprocessors (Sass/Less)
 - **Design Tokens**: CSS Custom Properties

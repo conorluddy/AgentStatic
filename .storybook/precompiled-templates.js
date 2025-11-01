@@ -10834,4 +10834,266 @@ root: root
 
 })();
 })();
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/testimonial-carousel/testimonial-carousel.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = 0;
+var colno = 0;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<!-- components/organisms/testimonial-carousel/testimonial-carousel.njk -->\n\n";
+output += "\n\n";
+env.getTemplate("molecules/testimonial/testimonial.njk", false, "organisms/testimonial-carousel/testimonial-carousel.njk", false, function(t_2,t_1) {
+if(t_2) { cb(t_2); return; }
+t_1.getExported(function(t_3,t_1) {
+if(t_3) { cb(t_3); return; }
+if(Object.prototype.hasOwnProperty.call(t_1, "testimonial")) {
+var t_4 = t_1.testimonial;
+} else {
+cb(new Error("cannot import 'testimonial'")); return;
+}
+context.setVariable("testimonial", t_4);
+output += "\n\n";
+var macro_t_5 = runtime.makeMacro(
+[], 
+["props"], 
+function (kwargs) {
+var callerFrame = frame;
+frame = new runtime.Frame();
+kwargs = kwargs || {};
+if (Object.prototype.hasOwnProperty.call(kwargs, "caller")) {
+frame.set("caller", kwargs.caller); }
+frame.set("props", Object.prototype.hasOwnProperty.call(kwargs, "props") ? kwargs["props"] : {});var t_6 = "";t_6 += "\n  ";
+var t_7;
+t_7 = {"testimonials": [],"heading": "","subheading": "","variant": "default","showArrows": true,"showDots": true,"autoplay": false,"className": "","id": "","attributes": {},"a11y": {}};
+frame.set("defaults", t_7, true);
+if(frame.topLevel) {
+context.setVariable("defaults", t_7);
+}
+if(frame.topLevel) {
+context.addExport("defaults", t_7);
+}
+t_6 += "\n\n  ";
+var t_8;
+t_8 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "defaults"),runtime.contextOrFrameLookup(context, frame, "props"));
+frame.set("config", t_8, true);
+if(frame.topLevel) {
+context.setVariable("config", t_8);
+}
+if(frame.topLevel) {
+context.addExport("config", t_8);
+}
+t_6 += "\n\n  <!-- Build class list (avoid complex filter chains) -->\n  ";
+var t_9;
+t_9 = "testimonial-carousel testimonial-carousel-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant");
+frame.set("classList", t_9, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_9);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_9);
+}
+t_6 += "\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")) {
+t_6 += "\n    ";
+var t_10;
+t_10 = runtime.contextOrFrameLookup(context, frame, "classList") + " " + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className");
+frame.set("classList", t_10, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_10);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_10);
+}
+t_6 += "\n  ";
+;
+}
+t_6 += "\n\n  <!-- Main container -->\n  <section\n    class=\"";
+t_6 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "classList"), env.opts.autoescape);
+t_6 += "\"\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id")) {
+t_6 += "id=\"";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id"), env.opts.autoescape);
+t_6 += "\"";
+;
+}
+t_6 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"role")) {
+t_6 += "role=\"";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"role"), env.opts.autoescape);
+t_6 += "\"";
+;
+}
+t_6 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel")) {
+t_6 += "aria-label=\"";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel"), env.opts.autoescape);
+t_6 += "\"";
+;
+}
+else {
+t_6 += "aria-label=\"Customer testimonials\"";
+;
+}
+t_6 += "\n    ";
+frame = frame.push();
+var t_13 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"attributes");
+if(t_13) {t_13 = runtime.fromIterator(t_13);
+var t_11;
+if(runtime.isArray(t_13)) {
+var t_12 = t_13.length;
+for(t_11=0; t_11 < t_13.length; t_11++) {
+var t_14 = t_13[t_11][0];
+frame.set("[object Object]", t_13[t_11][0]);
+var t_15 = t_13[t_11][1];
+frame.set("[object Object]", t_13[t_11][1]);
+frame.set("loop.index", t_11 + 1);
+frame.set("loop.index0", t_11);
+frame.set("loop.revindex", t_12 - t_11);
+frame.set("loop.revindex0", t_12 - t_11 - 1);
+frame.set("loop.first", t_11 === 0);
+frame.set("loop.last", t_11 === t_12 - 1);
+frame.set("loop.length", t_12);
+t_6 += "\n      ";
+t_6 += runtime.suppressValue(t_14, env.opts.autoescape);
+t_6 += "=\"";
+t_6 += runtime.suppressValue(t_15, env.opts.autoescape);
+t_6 += "\"\n    ";
+;
+}
+} else {
+t_11 = -1;
+var t_12 = runtime.keys(t_13).length;
+for(var t_16 in t_13) {
+t_11++;
+var t_17 = t_13[t_16];
+frame.set("key", t_16);
+frame.set("value", t_17);
+frame.set("loop.index", t_11 + 1);
+frame.set("loop.index0", t_11);
+frame.set("loop.revindex", t_12 - t_11);
+frame.set("loop.revindex0", t_12 - t_11 - 1);
+frame.set("loop.first", t_11 === 0);
+frame.set("loop.last", t_11 === t_12 - 1);
+frame.set("loop.length", t_12);
+t_6 += "\n      ";
+t_6 += runtime.suppressValue(t_16, env.opts.autoescape);
+t_6 += "=\"";
+t_6 += runtime.suppressValue(t_17, env.opts.autoescape);
+t_6 += "\"\n    ";
+;
+}
+}
+}
+frame = frame.pop();
+t_6 += "\n  >\n    <!-- Heading Section -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"heading")) {
+t_6 += "\n      <div class=\"testimonial-carousel-header\">\n        <h2 class=\"testimonial-carousel-heading\">";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"heading"), env.opts.autoescape);
+t_6 += "</h2>\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"subheading")) {
+t_6 += "\n          <p class=\"testimonial-carousel-subheading\">";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"subheading"), env.opts.autoescape);
+t_6 += "</p>\n        ";
+;
+}
+t_6 += "\n      </div>\n    ";
+;
+}
+t_6 += "\n\n    <!-- Carousel Container -->\n    <div class=\"testimonial-carousel-container\"\n         data-autoplay=\"";
+t_6 += runtime.suppressValue((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"autoplay")?"true":"false"), env.opts.autoescape);
+t_6 += "\">\n\n      <!-- Testimonials Track -->\n      <div class=\"testimonial-carousel-track\" role=\"list\">\n        ";
+frame = frame.push();
+var t_20 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"testimonials");
+if(t_20) {t_20 = runtime.fromIterator(t_20);
+var t_19 = t_20.length;
+for(var t_18=0; t_18 < t_20.length; t_18++) {
+var t_21 = t_20[t_18];
+frame.set("item", t_21);
+frame.set("loop.index", t_18 + 1);
+frame.set("loop.index0", t_18);
+frame.set("loop.revindex", t_19 - t_18);
+frame.set("loop.revindex0", t_19 - t_18 - 1);
+frame.set("loop.first", t_18 === 0);
+frame.set("loop.last", t_18 === t_19 - 1);
+frame.set("loop.length", t_19);
+t_6 += "\n          <div class=\"testimonial-carousel-item\" role=\"listitem\">\n            ";
+t_6 += runtime.suppressValue((lineno = 62, colno = 26, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "testimonial"), "testimonial", context, [t_21])), env.opts.autoescape);
+t_6 += "\n          </div>\n        ";
+;
+}
+}
+frame = frame.pop();
+t_6 += "\n      </div>\n\n      <!-- Navigation Arrows -->\n      ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"showArrows") && env.getFilter("length").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"testimonials")) > 1) {
+t_6 += "\n        <button\n          class=\"testimonial-carousel-arrow testimonial-carousel-arrow-prev\"\n          aria-label=\"Previous testimonial\"\n          type=\"button\"\n        >\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n            <path d=\"M15 18l-6-6 6-6\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n        </button>\n\n        <button\n          class=\"testimonial-carousel-arrow testimonial-carousel-arrow-next\"\n          aria-label=\"Next testimonial\"\n          type=\"button\"\n        >\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n            <path d=\"M9 18l6-6-6-6\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n        </button>\n      ";
+;
+}
+t_6 += "\n\n      <!-- Pagination Dots -->\n      ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"showDots") && env.getFilter("length").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"testimonials")) > 1) {
+t_6 += "\n        <div class=\"testimonial-carousel-dots\" role=\"tablist\" aria-label=\"Testimonial navigation\">\n          ";
+frame = frame.push();
+var t_24 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"testimonials");
+if(t_24) {t_24 = runtime.fromIterator(t_24);
+var t_23 = t_24.length;
+for(var t_22=0; t_22 < t_24.length; t_22++) {
+var t_25 = t_24[t_22];
+frame.set("item", t_25);
+frame.set("loop.index", t_22 + 1);
+frame.set("loop.index0", t_22);
+frame.set("loop.revindex", t_23 - t_22);
+frame.set("loop.revindex0", t_23 - t_22 - 1);
+frame.set("loop.first", t_22 === 0);
+frame.set("loop.last", t_22 === t_23 - 1);
+frame.set("loop.length", t_23);
+t_6 += "\n            <button\n              class=\"testimonial-carousel-dot";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0") == 0) {
+t_6 += " testimonial-carousel-dot-active";
+;
+}
+t_6 += "\"\n              role=\"tab\"\n              aria-label=\"Go to testimonial ";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index"), env.opts.autoescape);
+t_6 += "\"\n              aria-selected=\"";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0") == 0) {
+t_6 += "true";
+;
+}
+else {
+t_6 += "false";
+;
+}
+t_6 += "\"\n              data-index=\"";
+t_6 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "loop")),"index0"), env.opts.autoescape);
+t_6 += "\"\n              type=\"button\"\n            ></button>\n          ";
+;
+}
+}
+frame = frame.pop();
+t_6 += "\n        </div>\n      ";
+;
+}
+t_6 += "\n    </div>\n  </section>\n";
+;
+frame = callerFrame;
+return new runtime.SafeString(t_6);
+});
+context.addExport("testimonialCarousel");
+context.setVariable("testimonialCarousel", macro_t_5);
+output += "\n";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+})});
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
 

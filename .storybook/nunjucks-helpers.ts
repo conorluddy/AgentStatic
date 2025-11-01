@@ -54,3 +54,31 @@ export function renderPrecompiledTemplate(templatePath: string, context: any = {
     return `<p style="color: red;">Failed to render ${templatePath}</p>`;
   }
 }
+
+/**
+ * Render a Nunjucks macro from a precompiled template
+ *
+ * Usage in stories:
+ *   renderNunjucks('organisms/hero/hero.njk', 'hero', { headline: 'Hello' })
+ *
+ * This function calls a specific macro from a template file with the provided props.
+ * The template must be precompiled first using: bun run precompile:templates
+ *
+ * @param templatePath - Path to the template (e.g., 'organisms/hero/hero.njk')
+ * @param macroName - Name of the macro to call (e.g., 'hero')
+ * @param props - Props object to pass to the macro
+ */
+export function renderNunjucks(templatePath: string, macroName: string, props: any = {}): string {
+  try {
+    // Create a minimal template string that imports and calls the macro
+    const templateString = `
+      {% from "${templatePath}" import ${macroName} %}
+      {{ ${macroName}(props) }}
+    `;
+
+    return nunjucks.renderString(templateString, { props });
+  } catch (error) {
+    console.error(`[Nunjucks] Failed to render macro ${macroName} from ${templatePath}:`, error);
+    return `<p style="color: red;">Failed to render ${macroName} from ${templatePath}: ${(error as Error).message}</p>`;
+  }
+}

@@ -11,7 +11,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderNunjucks } from '../../../.storybook/nunjucks-loader';
+import { renderNunjucks } from '../../../.storybook/nunjucks-helpers';
 
 const meta: Meta = {
   title: 'Organisms/Hero',

@@ -633,6 +633,137 @@ Markup works without CSS or JavaScript.
 
 ---
 
+## Nunjucks Templating Standards
+
+### 1. Avoid Complex Filter Chains
+
+**CRITICAL**: Nunjucks has a parser bug with complex filter chains that causes `charAt` errors during precompilation.
+
+```njk
+{# ❌ Bad: Complex filter chains trigger charAt parser errors #}
+{% set classList = [
+  'component',
+  'component-' + variant,
+  config.className
+] | reject('equalto', '') | join(' ') | trim %}
+
+{# ✅ Good: Use simple string concatenation instead #}
+{% set classList = 'component component-' + variant %}
+{% if config.className %}
+  {% set classList = classList + ' ' + config.className %}
+{% endif %}
+```
+
+**Why this matters:**
+- The `reject('equalto', '')` filter combined with `join(' ')` and `trim` triggers an edge case in Nunjucks' parser
+- This causes `TypeError: Cannot read properties of undefined (reading 'charAt')` during precompilation
+- The error is deep in the parser and cannot be caught/handled gracefully
+- Simple string concatenation is faster and more reliable
+
+### 2. Avoid Ternary Operators in Object Literals
+
+Nunjucks does not support ternary operators inside object literals.
+
+```njk
+{# ❌ Bad: Ternary in object literal causes parseAggregate error #}
+{% set buttonProps = {
+  variant: highlighted ? 'primary' : 'secondary',
+  size: 'md'
+} %}
+
+{# ✅ Good: Extract ternary logic to variable first #}
+{% set buttonVariant = 'secondary' %}
+{% if highlighted %}
+  {% set buttonVariant = 'primary' %}
+{% endif %}
+{% set buttonProps = {
+  variant: buttonVariant,
+  size: 'md'
+} %}
+```
+
+### 3. Template Organization
+
+Keep templates readable and maintainable:
+
+```njk
+{# File header with component description #}
+{#
+  Button Atom Component
+
+  A versatile button component with multiple variants and sizes.
+  Supports icons, loading states, and full accessibility.
+#}
+
+{# Import dependencies at the top #}
+{% from "atoms/icon/icon.njk" import icon %}
+
+{# Define macro with clear defaults #}
+{% macro button(props = {}) %}
+  {% set defaults = {
+    text: 'Button',
+    variant: 'primary',
+    size: 'md',
+    disabled: false,
+    className: ''
+  } %}
+
+  {# Merge props with defaults #}
+  {% set config = defaults | merge(props) %}
+
+  {# Build HTML #}
+  <button
+    class="button button--{{ config.variant }} button--{{ config.size }}"
+    {% if config.disabled %}disabled{% endif %}
+  >
+    {{ config.text }}
+  </button>
+{% endmacro %}
+```
+
+### 4. Common Patterns
+
+**Building class lists:**
+```njk
+{# Simple concatenation with conditionals #}
+{% set classList = 'base-class base-class--' + variant %}
+{% if size %}
+  {% set classList = classList + ' base-class--' + size %}
+{% endif %}
+{% if className %}
+  {% set classList = classList + ' ' + className %}
+{% endif %}
+```
+
+**Conditional rendering:**
+```njk
+{# Use if/endif blocks, not ternary #}
+{% if showImage %}
+  <img src="{{ image.src }}" alt="{{ image.alt }}">
+{% endif %}
+
+{# For attributes, use inline if #}
+<button
+  {% if ariaLabel %}aria-label="{{ ariaLabel }}"{% endif %}
+  {% if disabled %}disabled{% endif %}
+>
+```
+
+**Looping with context:**
+```njk
+{# Access loop metadata #}
+{% for item in items %}
+  <div
+    class="item{% if loop.first %} item--first{% endif %}"
+    data-index="{{ loop.index0 }}"
+  >
+    {{ item.name }}
+  </div>
+{% endfor %}
+```
+
+---
+
 ## Documentation Standards
 
 ### 1. File Headers
