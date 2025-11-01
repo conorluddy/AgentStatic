@@ -30,6 +30,14 @@ const env = nunjucks.configure({
   // Don't specify a loader - nunjucks will look for templates in the global store
 });
 
+// ============================================================================
+// Add custom filters required by templates
+// ============================================================================
+// The 'merge' filter merges two objects together (similar to Object.assign)
+env.addFilter('merge', function(obj1: any, obj2: any) {
+  return Object.assign({}, obj1, obj2);
+});
+
 // Verify templates loaded
 if (typeof window !== 'undefined' && window.nunjucksPrecompiled) {
   const templateCount = Object.keys(window.nunjucksPrecompiled).length;
