@@ -1,4 +1,4 @@
-{# components/molecules/pricing/pricing.njk #}
+<!-- components/molecules/pricing/pricing.njk -->
 
 {#
   Pricing Component (Molecule)
@@ -31,7 +31,7 @@
   Usage:
     {% from "molecules/pricing/pricing.njk" import pricing %}
 
-    {# Basic plan #}
+    <!-- Basic plan -->
     {{ pricing({
       name: "Pro",
       price: "$99",
@@ -49,7 +49,7 @@
       }
     }) }}
 
-    {# Highlighted plan with badge and savings #}
+    <!-- Highlighted plan with badge and savings -->
     {{ pricing({
       name: "Business",
       price: "$79",
@@ -69,7 +69,7 @@
       ctaNote: "No credit card required"
     }) }}
 
-    {# Grid of 3 plans #}
+    <!-- Grid of 3 plans -->
     <div class="pricing-grid">
       {{ pricing({ ... }) }}
       {{ pricing({ ... }) }}
@@ -102,20 +102,20 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['pricing'] %}
 
-  {# Add highlighted variant #}
+  <!-- Add highlighted variant -->
   {% if config.highlighted %}
     {% set classList = (classList.push('pricing-highlighted'), classList) %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Main pricing card container #}
+  <!-- Main pricing card container -->
   <div
     class="{{ classList | join(' ') }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -124,7 +124,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Badge wrapper (Popular, Best Value) #}
+    <!-- Badge wrapper (Popular, Best Value) -->
     {% if config.badge %}
       <div class="pricing-badge-wrapper">
         {{ badge({
@@ -136,7 +136,7 @@
       </div>
     {% endif %}
 
-    {# Header: Plan name and description #}
+    <!-- Header: Plan name and description -->
     <div class="pricing-header">
       <h3 class="pricing-name">{{ config.name }}</h3>
       {% if config.description %}
@@ -144,9 +144,9 @@
       {% endif %}
     </div>
 
-    {# Price display with optional strikethrough #}
+    <!-- Price display with optional strikethrough -->
     <div class="pricing-price-wrapper">
-      {# Show original price with strikethrough if provided #}
+      <!-- Show original price with strikethrough if provided -->
       {% if config.originalPrice %}
         <div class="pricing-original">
           <span class="pricing-original-amount">{{ config.originalPrice }}</span>
@@ -156,14 +156,14 @@
         </div>
       {% endif %}
 
-      {# Current price #}
+      <!-- Current price -->
       <div class="pricing-price">
         <span class="pricing-amount">{{ config.price }}</span>
         <span class="pricing-period">/{{ config.period }}</span>
       </div>
     </div>
 
-    {# Features list #}
+    <!-- Features list -->
     {% if config.features and config.features.length > 0 %}
       <div class="pricing-features">
         {{ featureList({
@@ -174,7 +174,7 @@
       </div>
     {% endif %}
 
-    {# CTA section #}
+    <!-- CTA section -->
     <div class="pricing-cta">
       {{ button({
         text: config.cta.text,

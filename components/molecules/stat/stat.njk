@@ -1,4 +1,4 @@
-{# components/molecules/stat/stat.njk #}
+<!-- components/molecules/stat/stat.njk -->
 
 {#
   Stat Molecule Component
@@ -32,13 +32,13 @@
   Usage:
     {% from "molecules/stat/stat.njk" import stat %}
 
-    {# Basic stat #}
+    <!-- Basic stat -->
     {{ stat({
       value: "10,000+",
       label: "Happy Customers"
     }) }}
 
-    {# Stat with icon and trend #}
+    <!-- Stat with icon and trend -->
     {{ stat({
       value: "99.9",
       suffix: "%",
@@ -47,7 +47,7 @@
       trend: { direction: "up", value: "0.2%", label: "vs last month" }
     }) }}
 
-    {# Featured card stat #}
+    <!-- Featured card stat -->
     {{ stat({
       value: "2.4M",
       prefix: "$",
@@ -57,7 +57,7 @@
       comparison: "2x growth year over year"
     }) }}
 
-    {# Stat group (horizontal) #}
+    <!-- Stat group (horizontal) -->
     <div class="stat-group stat-group-3">
       {{ stat({ value: "10K+", label: "Users" }) }}
       {{ stat({ value: "99.9%", label: "Uptime" }) }}
@@ -66,10 +66,10 @@
 #}
 
 {% macro stat(props = {}) %}
-  {# Import dependencies #}
+  <!-- Import dependencies -->
   {% from "atoms/icon/icon.njk" import icon %}
 
-  {# Set defaults #}
+  <!-- Set defaults -->
   {% set defaults = {
     variant: "default",
     size: "md",
@@ -82,10 +82,10 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ["stat"] %}
 
-  {# Add variant classes (can be multiple) #}
+  <!-- Add variant classes (can be multiple) -->
   {% if config.variant %}
     {% set variants = config.variant.split(' ') %}
     {% for v in variants %}
@@ -93,25 +93,25 @@
     {% endfor %}
   {% endif %}
 
-  {# Add size class #}
+  <!-- Add size class -->
   {% if config.size and config.size != 'md' %}
     {% set classList = (classList.push('stat-' + config.size), classList) %}
   {% endif %}
 
-  {# Add color class #}
+  <!-- Add color class -->
   {% if config.color and config.color != 'default' %}
     {% set classList = (classList.push('stat-' + config.color), classList) %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Join classes #}
+  <!-- Join classes -->
   {% set classString = classList | join(' ') | trim %}
 
-  {# Main container #}
+  <!-- Main container -->
   <div
     class="{{ classString }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -122,7 +122,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Icon (optional) #}
+    <!-- Icon (optional) -->
     {% if config.icon %}
       <div class="stat-icon">
         {{ icon({
@@ -133,7 +133,7 @@
       </div>
     {% endif %}
 
-    {# Value (number) with optional prefix/suffix #}
+    <!-- Value (number) with optional prefix/suffix -->
     <div class="stat-value-wrapper">
       {% if config.prefix %}
         <span class="stat-prefix">{{ config.prefix }}</span>
@@ -151,17 +151,17 @@
       {% endif %}
     </div>
 
-    {# Label (description) #}
+    <!-- Label (description) -->
     {% if config.label %}
       <div class="stat-label">{{ config.label }}</div>
     {% endif %}
 
-    {# Trend indicator (optional) #}
+    <!-- Trend indicator (optional) -->
     {% if config.trend %}
       {% set trendDirection = config.trend.direction | lower %}
       {% set trendClass = 'stat-trend stat-trend-' + trendDirection %}
 
-      {# Determine arrow icon #}
+      <!-- Determine arrow icon -->
       {% if trendDirection == 'up' %}
         {% set trendIcon = 'arrow-up' %}
       {% elif trendDirection == 'down' %}
@@ -189,12 +189,12 @@
       </div>
     {% endif %}
 
-    {# Comparison text (optional) #}
+    <!-- Comparison text (optional) -->
     {% if config.comparison %}
       <div class="stat-comparison">{{ config.comparison }}</div>
     {% endif %}
 
-    {# Allow caller content for advanced customization #}
+    <!-- Allow caller content for advanced customization -->
     {% if caller %}
       {{ caller() }}
     {% endif %}

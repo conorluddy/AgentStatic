@@ -1,4 +1,4 @@
-{# components/atoms/divider/divider.njk #}
+<!-- components/atoms/divider/divider.njk -->
 
 {#
   Divider Component
@@ -26,25 +26,25 @@
   Usage:
     {% from "atoms/divider/divider.njk" import divider %}
 
-    {# Simple horizontal divider #}
+    <!-- Simple horizontal divider -->
     {{ divider() }}
 
-    {# Vertical divider #}
+    <!-- Vertical divider -->
     {{ divider({ orientation: 'vertical' }) }}
 
-    {# Dashed divider #}
+    <!-- Dashed divider -->
     {{ divider({ variant: 'dashed' }) }}
 
-    {# Divider with text ("or" between login options) #}
+    <!-- Divider with text ("or" between login options) -->
     {{ divider({ withText: 'or' }) }}
 
-    {# Gradient divider #}
+    <!-- Gradient divider -->
     {{ divider({ variant: 'gradient' }) }}
 
-    {# Section divider (thick with large spacing) #}
+    <!-- Section divider (thick with large spacing) -->
     {{ divider({ variant: 'section' }) }}
 
-    {# Spacer (invisible) #}
+    <!-- Spacer (invisible) -->
     {{ divider({ variant: 'spacer', spacing: 'xl' }) }}
 #}
 
@@ -67,10 +67,10 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Determine if this is a text/icon divider #}
+  <!-- Determine if this is a text/icon divider -->
   {% set hasContent = config.withText or config.withIcon %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'divider',
     'divider-' + config.orientation,

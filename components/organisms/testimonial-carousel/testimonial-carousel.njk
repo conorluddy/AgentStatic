@@ -1,4 +1,4 @@
-{# components/organisms/testimonial-carousel/testimonial-carousel.njk #}
+<!-- components/organisms/testimonial-carousel/testimonial-carousel.njk -->
 
 {#
   Testimonial Carousel Organism Component
@@ -36,7 +36,7 @@
   Usage:
     {% from "organisms/testimonial-carousel/testimonial-carousel.njk" import testimonialCarousel %}
 
-    {# Basic carousel #}
+    <!-- Basic carousel -->
     {{ testimonialCarousel({
       testimonials: [
         {
@@ -52,7 +52,7 @@
       ]
     }) }}
 
-    {# Auto-play carousel with grid layout #}
+    <!-- Auto-play carousel with grid layout -->
     {{ testimonialCarousel({
       heading: { text: 'What Our Customers Say', align: 'center' },
       testimonials: testimonialsList,
@@ -60,7 +60,7 @@
       autoplay: { enabled: true, delay: 5000 }
     }) }}
 
-    {# Featured testimonial carousel #}
+    <!-- Featured testimonial carousel -->
     {{ testimonialCarousel({
       testimonials: testimonialsList,
       variant: 'featured',
@@ -92,7 +92,7 @@
   {% set config = defaults | merge(props) %}
   {% set autoplayConfig = defaults.autoplay | merge(config.autoplay) %}
 
-  {# Validate required props #}
+  <!-- Validate required props -->
   {% if config.testimonials.length === 0 %}
     {% set config.testimonials = [
       {
@@ -108,17 +108,17 @@
     ] %}
   {% endif %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'testimonial-carousel',
     'testimonial-carousel-' + config.variant if config.variant !== 'single',
     config.className
   ] | reject('equalto', '') | join(' ') | trim %}
 
-  {# Generate unique ID for carousel #}
+  <!-- Generate unique ID for carousel -->
   {% set carouselId = config.id or ('carousel-' + range(10000, 99999) | random | string) %}
 
-  {# Main container #}
+  <!-- Main container -->
   <section
     class="{{ classList }}"
     id="{{ carouselId }}"
@@ -132,7 +132,7 @@
     {% endfor %}
   >
     <div class="testimonial-carousel-container">
-      {# Optional heading #}
+      <!-- Optional heading -->
       {% if config.heading %}
         <header style="text-align: {{ config.heading.align or 'center' }}; margin-bottom: var(--spacing-xl);">
           <h{{ config.heading.level or 2 }} style="margin: 0 0 var(--spacing-sm) 0; font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-text);">
@@ -146,9 +146,9 @@
         </header>
       {% endif %}
 
-      {# Carousel wrapper #}
+      <!-- Carousel wrapper -->
       <div class="testimonial-carousel-wrapper">
-        {# Carousel track #}
+        <!-- Carousel track -->
         <div
           class="testimonial-carousel-track"
           role="list"
@@ -167,7 +167,7 @@
           {% endfor %}
         </div>
 
-        {# Navigation arrows #}
+        <!-- Navigation arrows -->
         {% if config.showArrows and config.testimonials.length > 1 %}
           <button
             class="testimonial-carousel-nav testimonial-carousel-nav-prev"
@@ -193,7 +193,7 @@
         {% endif %}
       </div>
 
-      {# Dot indicators #}
+      <!-- Dot indicators -->
       {% if config.showDots and config.testimonials.length > 1 %}
         <div class="testimonial-carousel-indicators" role="tablist" aria-label="Testimonial navigation">
           {% for item in config.testimonials %}
@@ -209,7 +209,7 @@
         </div>
       {% endif %}
 
-      {# Screen reader announcement region #}
+      <!-- Screen reader announcement region -->
       <div class="testimonial-carousel-sr-only" aria-live="polite" aria-atomic="true" data-carousel-announce></div>
     </div>
   </section>

@@ -1,4 +1,4 @@
-{# components/atoms/icon/icon.njk #}
+<!-- components/atoms/icon/icon.njk -->
 
 {#
   Icon Atom Component
@@ -20,19 +20,19 @@
   Usage:
     {% from "atoms/icon/icon.njk" import icon %}
 
-    {# Basic icon #}
+    <!-- Basic icon -->
     {{ icon({ name: 'check' }) }}
 
-    {# Large primary icon #}
+    <!-- Large primary icon -->
     {{ icon({ name: 'chevron-right', size: 'lg', color: 'primary' }) }}
 
-    {# Icon in circle (marketing pattern) #}
+    <!-- Icon in circle (marketing pattern) -->
     {{ icon({ name: 'shield', circle: true, circleColor: 'primary-light', size: 'xl' }) }}
 
-    {# Semantic icon with label #}
+    <!-- Semantic icon with label -->
     {{ icon({ name: 'external-link', ariaLabel: 'Opens in new window' }) }}
 
-    {# Decorative icon #}
+    <!-- Decorative icon -->
     {{ icon({ name: 'star', decorative: true }) }}
 #}
 
@@ -51,20 +51,20 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['icon'] %}
 
-  {# Add size class #}
+  <!-- Add size class -->
   {% if config.size %}
     {% set classList = (classList.push('icon-' + config.size), classList) %}
   {% endif %}
 
-  {# Add color class #}
+  <!-- Add color class -->
   {% if config.color %}
     {% set classList = (classList.push('icon-' + config.color), classList) %}
   {% endif %}
 
-  {# Add circle classes #}
+  <!-- Add circle classes -->
   {% if config.circle %}
     {% set classList = (classList.push('icon-circle'), classList) %}
     {% if config.circleColor %}
@@ -72,12 +72,12 @@
     {% endif %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Define SVG paths for all icons #}
+  <!-- Define SVG paths for all icons -->
   {% set iconPaths = {
     'check': 'M20 6L9 17l-5-5',
     'x': 'M18 6L6 18M6 6l12 12',
@@ -134,16 +134,16 @@
     'share': 'M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13'
   } %}
 
-  {# Get the path for the requested icon #}
+  <!-- Get the path for the requested icon -->
   {% set path = iconPaths[config.name] or iconPaths['check'] %}
 
-  {# Determine stroke-width based on icon type #}
+  <!-- Determine stroke-width based on icon type -->
   {% set strokeWidth = 2 %}
   {% if config.name in ['star', 'heart'] %}
     {% set strokeWidth = 1.5 %}
   {% endif %}
 
-  {# Render the icon #}
+  <!-- Render the icon -->
   <span
     class="{{ classList | join(' ') }}"
     {% if config.decorative %}aria-hidden="true"{% endif %}

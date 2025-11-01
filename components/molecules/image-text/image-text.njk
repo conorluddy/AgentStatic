@@ -1,4 +1,4 @@
-{# components/molecules/image-text/image-text.njk #}
+<!-- components/molecules/image-text/image-text.njk -->
 
 {#
   Image+Text Component (Molecule)
@@ -43,7 +43,7 @@
     {% from "atoms/text/text.njk" import text %}
     {% from "atoms/button/button.njk" import button %}
 
-    {# Basic usage - image left #}
+    <!-- Basic usage - image left -->
     {{ imageText({
       image: {
         src: 'feature.jpg',
@@ -53,7 +53,7 @@
       description: 'Track your growth with detailed analytics and insights.'
     }) }}
 
-    {# Image right with CTA #}
+    <!-- Image right with CTA -->
     {{ imageText({
       imagePosition: 'right',
       image: {
@@ -70,7 +70,7 @@
       }
     }) }}
 
-    {# With caption and background color #}
+    <!-- With caption and background color -->
     {{ imageText({
       imagePosition: 'left',
       image: {
@@ -106,12 +106,12 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Validate required image props #}
+  <!-- Validate required image props -->
   {% if not config.image.src or not config.image.alt %}
     <!-- Error: image-text requires image.src and image.alt -->
   {% endif %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'image-text',
     'image-text-image-' + config.imagePosition,
@@ -123,7 +123,7 @@
     config.className
   ] | reject('equalto', false) | join(' ') | trim %}
 
-  {# Main container #}
+  <!-- Main container -->
   <div
     class="{{ classList }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -134,7 +134,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Media section (image) #}
+    <!-- Media section (image) -->
     <div class="image-text-media">
       <figure class="image-text-figure">
         <img
@@ -151,9 +151,9 @@
       </figure>
     </div>
 
-    {# Content section (text + CTA) #}
+    <!-- Content section (text + CTA) -->
     <div class="image-text-content">
-      {# Headline #}
+      <!-- Headline -->
       {% if config.headline %}
         {{ heading({
           text: config.headline,
@@ -162,7 +162,7 @@
         }) }}
       {% endif %}
 
-      {# Description #}
+      <!-- Description -->
       {% if config.description %}
         {{ text({
           content: config.description,
@@ -172,7 +172,7 @@
         }) }}
       {% endif %}
 
-      {# Call-to-action button #}
+      <!-- Call-to-action button -->
       {% if config.cta %}
         {{ button({
           text: config.cta.text,

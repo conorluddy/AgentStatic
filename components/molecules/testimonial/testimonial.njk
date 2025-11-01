@@ -1,4 +1,4 @@
-{# components/molecules/testimonial/testimonial.njk #}
+<!-- components/molecules/testimonial/testimonial.njk -->
 
 {#
   Testimonial Molecule Component
@@ -30,7 +30,7 @@
   Usage:
     {% from "molecules/testimonial/testimonial.njk" import testimonial %}
 
-    {# Basic testimonial #}
+    <!-- Basic testimonial -->
     {{ testimonial({
       quote: 'This product changed our business completely!',
       author: {
@@ -40,7 +40,7 @@
       }
     }) }}
 
-    {# With rating and verification #}
+    <!-- With rating and verification -->
     {{ testimonial({
       quote: 'We saw a 127% increase in revenue within 3 months.',
       rating: 5,
@@ -58,7 +58,7 @@
       variant: 'card'
     }) }}
 
-    {# Featured testimonial #}
+    <!-- Featured testimonial -->
     {{ testimonial({
       quote: 'The best investment we made this year. Saved us 10 hours per week.',
       rating: 5,
@@ -71,7 +71,7 @@
       variant: 'featured'
     }) }}
 
-    {# Video testimonial #}
+    <!-- Video testimonial -->
     {{ testimonial({
       quote: 'See why our team loves this product',
       videoThumbnail: '/videos/testimonial-thumb.jpg',
@@ -104,7 +104,7 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Validate required props #}
+  <!-- Validate required props -->
   {% if not config.quote %}
     {% set config.quote = 'Customer testimonial quote...' %}
   {% endif %}
@@ -112,14 +112,14 @@
     {% set config.author = config.author | merge({ name: 'Anonymous' }) %}
   {% endif %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'testimonial',
     'testimonial-' + config.variant,
     config.className
   ] | reject('equalto', '') | join(' ') | trim %}
 
-  {# Main container - use blockquote for semantic HTML #}
+  <!-- Main container - use blockquote for semantic HTML -->
   <blockquote
     class="{{ classList }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -130,7 +130,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Video Thumbnail (if provided) #}
+    <!-- Video Thumbnail (if provided) -->
     {% if config.videoThumbnail %}
       <div class="testimonial-video" tabindex="0" role="button" aria-label="Play video testimonial">
         <img
@@ -142,7 +142,7 @@
       </div>
     {% endif %}
 
-    {# Star Rating (if provided) #}
+    <!-- Star Rating (if provided) -->
     {% if config.rating and config.rating > 0 %}
       <div class="testimonial-rating" role="img" aria-label="{{ config.rating }} out of 5 stars">
         <span class="testimonial-rating-text">{{ config.rating }} out of 5 stars</span>
@@ -160,21 +160,21 @@
       </div>
     {% endif %}
 
-    {# Quote Text #}
+    <!-- Quote Text -->
     <p class="testimonial-quote{% if config.expandable %} testimonial-quote--expandable{% endif %}">
       {{ config.quote | safe }}
     </p>
 
-    {# Expand button (if expandable) #}
+    <!-- Expand button (if expandable) -->
     {% if config.expandable %}
       <button class="testimonial-expand-btn" type="button" aria-expanded="false">
         Read more
       </button>
     {% endif %}
 
-    {# Footer: Avatar, Author, Logo #}
+    <!-- Footer: Avatar, Author, Logo -->
     <footer class="testimonial-footer">
-      {# Avatar Image #}
+      <!-- Avatar Image -->
       {% if config.author.avatar %}
         <img
           src="{{ config.author.avatar }}"
@@ -183,18 +183,18 @@
         >
       {% endif %}
 
-      {# Author Information #}
+      <!-- Author Information -->
       <div class="testimonial-author">
         <cite class="testimonial-name">{{ config.author.name }}</cite>
 
-        {# Title and Company #}
+        <!-- Title and Company -->
         {% if config.author.title or config.author.company %}
           <div class="testimonial-title">
             {% if config.author.title %}{{ config.author.title }}{% endif %}{% if config.author.title and config.author.company %} at {% endif %}{% if config.author.company %}{{ config.author.company }}{% endif %}
           </div>
         {% endif %}
 
-        {# Verification Badge #}
+        <!-- Verification Badge -->
         {% if config.verified %}
           <div class="testimonial-verified">
             <svg class="testimonial-verified-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -205,7 +205,7 @@
         {% endif %}
       </div>
 
-      {# Company Logo #}
+      <!-- Company Logo -->
       {% if config.logo and config.logo.src %}
         <img
           src="{{ config.logo.src }}"

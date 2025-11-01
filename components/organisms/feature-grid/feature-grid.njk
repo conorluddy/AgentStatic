@@ -1,4 +1,4 @@
-{# components/organisms/feature-grid/feature-grid.njk #}
+<!-- components/organisms/feature-grid/feature-grid.njk -->
 
 {#
   Feature Grid Organism
@@ -42,7 +42,7 @@
   Usage:
     {% from "organisms/feature-grid/feature-grid.njk" import featureGrid %}
 
-    {# Icon-based 3-column grid #}
+    <!-- Icon-based 3-column grid -->
     {{ featureGrid({
       heading: 'Powerful Features',
       description: 'Everything you need to build and grow your business',
@@ -65,7 +65,7 @@
       ]
     }) }}
 
-    {# Alternating image/text layout #}
+    <!-- Alternating image/text layout -->
     {{ featureGrid({
       heading: 'How It Works',
       layout: 'alternating',
@@ -91,7 +91,7 @@
       ]
     }) }}
 
-    {# Card variant with 2 columns #}
+    <!-- Card variant with 2 columns -->
     {{ featureGrid({
       heading: 'Service Offerings',
       columns: 2,
@@ -135,19 +135,19 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Validate required features array #}
+  <!-- Validate required features array -->
   {% if config.features.length == 0 %}
     <!-- Error: feature-grid requires at least one feature -->
   {% endif %}
 
-  {# Build class list for main container #}
+  <!-- Build class list for main container -->
   {% set classList = [
     'feature-grid',
     'feature-grid-bg-' + config.backgroundColor if config.backgroundColor,
     config.className
   ] | reject('equalto', false) | join(' ') | trim %}
 
-  {# Build class list for items container #}
+  <!-- Build class list for items container -->
   {% set itemsClassList = [
     'feature-grid-items',
     'feature-grid-items-' + config.layout,
@@ -156,13 +156,13 @@
     'feature-grid-items-' + config.contentAlign if config.layout == 'grid' and config.contentAlign != 'center'
   ] | reject('equalto', false) | join(' ') | trim %}
 
-  {# Build class list for header #}
+  <!-- Build class list for header -->
   {% set headerClassList = [
     'feature-grid-header',
     'feature-grid-header-' + config.headerAlign if config.headerAlign != 'center'
   ] | reject('equalto', false) | join(' ') | trim %}
 
-  {# Main container #}
+  <!-- Main container -->
   <section
     class="{{ classList }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -173,7 +173,7 @@
     {% endfor %}
   >
     <div class="feature-grid-container">
-      {# Section header (optional) #}
+      <!-- Section header (optional) -->
       {% if config.heading or config.description %}
         <header class="{{ headerClassList }}">
           {% if config.heading %}
@@ -197,7 +197,7 @@
         </header>
       {% endif %}
 
-      {# Features container #}
+      <!-- Features container -->
       <div class="{{ itemsClassList }}">
         {% for feature in config.features %}
           {% set featureDefaults = {
@@ -210,9 +210,9 @@
           } %}
           {% set featureConfig = featureDefaults | merge(feature) %}
 
-          {# Determine feature type and render accordingly #}
+          <!-- Determine feature type and render accordingly -->
           {% if config.layout == 'alternating' and featureConfig.image %}
-            {# Alternating layout: Use image-text molecule #}
+            <!-- Alternating layout: Use image-text molecule -->
             <div class="feature-grid-item feature-grid-item-with-image">
               {{ imageText({
                 imagePosition: featureConfig.imagePosition,
@@ -227,7 +227,7 @@
             </div>
 
           {% elif featureConfig.image %}
-            {# Grid layout with image #}
+            <!-- Grid layout with image -->
             <div class="feature-grid-item feature-grid-item-with-image">
               <div class="feature-grid-media">
                 <img
@@ -259,7 +259,7 @@
             </div>
 
           {% elif featureConfig.featureList %}
-            {# Detailed feature with feature list #}
+            <!-- Detailed feature with feature list -->
             <div class="feature-grid-item feature-grid-item-detailed">
               {% if featureConfig.icon %}
                 <div class="feature-grid-icon-wrapper">
@@ -288,13 +288,13 @@
                     className: 'feature-grid-description'
                   }) }}
                 {% endif %}
-                {# Feature list integration #}
+                <!-- Feature list integration -->
                 {{ featureList(featureConfig.featureList) }}
               </div>
             </div>
 
           {% else %}
-            {# Icon-based feature (default) #}
+            <!-- Icon-based feature (default) -->
             <div class="feature-grid-item">
               {% if featureConfig.icon %}
                 <div class="feature-grid-icon-wrapper">

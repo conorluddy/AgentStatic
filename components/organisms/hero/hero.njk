@@ -1,4 +1,4 @@
-{# components/organisms/hero/hero.njk #}
+<!-- components/organisms/hero/hero.njk -->
 
 {#
   Hero Organism Component
@@ -62,7 +62,7 @@
 
     {% from "organisms/hero/hero.njk" import hero %}
 
-    {# Basic centered hero #}
+    <!-- Basic centered hero -->
     {{ hero({
       headline: 'Build Better Websites Faster',
       subheading: 'The AI-first static site generator for modern teams',
@@ -71,7 +71,7 @@
       }
     }) }}
 
-    {# Hero with email capture #}
+    <!-- Hero with email capture -->
     {{ hero({
       eyebrow: 'Join the Beta',
       headline: 'Ship Landing Pages in Minutes, Not Days',
@@ -92,7 +92,7 @@
       }
     }) }}
 
-    {# Split layout with image #}
+    <!-- Split layout with image -->
     {{ hero({
       layout: 'split',
       headline: 'Transform Your Workflow',
@@ -108,7 +108,7 @@
       }
     }) }}
 
-    {# Hero with background image #}
+    <!-- Hero with background image -->
     {{ hero({
       background: {
         type: 'image',
@@ -130,7 +130,7 @@
 #}
 
 {% macro hero(props = {}) %}
-  {# Import dependencies #}
+  <!-- Import dependencies -->
   {% from "atoms/button/button.njk" import button %}
   {% from "atoms/heading/heading.njk" import heading %}
   {% from "atoms/input/input.njk" import input %}
@@ -152,27 +152,27 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Merge nested objects properly #}
+  <!-- Merge nested objects properly -->
   {% set config = config | merge({
     background: defaults.background | merge(props.background or {}),
     emailCapture: defaults.emailCapture | merge(props.emailCapture or {}),
     socialProof: defaults.socialProof | merge(props.socialProof or {})
   }) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['hero'] %}
 
-  {# Layout variant #}
+  <!-- Layout variant -->
   {% if config.layout %}
     {% set classList = (classList.push('hero-' + config.layout), classList) %}
   {% endif %}
 
-  {# Height variant #}
+  <!-- Height variant -->
   {% if config.height %}
     {% set classList = (classList.push('hero-' + config.height), classList) %}
   {% endif %}
 
-  {# Background type #}
+  <!-- Background type -->
   {% if config.background.type == 'gradient' %}
     {% set classList = (classList.push('hero-gradient'), classList) %}
   {% elif config.background.type == 'gradient-subtle' %}
@@ -181,14 +181,14 @@
     {% set classList = (classList.push('hero-with-background-' + config.background.type), classList) %}
   {% endif %}
 
-  {# Custom classes #}
+  <!-- Custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
   {% set classString = classList | join(' ') | trim %}
 
-  {# Main hero section #}
+  <!-- Main hero section -->
   <section
     class="{{ classString }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -199,7 +199,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Background layer (image or video) #}
+    <!-- Background layer (image or video) -->
     {% if config.background.type == 'image' and config.background.image %}
       <div class="hero-background" aria-hidden="true">
         <img
@@ -232,33 +232,33 @@
       {% endif %}
     {% endif %}
 
-    {# Content container #}
+    <!-- Content container -->
     <div class="hero-container">
-      {# Content area #}
+      <!-- Content area -->
       <div class="hero-content">
-        {# Eyebrow text (optional) #}
+        <!-- Eyebrow text (optional) -->
         {% if config.eyebrow %}
           <span class="hero-eyebrow">{{ config.eyebrow }}</span>
         {% endif %}
 
-        {# Main heading (required) #}
+        <!-- Main heading (required) -->
         {% if config.headline %}
           <h{{ config.headingLevel }} class="hero-content-heading">
             {{ config.headline }}
           </h{{ config.headingLevel }}>
         {% endif %}
 
-        {# Subheading (optional) #}
+        <!-- Subheading (optional) -->
         {% if config.subheading %}
           <p class="hero-content-subheading">{{ config.subheading }}</p>
         {% endif %}
 
-        {# Description (optional) #}
+        <!-- Description (optional) -->
         {% if config.description %}
           <p class="hero-content-description">{{ config.description }}</p>
         {% endif %}
 
-        {# Email capture form #}
+        <!-- Email capture form -->
         {% if config.emailCapture.enabled %}
           <form class="hero-email-capture" action="/subscribe" method="POST">
             {{ input({
@@ -282,10 +282,10 @@
           </form>
         {% endif %}
 
-        {# CTA buttons (if no email capture) #}
+        <!-- CTA buttons (if no email capture) -->
         {% if config.cta and not config.emailCapture.enabled %}
           <div class="hero-actions">
-            {# Primary CTA #}
+            <!-- Primary CTA -->
             {% if config.cta.primary %}
               {{ button({
                 text: config.cta.primary.text,
@@ -297,7 +297,7 @@
               }) }}
             {% endif %}
 
-            {# Secondary CTA #}
+            <!-- Secondary CTA -->
             {% if config.cta.secondary %}
               {{ button({
                 text: config.cta.secondary.text,
@@ -311,14 +311,14 @@
           </div>
         {% endif %}
 
-        {# Trust signals #}
+        <!-- Trust signals -->
         {% if config.trustSignals and config.trustSignals | length > 0 %}
           <div class="hero-trust-signals">
             {% for signal in config.trustSignals %}
               <div class="hero-trust-stat">
                 {% if signal.icon %}
                   <span class="hero-trust-stat-icon" aria-hidden="true">
-                    {# Icon placeholder - would be replaced with actual SVG #}
+                    <!-- Icon placeholder - would be replaced with actual SVG -->
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                       <circle cx="10" cy="10" r="8" />
                     </svg>
@@ -331,7 +331,7 @@
           </div>
         {% endif %}
 
-        {# Social proof (Logo Grid) #}
+        <!-- Social proof (Logo Grid) -->
         {% if config.socialProof.enabled and config.socialProof.logos %}
           <div class="hero-social-proof">
             {{ logoGrid({
@@ -346,7 +346,7 @@
         {% endif %}
       </div>
 
-      {# Media area (for split layouts) #}
+      <!-- Media area (for split layouts) -->
       {% if config.media and (config.layout == 'split' or config.layout == 'split-reverse') %}
         <div class="hero-media">
           {% if config.media.type == 'image' %}
@@ -370,7 +370,7 @@
               </video>
             </div>
           {% else %}
-            {# Custom markup #}
+            <!-- Custom markup -->
             {{ config.media | safe }}
           {% endif %}
         </div>

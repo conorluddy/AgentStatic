@@ -1,4 +1,4 @@
-{# components/molecules/feature-list/feature-list.njk #}
+<!-- components/molecules/feature-list/feature-list.njk -->
 
 {#
   Feature List Component (Molecule)
@@ -26,7 +26,7 @@
   Usage:
     {% from "molecules/feature-list/feature-list.njk" import featureList %}
 
-    {# Basic feature list with checkmarks #}
+    <!-- Basic feature list with checkmarks -->
     {{ featureList({
       items: [
         { text: 'Unlimited users' },
@@ -35,7 +35,7 @@
       ]
     }) }}
 
-    {# Comparison list with mixed check/cross icons #}
+    <!-- Comparison list with mixed check/cross icons -->
     {{ featureList({
       items: [
         { text: 'Unlimited users', icon: 'check' },
@@ -44,14 +44,14 @@
       ]
     }) }}
 
-    {# Two-column compact layout #}
+    <!-- Two-column compact layout -->
     {{ featureList({
       items: [...],
       columns: 2,
       density: 'compact'
     }) }}
 
-    {# Top-aligned icons for longer descriptions #}
+    <!-- Top-aligned icons for longer descriptions -->
     {{ featureList({
       items: [...],
       iconPosition: 'top'
@@ -75,32 +75,32 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['feature-list'] %}
 
-  {# Add icon position class #}
+  <!-- Add icon position class -->
   {% if config.iconPosition == 'top' %}
     {% set classList = (classList.push('feature-list-top'), classList) %}
   {% endif %}
 
-  {# Add density class #}
+  <!-- Add density class -->
   {% if config.density == 'compact' %}
     {% set classList = (classList.push('feature-list-compact'), classList) %}
   {% elif config.density == 'spacious' %}
     {% set classList = (classList.push('feature-list-spacious'), classList) %}
   {% endif %}
 
-  {# Add columns class #}
+  <!-- Add columns class -->
   {% if config.columns == 2 %}
     {% set classList = (classList.push('feature-list-two-column'), classList) %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Render semantic list #}
+  <!-- Render semantic list -->
   <ul
     class="{{ classList | join(' ') }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -117,7 +117,7 @@
       } %}
       {% set itemConfig = itemDefaults | merge(item) %}
 
-      {# Build item class list #}
+      <!-- Build item class list -->
       {% set itemClassList = ['feature-list-item'] %}
       {% if itemConfig.included %}
         {% set itemClassList = (itemClassList.push('feature-list-item-included'), itemClassList) %}
@@ -125,18 +125,25 @@
         {% set itemClassList = (itemClassList.push('feature-list-item-not-included'), itemClassList) %}
       {% endif %}
 
+      {% set iconColor = '' %}
+      {% if itemConfig.included and (itemConfig.icon == 'check' or itemConfig.icon == 'verified') %}
+        {% set iconColor = 'success' %}
+      {% elif not itemConfig.included and itemConfig.icon == 'x' %}
+        {% set iconColor = 'error' %}
+      {% endif %}
+
       <li class="{{ itemClassList | join(' ') }}">
-        {# Icon #}
+        <!-- Icon -->
         <span class="feature-list-icon">
           {{ icon({
             name: itemConfig.icon,
             size: 'sm',
-            color: itemConfig.included and (itemConfig.icon == 'check' or itemConfig.icon == 'verified') ? 'success' : (not itemConfig.included and itemConfig.icon == 'x' ? 'error' : ''),
+            color: iconColor,
             decorative: true
           }) }}
         </span>
 
-        {# Text #}
+        <!-- Text -->
         <span class="feature-list-text">
           {{ text({
             content: itemConfig.text,

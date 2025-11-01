@@ -1,4 +1,4 @@
-{# components/organisms/comparison-table/comparison-table.njk #}
+<!-- components/organisms/comparison-table/comparison-table.njk -->
 
 {#
   Comparison Table Organism
@@ -43,7 +43,7 @@
   Usage:
     {% from "organisms/comparison-table/comparison-table.njk" import comparisonTable %}
 
-    {# Basic pricing table #}
+    <!-- Basic pricing table -->
     {{ comparisonTable({
       columns: [
         {
@@ -81,7 +81,7 @@
       ]
     }) }}
 
-    {# With categories #}
+    <!-- With categories -->
     {{ comparisonTable({
       columns: [...],
       rows: [
@@ -111,25 +111,25 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['comparison-table'] %}
 
-  {# Add variant class #}
+  <!-- Add variant class -->
   {% if config.variant != 'default' %}
     {% set classList = (classList.push('comparison-table-' + config.variant), classList) %}
   {% endif %}
 
-  {# Add responsive class #}
+  <!-- Add responsive class -->
   {% if config.responsive == 'cards' %}
     {% set classList = (classList.push('comparison-table-cards'), classList) %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Main container with horizontal scroll #}
+  <!-- Main container with horizontal scroll -->
   <div
     class="{{ classList | join(' ') }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -143,22 +143,22 @@
   >
     <div class="comparison-table-wrapper">
       <table class="comparison-table-table" role="table">
-        {# Table caption for accessibility #}
+        <!-- Table caption for accessibility -->
         {% if config.a11y.caption %}
         <caption id="table-caption-{{ config.id or 'default' }}" class="comparison-table-sr-only">
           {{ config.a11y.caption }}
         </caption>
         {% endif %}
 
-        {# Table Header: Plan columns #}
+        <!-- Table Header: Plan columns -->
         <thead class="comparison-table-header">
           <tr>
-            {# First column: "Features" header #}
+            <!-- First column: "Features" header -->
             <th scope="col" class="comparison-table-feature-header">
               Features
             </th>
 
-            {# Plan columns #}
+            <!-- Plan columns -->
             {% for column in config.columns %}
               {% set columnDefaults = {
                 title: '',
@@ -179,7 +179,7 @@
               {% endif %}
 
               <th scope="col" class="{{ columnClass }}">
-                {# Badge for highlighted plans #}
+                <!-- Badge for highlighted plans -->
                 {% if col.badge %}
                 <div class="comparison-table-badge">
                   {{ col.badge }}
@@ -187,21 +187,21 @@
                 {% endif %}
 
                 <div class="comparison-table-plan-content">
-                  {# Plan title #}
+                  <!-- Plan title -->
                   {% if col.title %}
                   <h3 class="comparison-table-plan-title">
                     {{ col.title }}
                   </h3>
                   {% endif %}
 
-                  {# Plan subtitle #}
+                  <!-- Plan subtitle -->
                   {% if col.subtitle %}
                   <p class="comparison-table-plan-subtitle">
                     {{ col.subtitle }}
                   </p>
                   {% endif %}
 
-                  {# Price display (simple or complex) #}
+                  <!-- Price display (simple or complex) -->
                   {% if col.priceAmount or col.pricePeriod %}
                   <div class="comparison-table-plan-price">
                     {% if col.priceAmount %}
@@ -217,14 +217,14 @@
                   </div>
                   {% endif %}
 
-                  {# Description #}
+                  <!-- Description -->
                   {% if col.description %}
                   <p class="comparison-table-plan-description">
                     {{ col.description }}
                   </p>
                   {% endif %}
 
-                  {# CTA button #}
+                  <!-- CTA button -->
                   {% if col.cta.text %}
                     {% set ctaDefaults = {
                       variant: col.highlighted ? 'primary' : 'secondary',
@@ -239,7 +239,7 @@
           </tr>
         </thead>
 
-        {# Table Body: Feature rows #}
+        <!-- Table Body: Feature rows -->
         <tbody>
           {% for row in config.rows %}
             {% set rowDefaults = {
@@ -250,7 +250,7 @@
             } %}
             {% set rowConfig = rowDefaults | merge(row) %}
 
-            {# Category row (spans all columns) #}
+            <!-- Category row (spans all columns) -->
             {% if rowConfig.category %}
             <tr class="comparison-table-category-row">
               <td colspan="{{ config.columns.length + 1 }}" class="comparison-table-category">
@@ -258,10 +258,10 @@
               </td>
             </tr>
 
-            {# Feature row #}
+            <!-- Feature row -->
             {% elif rowConfig.feature %}
             <tr>
-              {# Feature name (first column) #}
+              <!-- Feature name (first column) -->
               <th scope="row" class="comparison-table-feature">
                 {{ rowConfig.feature }}
                 {% if rowConfig.tooltip %}
@@ -274,7 +274,7 @@
                 {% endif %}
               </th>
 
-              {# Feature values for each column #}
+              <!-- Feature values for each column -->
               {% for value in rowConfig.values %}
                 {% set valueIndex = loop.index - 1 %}
                 {% set isHighlighted = config.columns[valueIndex].highlighted %}
@@ -284,7 +284,7 @@
                 {% endif %}
 
                 <td class="{{ valueClass }}">
-                  {# Boolean value: render as check/cross icon #}
+                  <!-- Boolean value: render as check/cross icon -->
                   {% if value === true %}
                     <span class="comparison-table-icon comparison-table-icon-yes" aria-hidden="true">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,7 +300,7 @@
                     </span>
                     <span class="comparison-table-sr-only">Not included</span>
                   {% else %}
-                    {# String or number value #}
+                    <!-- String or number value -->
                     {{ value }}
                   {% endif %}
                 </td>

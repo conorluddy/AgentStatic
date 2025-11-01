@@ -1,4 +1,4 @@
-{# components/atoms/heading/heading.njk #}
+<!-- components/atoms/heading/heading.njk -->
 
 {#
   Heading Component
@@ -26,17 +26,17 @@
   Usage:
     {% from "atoms/heading/heading.njk" import heading %}
 
-    {# Basic usage #}
+    <!-- Basic usage -->
     {{ heading({ text: 'Welcome to Our Product', level: 1 }) }}
 
-    {# With size override #}
+    <!-- With size override -->
     {{ heading({
       text: 'Oversized h2',
       level: 2,
       size: '4xl'
     }) }}
 
-    {# Hero headline with gradient #}
+    <!-- Hero headline with gradient -->
     {{ heading({
       text: 'Build. Ship. Scale.',
       level: 1,
@@ -44,14 +44,14 @@
       align: 'center'
     }) }}
 
-    {# With eyebrow text #}
+    <!-- With eyebrow text -->
     {{ heading({
       eyebrow: 'New Feature',
       text: 'Introducing AI Page Builder',
       level: 2
     }) }}
 
-    {# Custom HTML content with highlight #}
+    <!-- Custom HTML content with highlight -->
     {% call heading({ level: 1, align: 'center' }) %}
       Build <span class="heading-highlight">faster</span> with AI
     {% endcall %}
@@ -72,55 +72,55 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = [
     'heading',
     'heading-h' + config.level|string
   ] %}
 
-  {# Size override (optional) #}
+  <!-- Size override (optional) -->
   {% if config.size %}
     {% set classList = (classList.push('heading-size-' + config.size), classList) %}
   {% endif %}
 
-  {# Alignment #}
+  <!-- Alignment -->
   {% if config.align != 'left' %}
     {% set classList = (classList.push('heading-' + config.align), classList) %}
   {% endif %}
 
-  {# Weight #}
+  <!-- Weight -->
   {% if config.weight != 'bold' %}
     {% set classList = (classList.push('heading-weight-' + config.weight), classList) %}
   {% endif %}
 
-  {# Color variant #}
+  <!-- Color variant -->
   {% if config.color != 'default' %}
     {% set classList = (classList.push('heading-' + config.color), classList) %}
   {% endif %}
 
-  {# Gradient #}
+  <!-- Gradient -->
   {% if config.gradient %}
     {% set classList = (classList.push('heading-gradient'), classList) %}
   {% endif %}
 
-  {# Custom classes #}
+  <!-- Custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Join classes #}
+  <!-- Join classes -->
   {% set classString = classList | join(' ') | trim %}
 
-  {# Determine heading tag #}
+  <!-- Determine heading tag -->
   {% set tag = 'h' + config.level|string %}
 
-  {# Render wrapper if eyebrow exists #}
+  <!-- Render wrapper if eyebrow exists -->
   {% if config.eyebrow %}
   <div class="heading-container">
     <span class="heading-eyebrow">{{ config.eyebrow }}</span>
   {% endif %}
 
-  {# Main heading element #}
+  <!-- Main heading element -->
   <{{ tag }}
     class="{{ classString }}"
     {% if config.id %}id="{{ config.id }}"{% endif %}
@@ -131,7 +131,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Text content or caller content #}
+    <!-- Text content or caller content -->
     {% if config.text %}
       {{ config.text }}
     {% else %}
@@ -139,7 +139,7 @@
     {% endif %}
   </{{ tag }}>
 
-  {# Close wrapper if eyebrow exists #}
+  <!-- Close wrapper if eyebrow exists -->
   {% if config.eyebrow %}
   </div>
   {% endif %}

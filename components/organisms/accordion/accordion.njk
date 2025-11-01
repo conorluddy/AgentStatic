@@ -1,4 +1,4 @@
-{# components/organisms/accordion/accordion.njk #}
+<!-- components/organisms/accordion/accordion.njk -->
 
 {#
   Accordion/FAQ Organism Component
@@ -33,7 +33,7 @@
   Usage:
     {% from "organisms/accordion/accordion.njk" import accordion %}
 
-    {# Basic FAQ #}
+    <!-- Basic FAQ -->
     {{ accordion({
       title: 'Frequently Asked Questions',
       subtitle: 'Everything you need to know',
@@ -52,7 +52,7 @@
       ]
     }) }}
 
-    {# Multi-open behavior #}
+    <!-- Multi-open behavior -->
     {{ accordion({
       title: 'Product Features',
       behavior: 'multi',
@@ -60,7 +60,7 @@
       items: [...]
     }) }}
 
-    {# Grouped by category #}
+    <!-- Grouped by category -->
     {{ accordion({
       grouped: true,
       categories: [
@@ -75,7 +75,7 @@
       ]
     }) }}
 
-    {# Icon on left side #}
+    <!-- Icon on left side -->
     {{ accordion({
       iconPosition: 'left',
       items: [...]
@@ -102,33 +102,33 @@
 
   {% set config = defaults | merge(props) %}
 
-  {# Build class list #}
+  <!-- Build class list -->
   {% set classList = ['accordion'] %}
 
-  {# Add variant class #}
+  <!-- Add variant class -->
   {% if config.variant != 'default' %}
     {% set classList = (classList.push('accordion-' + config.variant), classList) %}
   {% endif %}
 
-  {# Add icon position class #}
+  <!-- Add icon position class -->
   {% if config.iconPosition == 'left' %}
     {% set classList = (classList.push('accordion-icon-left'), classList) %}
   {% endif %}
 
-  {# Add grouped class #}
+  <!-- Add grouped class -->
   {% if config.grouped %}
     {% set classList = (classList.push('accordion-grouped'), classList) %}
   {% endif %}
 
-  {# Add custom classes #}
+  <!-- Add custom classes -->
   {% if config.className %}
     {% set classList = (classList.push(config.className), classList) %}
   {% endif %}
 
-  {# Join classes #}
+  <!-- Join classes -->
   {% set classString = classList | join(' ') | trim %}
 
-  {# Render accordion #}
+  <!-- Render accordion -->
   <section
     class="{{ classString }}"
     data-component="accordion"
@@ -138,7 +138,7 @@
       {{ key }}="{{ value }}"
     {% endfor %}
   >
-    {# Optional header #}
+    <!-- Optional header -->
     {% if config.title %}
     <div class="accordion-header">
       <h2 class="accordion-title">{{ config.title }}</h2>
@@ -148,7 +148,7 @@
     </div>
     {% endif %}
 
-    {# Grouped accordion (categories) #}
+    <!-- Grouped accordion (categories) -->
     {% if config.grouped and config.categories.length > 0 %}
       {% for category in config.categories %}
       <div class="accordion-category">
@@ -161,7 +161,7 @@
       </div>
       {% endfor %}
 
-    {# Standard accordion (flat list) #}
+    <!-- Standard accordion (flat list) -->
     {% else %}
       <div class="accordion-list">
         {% for item in config.items %}
@@ -172,21 +172,21 @@
   </section>
 {% endmacro %}
 
-{# Internal macro for rendering individual accordion items #}
+<!-- Internal macro for rendering individual accordion items -->
 {% macro accordionItem(item, behavior, index) %}
-  {# Generate unique IDs for ARIA relationships #}
+  <!-- Generate unique IDs for ARIA relationships -->
   {% set buttonId = 'accordion-button-' + item.id %}
   {% set panelId = 'accordion-panel-' + item.id %}
 
-  {# Determine initial state #}
+  <!-- Determine initial state -->
   {% set isOpen = item.defaultOpen or false %}
 
-  {# Render item #}
+  <!-- Render item -->
   <div
     class="accordion-item{% if isOpen %} accordion-item-open{% endif %}"
     data-accordion-item
   >
-    {# Trigger button #}
+    <!-- Trigger button -->
     <button
       class="accordion-trigger"
       type="button"
@@ -205,7 +205,7 @@
       </span>
     </button>
 
-    {# Content panel #}
+    <!-- Content panel -->
     <div
       class="accordion-panel"
       id="{{ panelId }}"
@@ -215,7 +215,7 @@
       {% if not isOpen %}hidden{% endif %}
     >
       <div class="accordion-content">
-        {# Render answer as HTML if it contains tags, otherwise as plain text #}
+        <!-- Render answer as HTML if it contains tags, otherwise as plain text -->
         {% if item.answer | safe %}
           {{ item.answer | safe }}
         {% else %}
