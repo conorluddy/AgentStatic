@@ -7348,6 +7348,274 @@ root: root
 
 })();
 })();
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["molecules/testimonial/testimonial.njk"] = (function() {
+function root(env, context, frame, runtime, cb) {
+var lineno = 0;
+var colno = 0;
+var output = "";
+try {
+var parentTemplate = null;
+output += "<!-- components/molecules/testimonial/testimonial.njk -->\n\n";
+output += "\n\n";
+var macro_t_1 = runtime.makeMacro(
+[], 
+["props"], 
+function (kwargs) {
+var callerFrame = frame;
+frame = new runtime.Frame();
+kwargs = kwargs || {};
+if (Object.prototype.hasOwnProperty.call(kwargs, "caller")) {
+frame.set("caller", kwargs.caller); }
+frame.set("props", Object.prototype.hasOwnProperty.call(kwargs, "props") ? kwargs["props"] : {});var t_2 = "";t_2 += "\n  ";
+var t_3;
+t_3 = {"quote": "Customer testimonial quote...","author": {"name": "Anonymous","title": "","company": "","avatar": ""},"rating": 0,"logo": null,"verified": false,"verifiedText": "Verified Customer","variant": "default","expandable": false,"videoThumbnail": "","className": "","id": "","attributes": {},"a11y": {}};
+frame.set("defaults", t_3, true);
+if(frame.topLevel) {
+context.setVariable("defaults", t_3);
+}
+if(frame.topLevel) {
+context.addExport("defaults", t_3);
+}
+t_2 += "\n\n  ";
+var t_4;
+t_4 = env.getFilter("merge").call(context, runtime.contextOrFrameLookup(context, frame, "defaults"),runtime.contextOrFrameLookup(context, frame, "props"));
+frame.set("config", t_4, true);
+if(frame.topLevel) {
+context.setVariable("config", t_4);
+}
+if(frame.topLevel) {
+context.addExport("config", t_4);
+}
+t_2 += "\n\n  <!-- Build class list -->\n  ";
+var t_5;
+t_5 = "testimonial testimonial-" + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"variant");
+frame.set("classList", t_5, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_5);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_5);
+}
+t_2 += "\n  ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className")) {
+t_2 += "\n    ";
+var t_6;
+t_6 = runtime.contextOrFrameLookup(context, frame, "classList") + " " + runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"className");
+frame.set("classList", t_6, true);
+if(frame.topLevel) {
+context.setVariable("classList", t_6);
+}
+if(frame.topLevel) {
+context.addExport("classList", t_6);
+}
+t_2 += "\n  ";
+;
+}
+t_2 += "\n\n  <!-- Main container -->\n  <blockquote\n    class=\"";
+t_2 += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "classList"), env.opts.autoescape);
+t_2 += "\"\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id")) {
+t_2 += "id=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"id"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"role")) {
+t_2 += "role=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"role"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel")) {
+t_2 += "aria-label=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaLabel"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaDescribedBy")) {
+t_2 += "aria-describedby=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"a11y")),"ariaDescribedBy"), env.opts.autoescape);
+t_2 += "\"";
+;
+}
+t_2 += "\n    ";
+frame = frame.push();
+var t_9 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"attributes");
+if(t_9) {t_9 = runtime.fromIterator(t_9);
+var t_7;
+if(runtime.isArray(t_9)) {
+var t_8 = t_9.length;
+for(t_7=0; t_7 < t_9.length; t_7++) {
+var t_10 = t_9[t_7][0];
+frame.set("[object Object]", t_9[t_7][0]);
+var t_11 = t_9[t_7][1];
+frame.set("[object Object]", t_9[t_7][1]);
+frame.set("loop.index", t_7 + 1);
+frame.set("loop.index0", t_7);
+frame.set("loop.revindex", t_8 - t_7);
+frame.set("loop.revindex0", t_8 - t_7 - 1);
+frame.set("loop.first", t_7 === 0);
+frame.set("loop.last", t_7 === t_8 - 1);
+frame.set("loop.length", t_8);
+t_2 += "\n      ";
+t_2 += runtime.suppressValue(t_10, env.opts.autoescape);
+t_2 += "=\"";
+t_2 += runtime.suppressValue(t_11, env.opts.autoescape);
+t_2 += "\"\n    ";
+;
+}
+} else {
+t_7 = -1;
+var t_8 = runtime.keys(t_9).length;
+for(var t_12 in t_9) {
+t_7++;
+var t_13 = t_9[t_12];
+frame.set("key", t_12);
+frame.set("value", t_13);
+frame.set("loop.index", t_7 + 1);
+frame.set("loop.index0", t_7);
+frame.set("loop.revindex", t_8 - t_7);
+frame.set("loop.revindex0", t_8 - t_7 - 1);
+frame.set("loop.first", t_7 === 0);
+frame.set("loop.last", t_7 === t_8 - 1);
+frame.set("loop.length", t_8);
+t_2 += "\n      ";
+t_2 += runtime.suppressValue(t_12, env.opts.autoescape);
+t_2 += "=\"";
+t_2 += runtime.suppressValue(t_13, env.opts.autoescape);
+t_2 += "\"\n    ";
+;
+}
+}
+}
+frame = frame.pop();
+t_2 += "\n  >\n    <!-- Video Thumbnail -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"videoThumbnail")) {
+t_2 += "\n      <div class=\"testimonial-video\" tabindex=\"0\" role=\"button\" aria-label=\"Play video testimonial\">\n        <img\n          src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"videoThumbnail"), env.opts.autoescape);
+t_2 += "\"\n          alt=\"Video testimonial from ";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"name"), env.opts.autoescape);
+t_2 += "\"\n          class=\"testimonial-video-thumbnail\"\n        >\n        <div class=\"testimonial-video-play\" aria-hidden=\"true\"></div>\n      </div>\n    ";
+;
+}
+t_2 += "\n\n    <!-- Star Rating -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"rating") && runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"rating") > 0) {
+t_2 += "\n      <div class=\"testimonial-rating\" role=\"img\" aria-label=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"rating"), env.opts.autoescape);
+t_2 += " out of 5 stars\">\n        <span class=\"testimonial-rating-text\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"rating"), env.opts.autoescape);
+t_2 += " out of 5 stars</span>\n        ";
+frame = frame.push();
+var t_16 = (lineno = 64, colno = 25, runtime.callWrap(runtime.contextOrFrameLookup(context, frame, "range"), "range", context, [1,6]));
+if(t_16) {t_16 = runtime.fromIterator(t_16);
+var t_15 = t_16.length;
+for(var t_14=0; t_14 < t_16.length; t_14++) {
+var t_17 = t_16[t_14];
+frame.set("i", t_17);
+frame.set("loop.index", t_14 + 1);
+frame.set("loop.index0", t_14);
+frame.set("loop.revindex", t_15 - t_14);
+frame.set("loop.revindex0", t_15 - t_14 - 1);
+frame.set("loop.first", t_14 === 0);
+frame.set("loop.last", t_14 === t_15 - 1);
+frame.set("loop.length", t_15);
+t_2 += "\n          <svg\n            class=\"testimonial-star";
+if(t_17 <= runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"rating")) {
+t_2 += " testimonial-star--filled";
+;
+}
+t_2 += "\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            xmlns=\"http://www.w3.org/2000/svg\"\n            aria-hidden=\"true\"\n          >\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n          </svg>\n        ";
+;
+}
+}
+frame = frame.pop();
+t_2 += "\n      </div>\n    ";
+;
+}
+t_2 += "\n\n    <!-- Quote Text -->\n    <p class=\"testimonial-quote";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"expandable")) {
+t_2 += " testimonial-quote--expandable";
+;
+}
+t_2 += "\">\n      ";
+t_2 += runtime.suppressValue(env.getFilter("safe").call(context, runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"quote")), env.opts.autoescape);
+t_2 += "\n    </p>\n\n    <!-- Expand button -->\n    ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"expandable")) {
+t_2 += "\n      <button class=\"testimonial-expand-btn\" type=\"button\" aria-expanded=\"false\">\n        Read more\n      </button>\n    ";
+;
+}
+t_2 += "\n\n    <!-- Footer: Avatar, Author, Logo -->\n    <footer class=\"testimonial-footer\">\n      <!-- Avatar Image -->\n      ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"avatar")) {
+t_2 += "\n        <img\n          src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"avatar"), env.opts.autoescape);
+t_2 += "\"\n          alt=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"name"), env.opts.autoescape);
+t_2 += "\"\n          class=\"testimonial-avatar\"\n        >\n      ";
+;
+}
+t_2 += "\n\n      <!-- Author Information -->\n      <div class=\"testimonial-author\">\n        <cite class=\"testimonial-name\">";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"name"), env.opts.autoescape);
+t_2 += "</cite>\n\n        <!-- Title and Company -->\n        ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"title") || runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"company")) {
+t_2 += "\n          <div class=\"testimonial-title\">\n            ";
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"title")) {
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"title"), env.opts.autoescape);
+;
+}
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"title") && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"company")) {
+t_2 += " at ";
+;
+}
+if(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"company")) {
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"company"), env.opts.autoescape);
+;
+}
+t_2 += "\n          </div>\n        ";
+;
+}
+t_2 += "\n\n        <!-- Verification Badge -->\n        ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"verified")) {
+t_2 += "\n          <div class=\"testimonial-verified\">\n            <svg class=\"testimonial-verified-icon\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n              <path d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </svg>\n            ";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"verifiedText"), env.opts.autoescape);
+t_2 += "\n          </div>\n        ";
+;
+}
+t_2 += "\n      </div>\n\n      <!-- Company Logo -->\n      ";
+if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"logo") && runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"logo")),"src")) {
+t_2 += "\n        <img\n          src=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"logo")),"src"), env.opts.autoescape);
+t_2 += "\"\n          alt=\"";
+t_2 += runtime.suppressValue(runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"logo")),"alt") || runtime.memberLookup((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "config")),"author")),"company") || "Company logo", env.opts.autoescape);
+t_2 += "\"\n          class=\"testimonial-logo\"\n        >\n      ";
+;
+}
+t_2 += "\n    </footer>\n  </blockquote>\n";
+;
+frame = callerFrame;
+return new runtime.SafeString(t_2);
+});
+context.addExport("testimonial");
+context.setVariable("testimonial", macro_t_1);
+output += "\n";
+if(parentTemplate) {
+parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
+} else {
+cb(null, output);
+}
+;
+} catch (e) {
+  cb(runtime.handleError(e, lineno, colno));
+}
+}
+return {
+root: root
+};
+
+})();
+})();
 (function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["organisms/accordion/accordion.njk"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = 0;
