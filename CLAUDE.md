@@ -76,7 +76,7 @@ See `PLANNING/README.md` for detailed explanations.
 ## Technology Stack
 
 ### Build System (Phase 0)
-- **Runtime**: Bun 1.0+ (modern, fast JavaScript runtime)
+- **Runtime**: Node.js 20+ LTS (via npm)
 - **Build Tool**: Vite 5+ (fast bundling and dev server)
 - **Templating**: Nunjucks (logic-light templates)
 - **CSS Processing**: PostCSS + Lightning CSS
@@ -226,53 +226,50 @@ agentstatic/
 
 ### Project Setup (Phase 0 Start)
 ```bash
-# Initialize Bun project
-bun init
-
-# Install dependencies (will be defined in Phase 0)
-bun install
+# Install dependencies
+npm install
 
 # Start dev server
-bun run dev
+npm run dev
 
 # Build for production
-bun run build
+npm run build
 ```
 
 ### Component Development (Phases 2-4)
 ```bash
 # Start Storybook
-bun run storybook
+npm run storybook
 
 # Run accessibility tests
-bun run test:a11y
+npm run test:a11y
 
 # Check bundle size
-bun run build:analyze
+npm run build:analyze
 ```
 
 ### Testing (All Phases)
 ```bash
 # Run all tests
-bun test
+npm test
 
 # Run with coverage
-bun test --coverage
+npm test -- --coverage
 
 # Run accessibility audit
-bun run test:a11y
+npm run test:a11y
 ```
 
 ### AI Integration (Phase 6)
 ```bash
 # Start MCP server
-bun run mcp:server
+npm run mcp:server
 
 # Test with Claude
-bun run mcp:test
+npm run mcp:test
 
 # Validate compositions
-bun run validate:compositions
+npm run validate:compositions
 ```
 
 ---

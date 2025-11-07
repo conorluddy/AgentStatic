@@ -485,7 +485,7 @@ sed -i '' "s/renderNunjucks('organisms\/hero\/hero.njk', {/renderNunjucks('organ
 After fixing imports, recompiled all templates:
 
 ```bash
-bun run precompile:templates
+npm run precompile:templates
 ```
 
 ### Files Modified
@@ -585,14 +585,14 @@ This approach:
 
 4. **Test in browser after template changes**:
    ```bash
-   bun run precompile:templates
-   bun run storybook
+   npm run precompile:templates
+   npm run storybook
    # Open browser and verify rendering
    ```
 
 #### Pre-commit Checklist
 - [ ] No relative imports in `.njk` files
-- [ ] Templates recompiled (`bun run precompile:templates`)
+- [ ] Templates recompiled (`npm run precompile:templates`)
 - [ ] Stories use `renderNunjucksTemplate()` pattern
 - [ ] Macro names match template definitions (check with grep)
 - [ ] Console shows no errors in Storybook

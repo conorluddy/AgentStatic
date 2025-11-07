@@ -9,9 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "precompile:templates": "nunjucks-precompile -f -i \"\\.njk$\" components > .storybook/precompiled-templates.js",
-    "storybook": "bun run precompile:templates && storybook dev -p 6006",
-    "build-storybook": "bun run precompile:templates && storybook build",
-    "test": "bun test",
+    "storybook": "npm run precompile:templates && storybook dev -p 6006",
+    "build-storybook": "npm run precompile:templates && storybook build",
+    "test": "npm run test:unit",
+    "test:unit": "playwright test",
     "test:a11y": "echo 'Accessibility tests not yet configured' && exit 0"
   },
   "devDependencies": {
