@@ -27,15 +27,14 @@ jobs:
           node-version: "20"
           cache: "npm"
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Precompile Nunjucks templates
-        run: npm run precompile:templates
-
       - name: Build Storybook
-        run: npm run storybook build
-        continue-on-error: false
+        run: npm run build-storybook
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -8,29 +8,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderNunjucksTemplate } from '../../../.storybook/nunjucks-helpers';
 
-const renderComponent = (args: any) => {
-  return renderNunjucksTemplate(
-    `
-    {% from "organisms/header/header.njk" import header %}
-    {{ header(props) }}
-  `,
-    { props: args }
-  );
-};
-
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-
-// Configure Nunjucks environment
-// Load templates
-const headerTemplate = readFileSync(resolve(__dirname, 'header.njk'), 'utf8');
-const buttonTemplate = readFileSync(resolve(__dirname, '../../atoms/button/button.njk'), 'utf8');
-const linkTemplate = readFileSync(resolve(__dirname, '../../atoms/link/link.njk'), 'utf8');
-
-renderNunjucksTemplate(headerTemplate);
-renderNunjucksTemplate(buttonTemplate);
-renderNunjucksTemplate(linkTemplate);
-
 /**
  * Primary site navigation organism with logo, nav links, actions, and mobile menu.
  *
