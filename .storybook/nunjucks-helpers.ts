@@ -44,7 +44,7 @@ export function renderNunjucksTemplate(template: string, context: any = {}): str
  *   renderPrecompiledTemplate('molecules/card/card.njk', { props: args })
  *
  * This is used when rendering a standalone .njk file directly.
- * Templates must be precompiled by running: bun run precompile:templates
+ * Templates must be precompiled by running: npm run precompile:templates
  */
 export function renderPrecompiledTemplate(templatePath: string, context: any = {}): string {
   try {
@@ -62,7 +62,7 @@ export function renderPrecompiledTemplate(templatePath: string, context: any = {
  *   renderNunjucks('organisms/hero/hero.njk', 'hero', { headline: 'Hello' })
  *
  * This function calls a specific macro from a template file with the provided props.
- * The template must be precompiled first using: bun run precompile:templates
+ * The template must be precompiled first using: npm run precompile:templates
  *
  * WORKAROUND: We create a simple wrapper in the precompiled store that calls the macro.
  * This avoids using renderString() or getTemplate() which require Node.js path module.
@@ -77,7 +77,7 @@ export function renderNunjucks(templatePath: string, macroName: string, props: a
     const precompiledTemplate = window.nunjucksPrecompiled?.[templatePath];
 
     if (!precompiledTemplate) {
-      throw new Error(`Template "${templatePath}" not found in precompiled store. Available: ${Object.keys(window.nunjucksPrecompiled || {}).length}. Run: bun run precompile:templates`);
+      throw new Error(`Template "${templatePath}" not found in precompiled store. Available: ${Object.keys(window.nunjucksPrecompiled || {}).length}. Run: npm run precompile:templates`);
     }
 
     // Create a unique wrapper ID for this macro call
