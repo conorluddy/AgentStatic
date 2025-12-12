@@ -1,7 +1,7 @@
 {
-  "name": "Nimbus",
-  "tagline": "Simple cloud storage for teams",
+  "name": "AgentStatic",
+  "tagline": "Pure HTML + CSS static sites, zero JavaScript",
   "colors": {
-    "primary": "#3b82f6"
+    "primary": "#10b981"
   }
 }
