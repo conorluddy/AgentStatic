@@ -2,124 +2,69 @@
 <html lang="en">
 
 <include-head
-  title="Nimbus - Simple Cloud Storage for Teams"
-  description="Secure file storage and sharing that just works. Store, sync, and share with your team."
+  title="AgentStatic - Static Sites, Zero JavaScript"
+  description="Build pure HTML + CSS static sites with a component library, token-based theming, and fast builds. No JavaScript in the output."
 />
 
 <body>
   <include-nav
     logo="/assets/logo.svg"
-    siteName="Nimbus"
+    siteName="AgentStatic"
   >
     <a slot="links" href="/">Home</a>
     <a slot="links" href="/#features">Features</a>
-    <a slot="links" href="/#pricing">Pricing</a>
+    <a slot="links" href="/docs.html">Docs</a>
     <a slot="links" href="/about.html">About</a>
-    <a slot="actions" href="/#pricing" class="button">Get Started</a>
+    <a slot="actions" href="/docs.html" class="button">Read the Docs</a>
   </include-nav>
 
   <site-hero variant="centered">
-    <h1>Your Files, Everywhere</h1>
-    <p>Secure cloud storage that just works. Store, sync, and share files with your team in seconds.</p>
+    <h1>Static Sites, Zero JavaScript</h1>
+    <p>Build fast, accessible websites with pure HTML and CSS. Change your brand.json, run build, and ship. No frameworks, no client-side scripts—just content that loads instantly.</p>
     <site-hero-actions>
-      <a href="#pricing" class="button">Start Free</a>
-      <a href="#features" class="button-ghost">See Features</a>
+      <a href="/docs.html" class="button">Read the Docs</a>
+      <a href="#features" class="button-ghost">See How It Works</a>
     </site-hero-actions>
   </site-hero>
 
-  <site-features id="features" variant="3-col">
+  <site-features id="features" variant="2-col">
     <site-features-header>
-      <h2>Everything Your Team Needs</h2>
-      <p>Powerful features, simple interface.</p>
+      <h2>Built for Speed and Simplicity</h2>
+      <p>Everything you need to build landing pages without the complexity.</p>
     </site-features-header>
 
     <site-feature>
-      <site-feature-icon>📁</site-feature-icon>
-      <h3>Unlimited Storage</h3>
-      <p>Store all your files without worrying about space. Photos, videos, documents—we've got room.</p>
+      <site-feature-icon>0</site-feature-icon>
+      <h3>Zero JavaScript Output</h3>
+      <p>Your visitors get pure HTML and CSS. No bundle size worries, no hydration delays—pages load instantly on any device.</p>
     </site-feature>
 
     <site-feature>
-      <site-feature-icon>🔗</site-feature-icon>
-      <h3>Easy Sharing</h3>
-      <p>Share files with a link. Set permissions, expiration dates, and password protection.</p>
+      <site-feature-icon>🎨</site-feature-icon>
+      <h3>Token-Based Theming</h3>
+      <p>Set your primary color in brand.json and the build generates a complete design system. Colors, spacing, typography—all from one config.</p>
     </site-feature>
 
     <site-feature>
-      <site-feature-icon>👥</site-feature-icon>
-      <h3>Team Collaboration</h3>
-      <p>Work together in shared folders. See who changed what with full version history.</p>
+      <site-feature-icon>🧱</site-feature-icon>
+      <h3>Ready-to-Use Components</h3>
+      <p>Hero sections, feature grids, pricing tables, FAQs, and more. Just drop in the HTML elements and customize the content.</p>
     </site-feature>
 
     <site-feature>
-      <site-feature-icon>🔒</site-feature-icon>
-      <h3>Bank-Level Security</h3>
-      <p>256-bit encryption at rest and in transit. Your files are safe with us.</p>
-    </site-feature>
-
-    <site-feature>
-      <site-feature-icon>🔄</site-feature-icon>
-      <h3>Automatic Sync</h3>
-      <p>Install our desktop app and your files sync automatically across all your devices.</p>
-    </site-feature>
-
-    <site-feature>
-      <site-feature-icon>🛠️</site-feature-icon>
-      <h3>Developer API</h3>
-      <p>Build integrations with our REST API. Full documentation and SDKs available.</p>
+      <site-feature-icon>⚡</site-feature-icon>
+      <h3>Fast Builds</h3>
+      <p>Simple TypeScript build script. No complex bundlers, no waiting. Change a file, run build, see results in seconds.</p>
     </site-feature>
   </site-features>
 
-  <site-pricing id="pricing">
-    <site-pricing-header>
-      <h2>Simple, Transparent Pricing</h2>
-      <p>Start free, upgrade when you need more.</p>
-    </site-pricing-header>
-
-    <site-pricing-tier>
-      <h3>Free</h3>
-      <site-pricing-price>
-        <span class="amount">$0</span>
-        <span class="period">/month</span>
-      </site-pricing-price>
-      <ul>
-        <li>5 GB storage</li>
-        <li>Share up to 100 MB files</li>
-        <li>Basic support</li>
-      </ul>
-      <a href="https://app.nimbus.example/signup" class="button-ghost">Sign Up Free</a>
-    </site-pricing-tier>
-
-    <site-pricing-tier featured>
-      <h3>Pro</h3>
-      <site-pricing-price>
-        <span class="amount">$12</span>
-        <span class="period">/month</span>
-      </site-pricing-price>
-      <ul>
-        <li>2 TB storage</li>
-        <li>Share files up to 5 GB</li>
-        <li>Version history (30 days)</li>
-        <li>Priority support</li>
-      </ul>
-      <a href="https://app.nimbus.example/signup?plan=pro" class="button">Start Free Trial</a>
-    </site-pricing-tier>
-
-    <site-pricing-tier>
-      <h3>Team</h3>
-      <site-pricing-price>
-        <span class="amount">$29</span>
-        <span class="period">/user/month</span>
-      </site-pricing-price>
-      <ul>
-        <li>Unlimited storage</li>
-        <li>Admin controls</li>
-        <li>SSO integration</li>
-        <li>Dedicated support</li>
-      </ul>
-      <a href="mailto:sales@nimbus.example" class="button-ghost">Contact Sales</a>
-    </site-pricing-tier>
-  </site-pricing>
+  <site-cta theme="dark">
+    <h2>Perfect for Technical Marketers</h2>
+    <p>If you can edit HTML, you can build landing pages. No React, no npm dependencies to maintain, no build tool drama. Just open your editor, write content, and deploy.</p>
+    <site-cta-actions>
+      <a href="/docs.html" class="button">Get Started</a>
+    </site-cta-actions>
+  </site-cta>
 
   <site-faq id="faq">
     <site-faq-header>
@@ -127,54 +72,52 @@
     </site-faq-header>
 
     <details>
-      <summary>How secure is my data?</summary>
-      <p>All files are encrypted with AES-256 both at rest and in transit. We're SOC 2 Type II certified and GDPR compliant. Your data is stored redundantly across multiple data centers.</p>
+      <summary>Why no JavaScript?</summary>
+      <p>Client-side JavaScript adds complexity, slows down page loads, and can break. For content-focused sites like landing pages, pure HTML and CSS delivers a faster, more reliable experience for your visitors.</p>
     </details>
 
     <details>
-      <summary>Can I access my files offline?</summary>
-      <p>Yes! Our desktop and mobile apps let you mark files and folders for offline access. They'll sync automatically when you're back online.</p>
+      <summary>How do I change the brand colors?</summary>
+      <p>Edit brand.json with your primary color (e.g., "#3b82f6"), then run npm run build. The system generates a full color palette including shades from 50 to 950, plus semantic colors for backgrounds, text, and accents.</p>
     </details>
 
     <details>
-      <summary>What file types can I store?</summary>
-      <p>Anything! Documents, photos, videos, code, archives—we support all file types. We also provide previews for common formats like PDFs, images, and Office documents.</p>
+      <summary>Can I add my own components?</summary>
+      <p>Yes! Create a folder in elements/ with your element name (e.g., site-testimonials), add a styles.css file, and write your HTML. The build system automatically includes your new component styles.</p>
     </details>
 
     <details>
-      <summary>How does team billing work?</summary>
-      <p>Team plans are billed per user per month. You can add or remove users anytime and your bill adjusts automatically. Annual plans get 2 months free.</p>
+      <summary>How do I deploy the site?</summary>
+      <p>Run npm run build to generate the dist/ folder, then deploy it anywhere—Netlify, Vercel, GitHub Pages, or any web server. It's just HTML and CSS files.</p>
     </details>
 
     <details>
-      <summary>Can I migrate from another service?</summary>
-      <p>Absolutely. We offer free migration from Dropbox, Google Drive, OneDrive, and Box. Our team will help transfer your files and folder structure.</p>
+      <summary>Is this good for SEO?</summary>
+      <p>Excellent. Pure HTML means search engines see your content immediately without waiting for JavaScript to render. Fast load times also improve your Core Web Vitals scores.</p>
     </details>
   </site-faq>
 
-  <site-cta theme="dark">
-    <h2>Ready to Get Started?</h2>
-    <p>Join thousands of teams who trust Nimbus with their files.</p>
+  <site-cta>
+    <h2>Ready to Build?</h2>
+    <p>Check out the documentation to get started with AgentStatic.</p>
     <site-cta-actions>
-      <a href="https://app.nimbus.example/signup" class="button">Create Free Account</a>
+      <a href="/docs.html" class="button">Read the Docs</a>
     </site-cta-actions>
   </site-cta>
 
   <include-footer
     logo="/assets/logo.svg"
-    siteName="Nimbus"
-    tagline="Simple cloud storage for teams"
+    siteName="AgentStatic"
+    tagline="Static sites, zero JavaScript"
   >
     <nav slot="links">
       <h4>Product</h4>
       <a href="/#features">Features</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/blog/">Blog</a>
+      <a href="/docs.html">Docs</a>
     </nav>
     <nav slot="links">
-      <h4>Company</h4>
+      <h4>Project</h4>
       <a href="/about.html">About</a>
-      <a href="mailto:hello@nimbus.example">Contact</a>
     </nav>
   </include-footer>
 

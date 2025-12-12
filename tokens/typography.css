@@ -1,8 +1,8 @@
 :root {
   /* Fonts */
-  --font-sans: system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
   --font-serif: Georgia, serif;
-  --font-mono: monospace;
+  --font-mono: "JetBrains Mono", monospace;
 
   /* Scale */
   --text-xs: 0.64rem;

@@ -10,6 +10,7 @@ A static site generator that outputs pure HTML + CSS. No JavaScript in the outpu
 
 ```
 ├── brand.json           # EDIT THIS: Site config, colors, typography
+├── fonts/               # Google Fonts reference (curated catalog)
 ├── tokens/              # GENERATED: CSS custom properties
 ├── utilities/           # Hand-authored utility classes
 ├── elements/            # Component library
@@ -147,6 +148,48 @@ Based on modular scale:
 - `--font-sans`, `--font-serif`, `--font-mono`
 - `--leading-tight`, `--leading-normal`, `--leading-relaxed`
 
+### Google Fonts
+
+Fonts from `fonts/google-fonts.json` are auto-loaded. Configure in brand.json:
+
+```json
+{
+  "typography": {
+    "fonts": {
+      "sans": "Inter",
+      "serif": "Playfair Display",
+      "mono": "JetBrains Mono"
+    }
+  }
+}
+```
+
+**Simple format**: Just the font family name (uses default weights 400, 700).
+
+**Advanced format**: Specify weights and italic:
+```json
+{
+  "typography": {
+    "fonts": {
+      "serif": {
+        "family": "Playfair Display",
+        "weights": [400, 500, 600, 700],
+        "italic": true
+      }
+    }
+  }
+}
+```
+
+Build auto-generates:
+- Google Fonts `<link>` tags (preconnect + stylesheet) in HTML head
+- CSS tokens with proper font stacks: `--font-sans: "Inter", system-ui, sans-serif`
+
+Available fonts are in `fonts/google-fonts.json` with tags for browsing:
+- **style**: modern, classic, playful, technical, elegant, minimal, bold
+- **useCase**: headlines, body, ui, code, display
+- **character**: professional, friendly, corporate, creative, luxury
+
 ### Layout
 
 - `--container-sm` through `--container-xl`
@@ -162,20 +205,23 @@ npm run serve        # Serve dist/ locally (npx serve dist)
 
 ## Build Architecture
 
-The build system is ~330 lines across four files in `build/`:
+The build system is in `build/`:
 
 ```
 build/index.ts   → Orchestrator: clean, generate, copy assets, watch mode
 build/tokens.ts  → Reads brand.json, generates tokens/*.css (uses chroma-js)
 build/css.ts     → Concatenates CSS: tokens → utilities → elements → dist/styles.css
-build/html.ts    → Expands <include-*> elements in pages/*.html → dist/*.html
+build/html.ts    → Expands <include-*> elements, injects font links → dist/*.html
+build/fonts.ts   → Resolves fonts from google-fonts.json, generates <link> tags
+build/types.ts   → Shared TypeScript interfaces
 ```
 
 **Data flow:**
-1. `brand.json` → `tokens.ts` → generates `tokens/*.css` (colors, spacing, typography, layout)
-2. `tokens/*.css` + `utilities/*.css` + `elements/*/styles.css` → `css.ts` → `dist/styles.css`
-3. `pages/*.html` + `partials/*.html` → `html.ts` → `dist/*.html`
-4. `assets/` → copied directly to `dist/assets/`
+1. `brand.json` + `fonts/google-fonts.json` → `fonts.ts` → font stacks + Google Fonts links
+2. `brand.json` → `tokens.ts` → generates `tokens/*.css` (colors, spacing, typography, layout)
+3. `tokens/*.css` + `utilities/*.css` + `elements/*/styles.css` → `css.ts` → `dist/styles.css`
+4. `pages/*.html` + `partials/*.html` + font links → `html.ts` → `dist/*.html`
+5. `assets/` → copied directly to `dist/assets/`
 
 **Dependencies:** chroma-js (color manipulation), chokidar (file watching)
 

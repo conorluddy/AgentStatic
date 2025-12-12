@@ -2,29 +2,29 @@
 <html lang="en">
 
 <include-head
-  title="Getting Started - Template Guide"
-  description="Learn how to customize this landing page template for your own project."
+  title="Documentation - AgentStatic"
+  description="Learn how to build static sites with AgentStatic. Quick start guide, customization, and component reference."
 />
 
 <body>
   <include-nav
     logo="/assets/logo.svg"
-    siteName="Nimbus"
+    siteName="AgentStatic"
   >
     <a slot="links" href="/">Home</a>
     <a slot="links" href="/#features">Features</a>
-    <a slot="links" href="/#pricing">Pricing</a>
+    <a slot="links" href="/docs.html">Docs</a>
     <a slot="links" href="/about.html">About</a>
-    <a slot="actions" href="/#pricing" class="button">Get Started</a>
+    <a slot="actions" href="/docs.html" class="button">Read the Docs</a>
   </include-nav>
 
   <main class="content">
     <article>
       <header>
-        <h1>Template Guide</h1>
+        <h1>Documentation</h1>
       </header>
 
-      <p><strong>This page is meta-documentation.</strong> It explains how to customize this template for your own project. Delete or replace this page once you're ready to launch.</p>
+      <p>AgentStatic generates pure HTML + CSS static sites. This guide covers everything you need to get started.</p>
 
       <h2>Quick Start</h2>
       <ol>
@@ -38,10 +38,10 @@
       <h2>Project Structure</h2>
       <pre><code>my-site/
 ├── brand.json        # Your brand config (edit this first!)
-├── pages/            # Your HTML and Markdown pages
+├── pages/            # Your HTML pages
 │   ├── index.html    # Homepage
 │   ├── about.html    # About page
-│   └── blog/         # Blog posts (Markdown)
+│   └── docs.html     # This page
 ├── partials/         # Reusable HTML fragments
 ├── elements/         # Custom element styles
 ├── utilities/        # Utility CSS classes
@@ -50,30 +50,28 @@
 
       <h2>Customizing Your Brand</h2>
       <p>Everything starts with <code>brand.json</code>:</p>
-      <pre><code class="language-json">{
+      <pre><code>{
   "name": "Your Company",
   "tagline": "Your tagline here",
   "colors": {
-    "primary": "#3b82f6"
+    "primary": "#22c55e"
   }
 }</code></pre>
-      <p>The build system generates a complete color palette from your primary color—light and dark shades, semantic colors, and dark mode variants.</p>
+      <p>The build system generates a complete color palette from your primary color—shades from 50 to 950, plus semantic colors for backgrounds, text, and accents.</p>
 
       <h2>Available Elements</h2>
-      <p>This template includes pre-styled custom HTML elements:</p>
+      <p>AgentStatic includes pre-styled custom HTML elements:</p>
       <ul>
         <li><code>&lt;site-hero&gt;</code> — Full-width hero section (variants: centered, split; themes: dark, light)</li>
         <li><code>&lt;site-features&gt;</code> — Feature grid (variants: 2-col, 3-col, 4-col)</li>
         <li><code>&lt;site-pricing&gt;</code> — Pricing tiers (use <code>featured</code> attribute to highlight)</li>
         <li><code>&lt;site-faq&gt;</code> — FAQ accordion using native <code>&lt;details&gt;</code></li>
         <li><code>&lt;site-cta&gt;</code> — Call-to-action section (themes: dark, light)</li>
-        <li><code>&lt;site-nav&gt;</code> — Navigation header</li>
-        <li><code>&lt;site-footer&gt;</code> — Page footer</li>
       </ul>
 
       <h2>Using Partials</h2>
       <p>Partials are reusable HTML fragments. Include them with <code>&lt;include-name&gt;</code>:</p>
-      <pre><code class="language-html">&lt;include-head title="Page Title" description="Meta description" /&gt;
+      <pre><code>&lt;include-head title="Page Title" description="Meta description" /&gt;
 
 &lt;include-nav logo="/assets/logo.svg" siteName="My Site"&gt;
   &lt;a slot="links" href="/"&gt;Home&lt;/a&gt;
@@ -88,23 +86,17 @@
   &lt;/nav&gt;
 &lt;/include-footer&gt;</code></pre>
 
-      <h2>Writing Blog Posts</h2>
-      <p>Create <code>.md</code> files in <code>pages/blog/</code> with frontmatter:</p>
-      <pre><code class="language-markdown">---
-title: My Blog Post
-description: A short description
-date: 2025-01-15
----
-
-Write your content in **Markdown**.
-
-## Headings work
-
-So do lists, code blocks, and links.</code></pre>
-      <p>The build system auto-generates a listing page at <code>/blog/</code> sorted by date.</p>
+      <h2>Creating New Elements</h2>
+      <p>To add a custom element:</p>
+      <ol>
+        <li>Create a folder in <code>elements/</code> (e.g., <code>elements/site-testimonials/</code>)</li>
+        <li>Add a <code>README.md</code> documenting usage and variants</li>
+        <li>Add a <code>styles.css</code> with your element styles</li>
+        <li>Run <code>npm run build</code> — your styles are automatically included</li>
+      </ol>
 
       <h2>Commands</h2>
-      <pre><code class="language-bash"># Build once
+      <pre><code># Build once
 npm run build
 
 # Build and watch for changes
@@ -122,27 +114,46 @@ npm run serve</code></pre>
         <li><strong>Any web server</strong> — Upload the <code>dist/</code> folder</li>
       </ul>
 
+      <h2>Troubleshooting</h2>
+
+      <h3>Partial Not Expanding</h3>
+      <ul>
+        <li>Check filename matches: <code>&lt;include-foo&gt;</code> needs <code>partials/foo.html</code></li>
+        <li>Check for typos in attribute names</li>
+      </ul>
+
+      <h3>Styles Not Applying</h3>
+      <ul>
+        <li>Verify element name matches CSS selector</li>
+        <li>Check CSS is in <code>elements/*/styles.css</code> or <code>utilities/</code></li>
+        <li>Run build to regenerate <code>dist/styles.css</code></li>
+      </ul>
+
+      <h3>Colors Wrong</h3>
+      <ul>
+        <li>Check <code>brand.json</code> syntax (valid JSON)</li>
+        <li>Run build to regenerate <code>tokens/colors.css</code></li>
+      </ul>
+
       <hr />
 
-      <p>Questions? Check the <code>elements/*/README.md</code> files for detailed element documentation.</p>
+      <p>For detailed element documentation, check the <code>elements/*/README.md</code> files in the repository.</p>
     </article>
   </main>
 
   <include-footer
     logo="/assets/logo.svg"
-    siteName="Nimbus"
-    tagline="Simple cloud storage for teams"
+    siteName="AgentStatic"
+    tagline="Static sites, zero JavaScript"
   >
     <nav slot="links">
       <h4>Product</h4>
       <a href="/#features">Features</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/blog/">Blog</a>
+      <a href="/docs.html">Docs</a>
     </nav>
     <nav slot="links">
-      <h4>Company</h4>
+      <h4>Project</h4>
       <a href="/about.html">About</a>
-      <a href="mailto:hello@nimbus.example">Contact</a>
     </nav>
   </include-footer>
 
