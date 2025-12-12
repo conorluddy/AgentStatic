@@ -2,124 +2,84 @@
 <html lang="en">
 
 <include-head
-  title="AgentStatic - Static Sites, Zero JavaScript"
-  description="Build pure HTML + CSS static sites with a component library, token-based theming, and fast builds. No JavaScript in the output."
+  title="AgentStatic - Static sites, zero JavaScript"
+  description="Build beautiful static sites with pure HTML and CSS. No frameworks, no bloat, no JavaScript in your output."
 />
 
 <body>
-  <include-nav
-    logo="/assets/logo.svg"
-    siteName="AgentStatic"
-  >
-    <a slot="links" href="/">Home</a>
-    <a slot="links" href="/#features">Features</a>
-    <a slot="links" href="/docs.html">Docs</a>
-    <a slot="links" href="/about.html">About</a>
-    <a slot="actions" href="/docs.html" class="button">Read the Docs</a>
-  </include-nav>
+  <include-nav logo="/assets/logo.svg" />
 
-  <site-hero variant="centered">
-    <h1>Static Sites, Zero JavaScript</h1>
-    <p>Build fast, accessible websites with pure HTML and CSS. Change your brand.json, run build, and ship. No frameworks, no client-side scripts—just content that loads instantly.</p>
+  <site-hero variant="minimal">
+    <h1>AgentStatic</h1>
+    <p>Static sites, zero JavaScript</p>
+    <p style="font-size: var(--text-lg); opacity: 0.8; margin-top: var(--space-3);">Build fast, beautiful static websites with pure HTML and CSS. No frameworks. No bloat.</p>
     <site-hero-actions>
-      <a href="/docs.html" class="button">Read the Docs</a>
-      <a href="#features" class="button-ghost">See How It Works</a>
+      <a href="#get-started" class="btn btn-primary">Get Started</a>
+      <a href="https://github.com/conorluddy/AgentStatic" class="btn btn-secondary">View on GitHub</a>
     </site-hero-actions>
   </site-hero>
 
-  <site-features id="features" variant="2-col">
-    <site-features-header>
-      <h2>Built for Speed and Simplicity</h2>
-      <p>Everything you need to build landing pages without the complexity.</p>
-    </site-features-header>
+  <site-features>
+    <h2>Why AgentStatic?</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-top: var(--space-8);">
 
-    <site-feature>
-      <site-feature-icon>0</site-feature-icon>
-      <h3>Zero JavaScript Output</h3>
-      <p>Your visitors get pure HTML and CSS. No bundle size worries, no hydration delays—pages load instantly on any device.</p>
-    </site-feature>
+      <site-feature-card>
+        <h3>Zero JavaScript Output</h3>
+        <p>Your HTML and CSS are the final product. Fast, secure, and lightweight. No JavaScript payload to download or parse.</p>
+      </site-feature-card>
 
-    <site-feature>
-      <site-feature-icon>🎨</site-feature-icon>
-      <h3>Token-Based Theming</h3>
-      <p>Set your primary color in brand.json and the build generates a complete design system. Colors, spacing, typography—all from one config.</p>
-    </site-feature>
+      <site-feature-card>
+        <h3>Framework-Free Components</h3>
+        <p>Custom HTML elements styled with CSS. No registration, no shadow DOM, no JavaScript required. Pure semantic HTML.</p>
+      </site-feature-card>
 
-    <site-feature>
-      <site-feature-icon>🧱</site-feature-icon>
-      <h3>Ready-to-Use Components</h3>
-      <p>Hero sections, feature grids, pricing tables, FAQs, and more. Just drop in the HTML elements and customize the content.</p>
-    </site-feature>
+      <site-feature-card>
+        <h3>Lightning-Fast Build</h3>
+        <p>TypeScript-powered build tooling compiles your site in milliseconds. Instant feedback as you develop.</p>
+      </site-feature-card>
 
-    <site-feature>
-      <site-feature-icon>⚡</site-feature-icon>
-      <h3>Fast Builds</h3>
-      <p>Simple TypeScript build script. No complex bundlers, no waiting. Change a file, run build, see results in seconds.</p>
-    </site-feature>
+      <site-feature-card>
+        <h3>Component Library Included</h3>
+        <p>Pre-built, accessible components ready to use. Hero sections, features, CTAs, navigation, and more.</p>
+      </site-feature-card>
+
+    </div>
   </site-features>
 
-  <site-cta theme="dark">
-    <h2>Perfect for Technical Marketers</h2>
-    <p>If you can edit HTML, you can build landing pages. No React, no npm dependencies to maintain, no build tool drama. Just open your editor, write content, and deploy.</p>
-    <site-cta-actions>
-      <a href="/docs.html" class="button">Get Started</a>
-    </site-cta-actions>
+  <site-section style="background: var(--color-surface); padding: var(--space-12) var(--space-6);">
+    <div style="max-width: 900px; margin: 0 auto;">
+      <h2 id="get-started">How It Works</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-6); margin-top: var(--space-8);">
+
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--color-primary); margin-bottom: var(--space-2);">1</div>
+          <h3 style="margin-bottom: var(--space-2);">Edit brand.json</h3>
+          <p style="color: var(--color-text-secondary);">Set your site name, colors, and typography. Everything else cascades from here.</p>
+        </div>
+
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--color-primary); margin-bottom: var(--space-2);">2</div>
+          <h3 style="margin-bottom: var(--space-2);">Create Your Pages</h3>
+          <p style="color: var(--color-text-secondary);">Write HTML using built-in components. Includes handle partials, slots, and automatic token generation.</p>
+        </div>
+
+        <div>
+          <div style="font-size: 2rem; font-weight: bold; color: var(--color-primary); margin-bottom: var(--space-2);">3</div>
+          <h3 style="margin-bottom: var(--space-2);">Run the Build</h3>
+          <p style="color: var(--color-text-secondary);">npm run build generates pure HTML and CSS. Deploy anywhere—it's just static files.</p>
+        </div>
+
+      </div>
+    </div>
+  </site-section>
+
+  <site-cta variant="minimal">
+    <h2>Ready to build?</h2>
+    <p>Start with AgentStatic and create beautiful, fast, JavaScript-free websites.</p>
+    <a href="https://github.com/conorluddy/AgentStatic" class="btn btn-primary">Clone the Repository</a>
   </site-cta>
 
-  <site-faq id="faq">
-    <site-faq-header>
-      <h2>Frequently Asked Questions</h2>
-    </site-faq-header>
-
-    <details>
-      <summary>Why no JavaScript?</summary>
-      <p>Client-side JavaScript adds complexity, slows down page loads, and can break. For content-focused sites like landing pages, pure HTML and CSS delivers a faster, more reliable experience for your visitors.</p>
-    </details>
-
-    <details>
-      <summary>How do I change the brand colors?</summary>
-      <p>Edit brand.json with your primary color (e.g., "#3b82f6"), then run npm run build. The system generates a full color palette including shades from 50 to 950, plus semantic colors for backgrounds, text, and accents.</p>
-    </details>
-
-    <details>
-      <summary>Can I add my own components?</summary>
-      <p>Yes! Create a folder in elements/ with your element name (e.g., site-testimonials), add a styles.css file, and write your HTML. The build system automatically includes your new component styles.</p>
-    </details>
-
-    <details>
-      <summary>How do I deploy the site?</summary>
-      <p>Run npm run build to generate the dist/ folder, then deploy it anywhere—Netlify, Vercel, GitHub Pages, or any web server. It's just HTML and CSS files.</p>
-    </details>
-
-    <details>
-      <summary>Is this good for SEO?</summary>
-      <p>Excellent. Pure HTML means search engines see your content immediately without waiting for JavaScript to render. Fast load times also improve your Core Web Vitals scores.</p>
-    </details>
-  </site-faq>
-
-  <site-cta>
-    <h2>Ready to Build?</h2>
-    <p>Check out the documentation to get started with AgentStatic.</p>
-    <site-cta-actions>
-      <a href="/docs.html" class="button">Read the Docs</a>
-    </site-cta-actions>
-  </site-cta>
-
-  <include-footer
-    logo="/assets/logo.svg"
-    siteName="AgentStatic"
-    tagline="Static sites, zero JavaScript"
-  >
-    <nav slot="links">
-      <h4>Product</h4>
-      <a href="/#features">Features</a>
-      <a href="/docs.html">Docs</a>
-    </nav>
-    <nav slot="links">
-      <h4>Project</h4>
-      <a href="/about.html">About</a>
-    </nav>
-  </include-footer>
-
+  <include-footer siteName="AgentStatic" />
 </body>
+
 </html>

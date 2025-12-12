@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<include-head
+  title="Documentation - AgentStatic"
+  description="Learn how to build static sites with AgentStatic. Complete guides, component reference, and examples."
+/>
+
+<body>
+  <include-nav logo="/assets/logo.svg" />
+
+  <site-hero variant="minimal">
+    <h1>Documentation</h1>
+    <p>Build static sites the AgentStatic way</p>
+  </site-hero>
+
+  <site-section style="max-width: 1000px; margin: 0 auto; padding: var(--space-12) var(--space-6);">
+
+    <h2>Getting Started</h2>
+    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-6);">AgentStatic is a static site generator that compiles TypeScript to produce pure HTML and CSS. No JavaScript in your output by default.</p>
+
+    <h3 style="margin-top: var(--space-8); margin-bottom: var(--space-3);">Project Structure</h3>
+    <pre style="background: var(--color-surface); padding: var(--space-4); border-radius: var(--space-2); overflow-x: auto; font-size: var(--text-sm);"><code>├── brand.json           # Site config
+├── pages/               # Your pages
+├── elements/            # Component library
+├── partials/            # Reusable fragments
+├── build/               # Build scripts
+└── dist/                # Output (generated)</code></pre>
+
+    <h3 style="margin-top: var(--space-8); margin-bottom: var(--space-3);">Quick Commands</h3>
+    <pre style="background: var(--color-surface); padding: var(--space-4); border-radius: var(--space-2); overflow-x: auto; font-size: var(--text-sm);"><code>npm run build    # Build once
+npm run dev      # Build + watch
+npm run serve    # Serve locally</code></pre>
+
+    <h2 style="margin-top: var(--space-12);">Brand Configuration</h2>
+    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Control your entire site's look and feel through <code>brand.json</code>:</p>
+
+    <pre style="background: var(--color-surface); padding: var(--space-4); border-radius: var(--space-2); overflow-x: auto; font-size: var(--text-sm);"><code>{
+  "name": "Your Site",
+  "tagline": "Your tagline",
+  "colors": { "primary": "#22c55e" },
+  "typography": {
+    "fonts": { "sans": "Inter", "mono": "JetBrains Mono" }
+  }
+}</code></pre>
+
+    <h3 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">What It Generates</h3>
+    <ul style="margin-left: var(--space-6); color: var(--color-text-secondary);">
+      <li>Color tokens: <code>--color-primary-50</code> through <code>--color-primary-950</code></li>
+      <li>Spacing scale: <code>--space-1</code> through <code>--space-32</code></li>
+      <li>Typography: <code>--text-xs</code> through <code>--text-5xl</code></li>
+      <li>Font loading: Automatic Google Fonts integration</li>
+    </ul>
+
+    <h2 style="margin-top: var(--space-12);">Creating Pages</h2>
+    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Pages live in <code>pages/</code> and use built-in components:</p>
+
+    <pre style="background: var(--color-surface); padding: var(--space-4); border-radius: var(--space-2); overflow-x: auto; font-size: var(--text-sm);"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+
+&lt;include-head
+  title="Page Title"
+  description="Meta description"
+/&gt;
+
+&lt;body&gt;
+  &lt;include-nav logo="/assets/logo.svg" /&gt;
+
+  &lt;site-hero&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+    &lt;p&gt;Your content&lt;/p&gt;
+  &lt;/site-hero&gt;
+
+  &lt;include-footer siteName="Your Site" /&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+
+    <h3 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">Element Naming</h3>
+    <table style="width: 100%; margin-top: var(--space-4); border-collapse: collapse;">
+      <thead>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <th style="text-align: left; padding: var(--space-2);">Prefix</th>
+          <th style="text-align: left; padding: var(--space-2);">Purpose</th>
+          <th style="text-align: left; padding: var(--space-2);">Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: var(--space-2);"><code>include-*</code></td>
+          <td style="padding: var(--space-2);">Build-time partials</td>
+          <td style="padding: var(--space-2);"><code>include-head</code>, <code>include-nav</code></td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--color-border);">
+          <td style="padding: var(--space-2);"><code>site-*</code></td>
+          <td style="padding: var(--space-2);">Page sections</td>
+          <td style="padding: var(--space-2);"><code>site-hero</code>, <code>site-features</code></td>
+        </tr>
+        <tr>
+          <td style="padding: var(--space-2);"><code>ui-*</code></td>
+          <td style="padding: var(--space-2);">Small UI bits</td>
+          <td style="padding: var(--space-2);"><code>ui-button</code>, <code>ui-badge</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top: var(--space-12);">Using Partials</h2>
+    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4);">Partials are reusable HTML fragments with slots for dynamic content:</p>
+
+    <pre style="background: var(--color-surface); padding: var(--space-4); border-radius: var(--space-2); overflow-x: auto; font-size: var(--text-sm);"><code>&lt;include-footer siteName="My Site"&gt;
+  &lt;nav slot="links"&gt;
+    &lt;a href="/about"&gt;About&lt;/a&gt;
+    &lt;a href="/contact"&gt;Contact&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/include-footer&gt;</code></pre>
+
+    <h3 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">How Includes Work</h3>
+    <ul style="margin-left: var(--space-6); color: var(--color-text-secondary);">
+      <li><code>&lt;include-{name}&gt;</code> loads <code>partials/{name}.html</code></li>
+      <li>Attributes are passed as variables: <code>{{attributeName}}</code></li>
+      <li><code>&lt;slot&gt;</code> receives default children</li>
+      <li><code>&lt;slot name="x"&gt;</code> receives <code>slot="x"</code> children</li>
+    </ul>
+
+    <h2 style="margin-top: var(--space-12);">Next Steps</h2>
+    <ul style="margin-left: var(--space-6); color: var(--color-text-secondary);">
+      <li>Read <code>CLAUDE.md</code> in the project root for the complete workflow</li>
+      <li>Explore <code>elements/</code> to see available components</li>
+      <li>Check <code>partials/</code> for reusable fragments</li>
+      <li>Visit <a href="https://github.com/conorluddy/AgentStatic" style="color: var(--color-primary); text-decoration: underline;">GitHub</a> for examples and issues</li>
+    </ul>
+
+  </site-section>
+
+  <include-footer siteName="AgentStatic" />
+</body>
+
+</html>

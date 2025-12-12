@@ -5,6 +5,33 @@
 Initialize this repo with your own branding, content, and site structure. This command will wipe boilerplate content and ask you a series of questions to customize the site.
 
 <!-- ============================================================================ -->
+<!-- STAGE 0: Initial Context Gathering -->
+<!-- ============================================================================ -->
+
+<stage name="initial-context" title="Understanding your vision">
+
+<outcome>Initial context captured to inform smart suggestions</outcome>
+
+**Ask directly (no options):**
+
+In 1-2 sentences, describe what you want to build. What is the product/service and who is it for?
+
+Example answers:
+- "A task management app for remote teams that need better async collaboration"
+- "A design agency portfolio showcasing luxury branding work for fashion brands"
+- "An AI-powered code review tool for enterprise development teams"
+
+**Store the response as:** `projectVision`
+
+**IMPORTANT:** This answer will be used to generate contextual, intelligent suggestions for all following questions. Analyze the vision to understand:
+- Industry/domain (SaaS, agency, docs, etc.)
+- Target audience (developers, designers, enterprises, etc.)
+- Tone/personality (professional, playful, technical, etc.)
+- Likely color preferences based on industry norms
+
+</stage>
+
+<!-- ============================================================================ -->
 <!-- STAGE 1: Wipe Boilerplate Content -->
 <!-- ============================================================================ -->
 
@@ -41,45 +68,83 @@ Initialize this repo with your own branding, content, and site structure. This c
 
 <questions batch="1" count="4">
 
-Use AskUserQuestion to ask these 4 questions in a single batch:
+Use AskUserQuestion to ask these 4 questions in a single batch.
+
+**IMPORTANT:** For each question, generate 5 contextually intelligent suggestions based on the `projectVision` from Stage 0. Analyze the vision to infer appropriate options.
 
 1. **Brand Name**
-   - Question: "What is your product/company/project name?"
-   - Type: Text input
+   - Question: "What should we call your product/company/project?"
+   - Type: Single select with 5 options + "Other" (auto-provided)
    - Required: Yes
    - Store as: `brandName`
+   - **Generate 5 smart suggestions** based on projectVision:
+     - Extract keywords from vision (e.g., "task management" → TaskFlow, TeamSync, AsyncHub)
+     - Consider industry conventions (SaaS = short/techy, Agency = creative/abstract)
+     - Mix styles: descriptive, abstract, portmanteau, made-up words
+     - Example for "task management for remote teams":
+       - "TeamSync"
+       - "AsyncHub"
+       - "TaskFlow"
+       - "RemoteBase"
+       - "FlowState"
 
 2. **Tagline**
-   - Question: "What's your tagline? (under 10 words)"
-   - Type: Text input
+   - Question: "What's your tagline or value proposition?"
+   - Type: Single select with 5 options + "Other" (auto-provided)
    - Required: Yes
    - Store as: `tagline`
+   - **Generate 5 smart suggestions** based on projectVision:
+     - Extract core benefit from vision
+     - Use formulas: "X for Y", "The Z way to X", "X made Y"
+     - Keep under 10 words
+     - Example for "task management for remote teams":
+       - "Task management built for remote teams"
+       - "Async collaboration that actually works"
+       - "Keep your team in sync, anywhere"
+       - "The modern way to manage work"
+       - "Remote work, made simple"
 
 3. **Primary Color**
-   - Question: "What's your primary brand color? (hex code like #3b82f6, or describe: warm blue, dark red, forest green, etc.)"
-   - Type: Text input
+   - Question: "What's your primary brand color?"
+   - Type: Single select with 5 options + "Other" (auto-provided)
    - Required: Yes
    - Store as: `primaryColor`
-   - Validation: If hex format (starts with #), use directly. Otherwise, map color descriptions:
-     - "warm blue" → #3b82f6
-     - "dark red" → #dc2626
-     - "forest green" → #059669
-     - "sunny yellow" → #eab308
-     - "purple" → #a855f7
-     - "pink" → #ec4899
-     - (use sensible mappings for natural color descriptions)
+   - **Generate 5 smart suggestions** based on projectVision and industry:
+     - Consider industry norms (tech = blue/purple, creative = bold colors, finance = navy/green)
+     - Consider target audience (enterprise = conservative, startup = vibrant)
+     - Provide hex codes with descriptive labels
+     - Example for "SaaS task management":
+       - "Modern Blue (#3b82f6)"
+       - "Professional Purple (#8b5cf6)"
+       - "Trust Navy (#1e40af)"
+       - "Energy Teal (#14b8a6)"
+       - "Focus Indigo (#6366f1)"
+   - **If user selects "Other"**: Accept hex codes OR color descriptions, then map:
+     - Parse hex if starts with #
+     - Map natural descriptions: "warm blue" → #3b82f6, "forest green" → #059669, etc.
 
 4. **Site Purpose**
    - Question: "What type of site is this?"
-   - Type: Single select from options
-   - Options:
+   - Type: Single select with 5 options + "Other" (auto-provided)
+   - Required: Yes
+   - Store as: `sitePurpose`
+   - **Generate 5 smart suggestions** based on projectVision:
+     - Analyze vision to determine most likely site type
+     - Order options by relevance (most likely first)
+     - Example for "AI code review tool":
+       - "SaaS Product (Recommended)"
+       - "Documentation"
+       - "Developer Tool"
+       - "Marketing Site"
+       - "Technical Product"
+   - Common options pool:
      - "SaaS Product"
      - "Agency/Portfolio"
      - "Documentation"
      - "Blog/Content"
      - "Marketing Site"
-   - Required: Yes
-   - Store as: `sitePurpose`
+     - "Developer Tool"
+     - "E-commerce"
 
 </questions>
 
@@ -95,37 +160,81 @@ Use AskUserQuestion to ask these 4 questions in a single batch:
 
 <questions batch="2" count="4">
 
-Use AskUserQuestion to ask these 4 questions in a single batch:
+Use AskUserQuestion to ask these 4 questions in a single batch.
+
+**IMPORTANT:** Generate 5 contextually intelligent suggestions based on `projectVision` and answers from Stage 2.
 
 5. **Target Audience**
-   - Question: "Who is your target audience? (e.g., developers, startups, enterprises, designers)"
-   - Type: Text input
+   - Question: "Who is your primary target audience?"
+   - Type: Single select with 5 options + "Other" (auto-provided)
    - Required: Yes
    - Store as: `audience`
+   - **Generate 5 smart suggestions** based on projectVision:
+     - Extract or infer audience from vision
+     - Consider industry-specific audiences
+     - Order by relevance (most likely first)
+     - Example for "AI code review tool for enterprises":
+       - "Enterprise development teams (Recommended)"
+       - "Software engineers"
+       - "DevOps teams"
+       - "Engineering managers"
+       - "CTO/Tech leaders"
+   - Common audiences: developers, designers, startups, enterprises, small businesses, creators, students, professionals
 
 6. **Key Features/Benefits**
-   - Question: "What are 3-4 key features or benefits? (comma-separated)"
-   - Type: Text input
-   - Required: Yes
-   - Store as: `features` (parse as array by splitting on comma)
+   - Question: "What are your top 3-4 key features or benefits?"
+   - Type: Multi-select (allow 3-4 selections) with 5-7 options + "Other" (auto-provided)
+   - Required: Yes (must select 3-4)
+   - Store as: `features` (array)
+   - **Generate 5-7 smart suggestions** based on projectVision and sitePurpose:
+     - Extract benefits/features mentioned in vision
+     - Add complementary features common to the industry
+     - Use benefit-oriented language
+     - Example for "task management for remote teams":
+       - "Async collaboration tools"
+       - "Real-time team visibility"
+       - "Automated workflows"
+       - "Time zone friendly scheduling"
+       - "Integration with Slack/Teams"
+       - "Mobile-first design"
+       - "Secure & compliant"
 
 7. **Call to Action**
-   - Question: "What should visitors do? (e.g., Sign up, Contact us, Download, Learn more)"
-   - Type: Text input
+   - Question: "What's the primary action you want visitors to take?"
+   - Type: Single select with 5 options + "Other" (auto-provided)
    - Required: Yes
    - Store as: `cta`
+   - **Generate 5 smart suggestions** based on projectVision and sitePurpose:
+     - Match CTA to business model (SaaS = sign up, Agency = contact, Docs = get started)
+     - Use action-oriented language
+     - Example for "SaaS Product":
+       - "Start free trial (Recommended)"
+       - "Get started"
+       - "Request demo"
+       - "Sign up free"
+       - "Book a call"
+   - Common CTAs by type:
+     - SaaS: "Start free trial", "Get started", "Sign up"
+     - Agency: "Contact us", "Get a quote", "See our work"
+     - Docs: "Get started", "Read docs", "View examples"
+     - Blog: "Subscribe", "Read more", "Join newsletter"
 
 8. **Brand Tone**
    - Question: "What's your brand tone/personality?"
-   - Type: Single select from options
-   - Options:
-     - "Professional"
-     - "Friendly"
-     - "Technical"
-     - "Playful"
-     - "Minimal"
+   - Type: Single select with 5 options + "Other" (auto-provided)
    - Required: Yes
    - Store as: `tone`
+   - **Generate 5 smart suggestions** based on projectVision and audience:
+     - Infer tone from vision language and target audience
+     - Consider industry norms
+     - Order by relevance
+     - Example for "enterprise SaaS":
+       - "Professional (Recommended)"
+       - "Technical"
+       - "Trustworthy"
+       - "Modern & clean"
+       - "Friendly but professional"
+   - Common tones: Professional, Friendly, Technical, Playful, Minimal, Bold, Elegant, Casual, Authoritative
 
 </questions>
 
@@ -137,48 +246,60 @@ Use AskUserQuestion to ask these 4 questions in a single batch:
 <!-- STAGE 4: Gather Advanced Settings (Batch 3) -->
 <!-- ============================================================================ -->
 
-<stage name="advanced-settings" title="Gathering advanced settings (optional)">
+<stage name="advanced-settings" title="Gathering advanced settings">
 
-<questions batch="3" count="3">
+<questions batch="3" count="2">
 
-Use AskUserQuestion to ask these 3 optional questions in a single batch. If user skips, use defaults:
+Use AskUserQuestion to ask these 2 questions in a single batch.
+
+**IMPORTANT:** Generate contextually intelligent suggestions based on all previous answers.
 
 9. **Typography Style**
-   - Question: "What's your typography preference?"
-   - Type: Single select from options
-   - Options:
-     - "Modern (Inter sans-serif) - (Recommended)"
-     - "Classic (Playfair serif)"
-     - "Technical (JetBrains Mono)"
-     - "Use defaults"
-   - Required: No
-   - Default: "Modern (Inter sans-serif)"
+   - Question: "What typography style matches your brand?"
+   - Type: Single select with 5 options + "Other" (auto-provided)
+   - Required: Yes
    - Store as: `typographyStyle`
+   - **Generate 5 smart suggestions** based on tone and sitePurpose:
+     - Match font personality to brand tone
+     - Consider industry norms
+     - Provide clear descriptions with font families
+     - Example for "Professional SaaS":
+       - "Modern Sans-Serif - Inter (Recommended)"
+       - "Clean & Minimal - DM Sans"
+       - "Corporate - IBM Plex Sans"
+       - "Technical - Space Grotesk"
+       - "Friendly - Plus Jakarta Sans"
+   - Font mapping:
+     - Modern/Clean: Inter, DM Sans, Plus Jakarta Sans
+     - Technical: JetBrains Mono, Space Grotesk, IBM Plex Mono
+     - Classic/Elegant: Playfair Display, Merriweather, Crimson Text
+     - Bold/Impactful: Outfit, Sora, Urbanist
+     - Friendly: Nunito, Quicksand, Comfortaa
 
-10. **Logo Path**
-    - Question: "Do you have a logo file? Provide the path, or leave blank if you'll add it later"
-    - Type: Text input
-    - Required: No
-    - Default: None
-    - Store as: `logoPath`
-    - Validation: If provided, verify file exists
-
-11. **Additional Pages**
-    - Question: "Which additional pages do you need?"
-    - Type: Multi-select checkboxes
-    - Options:
-      - "About"
-      - "Pricing"
-      - "Contact"
-      - "Blog"
-      - "Docs"
-    - Required: No
-    - Default: [] (empty, only create index.html)
+10. **Additional Pages**
+    - Question: "Which additional pages should we create?"
+    - Type: Multi-select with 5-6 options + "Other" (auto-provided)
+    - Required: No (can skip all to only create index.html)
     - Store as: `additionalPages` (array)
+    - **Generate 5-6 smart suggestions** based on sitePurpose:
+      - Order by relevance to site type
+      - Mark recommended pages
+      - Example for "SaaS Product":
+        - "Pricing (Recommended)"
+        - "About"
+        - "Contact"
+        - "Blog"
+        - "Documentation"
+        - "Changelog"
+    - Common pages by type:
+      - SaaS: Pricing, About, Contact, Blog, Docs, Changelog, Customers
+      - Agency: About, Portfolio, Services, Contact, Team, Case Studies
+      - Docs: Getting Started, API Reference, Guides, Examples, FAQ
+      - Blog: About, Archive, Categories, Authors, Newsletter
 
 </questions>
 
-<outcome>Advanced preferences captured (font style, logo, additional pages)</outcome>
+<outcome>Advanced preferences captured (typography, additional pages)</outcome>
 
 </stage>
 
@@ -190,36 +311,36 @@ Use AskUserQuestion to ask these 3 optional questions in a single batch. If user
 
 <outcome>User understands where to place images; images are detected and analyzed</outcome>
 
-<instructions>
+<questions batch="4" count="1">
 
-1. **Inform user** about image handling:
-   ```
-   Images help bring your site to life. You can:
-   - Add a logo (square, any size)
-   - Add a hero image (wide, for the homepage header)
-   - Add supporting images (for features, etc.)
+**Inform user first:**
+```
+Images help bring your site to life. Recommended:
+- Logo (square, any size)
+- Hero image (wide, for the homepage header)
+- Supporting images (for features, about, etc.)
 
-   Place any images you have in the `assets/` folder now, then I'll analyze them.
-   ```
+If you have images ready, add them to the `assets/` folder now.
+```
 
-2. **Ask if they have images ready** (optional, single question):
-   - Question: "Do you have any images to use? (logo, hero image, etc.)"
-   - Type: Single select
-   - Options:
-     - "Yes, I'll add them now"
-     - "No, I'll add them later"
-     - "No, create placeholders"
-   - Store as: `hasImages`
+Use AskUserQuestion to ask this single question:
 
-3. **If "Yes, I'll add them now":**
-   - Tell user: "Go ahead and add image files to the `assets/` folder. I'll wait for 30 seconds while you do that."
-   - Wait 30 seconds for user to add files
-   - Continue to image analysis
+11. **Image Assets**
+    - Question: "Do you have images ready to add?"
+    - Type: Single select with 3 options (no "Other" needed)
+    - Options:
+      - "Yes, I'll add them now (I'll wait 30 seconds)"
+      - "No, I'll add them later"
+      - "No, use color-based placeholders"
+    - Required: Yes
+    - Store as: `hasImages`
 
-4. **If "No, I'll add them later" or "No, create placeholders":**
-   - Skip to image analysis (no images to analyze, but continue)
+**Action based on response:**
+- **"Yes, I'll add them now"**: Tell user "Add your image files to the `assets/` folder. I'll wait 30 seconds..." → Wait 30 seconds → Continue to image analysis
+- **"No, I'll add them later"**: Set `detectedImages = []` → Continue (site will work without images, user can add later)
+- **"No, use color-based placeholders"**: Set `detectedImages = []` and `usePlaceholders = true` → Create colorful gradient/shape placeholders in markup
 
-</instructions>
+</questions>
 
 </stage>
 
