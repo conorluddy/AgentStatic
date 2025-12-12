@@ -2,6 +2,10 @@
 
 A static site generator for building HTML + CSS sites with AI assistance. No JavaScript in the output. Powered by design tokens and custom elements.
 
+## Get Started
+
+**Click the green "Use this template" button** at the top of the repo to create your own copy, or follow the Quick Start below.
+
 ## Quick Start
 
 ```bash
