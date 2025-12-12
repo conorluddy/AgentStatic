@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<include-head
+  title="Getting Started - Template Guide"
+  description="Learn how to customize this landing page template for your own project."
+/>
+
+<body>
+  <include-nav
+    logo="/assets/logo.svg"
+    siteName="Nimbus"
+  >
+    <a slot="links" href="/">Home</a>
+    <a slot="links" href="/#features">Features</a>
+    <a slot="links" href="/#pricing">Pricing</a>
+    <a slot="links" href="/about.html">About</a>
+    <a slot="actions" href="/#pricing" class="button">Get Started</a>
+  </include-nav>
+
+  <main class="content">
+    <article>
+      <header>
+        <h1>Template Guide</h1>
+      </header>
+
+      <p><strong>This page is meta-documentation.</strong> It explains how to customize this template for your own project. Delete or replace this page once you're ready to launch.</p>
+
+      <h2>Quick Start</h2>
+      <ol>
+        <li>Edit <code>brand.json</code> with your brand name and primary color</li>
+        <li>Replace <code>assets/logo.svg</code> with your logo</li>
+        <li>Update the pages in <code>pages/</code> with your content</li>
+        <li>Run <code>npm run build</code> to generate your site</li>
+        <li>Deploy the <code>dist/</code> folder anywhere</li>
+      </ol>
+
+      <h2>Project Structure</h2>
+      <pre><code>my-site/
+├── brand.json        # Your brand config (edit this first!)
+├── pages/            # Your HTML and Markdown pages
+│   ├── index.html    # Homepage
+│   ├── about.html    # About page
+│   └── blog/         # Blog posts (Markdown)
+├── partials/         # Reusable HTML fragments
+├── elements/         # Custom element styles
+├── utilities/        # Utility CSS classes
+├── assets/           # Static files (logo, images)
+└── dist/             # Built output (deploy this)</code></pre>
+
+      <h2>Customizing Your Brand</h2>
+      <p>Everything starts with <code>brand.json</code>:</p>
+      <pre><code class="language-json">{
+  "name": "Your Company",
+  "tagline": "Your tagline here",
+  "colors": {
+    "primary": "#3b82f6"
+  }
+}</code></pre>
+      <p>The build system generates a complete color palette from your primary color—light and dark shades, semantic colors, and dark mode variants.</p>
+
+      <h2>Available Elements</h2>
+      <p>This template includes pre-styled custom HTML elements:</p>
+      <ul>
+        <li><code>&lt;site-hero&gt;</code> — Full-width hero section (variants: centered, split; themes: dark, light)</li>
+        <li><code>&lt;site-features&gt;</code> — Feature grid (variants: 2-col, 3-col, 4-col)</li>
+        <li><code>&lt;site-pricing&gt;</code> — Pricing tiers (use <code>featured</code> attribute to highlight)</li>
+        <li><code>&lt;site-faq&gt;</code> — FAQ accordion using native <code>&lt;details&gt;</code></li>
+        <li><code>&lt;site-cta&gt;</code> — Call-to-action section (themes: dark, light)</li>
+        <li><code>&lt;site-nav&gt;</code> — Navigation header</li>
+        <li><code>&lt;site-footer&gt;</code> — Page footer</li>
+      </ul>
+
+      <h2>Using Partials</h2>
+      <p>Partials are reusable HTML fragments. Include them with <code>&lt;include-name&gt;</code>:</p>
+      <pre><code class="language-html">&lt;include-head title="Page Title" description="Meta description" /&gt;
+
+&lt;include-nav logo="/assets/logo.svg" siteName="My Site"&gt;
+  &lt;a slot="links" href="/"&gt;Home&lt;/a&gt;
+  &lt;a slot="links" href="/about.html"&gt;About&lt;/a&gt;
+  &lt;a slot="actions" href="/signup" class="button"&gt;Sign Up&lt;/a&gt;
+&lt;/include-nav&gt;
+
+&lt;include-footer siteName="My Site" tagline="Your tagline"&gt;
+  &lt;nav slot="links"&gt;
+    &lt;h4&gt;Company&lt;/h4&gt;
+    &lt;a href="/about.html"&gt;About&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/include-footer&gt;</code></pre>
+
+      <h2>Writing Blog Posts</h2>
+      <p>Create <code>.md</code> files in <code>pages/blog/</code> with frontmatter:</p>
+      <pre><code class="language-markdown">---
+title: My Blog Post
+description: A short description
+date: 2025-01-15
+---
+
+Write your content in **Markdown**.
+
+## Headings work
+
+So do lists, code blocks, and links.</code></pre>
+      <p>The build system auto-generates a listing page at <code>/blog/</code> sorted by date.</p>
+
+      <h2>Commands</h2>
+      <pre><code class="language-bash"># Build once
+npm run build
+
+# Build and watch for changes
+npm run dev
+
+# Serve the built site locally
+npm run serve</code></pre>
+
+      <h2>Deployment</h2>
+      <p>The build outputs plain HTML and CSS to <code>dist/</code>. Deploy anywhere:</p>
+      <ul>
+        <li><strong>Netlify</strong> — Connect repo, build command: <code>npm run build</code></li>
+        <li><strong>Vercel</strong> — Auto-detects static sites</li>
+        <li><strong>GitHub Pages</strong> — Push <code>dist/</code> to <code>gh-pages</code> branch</li>
+        <li><strong>Any web server</strong> — Upload the <code>dist/</code> folder</li>
+      </ul>
+
+      <hr />
+
+      <p>Questions? Check the <code>elements/*/README.md</code> files for detailed element documentation.</p>
+    </article>
+  </main>
+
+  <include-footer
+    logo="/assets/logo.svg"
+    siteName="Nimbus"
+    tagline="Simple cloud storage for teams"
+  >
+    <nav slot="links">
+      <h4>Product</h4>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <nav slot="links">
+      <h4>Company</h4>
+      <a href="/about.html">About</a>
+      <a href="mailto:hello@nimbus.example">Contact</a>
+    </nav>
+  </include-footer>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "staticgen",
+  "version": "0.1.0",
+  "description": "Minimal static site generator - pure HTML + CSS output",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsx build/index.ts",
+    "dev": "npx tsx build/index.ts --watch",
+    "serve": "npx serve dist"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.0",
+    "chroma-js": "^2.4.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.1"
+  },
+  "devDependencies": {
+    "@types/chroma-js": "^2.4.0",
+    "serve": "^14.2.0",
+    "tsx": "^4.7.0"
+  }
+}

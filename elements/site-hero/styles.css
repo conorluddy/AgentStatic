@@ -1,0 +1,125 @@
+/* site-hero - Full-width hero section */
+site-hero {
+  display: grid;
+  place-content: center;
+  min-height: 80vh;
+  padding: var(--space-16) var(--gutter);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+site-hero[theme="dark"] {
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-50);
+}
+
+site-hero[variant="centered"] {
+  text-align: center;
+}
+
+site-hero[variant="split"] {
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  site-hero[variant="split"] {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+site-hero h1 {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  margin: 0;
+}
+
+site-hero p {
+  font-size: var(--text-xl);
+  color: var(--color-neutral-600);
+  max-width: 60ch;
+  margin-top: var(--space-4);
+}
+
+site-hero[theme="dark"] p {
+  color: var(--color-neutral-300);
+}
+
+site-hero-actions {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+site-hero[variant="centered"] site-hero-actions {
+  justify-content: center;
+}
+
+site-hero-media {
+  display: block;
+}
+
+site-hero-media img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--space-2);
+}
+
+/* Button styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-accent);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--space-1);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.button-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-6);
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--space-1);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.button-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.button-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2);
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.button-text:hover {
+  text-decoration: underline;
+}

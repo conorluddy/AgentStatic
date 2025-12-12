@@ -1,0 +1,18 @@
+<site-nav>
+  <a href="/" class="site-nav-logo">
+    <img src="{{logo}}" alt="{{siteName}}" width="120" height="40" />
+  </a>
+  <nav>
+    <slot name="links">
+      <a href="/">Home</a>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/about.html">About</a>
+    </slot>
+  </nav>
+  <site-nav-actions>
+    <slot name="actions">
+      <a href="/#pricing" class="button">Get Started</a>
+    </slot>
+  </site-nav-actions>
+</site-nav>

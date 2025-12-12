@@ -1,0 +1,18 @@
+/*
+ * Breakpoints (for media queries):
+ * sm: 640px
+ * md: 768px
+ * lg: 1024px
+ * xl: 1280px
+ *
+ * Usage: @media (min-width: 768px) { }
+ */
+
+:root {
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+
+  --gutter: 1rem;
+}

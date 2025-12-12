@@ -1,0 +1,50 @@
+/* site-nav - Site navigation header */
+site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--gutter);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+site-nav .site-nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+site-nav .site-nav-logo img {
+  height: 40px;
+  width: auto;
+}
+
+site-nav nav {
+  display: flex;
+  gap: var(--space-6);
+}
+
+site-nav nav a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+site-nav nav a:hover {
+  color: var(--color-accent);
+}
+
+site-nav-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* Hide nav links on mobile, show actions */
+@media (max-width: 767px) {
+  site-nav nav {
+    display: none;
+  }
+}

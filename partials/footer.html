@@ -1,0 +1,27 @@
+<site-footer>
+  <site-footer-brand>
+    <img src="{{logo}}" alt="{{siteName}}" width="120" height="40" />
+    <p>{{tagline}}</p>
+  </site-footer-brand>
+
+  <site-footer-links>
+    <slot name="links">
+      <nav>
+        <h4>Product</h4>
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+      </nav>
+      <nav>
+        <h4>Company</h4>
+        <a href="/about.html">About</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+    </slot>
+  </site-footer-links>
+
+  <site-footer-legal>
+    <slot name="legal">
+      <p>&copy; 2025 {{siteName}}. All rights reserved.</p>
+    </slot>
+  </site-footer-legal>
+</site-footer>
