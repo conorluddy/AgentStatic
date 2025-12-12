@@ -1,0 +1,88 @@
+/* site-pricing - Pricing table section */
+site-pricing {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-16) var(--gutter);
+  max-width: var(--container-xl);
+  margin: 0 auto;
+}
+
+site-pricing-header {
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+site-pricing-header h2 {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+site-pricing-header p {
+  color: var(--color-neutral-600);
+  margin-top: var(--space-2);
+}
+
+site-pricing-tier {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-2);
+}
+
+site-pricing-tier[featured] {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+site-pricing-tier h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin: 0 0 var(--space-4) 0;
+}
+
+site-pricing-price {
+  display: block;
+  margin-bottom: var(--space-6);
+}
+
+site-pricing-price .amount {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+}
+
+site-pricing-price .period {
+  color: var(--color-neutral-600);
+}
+
+site-pricing-tier ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-6) 0;
+  flex: 1;
+}
+
+site-pricing-tier li {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+site-pricing-tier li:last-child {
+  border-bottom: none;
+}
+
+site-pricing-tier .button,
+site-pricing-tier .button-ghost {
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  site-pricing {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

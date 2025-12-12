@@ -2,492 +2,282 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
----
+## What This Project Is
 
-## Project Overview
+A static site generator that outputs pure HTML + CSS. No JavaScript in the output. Custom HTML elements are styled via CSS without registration. Build tooling is TypeScript, but the artifact is framework-free.
 
-**AgentStatic** is an AI-first static site generator for brochureware marketing websites. It's currently in the **planning phase** with comprehensive documentation completed and ready for implementation.
-
-### Three-Tier Architecture
-
-1. **Component Library** (Tier 1): 20-30 production-ready CSS components (atoms, molecules, organisms) with predefined theme, dark mode, WCAG AA accessibility
-2. **SSG Core** (Tier 2): Bun + Vite build pipeline with Nunjucks templating, static routing, CSS bundling (<50KB gzipped target)
-3. **AI Integration** (Tier 3): 5 Claude-optimized MCP tools for autonomous page building from natural language briefs
-
-### Current Status
-
-- ✅ **Planning Complete**: All 7 phases documented (Phases 0-7)
-- ✅ **Architecture Finalized**: 17 refined architectural decisions documented
-- ✅ **Documentation Ready**: README, INDEX, CODESTYLE, phase plans all complete
-- ⏳ **Implementation**: Ready to begin Phase 0 (SSG Foundation) and Phase 1 (Component Foundation)
-
----
-
-## Planning Documentation Structure
-
-**PRIMARY**: All specifications live in `/SPEC/` - this is the definitive specification document.
-
-### SPEC Structure (Active - Use This!)
-- **`SPEC/README.md`** - Main navigation hub and project overview
-- **`SPEC/ROADMAP.md`** - 12-week timeline with parallel tracks
-- **`SPEC/DECISIONS.md`** - The 17 architectural decisions
-
-### The 4 Pillars
-- **`SPEC/PILLAR-1-COMPONENTS/`** - Visual component system (HTML/CSS)
-- **`SPEC/PILLAR-2-REGISTRY/`** - Machine-readable schemas and validation
-- **`SPEC/PILLAR-3-BUILD/`** - Static site generation engine
-- **`SPEC/PILLAR-4-AI/`** - Claude MCP tools and integration
-
-### Reference Documentation
-- **`SPEC/REFERENCE/`** - Technology stack, success metrics, etc.
-
-### Legacy Documentation (Historical Reference)
-- **`.archive/PLANNING/`** - Original comprehensive phase-based planning (superseded by SPEC)
-- **`.archive/architecture/`** - Technical specifications (merged into SPEC pillars)
-
----
-
-## The 17 Architectural Decisions
-
-These decisions guide all implementation work:
-
-1. **Brochureware-First**: Visual, read-only content sites only (no forms, apps, complex interactions)
-2. **20-30 Components**: Focused set (12-15 atoms/molecules, 8-10 organisms) with extensibility
-3. **Predefined Theme + Easy Customization**: Design tokens enable global theming
-4. **Claude-Optimized MCP**: 5 tools specifically for component discovery and page building
-5. **Template-First Distribution**: Users fork/customize, not npm install
-6. **Example Pages Primary**: Show real compositions, blank slate secondary
-7. **Dark Mode**: System preference + manual toggle (CSS variables + localStorage)
-8. **Static Routing Only**: No dynamic routes, all pages pre-built
-9. **Global Theme**: Consistency across site (no per-page overrides)
-10. **All Metadata in Registry**: Searchable component schema with rich context
-11. **JSON Compositions**: Structured page definitions for validation
-12. **Automated a11y Testing**: Pa11y + axe during build (warnings not blocking)
-13. **Bundle Warnings**: Build completes even with CSS warnings
-14. **12-14 Week Timeline**: Full development from architecture to launch
-15. **Storybook 80/20**: Visuals + code snippets (not exhaustive docs)
-16. **MCP Suggestions**: Discovery returns alternatives, not just matches
-17. **No Phase 8**: Ship complete, no long-term roadmap planning
-
-See `PLANNING/README.md` for detailed explanations.
-
----
-
-## Technology Stack
-
-### Build System (Phase 0)
-- **Runtime**: Node.js 20+ LTS (via npm)
-- **Build Tool**: Vite 5+ (fast bundling and dev server)
-- **Templating**: Nunjucks (logic-light templates)
-- **CSS Processing**: PostCSS + Lightning CSS
-- **Type Safety**: TypeScript throughout
-
-#### Nunjucks Gotchas (CRITICAL)
-
-**Avoid Complex Filter Chains** - They cause `charAt` parser errors during precompilation:
-```njk
-{# ❌ BROKEN: Triggers TypeError: Cannot read properties of undefined (reading 'charAt') #}
-{% set classList = ['item1', 'item2', var] | reject('equalto', '') | join(' ') | trim %}
-
-{# ✅ WORKS: Use simple string concatenation #}
-{% set classList = 'item1 item2' %}
-{% if var %}
-  {% set classList = classList + ' ' + var %}
-{% endif %}
-```
-
-**Avoid Ternary in Object Literals** - Nunjucks doesn't support them:
-```njk
-{# ❌ BROKEN: Causes parseAggregate error #}
-{% set props = { variant: isActive ? 'primary' : 'secondary' } %}
-
-{# ✅ WORKS: Extract to variable first #}
-{% set variant = 'secondary' %}
-{% if isActive %}
-  {% set variant = 'primary' %}
-{% endif %}
-{% set props = { variant: variant } %}
-```
-
-See `CODESTYLE.md` § Nunjucks Templating Standards for detailed guidance.
-
-### Styling (Phase 1)
-- **Pure CSS**: No preprocessors (Sass/Less)
-- **Design Tokens**: CSS Custom Properties
-- **Architecture**: Cascade Layers (`@layer reset, base, components, utilities, overrides`)
-- **Naming**: BEM convention
-- **Responsive**: Mobile-first (375px, 768px, 1440px breakpoints)
-- **Modern Features**: Container queries, `:has()`, `:not()` selectors
-
-### Documentation (Phase 7)
-- **Component Browser**: Storybook 8
-- **Guides**: Markdown + MDX
-- **API Docs**: Generated from component schemas
-
-### AI Integration (Phase 6)
-- **Protocol**: MCP (Model Context Protocol)
-- **Tools**: 5 specialized tools for Claude
-- **Composition Format**: JSON with validation
-
----
-
-## Implementation Approach
-
-### Parallel Development Tracks
-
-**Track 1: Frontend (Weeks 1-7)**
-- Pillar 1, Phase 1: Design System Foundation
-- Pillar 1, Phase 2: Basic Components (atoms/molecules)
-- Pillar 1, Phase 3: Complex Sections (organisms)
-- Pillar 1, Phase 4: Polish & Enhancement
-
-**Track 2: Backend (Weeks 1-7)**
-- Pillar 3, Phase 1: Build Pipeline (Bun + Vite)
-- Pillar 2, Phase 1-2: Component Schemas & Registry
-- Pillar 2, Phase 3-4: Validation & Discovery API
-
-**Integration Track (Weeks 8-12)**
-- Pillar 3, Phase 3-4: Render System & Optimization
-- Pillar 4, All Phases: AI Integration & MCP Tools
-- Documentation & Launch Preparation
-
-**Read**: `SPEC/ROADMAP.md` for detailed timeline and `SPEC/PILLAR-*/README.md` for specific tracks
-
-
----
-
-## Code Style Guide
-
-**Full guide**: `/CODESTYLE.md` (2056 lines covering general principles + AgentStatic-specific patterns)
-
-### Key Principles
-1. **Jackson's Law**: Write minimum code necessary for correctness
-2. **Progressive Disclosure**: Understand code layer by layer
-3. **Self-Documenting**: Names and structure explain intent, comments explain "why"
-4. **Explicit Dependencies**: No hidden global state
-5. **Context Isolation**: Related functionality grouped, unrelated separated
-
-### AgentStatic-Specific Patterns (CODESTYLE.md Section 10)
-- **JSON Composition Validation**: Structured page definitions with TypeScript interfaces
-- **Component Registry & Schema**: Rich metadata including accessibility, responsive behavior, dark mode
-- **MCP Tool Implementation**: Input/output schemas for all 5 tools
-- **Semantic Search**: Component discovery with relevance scoring and suggestions
-- **Build System Integration**: Static routing, registry generation, accessibility audits
-
-### Performance Targets (CODESTYLE.md Section 12)
-- Phase 1: <5KB (tokens + base)
-- Phase 2: <20KB (atoms/molecules)
-- Phase 3: <40KB (organisms)
-- Phase 4-7: <42KB final (gzipped)
-
----
-
-## File Structure (When Implementation Begins)
+## Project Structure
 
 ```
-agentstatic/
-├── core/                    # SSG engine (Phase 0)
-│   ├── engine/             # Template rendering
-│   ├── router/             # Static routing
-│   ├── builder/            # Build pipeline
-│   └── cli/                # Command-line interface
-│
-├── components/              # Component library (Phases 1-4)
-│   ├── _system/            # Design tokens & base styles
-│   ├── atoms/              # 8 basic components
-│   ├── molecules/          # 7 combined components
-│   ├── organisms/          # 10+ page sections
-│   └── _registry/          # Generated schemas (Phase 5)
-│
-├── ai/                      # AI layer (Phase 6)
-│   ├── tools/              # MCP tool definitions
-│   ├── registry/           # Component index & validation
-│   ├── composer/           # Page composition logic
-│   └── mcp/                # MCP server
-│
-├── site/                    # User site content
-│   ├── pages/              # Page compositions (JSON)
-│   ├── content/            # Markdown content
-│   └── assets/             # Images, fonts, etc.
-│
-├── .storybook/             # Storybook config (Phase 7)
-├── docs/                   # Documentation (Phase 7)
-├── tests/                  # Test suites
-├── PLANNING/               # Planning docs (current state)
-├── CODESTYLE.md            # Code style guide
-├── package.json
-├── bun.toml
-└── vite.config.ts
+├── brand.json           # EDIT THIS: Site config, colors, typography
+├── fonts/               # Google Fonts reference (curated catalog)
+├── tokens/              # GENERATED: CSS custom properties
+├── utilities/           # Hand-authored utility classes
+├── elements/            # Component library
+│   └── site-*/          # Each element has README, HTML, CSS
+├── partials/            # Reusable HTML fragments with slots
+├── pages/               # Site pages (edit these)
+├── assets/              # Static files
+├── build/               # Build scripts
+└── dist/                # Output (don't edit)
 ```
 
----
+## Workflow: Creating a New Landing Page
 
-## Development Workflow (When Implementation Begins)
+1. **Update brand.json** with client's primary color
+2. **Run build** to generate tokens
+3. **Create pages/index.html** by assembling elements
+4. **Run build** to produce dist/
 
-### Project Setup (Phase 0 Start)
-```bash
-# Install dependencies
-npm install
+## Key Files to Read
 
-# Start dev server
-npm run dev
+Before generating content, read these:
 
-# Build for production
-npm run build
+1. `brand.json` — Understand current theme
+2. `elements/*/README.md` — Know available components
+3. `partials/*.html` — Know available includes
+
+## Element Naming Convention
+
+| Prefix | Purpose | Examples |
+|--------|---------|----------|
+| `include-*` | Build-time partials (expanded) | `include-head`, `include-nav` |
+| `site-*` | Page sections (styled) | `site-hero`, `site-features` |
+| `ui-*` | Small UI bits (if needed) | `ui-button`, `ui-badge` |
+
+Child elements are namespaced:
+
+```html
+<site-hero>
+  <site-hero-actions>...</site-hero-actions>
+</site-hero>
 ```
 
-### Component Development (Phases 2-4)
-```bash
-# Start Storybook
-npm run storybook
+## Page Authoring
 
-# Run accessibility tests
-npm run test:a11y
+### Basic Structure
 
-# Check bundle size
-npm run build:analyze
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<include-head 
+  title="Page Title" 
+  description="Meta description" 
+/>
+
+<body>
+  <include-nav logo="/assets/logo.svg" />
+
+  <site-hero>
+    <h1>Headline</h1>
+    <p>Subhead</p>
+  </site-hero>
+
+  <!-- more sections -->
+
+  <include-footer siteName="Acme" />
+</body>
+</html>
 ```
 
-### Testing (All Phases)
-```bash
-# Run all tests
-npm test
+### Using Elements
 
-# Run with coverage
-npm test -- --coverage
+Elements are just HTML tags. Style variants via attributes:
 
-# Run accessibility audit
-npm run test:a11y
+```html
+<site-hero variant="centered" theme="dark">
+  <h1>Centered Dark Hero</h1>
+</site-hero>
 ```
 
-### AI Integration (Phase 6)
-```bash
-# Start MCP server
-npm run mcp:server
+### Using Partials with Slots
 
-# Test with Claude
-npm run mcp:test
+Partials can accept children via slots:
 
-# Validate compositions
-npm run validate:compositions
+```html
+<include-footer siteName="Acme">
+  <nav slot="links">
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </nav>
+</include-footer>
 ```
 
----
+**How includes work:**
+- `<include-{name}>` loads `partials/{name}.html`
+- `{{attributeName}}` in partials are replaced with attribute values (HTML-escaped)
+- Missing attributes become empty strings
+- `<slot>` receives default children; `<slot name="x">` receives `slot="x"` children
+- Slots can have fallback content between opening/closing tags
+- Max include depth: 10 (prevents infinite recursion)
 
-## Git Workflow
+## Token System
 
-### Branch Strategy
-- **`main`**: Production-ready code
-- **`feature/phase-X-*`**: Phase-specific feature branches
-- **`fix/*`**: Bug fixes
-- Never push directly to `main` (use PRs)
+### brand.json Schema
 
-### Pre-commit Checks
-- NEVER bypass pre-commit hooks with `--no-verify`
-- All checks must pass before commit
-- Use `gh` (GitHub CLI) for issue/PR management
-
-### Commit Messages
-Follow conventional commits:
-```
-feat(phase-2): add button atom component
-fix(phase-1): correct dark mode toggle behavior
-docs(phase-7): add MCP tool usage examples
-test(phase-4): add accessibility tests for card molecule
-```
-
----
-
-## Key Success Metrics
-
-Track throughout implementation:
-
-### Bundle Size
-- Warn at 90% of phase target
-- Monitor with `bun run build:analyze`
-- Targets: 5KB (P1), 20KB (P2), 40KB (P3), 42KB (P4-7)
-
-### Accessibility
-- WCAG AA compliance: 100% target
-- Automated testing with Pa11y + axe
-- Manual audit in Phase 4
-
-### Components
-- Phase 2: 12-15 atoms/molecules
-- Phase 3: 8-10 organisms
-- Total: 20-30 components
-
-### Documentation
-- Storybook: 20-30 stories (80/20 approach)
-- Coverage: 100% of components
-- Guides: Developer, AI agent, contributing
-
-### Performance
-- Lighthouse: 90+ on all example pages
-- Build time: <10 seconds
-- Dev server: <1 second hot reload
-
----
-
-## Common Patterns
-
-### Component File Structure (Phases 2-4)
-```
-components/atoms/button/
-├── button.css              # Component styles
-├── button.njk              # Nunjucks template
-├── button.schema.json      # JSON schema (Phase 5)
-├── button.stories.ts       # Storybook stories (Phase 7)
-└── README.md              # Component documentation
-```
-
-### Page Composition Format (Phase 6)
+Minimal required config:
 ```json
 {
-  "path": "/landing",
-  "title": "Product Landing",
-  "metadata": {
-    "description": "Our product helps you succeed"
-  },
-  "sections": [
-    {
-      "component": "organisms/hero-section",
-      "variant": "split",
-      "props": {
-        "heading": "Welcome to Our Product",
-        "subheading": "Build better, faster",
-        "cta": { "text": "Get Started", "url": "/signup" }
-      }
-    }
-  ]
+  "name": "Site Name",
+  "colors": { "primary": "#3b82f6" }
 }
 ```
 
-### MCP Tool Usage (Phase 6)
-```typescript
-// Claude discovers components
-const results = await discoverComponents({
-  query: "hero section with background image",
-  category: "organism",
-  minAccessibility: "wcag-aa",
-  limit: 5
-});
+All other values have defaults. Optional fields: `tagline`, `colors.neutral` (#64748b), `typography.fonts`, `typography.base` (16), `typography.scale` (1.25), `typography.fluid` (false), `spacing.base` (4), `layout.containers`, `layout.gutter` (16).
 
-// Returns matches + suggestions for alternatives
-console.log(results.matches);      // Relevant components
-console.log(results.suggestions);  // Alternative components
+### Colors
+
+Set primary color in brand.json. Build generates:
+
+- `--color-primary-50` through `--color-primary-950`
+- `--color-neutral-50` through `--color-neutral-950`
+- Semantic: `--color-bg`, `--color-text`, `--color-surface`, `--color-border`, `--color-accent`
+
+### Spacing
+
+Based on 4px unit:
+
+- `--space-1` (4px) through `--space-32` (128px)
+
+### Typography
+
+Based on modular scale:
+
+- `--text-xs` through `--text-5xl`
+- `--font-sans`, `--font-serif`, `--font-mono`
+- `--leading-tight`, `--leading-normal`, `--leading-relaxed`
+
+### Google Fonts
+
+Fonts from `fonts/google-fonts.json` are auto-loaded. Configure in brand.json:
+
+```json
+{
+  "typography": {
+    "fonts": {
+      "sans": "Inter",
+      "serif": "Playfair Display",
+      "mono": "JetBrains Mono"
+    }
+  }
+}
 ```
 
----
+**Simple format**: Just the font family name (uses default weights 400, 700).
 
-## Phase Gate Criteria
+**Advanced format**: Specify weights and italic:
+```json
+{
+  "typography": {
+    "fonts": {
+      "serif": {
+        "family": "Playfair Display",
+        "weights": [400, 500, 600, 700],
+        "italic": true
+      }
+    }
+  }
+}
+```
 
-Before proceeding to next phase, ensure:
+Build auto-generates:
+- Google Fonts `<link>` tags (preconnect + stylesheet) in HTML head
+- CSS tokens with proper font stacks: `--font-sans: "Inter", system-ui, sans-serif`
 
-### Phase 0 → 1
-- Build pipeline working (Bun + Vite)
-- Static routing functional
-- Component registry generation working
+Available fonts are in `fonts/google-fonts.json` with tags for browsing:
+- **style**: modern, classic, playful, technical, elegant, minimal, bold
+- **useCase**: headlines, body, ui, code, display
+- **character**: professional, friendly, corporate, creative, luxury
 
-### Phase 1 → 2
-- Design system documented
-- CSS architecture defined
-- Dark mode infrastructure in place
+### Layout
 
-### Phase 2 → 3
-- All atoms and molecules built (12-15 total)
-- 30+ Storybook stories
-- WCAG AA compliance on all components
+- `--container-sm` through `--container-xl`
+- `--gutter`
 
-### Phase 3 → 4
-- All organisms built (8-10 total)
-- Real page compositions working
-- Integration testing passing
+## Commands
 
-### Phase 4 → 5
-- Modern CSS patterns implemented
-- Animations respect prefers-reduced-motion
-- Accessibility audit 100% passing
+```bash
+npm run build        # Build once (npx tsx build/index.ts)
+npm run dev          # Build + watch
+npm run serve        # Serve dist/ locally (npx serve dist)
+```
 
-### Phase 5 → 6
-- Component registry searchable
-- Discovery API functioning
-- Schema generation automated
+## Build Architecture
 
-### Phase 6 → 7
-- All 5 MCP tools implemented
-- Claude integration tested
-- AI workflows validated
+The build system is in `build/`:
 
-### Phase 7 → Launch
-- All documentation complete
-- Storybook deployed publicly
-- Template ready for users
+```
+build/index.ts   → Orchestrator: clean, generate, copy assets, watch mode
+build/tokens.ts  → Reads brand.json, generates tokens/*.css (uses chroma-js)
+build/css.ts     → Concatenates CSS: tokens → utilities → elements → dist/styles.css
+build/html.ts    → Expands <include-*> elements, injects font links → dist/*.html
+build/fonts.ts   → Resolves fonts from google-fonts.json, generates <link> tags
+build/types.ts   → Shared TypeScript interfaces
+```
 
----
+**Data flow:**
+1. `brand.json` + `fonts/google-fonts.json` → `fonts.ts` → font stacks + Google Fonts links
+2. `brand.json` → `tokens.ts` → generates `tokens/*.css` (colors, spacing, typography, layout)
+3. `tokens/*.css` + `utilities/*.css` + `elements/*/styles.css` → `css.ts` → `dist/styles.css`
+4. `pages/*.html` + `partials/*.html` + font links → `html.ts` → `dist/*.html`
+5. `assets/` → copied directly to `dist/assets/`
 
-## Important Context for AI Agents
+**Dependencies:** chroma-js (color manipulation), chokidar (file watching)
 
-### When Working on Phases
-1. **Always read the full phase document first**: `PLANNING/phases/PHASE-XX-*.md`
-2. **Reference the 17 decisions**: Understand which decisions apply to current work
-3. **Follow CODESTYLE.md**: Both general principles and AgentStatic-specific patterns
-4. **Check phase gate criteria**: Ensure prerequisites are met before starting
-5. **Track metrics**: Bundle size, accessibility, component count per phase targets
+## Do's and Don'ts
 
-### When Adding Components
-1. **Check COMPONENT-MATRIX.md**: Verify component is planned for current phase
-2. **Use atomic design**: Classify as atom, molecule, or organism
-3. **Follow file structure**: CSS, Nunjucks template, schema, stories, README
-4. **Include metadata**: Accessibility, responsive behavior, dark mode support
-5. **Test thoroughly**: Visual regression, accessibility, responsive design
+### Do
 
-### When Writing MCP Tools (Phase 6)
-1. **Optimize for Claude**: Tools are Claude-specific, not generic
-2. **Return suggestions**: Discovery should offer alternatives (Decision #16)
-3. **Rich metadata**: Include accessibility, performance, usage examples
-4. **Clear errors**: Actionable error messages for invalid compositions
-5. **Validate everything**: Compositions, props, component compatibility
+- Use existing elements from `elements/`
+- Use CSS custom properties for all values
+- Keep pages semantic and accessible
+- Test with CSS disabled (content should still be readable)
 
----
+### Don't
 
-## Resources
+- Add JavaScript to pages (unless progressive enhancement)
+- Create inline styles
+- Invent new elements without adding to library
+- Modify files in `tokens/` (they're generated)
 
-### Primary Planning (Active)
-- **Navigation**: `SPEC/README.md`
-- **Timeline**: `SPEC/ROADMAP.md`
-- **Decisions**: `SPEC/DECISIONS.md`
-- **Pillars**: `SPEC/PILLAR-*/README.md`
+## Common Tasks
 
-### Code Standards
-- **Style Guide**: `CODESTYLE.md` (comprehensive)
-- **Technology**: `SPEC/REFERENCE/TECHNOLOGY-STACK.md`
-- **Metrics**: `SPEC/REFERENCE/SUCCESS-METRICS.md`
+### Change Brand Color
 
-### Implementation Starting Points
-- **Frontend Dev**: Start with `SPEC/PILLAR-1-COMPONENTS/`
-- **Backend Dev**: Start with `SPEC/PILLAR-3-BUILD/`
-- **AI/ML Dev**: Start with `SPEC/PILLAR-4-AI/`
-- **Full Stack**: Follow `SPEC/ROADMAP.md`
+1. Edit `brand.json`: `"primary": "#new-color"`
+2. Run `npm run build`
+3. All color tokens regenerate
 
----
+### Add New Page
 
-## Questions or Clarifications
+1. Create `pages/new-page.html`
+2. Use `<include-head>`, assemble sections, use `<include-footer>`
+3. Run `npm run build`
+4. Find output at `dist/new-page.html`
 
-When unclear about implementation:
-1. Check the relevant pillar in `SPEC/PILLAR-*/`
-2. Review the 17 decisions in `SPEC/DECISIONS.md`
-3. Consult `SPEC/ROADMAP.md` for timeline and dependencies
-4. Check `CODESTYLE.md` for code patterns
-5. Review `SPEC/REFERENCE/` for technology and metrics
+### Create New Element
 
-All architectural decisions are documented. If something seems ambiguous, it's likely addressed in the SPEC docs.
+1. Create `elements/site-newname/`
+2. Add `README.md` (document usage, variants)
+3. Add `element.html` (example markup)
+4. Add `styles.css` (element styles)
+5. Styles auto-included on next build
 
----
+## Debugging
 
-**Current State**: Planning complete, ready for implementation.
+### Partial Not Expanding
 
-**Next Step**: Choose your development track:
-- **Frontend**: Start with `SPEC/PILLAR-1-COMPONENTS/README.md`
-- **Backend**: Start with `SPEC/PILLAR-3-BUILD/README.md`
-- **Full Stack**: Follow `SPEC/ROADMAP.md` for parallel tracks
+- Check filename matches: `<include-foo>` needs `partials/foo.html`
+- Check for typos in attribute names
+
+### Styles Not Applying
+
+- Verify element name matches CSS selector
+- Check CSS is in `elements/*/styles.css` or `utilities/`
+- Run build to regenerate `dist/styles.css`
+
+### Colors Wrong
+
+- Check `brand.json` syntax (valid JSON)
+- Run build to regenerate `tokens/colors.css`

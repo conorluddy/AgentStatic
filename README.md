@@ -1,202 +1,172 @@
 # AgentStatic
 
-**An AI-First Static Site Generator for Brochureware Marketing Websites**
+A static site generator for building HTML + CSS sites with AI assistance. No JavaScript in the output. Powered by design tokens and custom elements.
 
-AgentStatic enables both developers and AI agents (particularly Claude) to build beautiful, accessible, performant marketing websites in minutes instead of weeks.
+## Get Started
 
----
+**Click the green "Use this template" button** at the top of the repo to create your own copy, or follow the Quick Start below.
 
-## 🚀 Project Status
+## Quick Start
 
-**Planning Phase Complete** ✅
+```bash
+# Clone and install
+git clone <repo-url> my-site
+cd my-site
+npm install
 
-All architectural planning and documentation is complete. The project is ready for implementation to begin.
-
----
-
-## 📚 Documentation
-
-### For Developers & Contributors
-
-1. **Start Here**: [`CLAUDE.md`](./CLAUDE.md) - Essential guide for AI agents and developers
-2. **Specification**: [`SPEC/`](./SPEC/) - Complete implementation specification with 4 pillars
-3. **Code Style**: [`CODESTYLE.md`](./CODESTYLE.md) - Comprehensive coding standards
-
-### Specification Structure
-
-The project is organized into **4 independent pillars** that can be developed in parallel:
-
-1. **[Component Library](./SPEC/PILLAR-1-COMPONENTS/)** - 20-30 HTML/CSS components
-2. **[Registry & Validation](./SPEC/PILLAR-2-REGISTRY/)** - Machine-readable schemas
-3. **[Build Engine](./SPEC/PILLAR-3-BUILD/)** - Static site generation
-4. **[AI Integration](./SPEC/PILLAR-4-AI/)** - Claude MCP tools
-
-See [`SPEC/README.md`](./SPEC/README.md) for complete navigation.
-
----
-
-## 🎯 What is AgentStatic?
-
-A three-tier platform that combines:
-
-1. **Component Library**: 20-30 production-ready CSS components (zero JavaScript)
-2. **Build Engine**: Bun + Vite powered static site generator
-3. **AI Layer**: Claude-optimized MCP tools for autonomous site building
-
-### Key Features
-
-- ✅ **Pure CSS** - No JavaScript required for core functionality
-- ✅ **WCAG AA** - 100% accessibility compliance
-- ✅ **Dark Mode** - Automatic + manual toggle
-- ✅ **<50KB CSS** - Optimized bundle size
-- ✅ **AI-Native** - Claude can build complete sites autonomously
-- ✅ **Template-First** - Clone and customize, not npm install
-
----
-
-## 🛠️ Technology Stack
-
-- **Runtime**: Bun 1.0+
-- **Build**: Vite 5+
-- **Templates**: Nunjucks
-- **CSS**: PostCSS + Lightning CSS
-- **Documentation**: Storybook 8
-- **AI**: MCP (Model Context Protocol)
-
-See [`SPEC/REFERENCE/TECHNOLOGY-STACK.md`](./SPEC/REFERENCE/TECHNOLOGY-STACK.md) for details.
-
----
-
-## 📅 Implementation Timeline
-
-**12-week parallel development plan**:
-
-- **Weeks 1-7**: Frontend (components) + Backend (build system) in parallel
-- **Weeks 8-10**: Integration and rendering
-- **Week 11**: AI tools implementation
-- **Week 12**: Documentation and launch
-
-See [`SPEC/ROADMAP.md`](./SPEC/ROADMAP.md) for detailed timeline.
-
----
-
-## 🏗️ Project Structure
-
-```
-AgentStatic/
-├── SPEC/                   # ✅ SPECIFICATION - Use this!
-│   ├── README.md          # Specification navigation
-│   ├── ROADMAP.md         # Implementation timeline
-│   ├── DECISIONS.md       # 17 architectural decisions
-│   ├── PILLAR-1-*/        # Component library specification
-│   ├── PILLAR-2-*/        # Registry & validation specification
-│   ├── PILLAR-3-*/        # Build engine specification
-│   ├── PILLAR-4-*/        # AI integration specification
-│   └── REFERENCE/         # Supporting documentation
-│
-├── CLAUDE.md              # AI agent guide
-├── CODESTYLE.md           # Code style guide
-├── README.md              # This file
-├── package.json           # Project configuration
-│
-└── .archive/              # Historical docs (reference only)
-    ├── PLANNING/          # Original comprehensive planning
-    └── architecture/      # Original technical specs
+# Initialize with your branding
+/begin
 ```
 
----
+The `/begin` command will guide you through:
+1. **Brand identity** — Name, tagline, primary color, site purpose
+2. **Content direction** — Target audience, key features, call-to-action, brand tone
+3. **Image management** — Add logo, hero image, and feature images (optional)
+4. **Advanced settings** — Typography style, additional pages (optional)
+5. **Site generation** — Creates `brand.json`, homepage, and runs build
 
-## 📦 About the Archive
+Your site will be fully branded and ready to preview with `npm run serve`.
 
-The `.archive/` directory contains historical planning documents that have been consolidated into SPEC:
-- **PLANNING/** - Original 7-phase comprehensive planning
-- **architecture/** - Original technical specifications
+**New to Claude Code?** Make sure you have Claude Code installed. Run `/begin` as a slash command in Claude Code.
 
-These are kept for historical reference but **should not be used for active development**. Always refer to `/SPEC/` instead.
+## Commands
 
-See [`.archive/README.md`](./.archive/README.md) for details.
+Use these slash commands in Claude Code to build your site:
 
----
+| Command | What It Does |
+|---------|-------------|
+| `/begin` | Initialize the repo with your branding (run this first!) |
+| `/recommend {page-type}` | Get component recommendations for your page type |
+| `/new-page {name}` | Create a new page and assemble components |
+| `/new-element {name}` | Create a custom styled component |
+| `/new-partial {name}` | Create a reusable HTML fragment |
+| `/rebrand` | Change your site's colors, name, and tone |
+| `/audit` | Check for broken links, missing alt text, and more |
+| `/deploy` | Build and deploy to production |
 
-## 🚦 Getting Started
+## Images
 
-### For Frontend Developers
-Start with [PILLAR 1: Components](./SPEC/PILLAR-1-COMPONENTS/)
-- Design system and tokens
-- HTML/CSS components
-- Storybook setup
+During `/begin`, you can add images to personalize your site:
 
-### For Backend Developers
-Start with [PILLAR 3: Build Engine](./SPEC/PILLAR-3-BUILD/)
-- Bun + Vite setup
-- Template rendering
-- Static generation
+- **Logo** — Square image for your navbar (any size, will be scaled)
+- **Hero Image** — Wide banner image for the homepage header
+- **Feature Images** — Supporting images for feature cards
 
-### For AI/ML Engineers
-Start with [PILLAR 4: AI Integration](./SPEC/PILLAR-4-AI/)
-- MCP tools
-- Claude integration
-- Composition engine
+Just drop them in the `assets/` folder when prompted, and `/begin` will:
+1. Detect them automatically
+2. Analyze dimensions and purpose (logo vs hero vs feature)
+3. Integrate them into your homepage
 
-### For Full-Stack Developers
-Follow the [complete roadmap](./SPEC/ROADMAP.md) for parallel development tracks.
+If you skip this, placeholder text will be used. You can always add images later by editing `pages/index.html` or running `/rebrand`.
 
----
+## Workflow
 
-## 🎯 Success Metrics
+1. **Initialize** — Run `/begin` to set up your brand
+2. **Customize** — Edit `pages/` and assemble components
+3. **Preview** — Run `npm run serve` to see changes
+4. **Extend** — Use `/new-page`, `/new-element`, `/new-partial` to build more
+5. **Deploy** — Run `/deploy` when ready
 
-- **Components**: 20-30 production-ready
-- **Bundle Size**: <50KB CSS (gzipped)
-- **Accessibility**: WCAG AA (100%)
-- **Performance**: Lighthouse 90+
-- **AI Speed**: <100ms discovery
-- **Build Time**: <10s for 100 pages
+## Project Structure
 
-See [`SPEC/REFERENCE/SUCCESS-METRICS.md`](./SPEC/REFERENCE/SUCCESS-METRICS.md) for all metrics.
+```
+├── brand.json           # Your brand config (colors, fonts)
+├── pages/               # Your HTML pages
+├── elements/            # Custom styled components
+├── partials/            # Reusable HTML fragments
+├── utilities/           # CSS utility classes
+├── tokens/              # Generated CSS variables
+├── assets/              # Static files (logo, images)
+├── build/               # Build scripts (don't edit)
+└── dist/                # Generated output (deploy this)
+```
 
----
+## Key Concepts
 
-## 📝 The 17 Architectural Decisions
+### Design Tokens
+One config file (`brand.json`) generates your entire color palette, typography, and spacing. Edit it and run `npm run build` to regenerate everything.
 
-Core principles that guide every implementation choice:
+### Custom Elements
+Pre-styled components like `<site-hero>`, `<site-features>`, `<site-pricing>`. Use them like regular HTML tags. All styles are CSS, no JavaScript.
 
-1. **Brochureware-First** - Visual, read-only sites only
-2. **20-30 Components** - Quality over quantity
-3. **Predefined Theme** - Beautiful defaults, easy customization
-4. **Claude-Optimized** - MCP tools designed for Claude specifically
-5. **Template Distribution** - Clone and modify, not npm
+### Partials
+Reusable HTML snippets that expand at build time. Use `<include-head>`, `<include-nav>`, `<include-footer>` to avoid repetition.
 
-...and 12 more. See [`SPEC/DECISIONS.md`](./SPEC/DECISIONS.md) for complete list.
+## Build Commands
 
----
+```bash
+npm run build   # Build once
+npm run dev     # Build + watch for changes
+npm run serve   # Serve dist/ locally
+```
 
-## 🤝 Contributing
+## Deploy
 
-This project is currently in the planning phase. Implementation begins soon!
+Run `/deploy` or manually push the `dist/` folder to any static host:
+- Netlify
+- Vercel
+- GitHub Pages
+- AWS S3 + CloudFront
+- Any web server
 
-To contribute:
-1. Review the planning documentation
-2. Choose a pillar to work on
-3. Follow the phase plans
-4. Adhere to CODESTYLE.md
+## Requirements
 
----
+- **Node.js** 16+ (npm or yarn)
+- **Claude Code** — AI-powered slash commands that build your site
+- Modern web browser for previewing
 
-## 📄 License
+## Examples
 
-[License to be determined]
+### Minimal Config
+```json
+{
+  "name": "My Site",
+  "tagline": "A great site",
+  "colors": { "primary": "#3b82f6" }
+}
+```
 
----
+### Full Config
+See `CLAUDE.md` for complete `brand.json` schema including typography, spacing, and layout customization.
 
-## 🙏 Acknowledgments
+### Custom Component
+```html
+<site-hero variant="centered">
+  <h1>Welcome</h1>
+  <p>This is my site</p>
+</site-hero>
+```
 
-- Planning assistance from Claude (Anthropic)
-- Architecture inspired by modern SSG best practices
-- Component patterns from successful design systems
+All components are documented in `elements/*/README.md`.
 
----
+## How It Works
 
-*AgentStatic: Where AI meets static site generation.*
+1. **Design Tokens** — Your `brand.json` generates CSS variables for colors, typography, and spacing
+2. **Build Time** — The build process compiles CSS, processes HTML includes, and optimizes for deployment
+3. **Zero JavaScript** — All output is pure HTML + CSS, no JavaScript bloat
+4. **AI Assistance** — Claude Code slash commands help you create, customize, and deploy
 
-**Last Updated**: October 24, 2025
-**Status**: Ready for Implementation
+## Learn More
+
+- **Architecture & Details** — Read `CLAUDE.md` for build system, element naming, and advanced configuration
+- **Components** — Check `elements/*/README.md` for component documentation and variants
+- **Customization** — Edit `brand.json` to control colors, fonts, spacing, and layout
+- **Troubleshooting** — See `CLAUDE.md` for common issues and debugging tips
+
+## FAQ
+
+**Q: Can I use this without Claude Code?**
+A: Yes! The repo is just a build system. You can manually edit files and run `npm run build`. Claude Code just makes it easier.
+
+**Q: Is there JavaScript in the output?**
+A: No. The output is pure HTML + CSS. The build tools use TypeScript, but nothing ships to browsers.
+
+**Q: Can I host this anywhere?**
+A: Yes. Push the `dist/` folder to any static host: Netlify, Vercel, GitHub Pages, S3, or any web server.
+
+**Q: Can I modify components?**
+A: Yes. Edit CSS in `elements/*/styles.css` or create new components with `/new-element`.
+
+## License
+
+MIT

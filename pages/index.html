@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<include-head
+  title="AgentStatic - Static Sites, Zero JavaScript"
+  description="Build pure HTML + CSS static sites with a component library, token-based theming, and fast builds. No JavaScript in the output."
+/>
+
+<body>
+  <include-nav
+    logo="/assets/logo.svg"
+    siteName="AgentStatic"
+  >
+    <a slot="links" href="/">Home</a>
+    <a slot="links" href="/#features">Features</a>
+    <a slot="links" href="/docs.html">Docs</a>
+    <a slot="links" href="/about.html">About</a>
+    <a slot="actions" href="/docs.html" class="button">Read the Docs</a>
+  </include-nav>
+
+  <site-hero variant="centered">
+    <h1>Static Sites, Zero JavaScript</h1>
+    <p>Build fast, accessible websites with pure HTML and CSS. Change your brand.json, run build, and ship. No frameworks, no client-side scripts—just content that loads instantly.</p>
+    <site-hero-actions>
+      <a href="/docs.html" class="button">Read the Docs</a>
+      <a href="#features" class="button-ghost">See How It Works</a>
+    </site-hero-actions>
+  </site-hero>
+
+  <site-features id="features" variant="2-col">
+    <site-features-header>
+      <h2>Built for Speed and Simplicity</h2>
+      <p>Everything you need to build landing pages without the complexity.</p>
+    </site-features-header>
+
+    <site-feature>
+      <site-feature-icon>0</site-feature-icon>
+      <h3>Zero JavaScript Output</h3>
+      <p>Your visitors get pure HTML and CSS. No bundle size worries, no hydration delays—pages load instantly on any device.</p>
+    </site-feature>
+
+    <site-feature>
+      <site-feature-icon>🎨</site-feature-icon>
+      <h3>Token-Based Theming</h3>
+      <p>Set your primary color in brand.json and the build generates a complete design system. Colors, spacing, typography—all from one config.</p>
+    </site-feature>
+
+    <site-feature>
+      <site-feature-icon>🧱</site-feature-icon>
+      <h3>Ready-to-Use Components</h3>
+      <p>Hero sections, feature grids, pricing tables, FAQs, and more. Just drop in the HTML elements and customize the content.</p>
+    </site-feature>
+
+    <site-feature>
+      <site-feature-icon>⚡</site-feature-icon>
+      <h3>Fast Builds</h3>
+      <p>Simple TypeScript build script. No complex bundlers, no waiting. Change a file, run build, see results in seconds.</p>
+    </site-feature>
+  </site-features>
+
+  <site-cta theme="dark">
+    <h2>Perfect for Technical Marketers</h2>
+    <p>If you can edit HTML, you can build landing pages. No React, no npm dependencies to maintain, no build tool drama. Just open your editor, write content, and deploy.</p>
+    <site-cta-actions>
+      <a href="/docs.html" class="button">Get Started</a>
+    </site-cta-actions>
+  </site-cta>
+
+  <site-faq id="faq">
+    <site-faq-header>
+      <h2>Frequently Asked Questions</h2>
+    </site-faq-header>
+
+    <details>
+      <summary>Why no JavaScript?</summary>
+      <p>Client-side JavaScript adds complexity, slows down page loads, and can break. For content-focused sites like landing pages, pure HTML and CSS delivers a faster, more reliable experience for your visitors.</p>
+    </details>
+
+    <details>
+      <summary>How do I change the brand colors?</summary>
+      <p>Edit brand.json with your primary color (e.g., "#3b82f6"), then run npm run build. The system generates a full color palette including shades from 50 to 950, plus semantic colors for backgrounds, text, and accents.</p>
+    </details>
+
+    <details>
+      <summary>Can I add my own components?</summary>
+      <p>Yes! Create a folder in elements/ with your element name (e.g., site-testimonials), add a styles.css file, and write your HTML. The build system automatically includes your new component styles.</p>
+    </details>
+
+    <details>
+      <summary>How do I deploy the site?</summary>
+      <p>Run npm run build to generate the dist/ folder, then deploy it anywhere—Netlify, Vercel, GitHub Pages, or any web server. It's just HTML and CSS files.</p>
+    </details>
+
+    <details>
+      <summary>Is this good for SEO?</summary>
+      <p>Excellent. Pure HTML means search engines see your content immediately without waiting for JavaScript to render. Fast load times also improve your Core Web Vitals scores.</p>
+    </details>
+  </site-faq>
+
+  <site-cta>
+    <h2>Ready to Build?</h2>
+    <p>Check out the documentation to get started with AgentStatic.</p>
+    <site-cta-actions>
+      <a href="/docs.html" class="button">Read the Docs</a>
+    </site-cta-actions>
+  </site-cta>
+
+  <include-footer
+    logo="/assets/logo.svg"
+    siteName="AgentStatic"
+    tagline="Static sites, zero JavaScript"
+  >
+    <nav slot="links">
+      <h4>Product</h4>
+      <a href="/#features">Features</a>
+      <a href="/docs.html">Docs</a>
+    </nav>
+    <nav slot="links">
+      <h4>Project</h4>
+      <a href="/about.html">About</a>
+    </nav>
+  </include-footer>
+
+</body>
+</html>

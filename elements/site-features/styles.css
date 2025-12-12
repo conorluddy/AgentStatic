@@ -1,0 +1,75 @@
+/* site-features - Feature grid section */
+site-features {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-16) var(--gutter);
+  max-width: var(--container-xl);
+  margin: 0 auto;
+}
+
+site-features-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+site-features-header h2 {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+site-features-header p {
+  color: var(--color-neutral-600);
+  margin-top: var(--space-2);
+}
+
+site-feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+site-feature h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin: 0;
+}
+
+site-feature p {
+  color: var(--color-neutral-600);
+  margin: 0;
+}
+
+site-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: var(--text-2xl);
+  background: var(--color-primary-50);
+  border-radius: var(--space-2);
+}
+
+/* Grid layouts based on variant */
+@media (min-width: 768px) {
+  site-features:has(site-feature) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  site-features[variant="2-col"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  site-features[variant="3-col"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  site-features[variant="4-col"] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  site-features-header {
+    grid-column: 1 / -1;
+  }
+}
