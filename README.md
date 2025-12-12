@@ -13,10 +13,15 @@ A static site generator for building HTML + CSS sites with AI assistance. No Jav
 git clone <repo-url> my-site
 cd my-site
 npm install
+```
 
-# Initialize with your branding
+```bash
+# Initialize with ClaudeCode
+> claude
+
 /begin
 ```
+
 
 The `/begin` command will guide you through:
 1. **Brand identity** — Name, tagline, primary color, site purpose
