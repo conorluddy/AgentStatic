@@ -1,105 +1,97 @@
-# Landing Page Template
+# AgentStatic
 
-A minimal static site template that outputs pure HTML + CSS. No JavaScript in the output. Perfect for landing pages, marketing sites, and portfolios.
-
-## Features
-
-- **Zero JavaScript** — Pure HTML + CSS output, instant page loads
-- **Design Tokens** — One config file generates your entire color palette
-- **Custom Elements** — Pre-styled components for hero, features, pricing, FAQ, and more
-- **Markdown Blog** — Write posts in Markdown with frontmatter
-- **Dark Mode** — Automatic dark mode via CSS custom properties
-- **Deploy Anywhere** — Static files work on any host
+A static site generator for building HTML + CSS sites with AI assistance. No JavaScript in the output. Powered by design tokens and custom elements.
 
 ## Quick Start
 
 ```bash
-# Clone the template
-git clone https://github.com/your-username/landing-template my-site
+# Clone and install
+git clone <repo-url> my-site
 cd my-site
-
-# Install dependencies
 npm install
 
-# Start developing
-npm run dev
+# Initialize with your branding
+/begin
 ```
 
-Then open http://localhost:3000 to see your site.
+The `/begin` command will:
+- Wipe the example content
+- Ask you about your brand (name, color, purpose, tone)
+- Generate a customized site
+- Build and preview it locally
 
-## Customize
+Then run `npm run serve` to see your site.
 
-### 1. Update Your Brand
+## Commands
 
-Edit `brand.json`:
+Use these slash commands in Claude Code to build your site:
 
-```json
-{
-  "name": "Your Company",
-  "tagline": "Your tagline here",
-  "colors": {
-    "primary": "#3b82f6"
-  }
-}
-```
+| Command | What It Does |
+|---------|-------------|
+| `/begin` | Initialize the repo with your branding (run this first!) |
+| `/recommend {page-type}` | Get component recommendations for your page type |
+| `/new-page {name}` | Create a new page and assemble components |
+| `/new-element {name}` | Create a custom styled component |
+| `/new-partial {name}` | Create a reusable HTML fragment |
+| `/rebrand` | Change your site's colors, name, and tone |
+| `/audit` | Check for broken links, missing alt text, and more |
+| `/deploy` | Build and deploy to production |
 
-### 2. Replace the Logo
+## Workflow
 
-Replace `assets/logo.svg` with your own logo.
-
-### 3. Edit the Pages
-
-- `pages/index.html` — Your homepage
-- `pages/about.html` — About page
-- `pages/blog/*.md` — Blog posts in Markdown
-
-### 4. Build and Deploy
-
-```bash
-npm run build    # Build once
-npm run serve    # Preview locally
-```
-
-Deploy the `dist/` folder to Netlify, Vercel, GitHub Pages, or any static host.
+1. **Initialize** — Run `/begin` to set up your brand
+2. **Customize** — Edit `pages/` and assemble components
+3. **Preview** — Run `npm run serve` to see changes
+4. **Extend** — Use `/new-page`, `/new-element`, `/new-partial` to build more
+5. **Deploy** — Run `/deploy` when ready
 
 ## Project Structure
 
 ```
-├── brand.json        # Your brand config
-├── pages/            # HTML and Markdown pages
-├── partials/         # Reusable HTML fragments
-├── elements/         # Custom element styles
-├── utilities/        # Utility CSS classes
-├── assets/           # Static files (logo, images)
-├── build/            # Build scripts
-└── dist/             # Built output (deploy this)
+├── brand.json           # Your brand config (colors, fonts)
+├── pages/               # Your HTML pages
+├── elements/            # Custom styled components
+├── partials/            # Reusable HTML fragments
+├── utilities/           # CSS utility classes
+├── tokens/              # Generated CSS variables
+├── assets/              # Static files (logo, images)
+├── build/               # Build scripts (don't edit)
+└── dist/                # Generated output (deploy this)
 ```
 
-## Available Elements
+## Key Concepts
 
-| Element | Description |
-|---------|-------------|
-| `<site-hero>` | Full-width hero section |
-| `<site-features>` | Feature grid (2/3/4 columns) |
-| `<site-pricing>` | Pricing tier comparison |
-| `<site-faq>` | FAQ accordion |
-| `<site-cta>` | Call-to-action section |
-| `<site-nav>` | Navigation header |
-| `<site-footer>` | Page footer |
+### Design Tokens
+One config file (`brand.json`) generates your entire color palette, typography, and spacing. Edit it and run `npm run build` to regenerate everything.
 
-See `elements/*/README.md` for detailed documentation.
+### Custom Elements
+Pre-styled components like `<site-hero>`, `<site-features>`, `<site-pricing>`. Use them like regular HTML tags. All styles are CSS, no JavaScript.
 
-## Commands
+### Partials
+Reusable HTML snippets that expand at build time. Use `<include-head>`, `<include-nav>`, `<include-footer>` to avoid repetition.
 
-| Command | Description |
-|---------|-------------|
-| `npm run build` | Build once |
-| `npm run dev` | Build + watch for changes |
-| `npm run serve` | Serve dist/ locally |
+## Build Commands
 
-## Sample Site
+```bash
+npm run build   # Build once
+npm run dev     # Build + watch for changes
+npm run serve   # Serve dist/ locally
+```
 
-This template includes a fictional example site ("Nimbus" cloud storage) to demonstrate all available elements and patterns. Replace the content with your own.
+## Deploy
+
+Run `/deploy` or manually push the `dist/` folder to any static host:
+- Netlify
+- Vercel
+- GitHub Pages
+- AWS S3 + CloudFront
+- Any web server
+
+## Learn More
+
+- Read `CLAUDE.md` in the repo for detailed architecture
+- Check `elements/*/README.md` for component documentation
+- Explore `brand.json` schema in `CLAUDE.md`
 
 ## License
 
